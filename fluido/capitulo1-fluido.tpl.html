@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capítulo 1 — Descubrimiento y Primer Contacto | Galderma</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --tint:#008F8D; --tint-soft:#E6F4F3; --ink:#1A1A1A; --muted:#737373;
+  --line:#E0E0E0; --surface:#F2F2F2; --dark:#222222; --card:#FFFFFF;
+  --bad:#C0392B; --bad-soft:#FDEEEE;
+  --pad:clamp(16px,3.2vw,44px);
+  --r:clamp(12px,1.1vw,18px);
+  --shadow:0 3px 16px rgba(0,0,0,.09);
+  --gap:clamp(12px,1.5vw,24px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);
+  font-family:'Poppins',system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button{font:inherit}
+
+/* ============ cabecera ============ */
+.hd{display:flex;align-items:center;gap:clamp(10px,1.6vw,26px);
+  padding:12px var(--pad);border-bottom:1px solid var(--line);flex-wrap:wrap;
+  position:sticky;top:0;background:#fff;z-index:20}
+.hd__logo{height:clamp(19px,1.8vw,27px);width:auto;flex:none}
+.hd__cap{font-size:clamp(10.5px,.82vw,13px);color:var(--muted);line-height:1.35}
+.hd__cap b{display:block;font-size:clamp(12.5px,1vw,16px);color:var(--ink);font-weight:600}
+.hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.hd__bar i{display:block;height:100%;background:var(--tint);border-radius:99px;transition:width .3s}
+.hd__lec{font-size:clamp(10.5px,.88vw,14px);color:var(--muted);white-space:nowrap}
+.hd__menu{font-size:clamp(15px,1.3vw,22px);flex:none;color:var(--ink)}
+
+/* ============ botones ============ */
+.btn{border:0;border-radius:99px;cursor:pointer;white-space:nowrap;
+  padding:.62em 1.25em;font-weight:600;font-size:clamp(12px,.95vw,15px);line-height:1.2}
+.btn--tint{background:var(--tint);color:#fff}
+.btn--dark{background:var(--ink);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
+.btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ============ pantallas ============ */
+.scr{display:none;padding:clamp(18px,2.4vw,38px) var(--pad) 0}
+.scr.on{display:block}
+.scr--flush{padding:0}
+h1{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.1;
+  font-size:clamp(23px,3.1vw,44px);text-wrap:balance}
+h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);text-wrap:balance}
+.lead{margin:.45em 0 0;color:var(--muted);line-height:1.5;font-size:clamp(14.5px,1.3vw,20px);max-width:70ch}
+.eyebrow{font-size:clamp(10.5px,.85vw,13px);letter-spacing:.18em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.eyebrow--tint{color:var(--tint)}
+
+.card{background:var(--card);border-radius:var(--r);padding:clamp(14px,1.35vw,24px);box-shadow:var(--shadow)}
+.panel{background:var(--card);border-radius:clamp(14px,1.3vw,22px);box-shadow:var(--shadow);
+  padding:clamp(16px,1.7vw,28px);display:flex;flex-direction:column;gap:var(--gap)}
+.soft{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px)}
+
+/* barra de insight */
+.insight{margin:var(--gap) 0 clamp(18px,2.2vw,32px);background:var(--surface);border-radius:var(--r);
+  padding:clamp(13px,1.3vw,22px) clamp(15px,1.6vw,28px);
+  display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:clamp(10px,1.4vw,24px)}
+.insight img{width:clamp(30px,3vw,48px);background:#fff;border-radius:50%;padding:7px}
+.insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
+.insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
+
+/* pie de categorias */
+.ft{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(8px,1vw,16px);padding:clamp(11px,1.3vw,20px) var(--pad)}
+.ft div{display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1.05vw,17px);line-height:1.25;opacity:.55}
+.ft div.on{opacity:1}
+.ft img{width:clamp(20px,2.1vw,32px);flex:none}
+
+/* barra de navegacion inferior */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:clamp(10px,1.2vw,16px) var(--pad);border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
+.nav__count{font-size:clamp(11.5px,1vw,14px);color:var(--muted)}
+
+/* utilidades de grilla */
+.two{display:grid;gap:var(--gap);grid-template-columns:minmax(0,1fr) clamp(290px,25vw,390px)}
+.stack{display:flex;flex-direction:column;gap:var(--gap)}
+.chips{display:flex;flex-wrap:wrap;gap:clamp(6px,.7vw,11px)}
+.chip{background:var(--surface);border-radius:99px;padding:.55em 1.1em;font-size:clamp(12px,1vw,16px)}
+
+/* ---- P1 portada ---- */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);min-height:clamp(380px,58vh,660px)}
+.hero__pic{position:relative;background:var(--surface)}
+.hero__pic img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.hero__bub{position:absolute;left:6%;bottom:16%;max-width:62%;background:rgba(255,255,255,.93);
+  border-radius:10px;padding:.7em 1em;font-size:clamp(11.5px,1vw,16px);line-height:1.4;backdrop-filter:blur(3px)}
+.hero__rate{position:absolute;left:26%;bottom:6%;background:rgba(255,255,255,.93);border-radius:10px;
+  padding:.5em .9em;font-size:clamp(11px,.95vw,15px);backdrop-filter:blur(3px)}
+.hero__txt{display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,1.5vw,24px);
+  padding:clamp(22px,3vw,52px) var(--pad)}
+.hero__txt h1{font-size:clamp(26px,3.6vw,52px)}
+.hero__quote{border-left:3px solid var(--ink);padding-left:.9em;font-size:clamp(15px,1.5vw,23px);line-height:1.45}
+
+/* ---- P2 video ---- */
+.vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.objs{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
+.objs img{width:clamp(26px,2.4vw,38px);flex:none}
+.idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
+.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
+.idea__t img{width:clamp(16px,1.4vw,22px)}
+.idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
+
+/* ---- P3 diagrama ---- */
+.diag{display:grid;align-items:center;
+  grid-template-columns:minmax(0,1fr) clamp(26px,3.2vw,56px) minmax(0,clamp(160px,16vw,240px)) clamp(26px,3.2vw,56px) minmax(0,1fr);
+  grid-template-rows:1fr 1fr;gap:var(--gap) 0}
+.hub{grid-column:3;grid-row:1 / span 2;background:var(--surface);border-radius:50%;aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em;padding:8%;text-align:center}
+.hub img{width:clamp(46px,5vw,74px)}
+.hub span{font-weight:600;line-height:1.25;font-size:clamp(14px,1.5vw,21px)}
+.dcard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 clamp(9px,.9vw,16px);align-items:start}
+.dcard img{grid-row:1 / span 3;width:clamp(36px,3.8vw,58px);mix-blend-mode:multiply}
+.dcard h3{margin:0;font-weight:500;line-height:1.2;font-size:clamp(16px,1.45vw,21px)}
+.dcard .q{margin:.22em 0 0;line-height:1.35;font-size:clamp(13.5px,1.1vw,17px)}
+.dcard .d{margin:.45em 0 0;color:var(--muted);line-height:1.4;font-size:clamp(13px,1vw,15.5px)}
+.p1{grid-column:1;grid-row:1}.p2{grid-column:1;grid-row:2}
+.p3{grid-column:5;grid-row:1}.p4{grid-column:5;grid-row:2}
+.lnk{position:relative;align-self:stretch}
+.lnk::after{content:"";position:absolute;border-color:#D8D8D8;border-style:solid;border-width:0}
+.lnk::before{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#D0D0D0;top:calc(50% - 3.5px)}
+.k1{grid-column:2;grid-row:1}.k2{grid-column:2;grid-row:2}
+.k3{grid-column:4;grid-row:1}.k4{grid-column:4;grid-row:2}
+.k1::after{inset:50% 0 0 0;border-top-width:2px;border-right-width:2px;border-top-right-radius:14px}
+.k2::after{inset:0 0 50% 0;border-bottom-width:2px;border-right-width:2px;border-bottom-right-radius:14px}
+.k3::after{inset:50% 0 0 0;border-top-width:2px;border-left-width:2px;border-top-left-radius:14px}
+.k4::after{inset:0 0 50% 0;border-bottom-width:2px;border-left-width:2px;border-bottom-left-radius:14px}
+.k1::before,.k2::before{left:-3.5px}.k3::before,.k4::before{right:-3.5px}
+.rowlist{display:flex;flex-direction:column;gap:clamp(9px,.95vw,15px)}
+.rowlist .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(9px,1vw,17px)}
+.rowlist img{width:clamp(24px,2.4vw,36px)}
+.rowlist span{font-size:clamp(13.5px,1.2vw,17px);line-height:1.3}
+.ok{width:clamp(17px,1.4vw,23px);aspect-ratio:1;border:2px solid var(--tint);border-radius:50%;
+  display:grid;place-items:center;color:var(--tint);font-size:clamp(9px,.8vw,12px);font-weight:700}
+
+/* ---- P4 canales ---- */
+.chans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.chan__h{display:flex;align-items:center;gap:clamp(8px,.9vw,14px);margin-bottom:.7em}
+.chan__h img{width:clamp(30px,2.9vw,46px);flex:none}
+.chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--surface);
+  color:var(--muted);display:grid;place-items:center;font-size:clamp(10px,.9vw,14px);font-weight:600;margin-left:auto;flex:none}
+.chan h3{margin:0 0 .55em;font-weight:500;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2}
+.chan__f{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(7px,.7vw,11px);align-items:start;margin-bottom:.55em}
+.chan__f img{width:clamp(16px,1.5vw,23px);margin-top:.15em}
+.chan__f p{margin:0;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
+.chan__f b{font-weight:600}
+.tabs{display:flex;flex-wrap:wrap;gap:clamp(5px,.6vw,9px);margin:.7em 0 1em}
+.tab{background:var(--surface);border:0;border-radius:99px;padding:.5em 1.1em;cursor:pointer;
+  font-size:clamp(12.5px,1.05vw,17px);color:var(--muted)}
+.tab[aria-selected=true]{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--tint)}
+.dlg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(9px,1vw,18px);align-items:start}
+.dlg dt{font-weight:600;font-size:clamp(12px,1vw,15px);white-space:nowrap}
+.dlg dd{margin:0;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
+.recall{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:start}
+.recall__ic{background:var(--surface);border-radius:12px;padding:clamp(8px,.8vw,13px);flex:none}
+.recall__ic img{width:clamp(22px,2.1vw,32px)}
+.recall b{display:block;font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
+.recall p{margin:.35em 0 0;color:var(--muted);font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
+.ins3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,26px);align-items:center}
+.ins3 div{display:flex;align-items:center;gap:clamp(8px,.9vw,15px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.35}
+.ins3 img{width:clamp(24px,2.2vw,34px);flex:none}
+
+/* ---- P5 formula ---- */
+.formula{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);
+  display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px);align-items:center}
+.formula__t{font-size:clamp(12px,1.15vw,18px);letter-spacing:.16em;font-weight:500;color:var(--ink)}
+.formula__row{display:flex;align-items:center;gap:clamp(6px,.8vw,14px);flex-wrap:wrap;justify-content:center;width:100%}
+.step{background:#fff;border-radius:99px;padding:clamp(8px,.85vw,14px) clamp(12px,1.3vw,26px);
+  display:flex;align-items:center;gap:clamp(8px,.9vw,16px);flex:1 1 200px;min-width:0}
+.step b{font-size:clamp(15px,1.5vw,23px);font-weight:600;color:var(--tint)}
+.step img{width:clamp(22px,2.1vw,34px);flex:none}
+.step span{font-size:clamp(11.5px,1vw,15px);letter-spacing:.06em;line-height:1.25}
+.arrow{color:#B5B5B5;font-size:clamp(14px,1.3vw,20px);flex:none}
+.prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:var(--gap)}
+.prod__l{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
+.prod__l img{width:clamp(17px,1.6vw,25px);flex:none}
+.prod__l em{font-style:normal;font-size:clamp(10.5px,.88vw,13px);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.prod h3{margin:0 0 .55em;font-weight:600;font-size:clamp(16px,1.5vw,23px)}
+.prod p{margin:0 0 .9em;font-size:clamp(13px,1.05vw,16px);line-height:1.45;color:#3A3A3A}
+.prod .qz{color:var(--ink)}
+.why{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
+.why__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
+.why__ic img{width:clamp(28px,2.6vw,42px)}
+.why b{font-weight:600;line-height:1.35;font-size:clamp(13.5px,1.15vw,18px)}
+
+/* ---- P6 ejercicio 1 ---- */
+.consigna{background:var(--surface);border-left:4px solid var(--tint);border-radius:0 var(--r) var(--r) 0;
+  padding:clamp(13px,1.3vw,22px) clamp(15px,1.5vw,26px)}
+.consigna p{margin:.3em 0 0;font-size:clamp(14.5px,1.3vw,20px);line-height:1.45}
+.ex1{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--gap)}
+.frag{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(11px,1.1vw,18px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:center;cursor:grab}
+.frag.sel{border-color:var(--tint);background:var(--tint-soft);box-shadow:0 0 0 2px rgba(0,143,141,.22)}
+.frag.drag{opacity:.35}
+.frag__l{font-weight:600;color:var(--tint);font-size:clamp(13px,1.1vw,16px);width:1.2em;text-align:center}
+.frag__t{font-size:clamp(13.5px,1.12vw,17px);line-height:1.4}
+.slot{border:1px solid var(--line);border-radius:var(--r);padding:clamp(11px,1.1vw,18px);min-height:3.2em;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:center;
+  background:#FAFAFA;transition:border-color .15s,background .15s}
+.slot.over{border-color:var(--tint);background:var(--tint-soft)}
+.slot.full{background:#fff;border-color:var(--tint);cursor:grab}
+.slot__n{font-weight:600;font-size:clamp(13px,1.1vw,17px);color:var(--muted);width:1.2em;text-align:center}
+.slot.full .slot__n{color:var(--tint)}
+.slot__ph{color:#A8A8A8;font-size:clamp(12.5px,1.05vw,16px)}
+.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:var(--surface)}
+.fb.good{background:var(--tint-soft);box-shadow:inset 0 0 0 1px var(--tint)}
+.fb.bad{background:var(--bad-soft);box-shadow:inset 0 0 0 1px #E08787}
+.fb p{margin:.35em 0 0;font-size:clamp(13.5px,1.12vw,17px);line-height:1.45}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:.6em clamp(10px,1.2vw,22px);margin-top:.6em}
+.checks div{display:flex;align-items:center;gap:.5em;font-size:clamp(13px,1.1vw,17px)}
+.checks i{color:var(--tint);font-style:normal;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,18px);color:var(--muted);font-size:clamp(11.5px,1vw,14px)}
+
+/* ---- P7 ejercicio 2 ---- */
+.cases{display:flex;flex-direction:column;gap:var(--gap)}
+.case{border:1px solid var(--line);border-radius:var(--r);padding:clamp(13px,1.3vw,22px);
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:clamp(11px,1.2vw,22px)}
+.case__tag{display:flex;align-items:center;gap:.45em;color:var(--tint);font-weight:600;
+  font-size:clamp(11px,.95vw,14px);margin-bottom:.4em}
+.case__tag img{width:clamp(14px,1.25vw,19px)}
+.case__q{font-size:clamp(14px,1.2vw,18px);line-height:1.4}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:clamp(8px,.8vw,13px);align-content:start}
+.opt{background:#fff;border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px);
+  cursor:pointer;text-align:left;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.35;color:#5A5A5A;
+  display:flex;gap:.55em;align-items:flex-start}
+.opt:hover:not(.done){border-color:#9FD6D3}
+.opt.right{border-color:var(--tint);background:var(--tint-soft);color:var(--ink)}
+.opt.wrong{border-color:#E08787;background:var(--bad-soft);color:#A13A3A}
+.opt.done{cursor:default}
+.opt i{font-style:normal;font-weight:700;flex:none}
+.keys .k{border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px)}
+.keys .k b{display:flex;align-items:center;gap:.45em;color:var(--tint);font-size:clamp(12.5px,1.05vw,16px)}
+.keys .k img{width:clamp(14px,1.25vw,19px)}
+.keys .k span{display:block;margin-top:.25em;font-size:clamp(12.5px,1.02vw,15.5px);color:var(--muted)}
+.bullets{margin:.4em 0 0;padding-left:1.1em}
+.bullets li{font-size:clamp(13px,1.1vw,16.5px);line-height:1.55}
+
+/* ---- P8 checkpoint ---- */
+.score{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(12px,1.2vw,20px);text-align:right}
+.score b{display:block;font-size:clamp(26px,2.8vw,42px);font-weight:600;line-height:1.1;color:var(--tint)}
+.score small{color:var(--muted);font-size:clamp(11px,.95vw,14px)}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--gap)}
+.q__h{display:flex;align-items:center;gap:.6em;margin-bottom:.5em}
+.q__n{width:clamp(22px,2vw,32px);aspect-ratio:1;border-radius:50%;background:var(--tint);color:#fff;
+  display:grid;place-items:center;font-weight:600;font-size:clamp(11px,1vw,15px);flex:none}
+.q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
+.q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
+.q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
+.q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
+.qcard{display:flex;flex-direction:column}
+
+/* ============ reflujo ============ */
+@media (max-width:1100px){
+  .two{grid-template-columns:minmax(0,1fr)}
+  .chans{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .case{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero__pic{aspect-ratio:4/3}
+  .lnk{display:none}
+  .diag{grid-template-columns:minmax(0,1fr);grid-template-rows:none;gap:var(--gap)}
+  .hub{grid-column:1;grid-row:1;aspect-ratio:auto;border-radius:var(--r);
+    flex-direction:row;gap:.7em;text-align:left;padding:clamp(15px,3vw,22px)}
+  .hub img{width:42px}
+  .hub span{font-size:18px}
+  .p1,.p2,.p3,.p4{grid-column:1;grid-row:auto}
+  .insight{grid-template-columns:auto minmax(0,1fr);row-gap:8px}
+  .insight p{grid-column:1 / -1}
+  .ins3{grid-template-columns:minmax(0,1fr)}
+  .ft{grid-template-columns:repeat(2,1fr)}
+  .formula__row{flex-direction:column;align-items:stretch}
+  .arrow{transform:rotate(90deg);text-align:center}
+  .score{text-align:left}
+}
+@media (max-width:620px){
+  .chans{grid-template-columns:minmax(0,1fr)}
+  .ft{grid-template-columns:1fr}
+  .hd__bar{order:9;flex-basis:100%;min-width:0}
+  .hd__cap{flex:1}
+  .dlg{grid-template-columns:minmax(0,1fr);gap:.15em}
+  .dlg dt{color:var(--muted)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
+  <div class="hd__cap">Capítulo 1 de 6<b>Descubrimiento y Primer Contacto</b></div>
+  <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
+  <div class="hd__lec">Lección 7 de 10</div>
+  <button class="btn btn--tint" data-go="next">Continuar →</button>
+  <div class="hd__menu">☰</div>
+</header>
+
+<!-- ============ 1 · portada ============ -->
+<section class="scr scr--flush on" data-scr="1">
+  <div class="hero">
+    <div class="hero__pic">
+      <img data-i="foto_portada" alt="Paciente escribiendo por el celular">
+      <div class="hero__bub">💬 “Hola, quisiera información sobre Dysport.”</div>
+      <div class="hero__rate">⭐ 4.9 · +200 pacientes</div>
+    </div>
+    <div class="hero__txt">
+      <div><div class="eyebrow">Capítulo 1</div><div class="eyebrow">Capacitación Galderma</div></div>
+      <h1>DESCUBRIMIENTO Y PRIMER CONTACTO</h1>
+      <p class="lead">La experiencia del paciente comienza antes del primer mensaje.</p>
+      <p class="hero__quote">“Antes de escribir, el paciente ya tomó una decisión.”</p>
+      <div><button class="btn btn--dark" data-go="next">Continuar formación →</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · video ============ -->
+<section class="scr" data-scr="2">
+  <div class="two">
+    <div class="vid">
+      <iframe src="https://www.youtube.com/embed/D6t7b_pTBDU" title="Tu impacto comienza antes del primer mensaje"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="stack">
+      <div>
+        <div class="eyebrow">Capítulo 1 · Descubrimiento y Primer Contacto</div>
+        <h1 style="margin-top:.3em">Tu impacto comienza antes del primer mensaje</h1>
+        <p class="lead">En este video descubrirás por qué la experiencia del paciente comienza mucho antes de la consulta y cómo cada conversación puede influir en una decisión importante.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
+        <div class="objs">
+          <div><img data-i="p2_target" alt="">Detectar la intención real del paciente</div>
+          <div><img data-i="p2_chats" alt="">Generar conversaciones que construyen confianza</div>
+          <div><img data-i="p2_heart" alt="">Acompañar decisiones importantes con empatía</div>
+          <div><img data-i="p2_chart" alt="">Convertir cada interacción en una oportunidad real</div>
+        </div>
+      </div>
+      <div class="idea">
+        <div class="idea__t"><img data-i="p2_star" alt="">Idea clave</div>
+        <p>Vos también sos parte fundamental de la experiencia del paciente.</p>
+      </div>
+      <div class="chips">
+        <span class="chip">Dysport®</span><span class="chip">Restylane®</span>
+        <span class="chip">Sculptra®</span><span class="chip">Skinboosters®</span>
+      </div>
+      <div><button class="btn btn--dark" data-go="next">Iniciar lección</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · que siente el paciente ============ -->
+<section class="scr" data-scr="3">
+  <h1>¿Qué siente el paciente antes de escribir?</h1>
+  <p class="lead">El proceso emocional del paciente influye en la forma en que se acerca a la consulta.</p>
+  <div class="soft" style="text-align:center;font-weight:600;border-radius:99px;margin:var(--gap) auto;max-width:62ch;font-size:clamp(16px,1.8vw,26px);line-height:1.3">La decisión comienza mucho antes del mensaje.</div>
+  <div class="two">
+    <div class="diag">
+      <article class="card dcard p1">
+        <img data-i="ilu_curiosidad" alt=""><h3>Curiosidad</h3>
+        <p class="q">¿Esto es para mí?</p>
+        <p class="d">La mayoría de las personas que contactan un centro estético lleva semanas o meses pensándolo.</p>
+      </article>
+      <article class="card dcard p2">
+        <img data-i="ilu_inseguridad" alt=""><h3>Inseguridad</h3>
+        <p class="q">¿Me van a juzgar?</p>
+        <p class="d">Necesita sentir que del otro lado hay alguien que lo entiende.</p>
+      </article>
+      <div class="lnk k1"></div><div class="lnk k2"></div>
+      <div class="hub"><img data-i="ilu_central" alt=""><span>Paciente en proceso de decisión</span></div>
+      <div class="lnk k3"></div><div class="lnk k4"></div>
+      <article class="card dcard p3">
+        <img data-i="ilu_expectativa" alt=""><h3>Expectativa</h3>
+        <p class="q">¿Esto realmente funciona?</p>
+        <p class="d">Antes de escribir ya investigaron en Google, Instagram, opiniones y opciones.</p>
+      </article>
+      <article class="card dcard p4">
+        <img data-i="ilu_miedo" alt=""><h3>Miedo</h3>
+        <p class="q">¿Me va a doler? ¿Va a verse natural?</p>
+        <p class="d">Busca seguridad antes de dar el primer paso.</p>
+      </article>
+    </div>
+    <aside class="panel">
+      <h2 style="text-align:center">Lo que el paciente ya hizo para decidir</h2>
+      <div class="rowlist">
+        <div class="r"><img data-i="ic_google" alt=""><span>Buscar en Google</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_instagram" alt=""><span>Revisar Instagram</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_opiniones" alt=""><span>Leer opiniones</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_balanza" alt=""><span>Comparar opciones</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_riesgos" alt=""><span>Evaluar riesgos</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_resultados" alt=""><span>Buscar resultados</span><i class="ok">✓</i></div>
+      </div>
+    </aside>
+  </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>El primer contacto no comienza cuando el paciente escribe. Comienza mucho antes, durante todo el proceso de búsqueda y evaluación.</p>
+  </div>
+</section>
+
+<!-- ============ 4 · canales ============ -->
+<section class="scr" data-scr="4">
+  <h1>Los canales de contacto: cómo responder según el canal</h1>
+  <p class="lead">El canal importa tanto como el mensaje.</p>
+  <div class="two" style="margin-top:var(--gap)">
+    <div class="stack">
+      <div class="chans">
+        <div class="chan">
+          <div class="chan__h"><img data-i="ch_whatsapp" alt=""><span class="chan__n">1</span></div>
+          <h3>WhatsApp / DM</h3>
+          <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 1 hora, en horario de atención. Ideal contar con agente IA.</p></div>
+          <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cercano, rápido, claro. Sin formalismos.</p></div>
+          <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> responder solo el precio sin conectar con la persona.</p></div>
+        </div>
+        <div class="chan">
+          <div class="chan__h"><img data-i="ch_phone" alt=""><span class="chan__n">2</span></div>
+          <h3>Llamada telefónica</h3>
+          <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> inmediato, o devolver la llamada en el día.</p></div>
+          <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cálido, profesional, con escucha activa.</p></div>
+          <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> hablar más de los tratamientos que de las necesidades del paciente.</p></div>
+        </div>
+        <div class="chan">
+          <div class="chan__h"><img data-i="ch_email" alt=""><span class="chan__n">3</span></div>
+          <h3>Email / Web</h3>
+          <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 24 horas.</p></div>
+          <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> formal pero amigable. Personalizado.</p></div>
+          <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> mandar una respuesta genérica con precios sin preguntar qué busca.</p></div>
+        </div>
+        <div class="chan">
+          <div class="chan__h"><img data-i="ch_instagram" alt=""><span class="chan__n">4</span></div>
+          <h3>RRSS (comentario / story reply)</h3>
+          <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 2 horas.</p></div>
+          <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> breve, empático, con invitación a continuar en privado.</p></div>
+          <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> no responder, o responder solo con un emoji.</p></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Ejemplos reales de respuesta</h2>
+        <div class="tabs" role="tablist" id="tabs">
+          <button class="tab" role="tab" aria-selected="true"  data-tab="0">WhatsApp</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="1">Llamada</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="2">Email</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="3">Instagram</button>
+        </div>
+        <dl class="dlg" id="tabbody"></dl>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <div class="eyebrow">Lo que debes recordar</div>
+      <div class="recall">
+        <div class="recall__ic"><img data-i="rec_clock" alt=""></div>
+        <div><b>Cada canal tiene un ritmo, un tono y una expectativa diferente.</b>
+        <p>La respuesta debe adaptarse al medio, no repetirse igual en todos.</p></div>
+      </div>
+      <div class="recall">
+        <div class="recall__ic"><img data-i="rec_shield" alt=""></div>
+        <div><b>La asesora que sabe adaptarse genera más confianza en el primer contacto.</b>
+        <p>El canal bien interpretado mejora la percepción de atención.</p></div>
+      </div>
+      <div class="recall">
+        <div class="recall__ic"><img data-i="rec_search" alt=""></div>
+        <div><b>Antes de escribir ya investigaron en Google, miraron Instagram, leyeron reviews y compararon opciones.</b>
+        <p>El paciente llega con información previa y expectativas formadas.</p></div>
+      </div>
+    </aside>
+  </div>
+  <div class="soft insight" style="grid-template-columns:auto minmax(0,1fr)">
+    <b>INSIGHT CLAVE</b>
+    <div class="ins3">
+      <div><img data-i="ins_person" alt="">El mismo paciente puede escribir por distintos canales.</div>
+      <div><img data-i="ins_target" alt="">Lo que cambia no es la intención.</div>
+      <div><img data-i="ins_chats" alt="">Lo que cambia es la forma en que respondemos.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · formula ============ -->
+<section class="scr" data-scr="5">
+  <h1>La fórmula que convierte una consulta en una conversación</h1>
+  <p class="lead">Una buena respuesta no entrega información. Ayuda a descubrir qué necesita realmente el paciente.</p>
+  <div class="two" style="margin-top:var(--gap)">
+    <div class="stack">
+      <div class="formula">
+        <div class="formula__t">FÓRMULA DE CONEXIÓN</div>
+        <div class="formula__row">
+          <div class="step"><b>1</b><img data-i="f_jar" alt=""><span>PRODUCTO</span></div>
+          <span class="arrow">→</span>
+          <div class="step"><b>2</b><img data-i="f_box" alt=""><span>BENEFICIO</span></div>
+          <span class="arrow">→</span>
+          <div class="step"><b>3</b><img data-i="f_quest" alt=""><span>PREGUNTA DE CONEXIÓN</span></div>
+        </div>
+      </div>
+      <div class="prods" id="prods"></div>
+    </div>
+    <aside class="panel">
+      <h2 style="text-align:center">¿Por qué funciona esta fórmula?</h2>
+      <div class="why"><div class="why__ic"><img data-i="w_handshake" alt=""></div><b>Nombrar el producto genera confianza.</b></div>
+      <div class="why"><div class="why__ic"><img data-i="w_star" alt=""></div><b>Traducir beneficios facilita la comprensión.</b></div>
+      <div class="why"><div class="why__ic"><img data-i="w_card" alt=""></div><b>La pregunta mantiene viva la conversación.</b></div>
+    </aside>
+  </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>La diferencia entre responder y conectar está en la pregunta que hacés después de entregar la información.</p>
+  </div>
+</section>
+
+<!-- ============ 6 · ejercicio 1 ============ -->
+<section class="scr" data-scr="6">
+  <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
+  <h1 style="margin-top:.2em">Ordená la respuesta</h1>
+  <p class="lead">Arrastrá los fragmentos —o tocá uno y después el casillero— para construir una respuesta que genere conversación.</p>
+  <div class="consigna" style="margin-top:var(--gap)">
+    <div class="eyebrow">Consigna</div>
+    <p>Una paciente escribe por Instagram: <b>“Hola, me interesa saber sobre tratamientos para arrugas.”</b></p>
+  </div>
+  <div class="ex1" style="margin-top:var(--gap)">
+    <div>
+      <div class="eyebrow" style="margin-bottom:.7em">Fragmentos disponibles</div>
+      <div class="stack" id="frags" style="gap:clamp(9px,.9vw,14px)"></div>
+    </div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:.7em">Armá la respuesta</div>
+      <div class="stack" id="slots" style="gap:clamp(9px,.9vw,14px)"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:var(--gap);flex-wrap:wrap">
+        <button class="btn btn--ghost" id="ex1reset">Reiniciar</button>
+        <button class="btn btn--dark" id="ex1val" disabled>Validar respuesta</button>
+      </div>
+    </div>
+  </div>
+  <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
+    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <p style="color:var(--muted)">¿Qué debería lograr una buena respuesta?</p>
+    <div class="checks">
+      <div><i>✓</i>Generar cercanía</div><div><i>✓</i>Presentar un beneficio real</div>
+      <div><i>✓</i>Hacer una pregunta de conexión</div><div><i>✓</i>Invitar al siguiente paso</div>
+    </div>
+  </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>Las mejores conversaciones comienzan con preguntas, no con respuestas.</p>
+  </div>
+  <div class="meta" style="margin-bottom:var(--gap)"><span>⏱ Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span></div>
+</section>
+
+<!-- ============ 7 · ejercicio 2 ============ -->
+<section class="scr" data-scr="7">
+  <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
+  <h1 style="margin-top:.2em">¿Qué canal usarías?</h1>
+  <p class="lead">Cada canal requiere una forma distinta de responder. Elegí la mejor acción para cada situación.</p>
+  <div class="two" style="margin-top:var(--gap)">
+    <div class="cases" id="cases"></div>
+    <div class="stack">
+      <aside class="panel keys">
+        <h2>Claves para elegir el canal correcto</h2>
+        <div class="k"><b><img data-i="ch_instagram" alt="">Instagram</b><span>Generar conversación.</span></div>
+        <div class="k"><b><img data-i="ch_email" alt="">Email</b><span>Responder con claridad y rapidez.</span></div>
+        <div class="k"><b><img data-i="ch_phone" alt="">Teléfono</b><span>Recuperar oportunidades perdidas.</span></div>
+        <div class="k"><b><img data-i="ch_whatsapp" alt="">WhatsApp</b><span>Continuar la conversación.</span></div>
+      </aside>
+      <aside class="panel">
+        <h2>Qué tienen en común las respuestas correctas</h2>
+        <ul class="bullets">
+          <li>Generan conversación.</li><li>Mantienen cercanía.</li>
+          <li>Facilitan el siguiente paso.</li><li>Evitan respuestas automáticas.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+  <div class="fb" id="ex2fb" style="margin-top:var(--gap)">
+    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <p style="color:var(--muted)">Elegí una opción en cada caso para ver si generás conversación o la cortás.</p>
+  </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>El mejor canal es el que facilita continuar la conversación. El objetivo nunca es responder más: es generar conexión.</p>
+  </div>
+</section>
+
+<!-- ============ 8 · checkpoint ============ -->
+<section class="scr" data-scr="8">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:var(--gap);flex-wrap:wrap">
+    <div>
+      <div class="eyebrow eyebrow--tint">Evaluación final</div>
+      <h1 style="margin-top:.2em">Checkpoint final</h1>
+      <p class="lead">Respondé las 3 preguntas para completar el capítulo y desbloquear la siguiente etapa.</p>
+    </div>
+    <div class="score">
+      <div class="eyebrow">Puntaje parcial</div>
+      <b id="score">0 / 3</b>
+      <small id="scoremsg">Completá correctamente las preguntas para aprobar.</small>
+    </div>
+  </div>
+  <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>Los pacientes no buscan únicamente información: buscan sentirse comprendidos. Las conversaciones que generan conexión comienzan con empatía, continúan con una pregunta y terminan guiando el siguiente paso.</p>
+  </div>
+  <div style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:var(--gap)">
+    <button class="btn btn--ghost" data-go="prev">← Volver al capítulo</button>
+    <button class="btn btn--tint" id="finish">Finalizar capítulo →</button>
+  </div>
+</section>
+
+<footer class="ft" id="ft">
+  <div data-cat="1"><img data-i="nav_persona" alt="">Experiencia del paciente</div>
+  <div data-cat="2"><img data-i="nav_chat" alt="">Comunicación efectiva</div>
+  <div data-cat="3"><img data-i="nav_escudo" alt="">Confianza y credibilidad</div>
+  <div data-cat="4"><img data-i="nav_target" alt="">Conversión ética</div>
+</footer>
+
+<nav class="nav">
+  <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
+  <span class="nav__count" id="count"></span>
+  <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+
+  var IMGS = __IMGS__;
+
+  // ====== configuración del capítulo ======
+  var CFG = {
+    id: "cap1",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
+    quizUrl: ""   // pegar acá el link al Quiz de LearnDash; vacío = el botón no navega
+  };
+
+  var TOTAL = 8, cur = 1;
+  var scrs  = [].slice.call(document.querySelectorAll(".scr"));
+  var bar   = document.getElementById("bar");
+  var count = document.getElementById("count");
+  var prevB = document.getElementById("prev");
+  var nextB = document.getElementById("next");
+  var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
+  var CAT_POR_PANTALLA = {1:1, 2:1, 3:1, 4:2, 5:3, 6:2, 7:4, 8:0}; // 0 = todas
+
+  function render() {
+    scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
+    bar.style.width = (cur / TOTAL * 100) + "%";
+    count.textContent = "Pantalla " + cur + " de " + TOTAL;
+    prevB.disabled = cur === 1;
+    nextB.textContent = cur === TOTAL ? "Finalizar →" : "Continuar →";
+    var activa = CAT_POR_PANTALLA[cur];
+    cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    post();
+  }
+  function go(n) { if (n >= 1 && n <= TOTAL) { cur = n; render(); } }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-go]");
+    if (!b) return;
+    if (b.dataset.go === "next") { cur < TOTAL ? go(cur + 1) : finalizar(); }
+    else go(cur - 1);
+  });
+  function finalizar() { if (CFG.quizUrl) window.location.href = CFG.quizUrl; }
+  var fin = document.getElementById("finish");
+  if (fin) fin.addEventListener("click", finalizar);
+
+  // ====== 4 · solapas de ejemplos ======
+  var EJEMPLOS = [
+    { p: "Hola, ¿cuánto cuesta Dysport?",
+      a: "¡Hola! 👋 Gracias por escribirnos. El valor de Dysport para la zona del entrecejo es de $X. Dysport ayuda a suavizar líneas de expresión manteniendo una apariencia natural. <b>¿Es esa la zona que te interesa tratar o estás consultando por otra área?</b>" },
+    { p: "Hola, quería consultar porque tengo algunas líneas de expresión y me gustaría saber qué tratamiento me recomiendan.",
+      a: "Gracias por comunicarte, con gusto te ayudo. <b>¿Podrías contarme qué es lo que te gustaría mejorar o qué te motivó a consultar?</b>" },
+    { p: "Hola, quisiera información sobre los tratamientos que realizan y sus precios.",
+      a: "Gracias por tu consulta. Para orientarte de forma más precisa sobre costos y opciones de tratamiento, <b>¿podrías indicarnos qué te gustaría mejorar o qué zona te interesa tratar?</b>" },
+    { p: "¿Cuánto cuesta este tratamiento?",
+      a: "¡Gracias por escribirnos! 😊 Te enviamos un mensaje privado para ayudarte y brindarte información según lo que estés buscando." }
+  ];
+  var tabBody = document.getElementById("tabbody");
+  function pintarTab(i) {
+    tabBody.innerHTML = '<dt>Paciente</dt><dd>' + EJEMPLOS[i].p + '</dd>' +
+                        '<dt style="color:var(--tint)">Asesora</dt><dd>' + EJEMPLOS[i].a + '</dd>';
+  }
+  document.getElementById("tabs").addEventListener("click", function (e) {
+    var t = e.target.closest(".tab"); if (!t) return;
+    this.querySelectorAll(".tab").forEach(function (x) { x.setAttribute("aria-selected", x === t); });
+    pintarTab(+t.dataset.tab); post();
+  });
+  pintarTab(0);
+
+  // ====== 5 · tarjetas de producto ======
+  var PRODUCTOS = [
+    ["Dysport®", "Ayuda a suavizar líneas de expresión y prevenir que se marquen más con el tiempo.", "¿Qué zona te gustaría tratar?"],
+    ["Restylane®", "Permite restaurar volumen, mejorar contornos y armonizar rasgos de forma personalizada.", "¿Hay alguna área específica que te gustaría mejorar?"],
+    ["Restylane Skinboosters®", "Mejora la hidratación, luminosidad y calidad de la piel desde el interior.", "¿Lo que más te preocupa es la hidratación, la textura o la luminosidad de tu piel?"],
+    ["Sculptra®", "Estimula la producción natural de colágeno para mejorar firmeza y calidad de la piel progresivamente.", "¿Qué cambio te gustaría lograr en tu rostro o en tu piel?"],
+    ["Alastin Skincare", "Ayuda a mejorar la calidad de la piel y acompaña los resultados de los procedimientos estéticos.", "¿Qué aspecto de tu piel te gustaría mejorar más?"]
+  ];
+  document.getElementById("prods").innerHTML = PRODUCTOS.map(function (p) {
+    return '<article class="card prod">' +
+      '<div class="prod__l"><img data-i="f_jar" alt=""><em>Producto</em></div><h3>' + p[0] + '</h3>' +
+      '<div class="prod__l"><img data-i="f_box" alt=""><em>Beneficio</em></div><p>' + p[1] + '</p>' +
+      '<div class="prod__l"><img data-i="f_quest" alt=""><em>Pregunta de conexión</em></div><p class="qz">' + p[2] + '</p>' +
+      '</article>';
+  }).join("");
+
+  // ====== 6 · ejercicio 1: ordenar la respuesta ======
+  var FRAGS = [
+    { id:"A", t:"¿Me contás qué zona te preocupa más para orientarte mejor?" },
+    { id:"B", t:"¡Hola! Gracias por escribirnos 😊" },
+    { id:"C", t:"Tenemos tratamientos con Dysport, que ayuda a suavizar líneas de expresión con resultados naturales." },
+    { id:"D", t:"Así podemos contarte cómo funciona la consulta y qué podés esperar del tratamiento." }
+  ];
+  var ORDEN = ["B","C","A","D"];
+  var elFrags = document.getElementById("frags"), elSlots = document.getElementById("slots");
+  var btnVal = document.getElementById("ex1val"), btnRes = document.getElementById("ex1reset");
+  var elFb = document.getElementById("ex1fb");
+  var FB_BASE = elFb.innerHTML;
+  var slots = ORDEN.map(function (_, i) { return { n:i+1, id:null }; });
+  var mezcla = FRAGS.slice().sort(function () { return Math.random() - .5; });
+  var arrastrado = null, elegido = null;
+
+  function puesto(id) { return slots.some(function (s) { return s.id === id; }); }
+  function pintar() {
+    elFrags.innerHTML = "";
+    mezcla.forEach(function (f) {
+      if (puesto(f.id)) return;
+      var d = document.createElement("div");
+      d.className = "frag" + (elegido === f.id ? " sel" : "");
+      d.draggable = true; d.dataset.id = f.id;
+      d.innerHTML = '<span class="frag__l">' + f.id + '</span><span class="frag__t">' + f.t + '</span>';
+      d.addEventListener("dragstart", function (e) { arrastrado = { id:f.id }; d.classList.add("drag"); e.dataTransfer.effectAllowed = "move"; });
+      d.addEventListener("dragend", function () { d.classList.remove("drag"); arrastrado = null; });
+      d.addEventListener("click", function () { elegido = (elegido === f.id) ? null : f.id; pintar(); });
+      elFrags.appendChild(d);
+    });
+    elSlots.innerHTML = "";
+    slots.forEach(function (s, i) {
+      var d = document.createElement("div");
+      d.className = "slot" + (s.id ? " full" : ""); d.dataset.i = i;
+      var f = FRAGS.filter(function (x) { return x.id === s.id; })[0];
+      d.innerHTML = '<span class="slot__n">' + s.n + '</span>' +
+        (f ? '<span class="frag__t">' + f.t + '</span>' : '<span class="slot__ph">Arrastrá o tocá acá</span>');
+      if (s.id) { d.draggable = true;
+        d.addEventListener("dragstart", function (e) { arrastrado = { desde:i }; e.dataTransfer.effectAllowed = "move"; }); }
+      d.addEventListener("dragover", function (e) { e.preventDefault(); d.classList.add("over"); });
+      d.addEventListener("dragleave", function () { d.classList.remove("over"); });
+      d.addEventListener("drop", function (e) {
+        e.preventDefault(); d.classList.remove("over");
+        if (!arrastrado) return;
+        if (arrastrado.desde !== undefined) { var tmp = slots[i].id; slots[i].id = slots[arrastrado.desde].id; slots[arrastrado.desde].id = tmp; }
+        else slots[i].id = arrastrado.id;
+        arrastrado = null; pintar();
+      });
+      d.addEventListener("click", function () {
+        if (elegido) { slots[i].id = elegido; elegido = null; }
+        else if (slots[i].id) slots[i].id = null;
+        else return;
+        pintar();
+      });
+      elSlots.appendChild(d);
+    });
+    btnVal.disabled = !slots.every(function (s) { return s.id; });
+    post();
+  }
+  btnVal.addEventListener("click", function () {
+    var ok = slots.every(function (s, i) { return s.id === ORDEN[i]; });
+    elFb.className = "fb " + (ok ? "good" : "bad");
+    elFb.innerHTML = '<div class="eyebrow eyebrow--tint">Feedback</div><p>' +
+      (ok ? "✅ ¡Excelente! Armaste la respuesta en el orden que genera más conexión: primero cercanía, después beneficio, después la pregunta y al final la invitación."
+          : "❌ Todavía no es el orden ideal. Pensá la secuencia: cercanía → beneficio → pregunta de conexión → invitación a continuar.") + "</p>";
+    post();
+  });
+  btnRes.addEventListener("click", function () {
+    slots.forEach(function (s) { s.id = null; }); elegido = null;
+    elFb.className = "fb"; elFb.innerHTML = FB_BASE; pintar();
+  });
+  pintar();
+
+  // ====== 7 · ejercicio 2: qué canal usarías ======
+  var CASOS = [
+    { ic:"ch_instagram", tag:"Caso 1 — Instagram", q:'Un paciente deja un comentario en Instagram: <b>“¿Tienen descuentos?”</b>',
+      o:["Responder brevemente e invitarlo a continuar por mensaje privado.","Publicar promociones y precios.","Responder únicamente con un emoji.","Ignorar el comentario."], ok:0 },
+    { ic:"ch_email", tag:"Caso 2 — Email", q:"Recibiste un email hace 30 horas y todavía no respondiste.",
+      o:["Esperar hasta tener tiempo.","Responder de inmediato, disculparte por la demora y brindar información concreta.","Usar una plantilla sin leer la consulta.","Pedir que vuelva a escribir."], ok:1 },
+    { ic:"ch_phone", tag:"Caso 3 — Teléfono", q:"Un paciente llamó y no atendiste.",
+      o:["Esperar que vuelva a llamar.","Guardar el número y llamarlo varios días después.","Devolver la llamada el mismo día, dentro del horario de atención.","Enviar un mensaje automático."], ok:2 },
+    { ic:"ch_whatsapp", tag:"Caso 4 — WhatsApp", q:'Un paciente escribe: <b>“Hola, ¿cuánto cuesta Dysport?”</b>',
+      o:["Mencionar brevemente el beneficio y preguntar qué necesita el paciente.","Enviar únicamente el precio.","Enviar un PDF de tratamientos.","Decir que los precios se informan únicamente en consulta."], ok:0 },
+    { ic:"ch_instagram", tag:"Caso 5 — Instagram Story", q:"Un paciente responde una historia con un ❤️",
+      o:["Responder con otro emoji.","Ignorar el mensaje.","Enviar una promoción completa.","Agradecer la interacción e invitarlo a conversar si tiene alguna consulta."], ok:3 }
+  ];
+  var elCasos = document.getElementById("cases"), elFb2 = document.getElementById("ex2fb");
+  elCasos.innerHTML = CASOS.map(function (c, i) {
+    return '<article class="case"><div><div class="case__tag"><img data-i="' + c.ic + '" alt="">' + c.tag + '</div>' +
+      '<div class="case__q">' + c.q + '</div></div><div class="opts">' +
+      c.o.map(function (t, j) { return '<button class="opt" data-c="' + i + '" data-o="' + j + '"><i>' + "ABCD"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
+      '</div></article>';
+  }).join("");
+  var respondidas = {};
+  elCasos.addEventListener("click", function (e) {
+    var b = e.target.closest(".opt"); if (!b) return;
+    var ci = +b.dataset.c; if (respondidas[ci] !== undefined) return;
+    var oi = +b.dataset.o, caso = CASOS[ci];
+    elCasos.querySelectorAll('.opt[data-c="' + ci + '"]').forEach(function (x) { x.classList.add("done"); });
+    b.classList.add(oi === caso.ok ? "right" : "wrong");
+    if (oi !== caso.ok) elCasos.querySelector('.opt[data-c="' + ci + '"][data-o="' + caso.ok + '"]').classList.add("right");
+    respondidas[ci] = oi === caso.ok;
+    var total = Object.keys(respondidas).length;
+    var bien = Object.keys(respondidas).filter(function (k) { return respondidas[k]; }).length;
+    elFb2.className = "fb " + (bien === total ? "good" : "");
+    elFb2.innerHTML = '<div class="eyebrow eyebrow--tint">Feedback</div><p>Llevás <b>' + bien + ' de ' + total +
+      '</b> correctas. Las mejores respuestas generan conversación y se adaptan al canal: no repiten la misma fórmula en todos.</p>';
+    post();
+  });
+
+  // ====== 8 · checkpoint final ======
+  var PREGUNTAS = [
+    { t:"¿Qué siente normalmente un paciente antes de escribir por primera vez?",
+      o:["Confianza total","Curiosidad e inseguridad","Nada en particular"], ok:1, ill:"q_cloud" },
+    { t:"¿Cuál es el tiempo ideal de respuesta por WhatsApp?",
+      o:["Menos de 1 hora","Al día siguiente","Cuando sea posible"], ok:0, ill:"q_clock" },
+    { t:"¿Qué caracteriza a un mensaje que genera conexión?",
+      o:["Precio y disponibilidad","Empatía y personalización","Formato genérico"], ok:1, ill:"q_network" }
+  ];
+  var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");
+  elQs.innerHTML = PREGUNTAS.map(function (q, i) {
+    return '<article class="card qcard"><div class="q__h"><span class="q__n">' + (i+1) + '</span><b>Pregunta ' + (i+1) + '</b></div>' +
+      '<p class="q__t">' + q.t + '</p><div class="opts" style="grid-template-columns:minmax(0,1fr)">' +
+      q.o.map(function (t, j) { return '<button class="opt" data-q="' + i + '" data-o="' + j + '"><i>' + "ABC"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
+      '</div><div class="q__ill"><img data-i="' + q.ill + '" alt=""></div></article>';
+  }).join("");
+  var qResp = {};
+  elQs.addEventListener("click", function (e) {
+    var b = e.target.closest(".opt"); if (!b) return;
+    var qi = +b.dataset.q; if (qResp[qi] !== undefined) return;
+    var oi = +b.dataset.o, q = PREGUNTAS[qi];
+    elQs.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function (x) { x.classList.add("done"); });
+    b.classList.add(oi === q.ok ? "right" : "wrong");
+    if (oi !== q.ok) elQs.querySelector('.opt[data-q="' + qi + '"][data-o="' + q.ok + '"]').classList.add("right");
+    qResp[qi] = oi === q.ok;
+    var bien = Object.keys(qResp).filter(function (k) { return qResp[k]; }).length;
+    var hechas = Object.keys(qResp).length;
+    elScore.textContent = bien + " / 3";
+    elMsg.textContent = hechas < 3 ? "Te faltan " + (3 - hechas) + " pregunta(s)."
+      : (bien === 3 ? "¡Aprobaste el checkpoint!" : "Repasá el capítulo y volvé a intentarlo.");
+    post();
+  });
+
+  // ====== altura para el iframe de la lección ======
+  var ultima = 0;
+  function post() {
+    requestAnimationFrame(function () {
+      var h = Math.ceil(document.documentElement.getBoundingClientRect().height) + 4;
+      if (h === ultima) return;
+      ultima = h;
+      try { parent.postMessage({ gdId: CFG.id, gdHeight: h }, "*"); } catch (e) {}
+    });
+  }
+  var t = setInterval(post, 250);
+  setTimeout(function () { clearInterval(t); }, 6000);
+  window.addEventListener("load", post);
+  window.addEventListener("resize", post);
+  if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
+  window.addEventListener("message", function (e) { if (e.data && e.data.gdAsk === CFG.id) { ultima = 0; post(); } });
+
+  // resolver imágenes: cada asset se embebe una sola vez y se referencia por nombre
+  document.querySelectorAll("[data-i]").forEach(function (el) {
+    var u = IMGS[el.dataset.i]; if (u) el.src = u;
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

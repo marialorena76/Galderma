@@ -1,0 +1,24 @@
+<!-- Widget HTML de Elementor — esto es TODO lo que va en la lección de LearnDash -->
+<iframe
+  id="gd-cap1"
+  src="https://soyloregonzalez.com/experienciaconproposito/wp-content/uploads/academia/capitulo1-fluido.html"
+  title="Capítulo 1 — Descubrimiento y Primer Contacto"
+  style="width:100%;height:900px;border:0;display:block"
+  allow="fullscreen; autoplay; encrypted-media; picture-in-picture"
+  allowfullscreen
+  loading="lazy"></iframe>
+
+<script>
+(function () {
+  var ID = "cap1"; // tiene que coincidir con el CFG.id del archivo del capítulo
+  window.addEventListener("message", function (e) {
+    if (!e.data || e.data.gdId !== ID || !e.data.gdHeight) return;
+    var f = document.getElementById("gd-" + ID);
+    if (f) f.style.height = e.data.gdHeight + "px";
+  });
+  window.addEventListener("load", function () {
+    var f = document.getElementById("gd-" + ID);
+    if (f && f.contentWindow) f.contentWindow.postMessage({ gdAsk: ID }, "*");
+  });
+})();
+</script>
