@@ -1,0 +1,961 @@
+<!--
+  CAPÍTULO 1 — "Descubrimiento y Primer Contacto"
+  Galderma Staff Training — pegar dentro de un widget HTML de Elementor en el Topic del capítulo.
+
+  Diseño: exportado desde Claude Design a partir del PDF/Genially original.
+  Técnica: el diseño se armó a canvas fijo de 1920×1080 (igual que el original).
+  Para que sea responsive sin rehacer el CSS a mano, el canvas completo se escala
+  con transform:scale() según el ancho disponible — la misma técnica que usan
+  Genially/embeds de PowerPoint para mostrar un diseño fijo en cualquier pantalla.
+
+  CÓMO REUSAR EN OTRO CAPÍTULO:
+  1) Exportar el diseño del capítulo siguiente desde Claude Design con la misma estructura.
+  2) Reemplazar los 8 bloques .gd-canvas por los nuevos (o los que correspondan).
+  3) Los ejercicios (gd-ex1-*, gd-ex2-*) van con `data` propio al final del script.
+  4) meta.quizUrl: pegar el link real al Quiz nativo de LearnDash de este capítulo.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  .gd-root { font-family:'Poppins',system-ui,sans-serif; -webkit-font-smoothing:antialiased; width:100%; margin:0 auto; }
+  .gd-root a { color:#14B391; text-decoration:none; }
+
+  .gd-canvas-wrap { position:relative; width:100%; container-type:inline-size; aspect-ratio:1920/1080; overflow:hidden; border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,0.12); background:#fff; }
+  .gd-canvas { position:absolute; top:0; left:0; width:1920px; height:1080px; transform-origin: top left; transform:scale(calc(100cqw / 1920px)); display:none; }
+  .gd-canvas.active { display:flex; }
+
+  /* Toolbar externa — red de seguridad de navegación, siempre visible debajo del canvas */
+  .gd-toolbar { display:flex; align-items:center; justify-content:space-between; padding:14px 4px; }
+  .gd-toolbar__btn { background:#111; color:#fff; border:none; border-radius:999px; padding:10px 20px; font-size:14px; cursor:pointer; }
+  .gd-toolbar__btn:disabled { background:#ddd; color:#999; cursor:not-allowed; }
+  .gd-toolbar__btn--ghost { background:transparent; color:#111; border:1px solid #ccc; }
+  .gd-toolbar__counter { font-size:13px; color:#777; }
+
+  /* Ejercicio 1 — fragmentos y slots (generados por JS, mismo look que el diseño) */
+  .gd-frag { background:#F5F5F5; border:1px solid #E8E8E8; border-radius:14px; padding:18px 20px; display:flex; gap:16px; align-items:flex-start; cursor:grab; }
+  .gd-frag.dragging { opacity:.35; }
+  .gd-frag .gd-handle { flex:none; color:#B0B0B0; font-size:18px; line-height:1.3; }
+  .gd-frag .gd-letter { flex:none; width:26px; height:26px; border-radius:8px; background:#0A0A0A; color:#fff; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .gd-frag .gd-text { font-size:17px; line-height:1.45; color:#0A0A0A; }
+
+  .gd-slot { border:2px dashed #D4D4D4; border-radius:14px; padding:20px; display:flex; gap:16px; align-items:center; min-height:24px; transition:border-color .15s, background .15s; }
+  .gd-slot.over { border-color:#14B391; background:#ECFBF6; }
+  .gd-slot.filled { border-style:solid; border-color:#14B391; background:#fff; cursor:grab; }
+  .gd-slot .gd-num { flex:none; width:26px; height:26px; border-radius:50%; background:#EDEDED; color:#8A8A8A; font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center; }
+  .gd-slot.filled .gd-num { background:#14B391; color:#fff; }
+  .gd-slot .gd-placeholder { font-size:16px; color:#A8A8A8; }
+  .gd-slot .gd-text { font-size:16px; line-height:1.4; color:#0A0A0A; }
+
+  /* Ejercicio 2 — casos clickeables */
+  .gd-case { background:#F5F5F5; border-radius:16px; padding:20px 22px; display:flex; flex-direction:column; gap:12px; min-height:0; }
+  .gd-case__tag { padding:5px 12px; border-radius:999px; background:#0A0A0A; color:#fff; font-size:11px; letter-spacing:0.1em; font-weight:600; }
+  .gd-case__prompt { font-size:16px; line-height:1.45; color:#0A0A0A; }
+  .gd-case__opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:auto; }
+  .gd-opt { background:#FFFFFF; border:1px solid #E8E8E8; border-radius:11px; padding:12px 14px; font-size:14px; line-height:1.35; color:#6B6B6B; cursor:pointer; display:flex; gap:10px; align-items:flex-start; }
+  .gd-opt:hover { border-color:#B8E6DB; }
+  .gd-opt.correct { background:#FFFFFF; border:1.5px solid #14B391; color:#0A0A0A; }
+  .gd-opt.correct .gd-check { flex:none; width:19px; height:19px; border-radius:50%; background:#14B391; color:#fff; font-size:11px; display:flex; align-items:center; justify-content:center; }
+  .gd-opt.incorrect { background:#FDEEEE; border:1.5px solid #E08787; color:#A13A3A; }
+  .gd-opt.disabled { pointer-events:none; }
+</style>
+
+<div class="gd-root">
+  <div class="gd-canvas-wrap" id="gd-canvas-wrap">
+<div class="gd-canvas" data-screen="1" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:12%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;gap:72px;padding:64px 72px;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:30px;min-width:0">
+        <div style="display:flex;align-items:center;gap:16px">
+          <div style="padding:8px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:600;letter-spacing:0.04em">Capítulo 1</div>
+          <div style="font-size:13px;letter-spacing:0.22em;color:#8A8A8A;font-weight:500">CAPACITACIÓN GALDERMA</div>
+        </div>
+        <div style="font-size:82px;line-height:0.96;font-weight:600;color:#0A0A0A;letter-spacing:-0.02em;text-wrap:pretty">DESCUBRIMIENTO Y<br/>PRIMER CONTACTO</div>
+        <div style="font-size:24px;line-height:1.5;color:#5A5A5A;max-width:620px;text-wrap:pretty">La experiencia del paciente comienza antes del primer mensaje.</div>
+        <div style="border-left:3px solid #14B391;padding:6px 0 6px 24px;font-size:22px;line-height:1.45;color:#0A0A0A;font-style:italic;max-width:620px">“Antes de escribir, el paciente ya tomó una decisión.”</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-top:8px">
+          <div id="gd-cta-1" style="cursor:pointer;padding:20px 38px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:19px;font-weight:600;display:flex;align-items:center;gap:12px">Continuar formación <span style="font-size:20px">→</span></div>
+          <div style="font-size:15px;color:#8A8A8A">6 capítulos · 10 lecciones</div>
+        </div>
+      </div>
+
+      <div style="width:780px;flex:none;position:relative;display:flex">
+        <div style="flex:1;background:#EDEDED;border:2px dashed #C9C9C9;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+          <svg width="72" height="72" viewbox="0 0 24 24" fill="none" stroke="#A8A8A8" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M3.5 17l4.8-4.8a2 2 0 0 1 2.8 0L20.5 21"/></svg>
+          <div style="font-size:15px;letter-spacing:0.12em;color:#8A8A8A;font-weight:600;text-align:center">PLACEHOLDER — REEMPLAZAR<br/>POR FOTO FINAL</div>
+        </div>
+        <div style="position:absolute;left:-44px;bottom:88px;width:400px;background:#FFFFFF;border:1px solid #EAEAEA;border-radius:20px;padding:22px 24px;box-shadow:0 18px 44px rgba(0,0,0,0.14);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#14B391"/>
+            <span style="font-size:12px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">WHATSAPP · NUEVO MENSAJE</span>
+          </div>
+          <div style="font-size:19px;line-height:1.45;color:#0A0A0A">“Hola, quisiera información sobre Dysport.”</div>
+        </div>
+        <div style="position:absolute;right:24px;top:28px;background:#0A0A0A;color:#FFFFFF;border-radius:999px;padding:12px 22px;display:flex;align-items:center;gap:10px;font-size:15px;box-shadow:0 12px 30px rgba(0,0,0,0.2)">
+          <span style="color:#14B391;font-size:16px">★</span><span style="font-weight:600">4.9</span><span style="color:#9A9A9A">· +200 pacientes</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#5A5A5A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="width:42px;height:42px;border-radius:50%;background:#14B391;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-next-arrow">→</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="2" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:24%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;gap:40px;padding:48px 72px;min-height:0">
+      <div style="flex:1;display:flex;flex-direction:column;gap:22px;min-width:0">
+        <div style="font-size:12px;letter-spacing:0.28em;color:#14B391;font-weight:600">C A P Í T U L O 1</div>
+        <div style="font-size:52px;line-height:1.05;font-weight:600;color:#0A0A0A;letter-spacing:-0.02em;text-wrap:pretty">Tu impacto comienza<br/>antes del primer mensaje</div>
+        <div style="font-size:19px;line-height:1.6;color:#5A5A5A;max-width:820px;text-wrap:pretty">En este video descubrirás por qué la experiencia del paciente comienza mucho antes de la consulta y cómo cada conversación puede influir en una decisión importante.</div>
+        <div style="flex:1;min-height:0;position:relative;background:#000000;border-radius:18px;overflow:hidden">
+          <iframe src="https://www.youtube.com/embed/D6t7b_pTBDU" title="Capítulo 1 — Tu impacto comienza antes del primer mensaje" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div style="width:560px;flex:none;display:flex;flex-direction:column;gap:20px">
+        <div style="flex:1;background:#F5F5F5;border-radius:20px;padding:34px 32px;display:flex;flex-direction:column;gap:22px">
+          <div style="font-size:12px;letter-spacing:0.2em;color:#8A8A8A;font-weight:600">LO QUE APRENDERÁS EN ESTE CAPÍTULO</div>
+          <div style="display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;gap:16px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:18px;line-height:1.45;color:#0A0A0A">Detectar la intención real del paciente</span></div>
+            <div style="height:1px;background:#E4E4E4"/>
+            <div style="display:flex;gap:16px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:18px;line-height:1.45;color:#0A0A0A">Generar conversaciones que construyen confianza</span></div>
+            <div style="height:1px;background:#E4E4E4"/>
+            <div style="display:flex;gap:16px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:18px;line-height:1.45;color:#0A0A0A">Acompañar decisiones importantes con empatía</span></div>
+            <div style="height:1px;background:#E4E4E4"/>
+            <div style="display:flex;gap:16px;align-items:flex-start"><span style="flex:none;width:30px;height:30px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">4</span><span style="font-size:18px;line-height:1.45;color:#0A0A0A">Convertir cada interacción en una oportunidad real</span></div>
+          </div>
+        </div>
+        <div style="background:#0A0A0A;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:12px;letter-spacing:0.2em;color:#14B391;font-weight:600">IDEA CLAVE</div>
+          <div style="font-size:27px;line-height:1.3;color:#FFFFFF;font-weight:500;text-wrap:pretty">Vos también sos parte fundamental de la experiencia del paciente.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="padding:10px 20px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500">Dysport®</div>
+        <div style="padding:10px 20px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px">Restylane®</div>
+        <div style="padding:10px 20px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px">Sculptra®</div>
+        <div style="padding:10px 20px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px">Skinboosters®</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div id="gd-cta-2" style="cursor:pointer;padding:13px 26px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px">Iniciar lección <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="3" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:36%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:26px;padding:44px 60px;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:40px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">¿Qué siente el paciente antes de escribir?</div>
+        <div style="font-size:18px;line-height:1.5;color:#6B6B6B;max-width:1100px;text-wrap:pretty">El proceso emocional del paciente influye en la forma en que se acerca a la consulta. La decisión comienza mucho antes del mensaje.</div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:400px minmax(0,1fr) 400px;gap:24px">
+        <div style="display:flex;flex-direction:column;gap:16px;min-height:0">
+          <div style="flex:1;min-height:0;background:#EDEDED;border:2px dashed #C9C9C9;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+            <svg width="54" height="54" viewbox="0 0 24 24" fill="none" stroke="#A8A8A8" stroke-width="1.4"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M3.5 17l4.8-4.8a2 2 0 0 1 2.8 0L20.5 21"/></svg>
+            <div style="font-size:13px;letter-spacing:0.12em;color:#8A8A8A;font-weight:600;text-align:center;padding:0 20px">PLACEHOLDER — REEMPLAZAR<br/>POR FOTO FINAL</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:22px 24px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:19px;font-weight:600;color:#0A0A0A">Paciente en proceso de decisión</div>
+            <div style="font-size:15px;line-height:1.5;color:#6B6B6B">Antes de escribir ya investigaron en Google, Instagram, opiniones y opciones.</div>
+          </div>
+          <div style="background:#0A0A0A;border-radius:16px;padding:22px 24px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:15px;font-weight:600;color:#14B391;letter-spacing:0.1em">SEMANAS O MESES</div>
+            <div style="font-size:15px;line-height:1.5;color:#D8D8D8">La mayoría de las personas que contactan un centro estético lleva semanas o meses pensándolo.</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;min-height:0">
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:10px;height:10px;border-radius:50%;background:#14B391"/><span style="font-size:22px;font-weight:600;color:#0A0A0A">Inseguridad</span></div>
+            <div style="font-size:17px;line-height:1.55;color:#5A5A5A">Necesita sentir que del otro lado hay alguien que lo entiende.</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:10px;height:10px;border-radius:50%;background:#14B391"/><span style="font-size:22px;font-weight:600;color:#0A0A0A">Curiosidad</span></div>
+            <div style="font-size:17px;line-height:1.55;color:#5A5A5A">¿Esto es para mí? ¿Me van a juzgar?</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:10px;height:10px;border-radius:50%;background:#14B391"/><span style="font-size:22px;font-weight:600;color:#0A0A0A">Expectativa</span></div>
+            <div style="font-size:17px;line-height:1.55;color:#5A5A5A">¿Esto realmente funciona?</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:12px"><span style="width:10px;height:10px;border-radius:50%;background:#14B391"/><span style="font-size:22px;font-weight:600;color:#0A0A0A">Miedo</span></div>
+            <div style="font-size:17px;line-height:1.55;color:#5A5A5A">¿Me va a doler? ¿Va a verse natural? Busca seguridad antes de dar el primer paso.</div>
+          </div>
+        </div>
+
+        <div style="background:#F5F5F5;border-radius:18px;padding:30px 28px;display:flex;flex-direction:column;gap:18px;min-height:0">
+          <div style="font-size:19px;font-weight:600;color:#0A0A0A;line-height:1.3">Lo que el paciente ya hizo para decidir</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Buscar en Google</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Revisar Instagram</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Leer opiniones</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Comparar opciones</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Evaluar riesgos</span></div>
+            <div style="display:flex;align-items:center;gap:14px;background:#FFFFFF;border-radius:12px;padding:14px 16px"><span style="flex:none;width:24px;height:24px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A">Buscar resultados</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:none;background:#0A0A0A;border-radius:16px;padding:22px 28px;display:flex;align-items:center;gap:24px">
+        <div style="flex:none;padding:8px 16px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em">INSIGHT CLAVE</div>
+        <div style="font-size:19px;line-height:1.45;color:#FFFFFF">El primer contacto no comienza cuando el paciente escribe. Comienza mucho antes, durante todo el proceso de búsqueda y evaluación.</div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px;border-top:1px solid #1C1C1C">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="padding:13px 24px;class="gd-next-arrow" style="cursor:pointer;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px" data-x="1">Continuar <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="4" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:48%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:24px;padding:40px 60px;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:38px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">Los canales de contacto: cómo responder según el canal</div>
+        <div style="font-size:18px;color:#6B6B6B">El canal importa tanto como el mensaje.</div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:flex;gap:24px">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px">
+          <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+            <div style="background:#F5F5F5;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:8px;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:18px;font-weight:600;color:#0A0A0A">WhatsApp / DM</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TIEMPO IDEAL</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Menos de 1 hora (en horario de atención). Ideal contar con Agente IA.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TONO</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Cercano, rápido, claro. Sin formalismos.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E4E4E4;padding-top:12px"><span style="font-size:11px;letter-spacing:0.14em;color:#C0392B;font-weight:600">ERROR FRECUENTE</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Responder solo el precio sin conectar con la persona.</span></div>
+            </div>
+            <div style="background:#F5F5F5;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:8px;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:18px;font-weight:600;color:#0A0A0A">Llamada telefónica</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TIEMPO IDEAL</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Inmediato o devolver la llamada en el día.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TONO</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Cálido, profesional, con escucha activa.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E4E4E4;padding-top:12px"><span style="font-size:11px;letter-spacing:0.14em;color:#C0392B;font-weight:600">ERROR FRECUENTE</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Hablar más de los tratamientos que de las necesidades del paciente.</span></div>
+            </div>
+            <div style="background:#F5F5F5;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:8px;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:18px;font-weight:600;color:#0A0A0A">Email / Web</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TIEMPO IDEAL</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Menos de 24 horas.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TONO</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Formal pero amigable. Personalizado.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E4E4E4;padding-top:12px"><span style="font-size:11px;letter-spacing:0.14em;color:#C0392B;font-weight:600">ERROR FRECUENTE</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Mandar una respuesta genérica con precios sin preguntar qué busca.</span></div>
+            </div>
+            <div style="background:#F5F5F5;border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;align-items:center;gap:12px"><span style="width:26px;height:26px;border-radius:8px;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">4</span><span style="font-size:18px;font-weight:600;color:#0A0A0A">RRSS (comentario / story)</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TIEMPO IDEAL</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Menos de 2 horas.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.14em;color:#8A8A8A;font-weight:600">TONO</span><span style="font-size:15px;line-height:1.45;color:#0A0A0A">Breve, empático, con invitación a continuar en privado.</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #E4E4E4;padding-top:12px"><span style="font-size:11px;letter-spacing:0.14em;color:#C0392B;font-weight:600">ERROR FRECUENTE</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">No responder o responder solo con un emoji.</span></div>
+            </div>
+          </div>
+
+          <div style="flex:1;min-height:0;background:#F5F5F5;border-radius:18px;padding:26px 28px;display:flex;flex-direction:column;gap:18px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+              <div style="font-size:20px;font-weight:600;color:#0A0A0A">Ejemplos reales de respuesta</div>
+              <div style="display:flex;gap:8px">
+                <div style="padding:9px 18px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font-size:14px;font-weight:500">WhatsApp</div>
+                <div style="padding:9px 18px;border-radius:999px;background:#FFFFFF;border:1px solid #E0E0E0;color:#6B6B6B;font-size:14px">Llamada</div>
+                <div style="padding:9px 18px;border-radius:999px;background:#FFFFFF;border:1px solid #E0E0E0;color:#6B6B6B;font-size:14px">Email</div>
+                <div style="padding:9px 18px;border-radius:999px;background:#FFFFFF;border:1px solid #E0E0E0;color:#6B6B6B;font-size:14px">Instagram</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;gap:18px;align-items:flex-start">
+                <div style="flex:none;width:96px;font-size:12px;letter-spacing:0.12em;color:#8A8A8A;font-weight:600;padding-top:14px">PACIENTE</div>
+                <div style="background:#FFFFFF;border-radius:14px;border-top-left-radius:4px;padding:16px 20px;font-size:17px;line-height:1.5;color:#0A0A0A;max-width:760px">Hola, ¿cuánto cuesta Dysport?</div>
+              </div>
+              <div style="display:flex;gap:18px;align-items:flex-start">
+                <div style="flex:none;width:96px;font-size:12px;letter-spacing:0.12em;color:#14B391;font-weight:600;padding-top:14px">ASESORA</div>
+                <div style="background:#0A0A0A;border-radius:14px;border-top-left-radius:4px;padding:16px 20px;font-size:17px;line-height:1.55;color:#FFFFFF">¡Hola! Gracias por escribirnos. El valor de Dysport para la zona del entrecejo es de $X. Dysport ayuda a suavizar líneas de expresión manteniendo una apariencia natural. <span style="color:#14B391">¿Es esa la zona que te interesa tratar o estás consultando por otra área?</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:400px;flex:none;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:26px;line-height:1.25;font-weight:600;color:#0A0A0A;text-wrap:pretty">El mismo paciente puede escribir por distintos canales.</div>
+          <div style="flex:1;min-height:0;background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:12px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">LO QUE DEBES RECORDAR</div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:17px;line-height:1.4;font-weight:600;color:#0A0A0A">Cada canal tiene un ritmo, un tono y una expectativa diferente.</div><div style="font-size:15px;line-height:1.5;color:#6B6B6B">La respuesta debe adaptarse al medio, no repetirse igual en todos.</div></div>
+            <div style="height:1px;background:#E4E4E4"/>
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:17px;line-height:1.4;font-weight:600;color:#0A0A0A">La asesora que sabe adaptarse genera más confianza en el primer contacto.</div><div style="font-size:15px;line-height:1.5;color:#6B6B6B">El canal bien interpretado mejora la percepción de atención.</div></div>
+            <div style="height:1px;background:#E4E4E4"/>
+            <div style="display:flex;flex-direction:column;gap:6px"><div style="font-size:17px;line-height:1.4;font-weight:600;color:#0A0A0A">El paciente llega con información previa y expectativas formadas.</div><div style="font-size:15px;line-height:1.5;color:#6B6B6B">Antes de escribir ya investigaron en Google, miraron Instagram, leyeron reviews y compararon opciones.</div></div>
+          </div>
+          <div style="background:#0A0A0A;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">INSIGHT CLAVE</div>
+            <div style="font-size:19px;line-height:1.4;color:#FFFFFF">Lo que cambia no es la intención. Lo que cambia es la forma en que respondemos.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="padding:13px 24px;class="gd-next-arrow" style="cursor:pointer;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px" data-x="1">Continuar <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="5" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:60%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:24px;padding:40px 60px;min-height:0">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:38px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">La fórmula que convierte una consulta en una conversación</div>
+          <div style="font-size:18px;line-height:1.5;color:#6B6B6B">Una buena respuesta no entrega información. Ayuda a descubrir qué necesita realmente el paciente.</div>
+        </div>
+        <div style="flex:none;display:flex;align-items:center;gap:12px">
+          <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600;margin-right:6px">FÓRMULA DE CONEXIÓN</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:#F5F5F5;font-size:14px;font-weight:600;color:#0A0A0A"><span style="width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">1</span>PRODUCTO</div>
+          <span style="color:#C4C4C4;font-size:16px">→</span>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:#F5F5F5;font-size:14px;font-weight:600;color:#0A0A0A"><span style="width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">2</span>BENEFICIO</div>
+          <span style="color:#C4C4C4;font-size:16px">→</span>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;background:#0A0A0A;font-size:14px;font-weight:600;color:#FFFFFF"><span style="width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">3</span>PREGUNTA DE CONEXIÓN</div>
+        </div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:flex;gap:24px">
+        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr 1fr;gap:18px">
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">PRODUCTO</span><span style="font-size:24px;font-weight:600;color:#0A0A0A">Dysport®</span></div>
+            <div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">BENEFICIO</span><span style="font-size:16px;line-height:1.5;color:#3A3A3A">Ayuda a suavizar líneas de expresión y prevenir que se marquen más con el tiempo.</span></div>
+            <div style="margin-top:auto;background:#FFFFFF;border-left:3px solid #14B391;border-radius:0 12px 12px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#14B391;font-weight:600">PREGUNTA DE CONEXIÓN</span><span style="font-size:16px;line-height:1.45;color:#0A0A0A">¿Qué zona te gustaría tratar?</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">PRODUCTO</span><span style="font-size:24px;font-weight:600;color:#0A0A0A">Restylane®</span></div>
+            <div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">BENEFICIO</span><span style="font-size:16px;line-height:1.5;color:#3A3A3A">Permite restaurar volumen, mejorar contornos y armonizar rasgos de forma personalizada.</span></div>
+            <div style="margin-top:auto;background:#FFFFFF;border-left:3px solid #14B391;border-radius:0 12px 12px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#14B391;font-weight:600">PREGUNTA DE CONEXIÓN</span><span style="font-size:16px;line-height:1.45;color:#0A0A0A">¿Hay alguna área específica que te gustaría mejorar?</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">PRODUCTO</span><span style="font-size:24px;font-weight:600;color:#0A0A0A">Restylane Skinboosters®</span></div>
+            <div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">BENEFICIO</span><span style="font-size:16px;line-height:1.5;color:#3A3A3A">Mejora la hidratación, luminosidad y calidad de la piel desde el interior.</span></div>
+            <div style="margin-top:auto;background:#FFFFFF;border-left:3px solid #14B391;border-radius:0 12px 12px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#14B391;font-weight:600">PREGUNTA DE CONEXIÓN</span><span style="font-size:16px;line-height:1.45;color:#0A0A0A">¿Lo que más te preocupa es la hidratación, la textura o la luminosidad de tu piel?</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">PRODUCTO</span><span style="font-size:24px;font-weight:600;color:#0A0A0A">Sculptra®</span></div>
+            <div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">BENEFICIO</span><span style="font-size:16px;line-height:1.5;color:#3A3A3A">Estimula la producción natural de colágeno para mejorar firmeza y calidad de la piel progresivamente.</span></div>
+            <div style="margin-top:auto;background:#FFFFFF;border-left:3px solid #14B391;border-radius:0 12px 12px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#14B391;font-weight:600">PREGUNTA DE CONEXIÓN</span><span style="font-size:16px;line-height:1.45;color:#0A0A0A">¿Qué cambio te gustaría lograr en tu rostro o en tu piel?</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">PRODUCTO</span><span style="font-size:24px;font-weight:600;color:#0A0A0A">Alastin Skincare</span></div>
+            <div style="display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">BENEFICIO</span><span style="font-size:16px;line-height:1.5;color:#3A3A3A">Ayuda a mejorar la calidad de la piel y acompaña los resultados de los procedimientos estéticos.</span></div>
+            <div style="margin-top:auto;background:#FFFFFF;border-left:3px solid #14B391;border-radius:0 12px 12px 0;padding:14px 16px;display:flex;flex-direction:column;gap:5px"><span style="font-size:11px;letter-spacing:0.16em;color:#14B391;font-weight:600">PREGUNTA DE CONEXIÓN</span><span style="font-size:16px;line-height:1.45;color:#0A0A0A">¿Qué aspecto de tu piel te gustaría mejorar más?</span></div>
+          </div>
+          <div style="border:2px dashed #DCDCDC;border-radius:18px;padding:26px;display:flex;flex-direction:column;justify-content:center;gap:14px">
+            <div style="font-size:11px;letter-spacing:0.16em;color:#8A8A8A;font-weight:600">SELECCIÓN DE PRODUCTO</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px">
+              <div style="padding:9px 16px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font-size:14px;font-weight:500">Dysport®</div>
+              <div style="padding:9px 16px;border-radius:999px;background:#F5F5F5;color:#6B6B6B;font-size:14px">Restylane®</div>
+              <div style="padding:9px 16px;border-radius:999px;background:#F5F5F5;color:#6B6B6B;font-size:14px">Skinboosters®</div>
+              <div style="padding:9px 16px;border-radius:999px;background:#F5F5F5;color:#6B6B6B;font-size:14px">Sculptra®</div>
+              <div style="padding:9px 16px;border-radius:999px;background:#F5F5F5;color:#6B6B6B;font-size:14px">Alastin</div>
+            </div>
+            <div style="font-size:14px;line-height:1.5;color:#8A8A8A">Los filtros de producto activan la tarjeta correspondiente en la vista interactiva.</div>
+          </div>
+        </div>
+
+        <div style="width:360px;flex:none;display:flex;flex-direction:column;gap:16px">
+          <div style="flex:1;background:#0A0A0A;border-radius:18px;padding:30px 28px;display:flex;flex-direction:column;gap:24px">
+            <div style="font-size:22px;line-height:1.25;font-weight:600;color:#FFFFFF">¿Por qué funciona esta fórmula?</div>
+            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">1</span><span style="font-size:17px;line-height:1.45;color:#D8D8D8">Nombrar el producto genera confianza.</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">2</span><span style="font-size:17px;line-height:1.45;color:#D8D8D8">Traducir beneficios facilita la comprensión.</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start"><span style="flex:none;width:28px;height:28px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center">3</span><span style="font-size:17px;line-height:1.45;color:#D8D8D8">La pregunta mantiene viva la conversación.</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">INSIGHT CLAVE</div>
+            <div style="font-size:17px;line-height:1.45;color:#0A0A0A">La diferencia entre responder y conectar está en la pregunta que hacés después de entregar la información.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="padding:13px 24px;class="gd-next-arrow" style="cursor:pointer;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px" data-x="1">Continuar <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="6" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:72%;height:100%;background:#14B391"/></div><div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:7px 16px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;align-self:flex-start">EJERCICIO 1</div>
+          <div style="font-size:38px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">Ordená la respuesta</div>
+          <div style="font-size:18px;line-height:1.5;color:#6B6B6B;max-width:900px">Arrastrá los fragmentos para construir una respuesta que genere conversación y ayude a descubrir necesidades.</div>
+        </div>
+        <div style="flex:none;display:flex;gap:10px">
+          <div style="padding:11px 18px;border-radius:999px;background:#F5F5F5;color:#5A5A5A;font-size:14px">Tiempo estimado: 3 minutos</div>
+          <div style="padding:11px 18px;border-radius:999px;background:#F5F5F5;color:#5A5A5A;font-size:14px">Tipo de actividad: Ejercicio práctico</div>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;display:flex;gap:24px">
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:20px">
+          <div style="background:#F5F5F5;border-left:4px solid #14B391;border-radius:0 16px 16px 0;padding:22px 26px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">CONSIGNA</div>
+            <div style="font-size:19px;line-height:1.5;color:#0A0A0A">Una paciente escribe por Instagram: <span style="font-weight:600">&#8220;Hola, me interesa saber sobre tratamientos para arrugas.&#8221;</span></div>
+          </div>
+
+          <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+              <div style="font-size:12px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">FRAGMENTOS DISPONIBLES</div>
+              <div id="gd-ex1-fragments" style="display:flex;flex-direction:column;gap:12px"></div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:14px;min-height:0">
+              <div style="font-size:12px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">ARM&#193; LA RESPUESTA</div>
+              <div id="gd-ex1-slots" style="display:flex;flex-direction:column;gap:12px"></div>
+              <div style="margin-top:auto;display:flex;justify-content:flex-end;gap:12px">
+                <div id="gd-ex1-reset" style="cursor:pointer;padding:14px 26px;border-radius:999px;border:1px solid #E0E0E0;color:#6B6B6B;font-size:15px">Reiniciar</div>
+                <div id="gd-ex1-validate" style="cursor:pointer;padding:14px 30px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font-size:15px;font-weight:600;opacity:.4;pointer-events:none">Validar respuesta</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:380px;flex:none;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#F5F5F5;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:19px;font-weight:600;color:#0A0A0A;line-height:1.3">&#191;Qu&#233; deber&#237;a lograr una buena respuesta?</div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">&#10003;</span><span style="font-size:16px;color:#0A0A0A">Generar cercan&#237;a</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">&#10003;</span><span style="font-size:16px;color:#0A0A0A">Presentar un beneficio real</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">&#10003;</span><span style="font-size:16px;color:#0A0A0A">Hacer una pregunta de conexi&#243;n</span></div>
+            <div style="display:flex;align-items:center;gap:12px"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">&#10003;</span><span style="font-size:16px;color:#0A0A0A">Invitar al siguiente paso</span></div>
+          </div>
+          <div id="gd-ex1-feedback" style="flex:1;min-height:0;border:2px dashed #D4D4D4;border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:10px;justify-content:center">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">FEEDBACK</div>
+            <div style="font-size:16px;line-height:1.5;color:#A8A8A8">El feedback del ejercicio aparece en este espacio al validar la respuesta.</div>
+          </div>
+          <div style="background:#0A0A0A;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">INSIGHT CLAVE</div>
+            <div style="font-size:18px;line-height:1.4;color:#FFFFFF">Las mejores conversaciones comienzan con preguntas, no con respuestas.</div>
+          </div>
+        </div>
+      </div><div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="padding:13px 24px;class="gd-next-arrow" style="cursor:pointer;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px" data-x="1">Continuar <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="7" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 7 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:84%;height:100%;background:#14B391"/></div><div style="display:flex;align-items:flex-end;gap:24px">
+        <div style="padding:7px 16px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;margin-bottom:8px">EJERCICIO 2</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:36px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">&#191;Qu&#233; canal usar&#237;as?</div>
+          <div style="font-size:17px;line-height:1.4;color:#6B6B6B">Cada canal requiere una forma distinta de responder. Eleg&#237; la mejor acci&#243;n para cada situaci&#243;n.</div>
+        </div>
+      </div>
+      <div style="flex:1;min-height:0;display:flex;gap:22px">
+        <div id="gd-ex2-grid" style="flex:1;min-width:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,minmax(0,1fr));gap:16px"></div>
+        <div style="width:360px;flex:none;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#F5F5F5;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:12px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">CLAVES PARA ELEGIR EL CANAL</div>
+            <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline"><span style="font-size:16px;font-weight:600;color:#0A0A0A">Instagram</span><span style="font-size:14px;color:#6B6B6B;text-align:right">Generar conversaci&#243;n.</span></div>
+            <div style="height:1px;background:#E4E4E4"></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline"><span style="font-size:16px;font-weight:600;color:#0A0A0A">Email</span><span style="font-size:14px;color:#6B6B6B;text-align:right">Responder con claridad y rapidez.</span></div>
+            <div style="height:1px;background:#E4E4E4"></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline"><span style="font-size:16px;font-weight:600;color:#0A0A0A">Tel&#233;fono</span><span style="font-size:14px;color:#6B6B6B;text-align:right">Recuperar oportunidades perdidas.</span></div>
+            <div style="height:1px;background:#E4E4E4"></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline"><span style="font-size:16px;font-weight:600;color:#0A0A0A">WhatsApp</span><span style="font-size:14px;color:#6B6B6B;text-align:right">Continuar la conversaci&#243;n.</span></div>
+            <div style="height:1px;background:#E4E4E4"></div>
+            <div style="display:flex;justify-content:space-between;gap:14px;align-items:baseline"><span style="font-size:16px;font-weight:600;color:#0A0A0A">Historias</span><span style="font-size:14px;color:#6B6B6B;text-align:right">Convertir interacci&#243;n en di&#225;logo.</span></div>
+          </div>
+          <div style="flex:1;min-height:0;background:#FFFFFF;border:1px solid #E8E8E8;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:17px;font-weight:600;color:#0A0A0A;line-height:1.3">Qu&#233; tienen en com&#250;n las respuestas correctas</div>
+            <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:#14B391;font-size:15px">&#8226;</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Generan conversaci&#243;n.</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:#14B391;font-size:15px">&#8226;</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Mantienen cercan&#237;a.</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:#14B391;font-size:15px">&#8226;</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Facilitan el siguiente paso.</span></div>
+            <div style="display:flex;gap:10px;align-items:flex-start"><span style="color:#14B391;font-size:15px">&#8226;</span><span style="font-size:15px;line-height:1.45;color:#5A5A5A">Evitan respuestas autom&#225;ticas.</span></div>
+          </div>
+          <div style="background:#0A0A0A;border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">INSIGHT CLAVE</div>
+            <div style="font-size:17px;line-height:1.4;color:#FFFFFF">El mejor canal es el que facilita continuar la conversaci&#243;n. El objetivo nunca es responder m&#225;s: es generar conexi&#243;n.</div>
+          </div>
+        </div>
+      </div><div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#161616;border:1px solid #292929;color:#9A9A9A;font-size:14px"><span style="width:7px;height:7px;border-radius:50%;background:#3E3E3E"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer" class="gd-prev-arrow">←</div>
+        <div style="padding:13px 24px;class="gd-next-arrow" style="cursor:pointer;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;gap:10px" data-x="1">Continuar <span>→</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gd-canvas" data-screen="8" style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;"><div style="width:1920px;height:1080px;background:#FFFFFF;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.12)">
+
+    <div style="height:72px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none">
+      <div style="display:flex;align-items:center;gap:20px">
+        <div style="font-size:21px;font-weight:600;color:#FFFFFF;letter-spacing:0.14em">GALDERMA</div>
+        <div style="width:1px;height:24px;background:#333333"/>
+        <div style="font-size:16px;color:#B5B5B5">Descubrimiento y Primer Contacto</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <div style="font-size:15px;color:#B5B5B5">Lección 10 de 10</div>
+        <div style="width:38px;height:38px;border:1px solid #333333;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;font-size:15px">☰</div>
+      </div>
+    </div>
+    <div style="height:4px;background:#1C1C1C;flex:none"><div style="width:100%;height:100%;background:#14B391"/></div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:24px;padding:40px 60px;min-height:0">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="padding:7px 16px;border-radius:999px;background:#0A0A0A;color:#FFFFFF;font-size:12px;font-weight:600;letter-spacing:0.14em;align-self:flex-start">EVALUACIÓN FINAL</div>
+          <div style="font-size:40px;line-height:1.1;font-weight:600;color:#0A0A0A;letter-spacing:-0.015em">Checkpoint final</div>
+          <div style="font-size:18px;line-height:1.5;color:#6B6B6B;max-width:900px">Respondé las 3 preguntas para completar el Capítulo y desbloquear la siguiente etapa.</div>
+        </div>
+        <div style="flex:none;display:flex;align-items:center;gap:10px">
+          <div style="width:34px;height:34px;border-radius:50%;background:#0A0A0A;color:#FFFFFF;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">1</div>
+          <div style="width:34px;height:34px;border-radius:50%;background:#F5F5F5;color:#A8A8A8;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">2</div>
+          <div style="width:34px;height:34px;border-radius:50%;background:#F5F5F5;color:#A8A8A8;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center">3</div>
+        </div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:flex;gap:24px">
+        <div style="flex:1;min-width:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">PREGUNTA 1</div>
+            <div style="font-size:21px;line-height:1.35;font-weight:600;color:#0A0A0A;text-wrap:pretty">¿Qué siente normalmente un paciente antes de escribir por primera vez?</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:auto">
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">A. Confianza total</div>
+              <div style="background:#FFFFFF;border:1.5px solid #14B391;border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:center"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A;font-weight:500">B. Curiosidad e inseguridad</span></div>
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">C. Nada en particular</div>
+            </div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">PREGUNTA 2</div>
+            <div style="font-size:21px;line-height:1.35;font-weight:600;color:#0A0A0A;text-wrap:pretty">¿Cuál es el tiempo ideal de respuesta por WhatsApp?</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:auto">
+              <div style="background:#FFFFFF;border:1.5px solid #14B391;border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:center"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A;font-weight:500">A. Menos de 1 hora</span></div>
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">B. Al día siguiente</div>
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">C. Cuando sea posible</div>
+            </div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">PREGUNTA 3</div>
+            <div style="font-size:21px;line-height:1.35;font-weight:600;color:#0A0A0A;text-wrap:pretty">¿Qué caracteriza a un mensaje que genera conexión?</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:auto">
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">A. Precio y disponibilidad</div>
+              <div style="background:#FFFFFF;border:1.5px solid #14B391;border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:center"><span style="flex:none;width:22px;height:22px;border-radius:50%;background:#14B391;color:#FFFFFF;font-size:12px;display:flex;align-items:center;justify-content:center">✓</span><span style="font-size:16px;color:#0A0A0A;font-weight:500">B. Empatía y personalización</span></div>
+              <div style="background:#FFFFFF;border:1px solid #E8E8E8;border-radius:12px;padding:16px 18px;font-size:16px;color:#6B6B6B">C. Formato genérico</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="width:380px;flex:none;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#0A0A0A;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">PUNTAJE PARCIAL</div>
+            <div style="display:flex;align-items:baseline;gap:8px"><span style="font-size:64px;line-height:1;font-weight:600;color:#FFFFFF">0</span><span style="font-size:28px;color:#7A7A7A">/ 3</span></div>
+            <div style="font-size:15px;line-height:1.5;color:#B5B5B5">Completá correctamente las preguntas para aprobar.</div>
+            <div style="height:6px;border-radius:3px;background:#252525;margin-top:6px"><div style="width:0%;height:100%;background:#14B391;border-radius:3px"/></div>
+          </div>
+          <div style="flex:1;min-height:0;background:#F5F5F5;border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:14px;justify-content:center">
+            <div style="font-size:11px;letter-spacing:0.18em;color:#14B391;font-weight:600">INSIGHT CLAVE</div>
+            <div style="font-size:22px;line-height:1.35;font-weight:600;color:#0A0A0A;text-wrap:pretty">Los pacientes no buscan únicamente información. Buscan sentirse comprendidos.</div>
+            <div style="font-size:15px;line-height:1.55;color:#6B6B6B">Las conversaciones que generan conexión comienzan con empatía, continúan con una pregunta y terminan guiando el siguiente paso.</div>
+          </div>
+          <div style="display:flex;gap:12px">
+            <div class="gd-prev-arrow" style="cursor:pointer;flex:1;padding:16px;border-radius:999px;border:1px solid #E0E0E0;color:#6B6B6B;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px"><span>←</span> Volver al Capítulo</div>
+            <div id="gd-quiz-link" style="cursor:pointer;flex:1;padding:16px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px">Finalizar Capítulo <span>→</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:84px;background:#0A0A0A;display:flex;align-items:center;justify-content:space-between;padding:0 48px;flex:none;gap:32px">
+      <div style="font-size:13px;color:#8A8A8A;letter-spacing:0.14em;font-weight:500">CAPÍTULO 1 DE 6</div>
+      <div style="display:flex;gap:10px">
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Experiencia del paciente</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Comunicación efectiva</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Confianza y credibilidad</div>
+        <div style="display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:999px;background:#14B391;color:#FFFFFF;font-size:14px;font-weight:500"><span style="width:7px;height:7px;border-radius:50%;background:#FFFFFF"/>Conversión ética</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:42px;height:42px;border-radius:50%;border:1px solid #2E2E2E;color:#7A7A7A;display:flex;align-items:center;justify-content:center;font-size:17px">←</div>
+        <div style="width:42px;height:42px;border-radius:50%;background:#14B391;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:17px">→</div>
+      </div>
+    </div>
+  </div>
+</div>  </div>
+
+  <div class="gd-toolbar">
+    <button class="gd-toolbar__btn gd-toolbar__btn--ghost" id="gd-tb-prev">&larr; Anterior</button>
+    <span class="gd-toolbar__counter" id="gd-tb-counter"></span>
+    <button class="gd-toolbar__btn" id="gd-tb-next">Continuar &rarr;</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var TOTAL = 8;
+  var current = 1;
+
+  var wrap = document.getElementById("gd-canvas-wrap");
+  var canvases = Array.prototype.slice.call(document.querySelectorAll(".gd-canvas"));
+  var prevBtn = document.getElementById("gd-tb-prev");
+  var nextBtn = document.getElementById("gd-tb-next");
+  var counter = document.getElementById("gd-tb-counter");
+
+  var meta = {
+    quizUrl: "#" // pegar acá el link real al Quiz nativo de LearnDash del checkpoint de este capítulo
+  };
+
+  function render() {
+    canvases.forEach(function (c) {
+      var isActive = parseInt(c.dataset.screen, 10) === current;
+      c.classList.toggle("active", isActive);
+      c.style.display = isActive ? "flex" : "none"; // fuerza el display inline: gana siempre, sin ambigüedad de especificidad
+    });
+    prevBtn.disabled = current === 1;
+    nextBtn.textContent = current === TOTAL ? "Finalizar" : "Continuar →";
+    counter.textContent = "Pantalla " + current + " de " + TOTAL;
+  }
+
+  function goTo(n) {
+    if (n < 1 || n > TOTAL) return;
+    current = n;
+    render();
+  }
+
+  prevBtn.addEventListener("click", function () { goTo(current - 1); });
+  nextBtn.addEventListener("click", function () {
+    if (current < TOTAL) goTo(current + 1);
+    else if (meta.quizUrl && meta.quizUrl !== "#") window.location.href = meta.quizUrl;
+  });
+
+  // Delegación: cualquier CTA/flecha dibujada DENTRO del diseño también navega
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".gd-next-arrow") || e.target.closest("#gd-cta-1") || e.target.closest("#gd-cta-2")) {
+      if (current < TOTAL) goTo(current + 1);
+    } else if (e.target.closest(".gd-prev-arrow")) {
+      goTo(current - 1);
+    } else if (e.target.closest("#gd-quiz-link")) {
+      if (meta.quizUrl && meta.quizUrl !== "#") window.location.href = meta.quizUrl;
+    }
+  });
+
+  render();
+
+  // ============= EJERCICIO 1 — Ordenar fragmentos (drag & drop) =============
+  (function () {
+    var data = {
+      fragmentos: [
+        { id: "A", texto: "¿Me contás qué zona te preocupa más para orientarte mejor?" },
+        { id: "B", texto: "¡Hola! Gracias por escribirnos 😊" },
+        { id: "C", texto: "Tenemos tratamientos con Dysport, que ayuda a suavizar líneas de expresión con resultados naturales." },
+        { id: "D", texto: "Así podemos contarte cómo funciona la consulta y qué podés esperar del tratamiento." }
+      ],
+      ordenCorrecto: ["B", "C", "A", "D"]
+    };
+
+    var fragmentsEl = document.getElementById("gd-ex1-fragments");
+    var slotsEl = document.getElementById("gd-ex1-slots");
+    var validateBtn = document.getElementById("gd-ex1-validate");
+    var resetBtn = document.getElementById("gd-ex1-reset");
+    var feedbackEl = document.getElementById("gd-ex1-feedback");
+    if (!fragmentsEl) return; // esta slide no está en esta pantalla actual
+
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+      }
+      return a;
+    }
+
+    var mezclados = shuffle(data.fragmentos);
+    var slots = data.fragmentos.map(function (_, i) { return { num: i + 1, filledId: null }; });
+    var dragged = null;
+
+    function isPlaced(id) { return slots.some(function (s) { return s.filledId === id; }); }
+
+    function makeFrag(frag) {
+      var el = document.createElement("div");
+      el.className = "gd-frag";
+      el.draggable = true;
+      el.dataset.id = frag.id;
+      el.innerHTML = '<span class="gd-handle">&#8942;</span><span class="gd-letter">' + frag.id + '</span><span class="gd-text">' + frag.texto + '</span>';
+      el.addEventListener("dragstart", function (e) { dragged = { id: frag.id }; el.classList.add("dragging"); e.dataTransfer.effectAllowed = "move"; });
+      el.addEventListener("dragend", function () { el.classList.remove("dragging"); dragged = null; });
+      return el;
+    }
+
+    function renderFrags() {
+      fragmentsEl.innerHTML = "";
+      mezclados.forEach(function (f) { if (!isPlaced(f.id)) fragmentsEl.appendChild(makeFrag(f)); });
+    }
+
+    function renderSlots() {
+      slotsEl.innerHTML = "";
+      slots.forEach(function (slot, idx) {
+        var el = document.createElement("div");
+        el.className = "gd-slot" + (slot.filledId ? " filled" : "");
+        el.dataset.idx = idx;
+        if (slot.filledId) {
+          var frag = data.fragmentos.filter(function (f) { return f.id === slot.filledId; })[0];
+          el.innerHTML = '<span class="gd-num">' + slot.num + '</span><span class="gd-text">' + frag.texto + '</span>';
+          el.draggable = true;
+          el.addEventListener("dragstart", function (e) { dragged = { fromSlot: idx }; e.dataTransfer.effectAllowed = "move"; });
+        } else {
+          el.innerHTML = '<span class="gd-num">' + slot.num + '</span><span class="gd-placeholder">Arrastrá aquí</span>';
+        }
+        el.addEventListener("dragover", function (e) { e.preventDefault(); el.classList.add("over"); });
+        el.addEventListener("dragleave", function () { el.classList.remove("over"); });
+        el.addEventListener("drop", function (e) {
+          e.preventDefault();
+          el.classList.remove("over");
+          var targetIdx = parseInt(el.dataset.idx, 10);
+          if (dragged && dragged.fromSlot !== undefined) {
+            var tmp = slots[targetIdx].filledId;
+            slots[targetIdx].filledId = slots[dragged.fromSlot].filledId;
+            slots[dragged.fromSlot].filledId = tmp;
+          } else if (dragged) {
+            slots[targetIdx].filledId = dragged.id;
+          }
+          dragged = null;
+          renderAll();
+        });
+        slotsEl.appendChild(el);
+      });
+    }
+
+    function renderAll() {
+      renderFrags();
+      renderSlots();
+      var allFilled = slots.every(function (s) { return s.filledId; });
+      validateBtn.style.opacity = allFilled ? "1" : ".4";
+      validateBtn.style.pointerEvents = allFilled ? "auto" : "none";
+    }
+
+    validateBtn.addEventListener("click", function () {
+      var actual = slots.map(function (s) { return s.filledId; });
+      var ok = actual.every(function (id, i) { return id === data.ordenCorrecto[i]; });
+      feedbackEl.style.border = ok ? "1px solid #14B391" : "1px solid #E08787";
+      feedbackEl.style.background = ok ? "#ECFBF6" : "#FDEEEE";
+      feedbackEl.innerHTML = '<div style="font-size:11px;letter-spacing:0.18em;color:' + (ok ? "#0A6B53" : "#A13A3A") + ';font-weight:600">FEEDBACK</div>' +
+        '<div style="font-size:16px;line-height:1.5;color:' + (ok ? "#0A6B53" : "#A13A3A") + '">' +
+        (ok ? "✅ ¡Excelente! Armaste la respuesta en el orden que genera más conexión." :
+              "❌ Todavía no es el orden ideal. Pensá: primero cercanía, después beneficio, después pregunta de conexión, después invitación a continuar.") +
+        '</div>';
+    });
+
+    resetBtn.addEventListener("click", function () {
+      slots.forEach(function (s) { s.filledId = null; });
+      feedbackEl.style.border = "2px dashed #D4D4D4";
+      feedbackEl.style.background = "transparent";
+      feedbackEl.innerHTML = '<div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">FEEDBACK</div><div style="font-size:16px;line-height:1.5;color:#A8A8A8">El feedback del ejercicio aparece en este espacio al validar la respuesta.</div>';
+      renderAll();
+    });
+
+    renderAll();
+  })();
+
+  // ============= EJERCICIO 2 — ¿Qué canal usarías? (selección de caso) =============
+  (function () {
+    var casos = [
+      { tag: "CASO 1 · INSTAGRAM", prompt: 'Un paciente deja un comentario en Instagram: <b>“¿Tienen descuentos?”</b>',
+        opts: ["Responder brevemente e invitarlo a continuar por mensaje privado.", "Publicar promociones y precios.", "Responder únicamente con un emoji.", "Ignorar el comentario."], correct: 0 },
+      { tag: "CASO 2 · EMAIL", prompt: "Recibiste un email hace 30 horas y todavía no respondiste.",
+        opts: ["Esperar hasta tener tiempo.", "Responder de inmediato, disculparte por la demora y brindar información concreta.", "Usar una plantilla sin leer la consulta.", "Pedir que vuelva a escribir."], correct: 1 },
+      { tag: "CASO 3 · TELÉFONO", prompt: "Un paciente llamó y no atendiste.",
+        opts: ["Esperar que vuelva a llamar.", "Guardar el número y llamarlo varios días después.", "Devolver la llamada el mismo día dentro del horario de atención.", "Enviar un mensaje automático."], correct: 2 },
+      { tag: "CASO 4 · WHATSAPP", prompt: 'Un paciente escribe: <b>“Hola, ¿cuánto cuesta Dysport?”</b>',
+        opts: ["Mencionar el beneficio y preguntar qué necesita el paciente.", "Enviar únicamente el precio.", "Enviar PDF de tratamientos.", "Decir que los precios se informan únicamente en consulta."], correct: 0 },
+      { tag: "CASO 5 · INSTAGRAM STORY", prompt: "Un paciente responde una historia con un corazón.",
+        opts: ["Responder con otro emoji.", "Ignorar el mensaje.", "Enviar una promoción completa.", "Agradecer la interacción e invitarlo a conversar."], correct: 3 }
+    ];
+
+    var grid = document.getElementById("gd-ex2-grid");
+    if (!grid) return;
+
+    casos.forEach(function (caso, ci) {
+      var card = document.createElement("div");
+      card.className = "gd-case";
+      var optsHtml = caso.opts.map(function (opt, oi) {
+        var letra = "ABCD"[oi];
+        return '<div class="gd-opt" data-caso="' + ci + '" data-opt="' + oi + '"><span class="gd-check" style="display:none">✓</span><span>' + letra + '. ' + opt + '</span></div>';
+      }).join("");
+      card.innerHTML = '<div><span class="gd-case__tag">' + caso.tag + '</span></div>' +
+        '<div class="gd-case__prompt">' + caso.prompt + '</div>' +
+        '<div class="gd-case__opts">' + optsHtml + '</div>';
+      grid.appendChild(card);
+    });
+
+    var feedbackCell = document.createElement("div");
+    feedbackCell.id = "gd-ex2-feedback";
+    feedbackCell.style.cssText = "border:2px dashed #D4D4D4;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:10px;justify-content:center;min-height:0";
+    feedbackCell.innerHTML = '<div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">FEEDBACK</div><div style="font-size:15px;line-height:1.5;color:#6B6B6B">Elegí una opción en cada caso para ver si generás conversación o la cortás.</div>';
+    grid.appendChild(feedbackCell);
+
+    var answered = {};
+
+    grid.addEventListener("click", function (e) {
+      var opt = e.target.closest(".gd-opt");
+      if (!opt) return;
+      var ci = parseInt(opt.dataset.caso, 10);
+      if (answered[ci] !== undefined) return;
+      var oi = parseInt(opt.dataset.opt, 10);
+      var caso = casos[ci];
+      var siblings = grid.querySelectorAll('.gd-opt[data-caso="' + ci + '"]');
+      siblings.forEach(function (s) { s.classList.add("disabled"); });
+      if (oi === caso.correct) {
+        opt.classList.add("correct");
+        opt.querySelector(".gd-check").style.display = "flex";
+      } else {
+        opt.classList.add("incorrect");
+        var correctEl = grid.querySelector('.gd-opt[data-caso="' + ci + '"][data-opt="' + caso.correct + '"]');
+        correctEl.classList.add("correct");
+        correctEl.querySelector(".gd-check").style.display = "flex";
+      }
+      answered[ci] = oi === caso.correct;
+      var totalAnswered = Object.keys(answered).length;
+      var correctas = Object.values(answered).filter(Boolean).length;
+      feedbackCell.innerHTML = '<div style="font-size:11px;letter-spacing:0.18em;color:#8A8A8A;font-weight:600">FEEDBACK</div>' +
+        '<div style="font-size:15px;line-height:1.5;color:#6B6B6B">Llevás ' + correctas + ' de ' + totalAnswered + ' correctas. Las mejores respuestas generan conversación y se adaptan al canal, no repiten la misma fórmula en todos.</div>';
+    });
+  })();
+
+})();
+</script>
