@@ -11,14 +11,46 @@
 <script>
 (function () {
   var ID = "cap1"; // tiene que coincidir con el CFG.id del archivo del capítulo
+  function marco() { return document.getElementById("gd-" + ID); }
+
+  // --- la altura la informa el propio capítulo: sin scroll interno ni hueco en blanco ---
   window.addEventListener("message", function (e) {
     if (!e.data || e.data.gdId !== ID || !e.data.gdHeight) return;
-    var f = document.getElementById("gd-" + ID);
-    if (f) f.style.height = e.data.gdHeight + "px";
+    var f = marco(); if (f) f.style.height = e.data.gdHeight + "px";
   });
-  window.addEventListener("load", function () {
-    var f = document.getElementById("gd-" + ID);
-    if (f && f.contentWindow) f.contentWindow.postMessage({ gdAsk: ID }, "*");
-  });
+
+  // --- ensancha el capítulo hasta el ancho real de la lección ---
+  // El contenedor de Elementor lo encierra en ~760px aunque la lección disponga de ~1100px,
+  // y con esos 760 el capítulo se arma en modo celular aun en la compu.
+  // Busca el ancestro más ancho que NO ocupe toda la pantalla (así nunca se mete debajo del
+  // sidebar del curso) y estira hasta ahí. Si algún día corregís el ancho en Elementor,
+  // podés borrar esta función entera: el resto sigue funcionando igual.
+  function ensanchar() {
+    var f = marco(); if (!f) return;
+    f.style.width = "100%"; f.style.marginLeft = ""; f.style.marginRight = "";
+    var vw = document.documentElement.clientWidth;
+    var r = f.getBoundingClientRect();
+    if (!r.width) return;
+    var mejor = r, n = f.parentElement;
+    while (n && n !== document.body) {
+      var cs = getComputedStyle(n);
+      if (cs.position !== "fixed" && cs.overflowX !== "hidden" && cs.overflowX !== "clip") {
+        var b = n.getBoundingClientRect();
+        // descarta los contenedores a pantalla completa: esos incluyen el sidebar
+        if (b.width < vw - 4 && b.width > mejor.width + 1) mejor = b;
+      }
+      n = n.parentElement;
+    }
+    if (mejor === r) return;                       // ya estaba al ancho máximo
+    f.style.width = Math.round(mejor.width) + "px";
+    f.style.marginLeft = -Math.round(r.left - mejor.left) + "px";
+    f.style.marginRight = -Math.round(mejor.right - r.right) + "px";
+    if (f.contentWindow) f.contentWindow.postMessage({ gdAsk: ID }, "*");
+  }
+
+  document.addEventListener("DOMContentLoaded", ensanchar);
+  window.addEventListener("load", ensanchar);
+  window.addEventListener("resize", ensanchar);
+  setTimeout(ensanchar, 400);
 })();
 </script>
