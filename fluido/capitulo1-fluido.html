@@ -292,6 +292,19 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   .dlg{grid-template-columns:minmax(0,1fr);gap:.15em}
   .dlg dt{color:var(--muted)}
 }
+/* cucarda: invita a pantalla completa cuando la lección queda angosta */
+.tip{display:flex;align-items:center;gap:clamp(9px,1.1vw,18px);flex-wrap:wrap;
+  padding:clamp(9px,1vw,15px) var(--pad);background:var(--tint-soft);
+  border-bottom:1px solid #CBE5E4}
+.tip__ic{font-size:clamp(15px,1.3vw,21px);color:var(--tint);flex:none;line-height:1}
+.tip p{margin:0;flex:1 1 200px;min-width:0;font-size:clamp(12.5px,1.02vw,16px);line-height:1.4}
+.tip p b{font-weight:600}
+.tip__x{background:none;border:0;color:var(--muted);font-size:20px;line-height:1;
+  cursor:pointer;padding:2px 6px;flex:none}
+.tip__x:hover{color:var(--ink)}
+/* el atributo hidden pierde contra display:flex si no se declara */
+.tip[hidden]{display:none}
+
 html:fullscreen{background:#fff;overflow:auto}
 html:fullscreen body{min-height:100vh}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -307,6 +320,13 @@ html:fullscreen body{min-height:100vh}
   <button class="btn btn--tint" data-go="next">Continuar →</button>
   <div class="hd__menu">☰</div>
 </header>
+
+<div class="tip" id="tip" hidden>
+  <span class="tip__ic">⛶</span>
+  <p><b>Se ve mejor en pantalla completa.</b> Vas a ver el capítulo con el diseño completo, sin la columna del curso al costado.</p>
+  <button class="btn btn--tint" id="tipgo" type="button">Ver en pantalla completa</button>
+  <button class="tip__x" id="tipx" type="button" aria-label="Cerrar aviso">&times;</button>
+</div>
 
 <!-- ============ 1 · portada ============ -->
 <section class="scr scr--flush on" data-scr="1">
@@ -690,6 +710,7 @@ html:fullscreen body{min-height:100vh}
     document.addEventListener(ev, function () {
       var on = !!(document.fullscreenElement || document.webkitFullscreenElement);
       full.textContent = on ? "⤡ Salir de pantalla completa" : "⛶ Pantalla completa";
+      verTip();
       setTimeout(post, 80);
     });
   });
@@ -734,6 +755,33 @@ html:fullscreen body{min-height:100vh}
       '<div class="prod__l"><img data-i="f_quest" alt=""><em>Pregunta de conexión</em></div><p class="qz">' + p[2] + '</p>' +
       '</article>';
   }).join("");
+
+  // ====== cucarda de pantalla completa ======
+  // Aparece sólo si el capítulo quedó angosto, no estamos ya en pantalla completa
+  // y el alumno no la cerró antes. Requiere que el navegador soporte fullscreen.
+  var tip = document.getElementById("tip");
+  var tipGo = document.getElementById("tipgo");
+  var tipX = document.getElementById("tipx");
+  var CLAVE = "gd-tip-" + CFG.id;
+  var ANCHO_MIN = 1280;   // por debajo de esto conviene pantalla completa
+
+  function hayFullscreen() { return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled); }
+  function enFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function cerrada() { try { return localStorage.getItem(CLAVE) === "1"; } catch (e) { return false; } }
+
+  function verTip() {
+    var mostrar = hayFullscreen() && !enFullscreen() && !cerrada() && window.innerWidth < ANCHO_MIN;
+    if (tip.hidden === !mostrar) return;
+    tip.hidden = !mostrar;
+    post();
+  }
+  tipGo.addEventListener("click", function () { full.click(); });
+  tipX.addEventListener("click", function () {
+    try { localStorage.setItem(CLAVE, "1"); } catch (e) {}
+    tip.hidden = true; post();
+  });
+  window.addEventListener("resize", verTip);
+  verTip();
 
   // ====== 6 · ejercicio 1: ordenar la respuesta ======
   var FRAGS = [
