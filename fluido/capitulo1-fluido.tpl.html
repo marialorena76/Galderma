@@ -277,6 +277,73 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
 .qcard{display:flex;flex-direction:column}
 
+
+/* ---- P5 genérico vs conecta ---- */
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
+.cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
+.chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
+.chat--bad{background:#111}
+.chat--good{background:var(--surface)}
+.chat__h{display:flex;align-items:center;gap:clamp(8px,.9vw,15px)}
+.chat__h img{width:clamp(26px,2.6vw,42px);border-radius:50%;background:#fff;padding:3px}
+.chat__h b{font-size:clamp(12.5px,1.2vw,18px);font-weight:600;letter-spacing:.02em}
+.chat--bad .chat__h b{color:#fff}
+.chat__b{border-radius:14px;padding:clamp(11px,1.15vw,19px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.5}
+.chat--bad .chat__b{background:#3A3A3A;color:#E4E4E4}
+.chat--good .chat__b{background:#fff;color:var(--ink)}
+.chat__t{align-self:flex-end;font-size:clamp(10.5px,.92vw,13.5px)}
+.chat--bad .chat__t{color:#9A9A9A}
+.chat--good .chat__t{color:var(--muted)}
+.tags{display:flex;flex-direction:column;gap:clamp(6px,.65vw,10px);margin-top:clamp(9px,1vw,15px)}
+.tag{display:flex;align-items:center;gap:clamp(8px,.85vw,14px);border-radius:99px;
+  padding:clamp(7px,.72vw,12px) clamp(11px,1.05vw,18px);font-size:clamp(12px,1.02vw,15.5px);line-height:1.3}
+.tag--bad{background:#111;color:#fff}
+.tag--good{background:var(--surface);color:var(--ink)}
+.tag i{flex:none;width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;
+  font-style:normal;font-size:.78em;font-weight:700}
+.tag--bad i{background:#E0653A;color:#fff}
+.tag--good i{border:2px solid var(--tint);color:var(--tint)}
+.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:var(--gap)}
+.change{display:flex;align-items:center;gap:clamp(10px,1.05vw,18px)}
+.change__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
+.change__ic img{width:clamp(22px,2.1vw,32px)}
+.change b{font-weight:500;line-height:1.35;font-size:clamp(13px,1.12vw,17px)}
+.keyrow{display:flex;align-items:center;gap:clamp(10px,1.15vw,20px)}
+.keyrow img{width:clamp(28px,2.7vw,42px);flex:none}
+.keyrow span{font-size:clamp(13px,1.12vw,17.5px);line-height:1.35}
+
+/* ---- P10 cierre y badge ---- */
+.done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
+  padding:clamp(26px,3.4vw,54px) var(--pad) clamp(24px,3vw,44px);
+  background:radial-gradient(closest-side,#E4F2F1,#fff 78%)}
+.badge{width:clamp(140px,16vw,225px);aspect-ratio:1;border-radius:50%;background:#2B2B2B;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12em;color:#fff;
+  margin-bottom:clamp(14px,2vw,30px);
+  box-shadow:0 0 0 clamp(5px,.6vw,9px) #fff, 0 0 0 clamp(10px,1.1vw,16px) #7FBFBD,
+             0 0 0 clamp(24px,2.8vw,42px) rgba(127,191,189,.26)}
+.badge__c{font-size:clamp(26px,2.9vw,44px);color:#4FB3B0;line-height:1}
+.badge__e{font-size:clamp(8.5px,.76vw,11.5px);letter-spacing:.14em;color:#A8C9C8}
+.badge__n{font-size:clamp(10.5px,1.03vw,15.5px);font-weight:600;padding:0 5%;line-height:1.25}
+.badge__l{font-size:clamp(10.5px,.92vw,13.5px);color:#B5B5B5}
+.done h1{font-size:clamp(25px,3.4vw,50px)}
+.done .lead{margin-inline:auto;text-align:center;max-width:56ch}
+.done__checks{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.6vw,34px)}
+.done__checks div{display:flex;align-items:center;gap:.45em;font-weight:600;font-size:clamp(12.5px,1.08vw,16.5px)}
+.done__checks i{color:var(--tint);font-style:normal}
+.insignia{background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(13px,1.35vw,24px) clamp(17px,1.9vw,34px);display:flex;flex-direction:column;gap:.28em;
+  max-width:min(100%,560px)}
+.insignia b{font-size:clamp(13px,1.25vw,18px);letter-spacing:.04em}
+.insignia strong{font-size:clamp(14.5px,1.35vw,20px);color:var(--tint)}
+.insignia span{color:var(--muted);font-size:clamp(12px,1.02vw,15.5px);line-height:1.45}
+.gen{width:min(100%,520px);display:flex;flex-direction:column;gap:.45em}
+.gen__bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.gen__bar i{display:block;height:100%;width:16.6%;background:var(--ink);border-radius:99px}
+@media (max-width:860px){
+  .cmp{grid-template-columns:minmax(0,1fr)}
+  .cmp__arrow{transform:rotate(90deg);justify-self:center}
+}
+
 /* ============ reflujo ============ */
 @media (max-width:1250px){ .chans{grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (max-width:1100px){ .case{grid-template-columns:minmax(0,1fr)} }
@@ -526,8 +593,71 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 5 · formula ============ -->
+<!-- ============ 5 · del mensaje generico al que conecta ============ -->
 <section class="scr" data-scr="5">
+  <h1>Del mensaje genérico al mensaje que conecta</h1>
+  <p class="lead">La misma consulta puede recibir dos respuestas completamente diferentes. Una cierra la conversación. La otra la abre.</p>
+  <div class="two" style="margin-top:var(--gap)">
+    <div class="stack">
+      <div class="cmp">
+        <div>
+          <div class="chat chat--bad">
+            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>RESPUESTA GENÉRICA</b></div>
+            <div class="chat__b">Hola. El precio de Dysport es $X por área. Cualquier consulta estamos a disposición. Saludos.</div>
+            <div class="chat__t">10.00</div>
+          </div>
+          <div class="tags">
+            <div class="tag tag--bad"><i>&times;</i>Impersonal</div>
+            <div class="tag tag--bad"><i>&times;</i>Centrada en el precio</div>
+            <div class="tag tag--bad"><i>&times;</i>No explora necesidades</div>
+            <div class="tag tag--bad"><i>&times;</i>No genera conversación</div>
+          </div>
+        </div>
+
+        <div class="cmp__arrow">&#10148;</div>
+
+        <div>
+          <div class="chat chat--good">
+            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>RESPUESTA QUE CONECTA</b></div>
+            <div class="chat__b">¡Hola! Gracias por escribirnos 👇<br>Dysport es uno de los tratamientos que más recomendamos para líneas de expresión. Los resultados suelen verse en pocos días y mantienen una apariencia natural.<br><b>Para orientarte mejor, ¿me contás qué zona te gustaría tratar?</b></div>
+            <div class="chat__t">10.30</div>
+          </div>
+          <div class="tags">
+            <div class="tag tag--good"><i>&#10003;</i>Hace preguntas</div>
+            <div class="tag tag--good"><i>&#10003;</i>Genera confianza</div>
+            <div class="tag tag--good"><i>&#10003;</i>Descubre motivaciones</div>
+            <div class="tag tag--good"><i>&#10003;</i>Invita a continuar</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h2 style="text-align:center;margin-bottom:var(--gap)">¿Qué cambia?</h2>
+        <div class="changes">
+          <div class="card change"><div class="change__ic"><img data-i="q6_lupa" alt=""></div><b>Comprender la intención del paciente.</b></div>
+          <div class="card change"><div class="change__ic"><img data-i="q6_corazon" alt=""></div><b>Conectar antes de informar.</b></div>
+          <div class="card change"><div class="change__ic"><img data-i="q6_chats" alt=""></div><b>Generar diálogo en lugar de responder automáticamente.</b></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <h2 style="text-align:center">Clave del capítulo</h2>
+      <div class="keyrow"><img data-i="k6_oreja" alt=""><span>El paciente siente que fue escuchado.</span></div>
+      <div class="keyrow"><img data-i="k6_personas" alt=""><span>La conversación continúa.</span></div>
+      <div class="keyrow"><img data-i="k6_pulgar" alt=""><span>Se genera confianza.</span></div>
+      <div class="keyrow"><img data-i="k6_dinero" alt=""><span>La respuesta deja de ser transaccional.</span></div>
+      <div class="keyrow"><img data-i="k6_llave" alt=""><span>La pregunta correcta abre oportunidades.</span></div>
+    </aside>
+  </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>Una respuesta efectiva no se limita a informar el precio: comprende la intención del paciente, genera confianza y abre la conversación.</p>
+  </div>
+</section>
+
+<!-- ============ 6 · formula ============ -->
+<section class="scr" data-scr="6">
   <h1>La fórmula que convierte una consulta en una conversación</h1>
   <p class="lead">Una buena respuesta no entrega información. Ayuda a descubrir qué necesita realmente el paciente.</p>
   <div class="two" style="margin-top:var(--gap)">
@@ -557,8 +687,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 6 · ejercicio 1 ============ -->
-<section class="scr" data-scr="6">
+<!-- ============ 7 · ejercicio 1 ============ -->
+<section class="scr" data-scr="7">
   <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
   <h1 style="margin-top:.2em">Ordená la respuesta</h1>
   <p class="lead">Arrastrá los fragmentos —o tocá uno y después el casillero— para construir una respuesta que genere conversación.</p>
@@ -595,8 +725,8 @@ html:fullscreen body{min-height:100vh}
   <div class="meta" style="margin-bottom:var(--gap)"><span>⏱ Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span></div>
 </section>
 
-<!-- ============ 7 · ejercicio 2 ============ -->
-<section class="scr" data-scr="7">
+<!-- ============ 8 · ejercicio 2 ============ -->
+<section class="scr" data-scr="8">
   <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
   <h1 style="margin-top:.2em">¿Qué canal usarías?</h1>
   <p class="lead">Cada canal requiere una forma distinta de responder. Elegí la mejor acción para cada situación.</p>
@@ -629,8 +759,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 8 · checkpoint ============ -->
-<section class="scr" data-scr="8">
+<!-- ============ 9 · checkpoint ============ -->
+<section class="scr" data-scr="9">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:var(--gap);flex-wrap:wrap">
     <div>
       <div class="eyebrow eyebrow--tint">Evaluación final</div>
@@ -648,9 +778,34 @@ html:fullscreen body{min-height:100vh}
     <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
     <p>Los pacientes no buscan únicamente información: buscan sentirse comprendidos. Las conversaciones que generan conexión comienzan con empatía, continúan con una pregunta y terminan guiando el siguiente paso.</p>
   </div>
-  <div style="display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap;margin-bottom:var(--gap)">
-    <button class="btn btn--ghost" data-go="prev">← Volver al capítulo</button>
-    <button class="btn btn--tint" id="finish">Finalizar capítulo →</button>
+</section>
+
+<!-- ============ 10 · cierre del capitulo ============ -->
+<section class="scr scr--flush" data-scr="10">
+  <div class="done">
+    <div class="badge">
+      <span class="badge__c">&#10003;</span>
+      <span class="badge__e">BADGE DESBLOQUEADO</span>
+      <span class="badge__n">Primera Impresión Pro</span>
+      <span class="badge__l">Nivel 1</span>
+    </div>
+    <h1>¡Capítulo 1 completado!</h1>
+    <p class="lead">Completaste el capítulo y dominás las bases para transformar el primer contacto en una conexión genuina.</p>
+    <div class="done__checks">
+      <div><i>&#10003;</i>Capítulo completado</div>
+      <div><i>&#10003;</i>Lecciones finalizadas</div>
+      <div><i>&#10003;</i>Competencia adquirida</div>
+    </div>
+    <div class="insignia">
+      <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
+      <strong>Primera Impresión Pro</strong>
+      <span>Tu capacidad para detectar la intención real del paciente fue validada.</span>
+    </div>
+    <div class="gen">
+      <div class="eyebrow">Progreso general</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">1 de 6 capítulos completados</div>
+      <div class="gen__bar"><i></i></div>
+    </div>
   </div>
 </section>
 
@@ -676,24 +831,27 @@ html:fullscreen body{min-height:100vh}
   // ====== configuración del capítulo ======
   var CFG = {
     id: "cap1",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
-    quizUrl: ""   // pegar acá el link al Quiz de LearnDash; vacío = el botón no navega
+    quizUrl: "",       // link al Quiz de LearnDash, si lo usás
+    siguienteUrl: ""   // link al Capítulo 2; vacío = el botón final no navega
   };
 
-  var TOTAL = 8, cur = 1;
+  var TOTAL = 10, cur = 1;
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Comenzar →", 2: "Iniciar lección →", 8: "Finalizar →" };
+  var ETIQUETA = { 1: "Comenzar →", 2: "Iniciar lección →", 9: "Ver mi resultado →", 10: "Ir al Capítulo 2 →" };
 
   var TITULOS = [
     "Portada",
     "Tu impacto comienza antes del primer mensaje",
     "¿Qué siente el paciente antes de escribir?",
     "Los canales de contacto",
+    "Del mensaje genérico al que conecta",
     "La fórmula de conexión",
     "Ejercicio 1 · Ordená la respuesta",
     "Ejercicio 2 · ¿Qué canal usarías?",
-    "Checkpoint final"
+    "Checkpoint final",
+    "Capítulo completado"
   ];
   var scrs  = [].slice.call(document.querySelectorAll(".scr"));
   var bar   = document.getElementById("bar");
@@ -701,7 +859,7 @@ html:fullscreen body{min-height:100vh}
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
   var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
-  var CAT_POR_PANTALLA = {1:1, 2:1, 3:1, 4:2, 5:3, 6:2, 7:4, 8:0}; // 0 = todas
+  var CAT_POR_PANTALLA = {1:1, 2:1, 3:1, 4:2, 5:2, 6:3, 7:2, 8:4, 9:0, 10:0}; // 0 = todas
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
@@ -723,7 +881,10 @@ html:fullscreen body{min-height:100vh}
     if (b.dataset.go === "next") { cur < TOTAL ? go(cur + 1) : finalizar(); }
     else go(cur - 1);
   });
-  function finalizar() { if (CFG.quizUrl) window.location.href = CFG.quizUrl; }
+  function finalizar() {
+    var destino = CFG.siguienteUrl || CFG.quizUrl;
+    if (destino) window.top.location.href = destino;   // sale del iframe, no navega adentro
+  }
 
   // pantalla completa: en la columna angosta de la lección es la forma de ver el layout de escritorio
   var full = document.getElementById("full");
@@ -743,8 +904,6 @@ html:fullscreen body{min-height:100vh}
       setTimeout(post, 80);
     });
   });
-  var fin = document.getElementById("finish");
-  if (fin) fin.addEventListener("click", finalizar);
 
   // ====== 4 · solapas de ejemplos ======
   var EJEMPLOS = [
