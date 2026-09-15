@@ -34,7 +34,22 @@ button{font:inherit}
 .hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
 .hd__bar i{display:block;height:100%;background:var(--tint);border-radius:99px;transition:width .3s}
 .hd__lec{font-size:clamp(10.5px,.88vw,14px);color:var(--muted);white-space:nowrap}
-.hd__menu{font-size:clamp(15px,1.3vw,22px);flex:none;color:var(--ink)}
+.hd__menu{font-size:clamp(15px,1.3vw,22px);flex:none;color:var(--ink);
+  background:none;border:0;padding:4px 7px;border-radius:8px;cursor:pointer;line-height:1;font-family:inherit}
+.hd__menu:hover,.hd__menu[aria-expanded="true"]{background:var(--surface)}
+
+/* índice del capítulo: le da función al ícono de menú */
+.idx{position:absolute;top:calc(100% + 6px);right:var(--pad);z-index:40;background:#fff;
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.16);
+  padding:6px;min-width:min(340px,86vw);max-width:min(420px,92vw);max-height:70vh;overflow:auto}
+.idx[hidden]{display:none}
+.idx button{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;
+  background:none;border:0;padding:10px 12px;border-radius:9px;cursor:pointer;
+  font-size:clamp(13px,1.05vw,15.5px);line-height:1.35;color:var(--ink);font-family:inherit}
+.idx button:hover{background:var(--surface)}
+.idx button[aria-current="true"]{background:var(--tint-soft);color:var(--tint);font-weight:600}
+.idx b{flex:none;width:1.5em;color:var(--muted);font-weight:600}
+.idx button[aria-current="true"] b{color:var(--tint)}
 
 /* ============ botones ============ */
 .btn{border:0;border-radius:99px;cursor:pointer;white-space:nowrap;
@@ -316,9 +331,10 @@ html:fullscreen body{min-height:100vh}
   <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
   <div class="hd__cap">Capítulo 1 de 6<b>Descubrimiento y Primer Contacto</b></div>
   <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
-  <div class="hd__lec">Lección 7 de 10</div>
-  <button class="btn btn--tint" data-go="next">Continuar →</button>
-  <div class="hd__menu">☰</div>
+  <div class="hd__lec" id="count">Pantalla 1 de 8</div>
+  <button class="hd__menu" id="menu" type="button" aria-expanded="false"
+          aria-controls="idx" aria-label="Índice del capítulo">☰</button>
+  <nav class="idx" id="idx" hidden></nav>
 </header>
 
 <div class="tip" id="tip" hidden>
@@ -341,7 +357,6 @@ html:fullscreen body{min-height:100vh}
       <h1>DESCUBRIMIENTO Y PRIMER CONTACTO</h1>
       <p class="lead">La experiencia del paciente comienza antes del primer mensaje.</p>
       <p class="hero__quote">“Antes de escribir, el paciente ya tomó una decisión.”</p>
-      <div><button class="btn btn--dark" data-go="next">Continuar formación →</button></div>
     </div>
   </div>
 </section>
@@ -381,7 +396,6 @@ html:fullscreen body{min-height:100vh}
       <span class="chip">Dysport®</span><span class="chip">Restylane®</span>
       <span class="chip">Sculptra®</span><span class="chip">Skinboosters®</span>
     </div>
-    <div><button class="btn btn--dark" data-go="next">Iniciar lección</button></div>
   </div>
 </section>
 
@@ -649,7 +663,6 @@ html:fullscreen body{min-height:100vh}
 
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
-  <span class="nav__count" id="count"></span>
   <button class="btn btn--ghost" id="full" type="button">⛶ Pantalla completa</button>
   <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
 </nav>
@@ -667,6 +680,21 @@ html:fullscreen body{min-height:100vh}
   };
 
   var TOTAL = 8, cur = 1;
+
+  // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
+  // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
+  var ETIQUETA = { 1: "Comenzar →", 2: "Iniciar lección →", 8: "Finalizar →" };
+
+  var TITULOS = [
+    "Portada",
+    "Tu impacto comienza antes del primer mensaje",
+    "¿Qué siente el paciente antes de escribir?",
+    "Los canales de contacto",
+    "La fórmula de conexión",
+    "Ejercicio 1 · Ordená la respuesta",
+    "Ejercicio 2 · ¿Qué canal usarías?",
+    "Checkpoint final"
+  ];
   var scrs  = [].slice.call(document.querySelectorAll(".scr"));
   var bar   = document.getElementById("bar");
   var count = document.getElementById("count");
@@ -680,9 +708,10 @@ html:fullscreen body{min-height:100vh}
     bar.style.width = (cur / TOTAL * 100) + "%";
     count.textContent = "Pantalla " + cur + " de " + TOTAL;
     prevB.disabled = cur === 1;
-    nextB.textContent = cur === TOTAL ? "Finalizar →" : "Continuar →";
+    nextB.textContent = ETIQUETA[cur] || "Continuar →";
     var activa = CAT_POR_PANTALLA[cur];
     cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
+    pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
   }
@@ -755,6 +784,34 @@ html:fullscreen body{min-height:100vh}
       '<div class="prod__l"><img data-i="f_quest" alt=""><em>Pregunta de conexión</em></div><p class="qz">' + p[2] + '</p>' +
       '</article>';
   }).join("");
+
+  // ====== índice del capítulo (el ícono ☰) ======
+  var menuBtn = document.getElementById("menu");
+  var idx = document.getElementById("idx");
+  idx.innerHTML = TITULOS.map(function (t, i) {
+    return '<button type="button" data-ir="' + (i + 1) + '"><b>' + (i + 1) + '</b><span>' + t + '</span></button>';
+  }).join("");
+
+  function pintarIdx() {
+    var b = idx.querySelectorAll("[data-ir]");
+    for (var i = 0; i < b.length; i++) b[i].setAttribute("aria-current", +b[i].dataset.ir === cur);
+  }
+  function abrirIdx(abrir) {
+    idx.hidden = !abrir;
+    menuBtn.setAttribute("aria-expanded", abrir ? "true" : "false");
+    post();
+  }
+  menuBtn.addEventListener("click", function (e) { e.stopPropagation(); abrirIdx(idx.hidden); });
+  idx.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ir]"); if (!b) return;
+    go(+b.dataset.ir); abrirIdx(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!idx.hidden && !idx.contains(e.target) && !menuBtn.contains(e.target)) abrirIdx(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !idx.hidden) abrirIdx(false);
+  });
 
   // ====== cucarda de pantalla completa ======
   // Aparece sólo si el capítulo quedó angosto, no estamos ya en pantalla completa
