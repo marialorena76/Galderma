@@ -1,0 +1,1367 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Capítulo 3 — Presupuesto y Propuesta de Tratamiento | Galderma</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --tint:#9A064E; --tint-soft:#F7E8EF; --ink:#1A1A1A; --muted:#737373;
+  --line:#E0E0E0; --surface:#F2F2F2; --dark:#222222; --card:#FFFFFF;
+  --bad:#C0392B; --bad-soft:#FDEEEE;
+  --pad:clamp(16px,3.2vw,44px);
+  --r:clamp(12px,1.1vw,18px);
+  --shadow:0 3px 16px rgba(0,0,0,.09);
+  --gap:clamp(12px,1.5vw,24px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);
+  font-family:'Poppins',system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+button{font:inherit}
+
+/* ============ cabecera ============ */
+.hd{display:flex;align-items:center;gap:clamp(10px,1.6vw,26px);
+  padding:12px var(--pad);border-bottom:1px solid var(--line);flex-wrap:wrap;
+  position:sticky;top:0;background:#fff;z-index:20}
+.hd__logo{height:clamp(19px,1.8vw,27px);width:auto;flex:none}
+.hd__cap{font-size:clamp(10.5px,.82vw,13px);color:var(--muted);line-height:1.35}
+.hd__cap b{display:block;font-size:clamp(12.5px,1vw,16px);color:var(--ink);font-weight:600}
+.hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.hd__bar i{display:block;height:100%;background:var(--tint);border-radius:99px;transition:width .3s}
+.hd__lec{font-size:clamp(10.5px,.88vw,14px);color:var(--muted);white-space:nowrap}
+.hd__menu{font-size:clamp(15px,1.3vw,22px);flex:none;color:var(--ink);
+  background:none;border:0;padding:4px 7px;border-radius:8px;cursor:pointer;line-height:1;font-family:inherit}
+.hd__menu:hover,.hd__menu[aria-expanded="true"]{background:var(--surface)}
+
+/* índice del capítulo: le da función al ícono de menú */
+.idx{position:absolute;top:calc(100% + 6px);right:var(--pad);z-index:40;background:#fff;
+  border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.16);
+  padding:6px;min-width:min(340px,86vw);max-width:min(420px,92vw);max-height:70vh;overflow:auto}
+.idx[hidden]{display:none}
+.idx button{display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;
+  background:none;border:0;padding:10px 12px;border-radius:9px;cursor:pointer;
+  font-size:clamp(13px,1.05vw,15.5px);line-height:1.35;color:var(--ink);font-family:inherit}
+.idx button:hover{background:var(--surface)}
+.idx button[aria-current="true"]{background:var(--tint-soft);color:var(--tint);font-weight:600}
+.idx b{flex:none;width:1.5em;color:var(--muted);font-weight:600}
+.idx button[aria-current="true"] b{color:var(--tint)}
+
+/* ============ botones ============ */
+.btn{border:0;border-radius:99px;cursor:pointer;white-space:nowrap;
+  padding:.62em 1.25em;font-weight:600;font-size:clamp(12px,.95vw,15px);line-height:1.2}
+.btn--tint{background:var(--tint);color:#fff}
+.btn--dark{background:var(--ink);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
+.btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ============ pantallas ============ */
+.scr{display:none;padding:clamp(18px,2.4vw,38px) var(--pad) 0}
+.scr.on{display:block}
+.scr--flush{padding:0}
+h1{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.1;
+  font-size:clamp(23px,3.1vw,44px);text-wrap:balance}
+h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);text-wrap:balance}
+.lead{margin:.45em 0 0;color:var(--muted);line-height:1.5;font-size:clamp(14.5px,1.3vw,20px);max-width:70ch}
+.eyebrow{font-size:clamp(10.5px,.85vw,13px);letter-spacing:.18em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.eyebrow--tint{color:var(--tint)}
+
+.card{background:var(--card);border-radius:var(--r);padding:clamp(14px,1.35vw,24px);box-shadow:var(--shadow)}
+.panel{background:var(--card);border-radius:clamp(14px,1.3vw,22px);box-shadow:var(--shadow);
+  padding:clamp(16px,1.7vw,28px);display:flex;flex-direction:column;gap:var(--gap)}
+.soft{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px)}
+
+/* barra de insight */
+.insight{margin:var(--gap) 0 clamp(18px,2.2vw,32px);background:var(--surface);border-radius:var(--r);
+  padding:clamp(13px,1.3vw,22px) clamp(15px,1.6vw,28px);
+  display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:clamp(10px,1.4vw,24px)}
+.insight img{width:clamp(30px,3vw,48px);background:#fff;border-radius:50%;padding:7px}
+.insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
+.insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
+
+/* pie de categorias */
+.ft{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(8px,1vw,16px);padding:clamp(11px,1.3vw,20px) var(--pad)}
+.ft div{display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1.05vw,17px);line-height:1.25;opacity:.55}
+.ft div.on{opacity:1}
+.ft[hidden]{display:none}
+.ft img{width:clamp(20px,2.1vw,32px);flex:none}
+
+/* barra de navegacion inferior */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:clamp(10px,1.2vw,16px) var(--pad);border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
+.nav__count{font-size:clamp(11.5px,1vw,14px);color:var(--muted)}
+
+/* utilidades de grilla */
+.two{display:grid;gap:var(--gap);grid-template-columns:minmax(0,1fr) clamp(290px,25vw,390px)}
+.stack{display:flex;flex-direction:column;gap:var(--gap)}
+.chips{display:flex;flex-wrap:wrap;gap:clamp(6px,.7vw,11px)}
+.chip{background:var(--surface);border-radius:99px;padding:.55em 1.1em;font-size:clamp(12px,1vw,16px)}
+
+/* ---- P1 portada ---- */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);min-height:clamp(380px,58vh,660px)}
+.hero__pic{position:relative;background:var(--surface)}
+.hero__pic img{width:100%;height:100%;object-fit:cover;object-position:52% 26%}
+.hero__bub{position:absolute;left:6%;bottom:16%;max-width:62%;background:rgba(255,255,255,.93);
+  border-radius:10px;padding:.7em 1em;font-size:clamp(11.5px,1vw,16px);line-height:1.4;backdrop-filter:blur(3px)}
+.hero__rate{position:absolute;left:26%;bottom:6%;background:rgba(255,255,255,.93);border-radius:10px;
+  padding:.5em .9em;font-size:clamp(11px,.95vw,15px);backdrop-filter:blur(3px)}
+.hero__txt{display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,1.5vw,24px);
+  padding:clamp(22px,3vw,52px) var(--pad)}
+.hero__txt h1{font-size:clamp(26px,3.6vw,52px)}
+.hero__pic--ilus{background:#fff;display:block;padding:clamp(10px,1.6vw,34px);
+  height:clamp(340px,64vh,640px);overflow:hidden}
+.hero__pic--ilus img{width:100%;height:100%;object-fit:contain;object-position:center}
+.hero__txt h1 em{font-style:normal;color:var(--tint)}
+.eyebrow--big{font-size:clamp(13px,1.35vw,21px);letter-spacing:.01em;text-transform:none;color:var(--muted)}
+.ftc{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
+  padding:clamp(11px,1.3vw,20px) var(--pad);text-align:center}
+.ftc span{font-size:clamp(10.5px,1.02vw,16px);letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
+.ftc span+span{border-left:1px solid rgba(255,255,255,.3)}
+.hero__quote{border-left:3px solid var(--ink);padding-left:.9em;font-size:clamp(15px,1.5vw,23px);line-height:1.45}
+
+/* ---- P2 video ---- */
+.vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden;
+  max-width:1020px;margin:0 auto}
+.s2{max-width:1020px;margin:var(--gap) auto 0;display:flex;flex-direction:column;gap:var(--gap)}
+.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:start}
+@media (max-width:820px){ .s2cols{grid-template-columns:minmax(0,1fr)} }
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.objs{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
+.objs img{width:clamp(26px,2.4vw,38px);flex:none}
+.idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
+.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
+.idea__t img{width:clamp(16px,1.4vw,22px)}
+.idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
+/* ---- reproductor en cadena (varios clips como si fueran uno) ---- */
+.vid__fb{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:#fff;
+  padding:clamp(16px,2vw,32px);font-size:clamp(13px,1.1vw,17px);line-height:1.5;background:#111}
+.vid.falla .vid__fb{display:grid}
+.vid__fb a{color:#fff}
+.reel{max-width:1020px;margin:clamp(10px,1.1vw,18px) auto 0;display:flex;flex-direction:column;
+  gap:clamp(7px,.8vw,12px)}
+.reel[hidden]{display:none}
+.reel__bar{display:flex;gap:2px;height:7px}
+.reel__seg{flex:1 1 0;background:var(--line);border-radius:99px;overflow:hidden;cursor:pointer;
+  border:0;padding:0;min-width:4px;position:relative}
+.reel__seg i{display:block;height:100%;width:0;background:var(--tint);border-radius:99px}
+.reel__seg:hover{outline:2px solid var(--tint-soft);outline-offset:2px}
+.reel__now{display:flex;align-items:baseline;gap:clamp(8px,1vw,16px);flex-wrap:wrap;
+  font-size:clamp(12px,1.02vw,15.5px);color:var(--muted)}
+.reel__now b{color:var(--tint);font-weight:600;white-space:nowrap}
+.reel__now span.t{color:var(--ink);flex:1 1 220px;min-width:0}
+.reel__now span.c{margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+
+/* ---- P3 diagrama ---- */
+.diag{display:grid;align-items:center;
+  grid-template-columns:minmax(0,1fr) clamp(26px,3.2vw,56px) minmax(0,clamp(160px,16vw,240px)) clamp(26px,3.2vw,56px) minmax(0,1fr);
+  grid-template-rows:1fr 1fr;gap:var(--gap) 0}
+.hub{grid-column:3;grid-row:1 / span 2;background:var(--surface);border-radius:50%;aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.35em;padding:8%;text-align:center}
+.hub img{width:clamp(46px,5vw,74px)}
+.hub span{font-weight:600;line-height:1.25;font-size:clamp(14px,1.5vw,21px)}
+.dcard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 clamp(9px,.9vw,16px);align-items:start}
+.dcard img{grid-row:1 / span 3;width:clamp(36px,3.8vw,58px);mix-blend-mode:multiply}
+.dcard h3{margin:0;font-weight:500;line-height:1.2;font-size:clamp(16px,1.45vw,21px)}
+.dcard .q{margin:.22em 0 0;line-height:1.35;font-size:clamp(13.5px,1.1vw,17px)}
+.dcard .d{margin:.45em 0 0;color:var(--muted);line-height:1.4;font-size:clamp(13px,1vw,15.5px)}
+.p1{grid-column:1;grid-row:1}.p2{grid-column:1;grid-row:2}
+.p3{grid-column:5;grid-row:1}.p4{grid-column:5;grid-row:2}
+.lnk{position:relative;align-self:stretch}
+.lnk::after{content:"";position:absolute;border-color:#D8D8D8;border-style:solid;border-width:0}
+.lnk::before{content:"";position:absolute;width:7px;height:7px;border-radius:50%;background:#D0D0D0;top:calc(50% - 3.5px)}
+.k1{grid-column:2;grid-row:1}.k2{grid-column:2;grid-row:2}
+.k3{grid-column:4;grid-row:1}.k4{grid-column:4;grid-row:2}
+.k1::after{inset:50% 0 0 0;border-top-width:2px;border-right-width:2px;border-top-right-radius:14px}
+.k2::after{inset:0 0 50% 0;border-bottom-width:2px;border-right-width:2px;border-bottom-right-radius:14px}
+.k3::after{inset:50% 0 0 0;border-top-width:2px;border-left-width:2px;border-top-left-radius:14px}
+.k4::after{inset:0 0 50% 0;border-bottom-width:2px;border-left-width:2px;border-bottom-left-radius:14px}
+.k1::before,.k2::before{left:-3.5px}.k3::before,.k4::before{right:-3.5px}
+.rowlist{display:flex;flex-direction:column;gap:clamp(9px,.95vw,15px)}
+.rowlist .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(9px,1vw,17px)}
+.rowlist img{width:clamp(24px,2.4vw,36px)}
+.rowlist span{font-size:clamp(13.5px,1.2vw,17px);line-height:1.3}
+.ok{width:clamp(17px,1.4vw,23px);aspect-ratio:1;border:2px solid var(--tint);border-radius:50%;
+  display:grid;place-items:center;color:var(--tint);font-size:clamp(9px,.8vw,12px);font-weight:700}
+
+/* ---- P4 canales ---- */
+.chans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.chan__h{display:flex;align-items:center;gap:clamp(8px,.9vw,14px);margin-bottom:.7em}
+.chan__h img{width:clamp(30px,2.9vw,46px);flex:none}
+.chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--surface);
+  color:var(--muted);display:grid;place-items:center;font-size:clamp(10px,.9vw,14px);font-weight:600;margin-left:auto;flex:none}
+.chan h3{margin:0 0 .55em;font-weight:500;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2}
+.chan__f{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(7px,.7vw,11px);align-items:start;margin-bottom:.55em}
+.chan__f img{width:clamp(16px,1.5vw,23px);margin-top:.15em}
+.chan__f p{margin:0;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
+.chan__f b{font-weight:600}
+.tabs{display:flex;flex-wrap:wrap;gap:clamp(5px,.6vw,9px);margin:.7em 0 1em}
+.tab{background:var(--surface);border:0;border-radius:99px;padding:.5em 1.1em;cursor:pointer;
+  font-size:clamp(12.5px,1.05vw,17px);color:var(--muted)}
+.tab[aria-selected=true]{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 -2px 0 var(--tint)}
+.dlg{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(9px,1vw,18px);align-items:start}
+.dlg dt{font-weight:600;font-size:clamp(12px,1vw,15px);white-space:nowrap}
+.dlg dd{margin:0;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
+.recall{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:start}
+.recall__ic{background:var(--surface);border-radius:12px;padding:clamp(8px,.8vw,13px);flex:none}
+.recall__ic img{width:clamp(22px,2.1vw,32px)}
+.recall b{display:block;font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
+.recall p{margin:.35em 0 0;color:var(--muted);font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
+.ins3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,26px);align-items:center}
+.ins3 div{display:flex;align-items:center;gap:clamp(8px,.9vw,15px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.35}
+.ins3 img{width:clamp(24px,2.2vw,34px);flex:none}
+
+/* ---- P5 formula ---- */
+.formula{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);
+  display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px);align-items:center}
+.formula__t{font-size:clamp(12px,1.15vw,18px);letter-spacing:.16em;font-weight:500;color:var(--ink)}
+.formula__row{display:flex;align-items:center;gap:clamp(6px,.8vw,14px);flex-wrap:wrap;justify-content:center;width:100%}
+.step{background:#fff;border-radius:99px;padding:clamp(8px,.85vw,14px) clamp(12px,1.3vw,26px);
+  display:flex;align-items:center;gap:clamp(8px,.9vw,16px);flex:1 1 200px;min-width:0}
+.step b{font-size:clamp(15px,1.5vw,23px);font-weight:600;color:var(--tint)}
+.step img{width:clamp(22px,2.1vw,34px);flex:none}
+.step span{font-size:clamp(11.5px,1vw,15px);letter-spacing:.06em;line-height:1.25}
+.arrow{color:#B5B5B5;font-size:clamp(14px,1.3vw,20px);flex:none}
+.prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:var(--gap)}
+.prod__l{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
+.prod__l img{width:clamp(17px,1.6vw,25px);flex:none}
+.prod__l em{font-style:normal;font-size:clamp(10.5px,.88vw,13px);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.prod h3{margin:0 0 .55em;font-weight:600;font-size:clamp(16px,1.5vw,23px)}
+.prod p{margin:0 0 .9em;font-size:clamp(13px,1.05vw,16px);line-height:1.45;color:#3A3A3A}
+.prod .qz{color:var(--ink)}
+.why{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
+.why__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
+.why__ic img{width:clamp(28px,2.6vw,42px)}
+.why b{font-weight:600;line-height:1.35;font-size:clamp(13.5px,1.15vw,18px)}
+
+/* ---- P6 ejercicio 1 ---- */
+.consigna{background:var(--surface);border-left:4px solid var(--tint);border-radius:0 var(--r) var(--r) 0;
+  padding:clamp(13px,1.3vw,22px) clamp(15px,1.5vw,26px)}
+.consigna p{margin:.3em 0 0;font-size:clamp(14.5px,1.3vw,20px);line-height:1.45}
+.ex1{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--gap)}
+.frag{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(11px,1.1vw,18px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:center;cursor:grab}
+.frag.sel{border-color:var(--tint);background:var(--tint-soft);box-shadow:0 0 0 2px rgba(154,6,78,.22)}
+.frag.drag{opacity:.35}
+.frag__l{font-weight:600;color:var(--tint);font-size:clamp(13px,1.1vw,16px);width:1.2em;text-align:center}
+.frag__t{font-size:clamp(13.5px,1.12vw,17px);line-height:1.4}
+.slot{border:1px solid var(--line);border-radius:var(--r);padding:clamp(11px,1.1vw,18px);min-height:3.2em;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:center;
+  background:#FAFAFA;transition:border-color .15s,background .15s}
+.slot.over{border-color:var(--tint);background:var(--tint-soft)}
+.slot.full{background:#fff;border-color:var(--tint);cursor:grab}
+.slot__n{font-weight:600;font-size:clamp(13px,1.1vw,17px);color:var(--muted);width:1.2em;text-align:center}
+.slot.full .slot__n{color:var(--tint)}
+.slot__ph{color:#A8A8A8;font-size:clamp(12.5px,1.05vw,16px)}
+.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:var(--surface)}
+.fb.good{background:var(--tint-soft);box-shadow:inset 0 0 0 1px var(--tint)}
+.fb.bad{background:var(--bad-soft);box-shadow:inset 0 0 0 1px #E08787}
+.fb p{margin:.35em 0 0;font-size:clamp(13.5px,1.12vw,17px);line-height:1.45}
+.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:.6em clamp(10px,1.2vw,22px);margin-top:.6em}
+.checks div{display:flex;align-items:center;gap:.5em;font-size:clamp(13px,1.1vw,17px)}
+.checks i{color:var(--tint);font-style:normal;font-weight:700}
+.meta{display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,18px);color:var(--muted);font-size:clamp(11.5px,1vw,14px)}
+
+/* ---- P7 ejercicio 2 ---- */
+.cases{display:flex;flex-direction:column;gap:var(--gap)}
+.case{border:1px solid var(--line);border-radius:var(--r);padding:clamp(13px,1.3vw,22px);
+  display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr);gap:clamp(11px,1.2vw,22px)}
+.case__tag{display:flex;align-items:center;gap:.45em;color:var(--tint);font-weight:600;
+  font-size:clamp(11px,.95vw,14px);margin-bottom:.4em}
+.case__tag img{width:clamp(14px,1.25vw,19px)}
+.case__q{font-size:clamp(14px,1.2vw,18px);line-height:1.4}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:clamp(8px,.8vw,13px);align-content:start}
+.opt{background:#fff;border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px);
+  cursor:pointer;text-align:left;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.35;color:#5A5A5A;
+  display:flex;gap:.55em;align-items:flex-start}
+.opt:hover:not(.done){border-color:#D9A8C2}
+.opt.right{border-color:var(--tint);background:var(--tint-soft);color:var(--ink)}
+.opt.wrong{border-color:#E08787;background:var(--bad-soft);color:#A13A3A}
+.opt.done{cursor:default}
+.opt i{font-style:normal;font-weight:700;flex:none}
+.keys .k{border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px)}
+.keys .k b{display:flex;align-items:center;gap:.45em;color:var(--tint);font-size:clamp(12.5px,1.05vw,16px)}
+.keys .k img{width:clamp(14px,1.25vw,19px)}
+.keys .k span{display:block;margin-top:.25em;font-size:clamp(12.5px,1.02vw,15.5px);color:var(--muted)}
+.bullets{margin:.4em 0 0;padding-left:1.1em}
+.bullets li{font-size:clamp(13px,1.1vw,16.5px);line-height:1.55}
+
+/* ---- P8 checkpoint ---- */
+.score{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:clamp(12px,1.2vw,20px);text-align:right}
+.score b{display:block;font-size:clamp(26px,2.8vw,42px);font-weight:600;line-height:1.1;color:var(--tint)}
+.score small{color:var(--muted);font-size:clamp(11px,.95vw,14px)}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:var(--gap)}
+.q__h{display:flex;align-items:center;gap:.6em;margin-bottom:.5em}
+.q__n{width:clamp(22px,2vw,32px);aspect-ratio:1;border-radius:50%;background:var(--tint);color:#fff;
+  display:grid;place-items:center;font-weight:600;font-size:clamp(11px,1vw,15px);flex:none}
+.q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
+.q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
+.q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
+.q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
+.qcard{display:flex;flex-direction:column}
+
+
+/* ---- P5 genérico vs conecta ---- */
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
+.cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
+.chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
+.chat--bad{background:#111}
+.chat--good{background:var(--surface)}
+.chat__h{display:flex;align-items:center;gap:clamp(8px,.9vw,15px)}
+.chat__h img{width:clamp(26px,2.6vw,42px);border-radius:50%;background:#fff;padding:3px}
+.chat__h b{font-size:clamp(12.5px,1.2vw,18px);font-weight:600;letter-spacing:.02em}
+.chat--bad .chat__h b{color:#fff}
+.chat__b{border-radius:14px;padding:clamp(11px,1.15vw,19px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.5}
+.chat--bad .chat__b{background:#3A3A3A;color:#E4E4E4}
+.chat--good .chat__b{background:#fff;color:var(--ink)}
+.chat__t{align-self:flex-end;font-size:clamp(10.5px,.92vw,13.5px)}
+.chat--bad .chat__t{color:#9A9A9A}
+.chat--good .chat__t{color:var(--muted)}
+.tags{display:flex;flex-direction:column;gap:clamp(6px,.65vw,10px);margin-top:clamp(9px,1vw,15px)}
+.tag{display:flex;align-items:center;gap:clamp(8px,.85vw,14px);border-radius:99px;
+  padding:clamp(7px,.72vw,12px) clamp(11px,1.05vw,18px);font-size:clamp(12px,1.02vw,15.5px);line-height:1.3}
+.tag--bad{background:#111;color:#fff}
+.tag--good{background:var(--surface);color:var(--ink)}
+.tag i{flex:none;width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;
+  font-style:normal;font-size:.78em;font-weight:700}
+.tag--bad i{background:#E0653A;color:#fff}
+.tag--good i{border:2px solid var(--tint);color:var(--tint)}
+.changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:var(--gap)}
+.change{display:flex;align-items:center;gap:clamp(10px,1.05vw,18px)}
+.change__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
+.change__ic img{width:clamp(22px,2.1vw,32px)}
+.change b{font-weight:500;line-height:1.35;font-size:clamp(13px,1.12vw,17px)}
+.keyrow{display:flex;align-items:center;gap:clamp(10px,1.15vw,20px)}
+.keyrow img{width:clamp(28px,2.7vw,42px);flex:none}
+.keyrow span{font-size:clamp(13px,1.12vw,17.5px);line-height:1.35}
+
+/* ---- P10 cierre y badge ---- */
+.done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
+  padding:clamp(26px,3.4vw,54px) var(--pad) clamp(24px,3vw,44px);
+  background:radial-gradient(closest-side,#F6E6EE,#fff 78%)}
+.badge{width:clamp(140px,16vw,225px);aspect-ratio:1;border-radius:50%;background:#2B2B2B;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12em;color:#fff;
+  margin-bottom:clamp(14px,2vw,30px);
+  box-shadow:0 0 0 clamp(5px,.6vw,9px) #fff, 0 0 0 clamp(10px,1.1vw,16px) #9A064E,
+             0 0 0 clamp(24px,2.8vw,42px) rgba(154,6,78,.16)}
+.badge__c{font-size:clamp(26px,2.9vw,44px);color:#FFFFFF;line-height:1}
+.badge__e{font-size:clamp(8.5px,.76vw,11.5px);letter-spacing:.14em;color:#D8AEC5}
+.badge__n{font-size:clamp(10.5px,1.03vw,15.5px);font-weight:600;padding:0 5%;line-height:1.25}
+.badge__l{font-size:clamp(10.5px,.92vw,13.5px);color:#B5B5B5}
+.done h1{font-size:clamp(25px,3.4vw,50px)}
+.done .lead{margin-inline:auto;text-align:center;max-width:56ch}
+.done__checks{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.6vw,34px)}
+.done__checks div{display:flex;align-items:center;gap:.45em;font-weight:600;font-size:clamp(12.5px,1.08vw,16.5px)}
+.done__checks i{color:var(--tint);font-style:normal}
+.insignia{background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(13px,1.35vw,24px) clamp(17px,1.9vw,34px);display:flex;flex-direction:column;gap:.28em;
+  max-width:min(100%,560px)}
+.insignia b{font-size:clamp(13px,1.25vw,18px);letter-spacing:.04em}
+.insignia strong{font-size:clamp(14.5px,1.35vw,20px);color:var(--tint)}
+.insignia span{color:var(--muted);font-size:clamp(12px,1.02vw,15.5px);line-height:1.45}
+.gen{width:min(100%,520px);display:flex;flex-direction:column;gap:.45em}
+.gen__bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.gen__bar i{display:block;height:100%;width:50%;background:var(--tint);border-radius:99px}
+@media (max-width:860px){
+  .cmp{grid-template-columns:minmax(0,1fr)}
+  .cmp__arrow{transform:rotate(90deg);justify-self:center}
+}
+
+/* ============ reflujo ============ */
+@media (max-width:1250px){ .chans{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:1100px){ .case{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:980px){ .two{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .hero__pic{aspect-ratio:4/3}
+  .hero__pic--ilus{aspect-ratio:auto;height:min(62vh,420px)}
+  .ftc{grid-template-columns:repeat(2,1fr);gap:clamp(8px,2vw,14px) 0}
+  .ftc span:nth-child(odd){border-left:0}
+  .ftc span:nth-child(-n+2){padding-bottom:clamp(7px,1.6vw,12px)}
+  .lnk{display:none}
+  .diag{grid-template-columns:minmax(0,1fr);grid-template-rows:none;gap:var(--gap)}
+  .hub{grid-column:1;grid-row:1;aspect-ratio:auto;border-radius:var(--r);
+    flex-direction:row;gap:.7em;text-align:left;padding:clamp(15px,3vw,22px)}
+  .hub img{width:42px}
+  .hub span{font-size:18px}
+  .p1,.p2,.p3,.p4{grid-column:1;grid-row:auto}
+  .insight{grid-template-columns:auto minmax(0,1fr);row-gap:8px}
+  .insight p{grid-column:1 / -1}
+  .ins3{grid-template-columns:minmax(0,1fr)}
+  .ft{grid-template-columns:repeat(2,1fr)}
+  .formula__row{flex-direction:column;align-items:stretch}
+  .arrow{transform:rotate(90deg);text-align:center}
+  .score{text-align:left}
+}
+@media (max-width:620px){
+  .chans{grid-template-columns:minmax(0,1fr)}
+  .ft{grid-template-columns:1fr}
+  .hd__bar{order:9;flex-basis:100%;min-width:0}
+  .hd__cap{flex:1}
+  .dlg{grid-template-columns:minmax(0,1fr);gap:.15em}
+  .dlg dt{color:var(--muted)}
+}
+/* cucarda: invita a pantalla completa cuando la lección queda angosta */
+.tip{display:flex;align-items:center;gap:clamp(9px,1.1vw,18px);flex-wrap:wrap;
+  padding:clamp(9px,1vw,15px) var(--pad);background:var(--tint-soft);
+  border-bottom:1px solid #EBD3E0}
+.tip__ic{font-size:clamp(15px,1.3vw,21px);color:var(--tint);flex:none;line-height:1}
+.tip p{margin:0;flex:1 1 200px;min-width:0;font-size:clamp(12.5px,1.02vw,16px);line-height:1.4}
+.tip p b{font-weight:600}
+.tip__x{background:none;border:0;color:var(--muted);font-size:20px;line-height:1;
+  cursor:pointer;padding:2px 6px;flex:none}
+.tip__x:hover{color:var(--ink)}
+/* el atributo hidden pierde contra display:flex si no se declara */
+.tip[hidden]{display:none}
+
+html:fullscreen{background:#fff;overflow:auto}
+html:fullscreen body{min-height:100vh}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== capítulo 2 ===== */
+/* p16 · una objeción no es un no */
+.obj2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);align-items:center}
+@media (max-width:900px){ .obj2{grid-template-columns:minmax(0,1fr)} }
+.obj2__q{font-family:Georgia,"Times New Roman",serif;font-size:clamp(17px,1.85vw,29px);line-height:1.45}
+.decir{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(8px,1vw,18px);align-items:center}
+@media (max-width:620px){ .decir{grid-template-columns:minmax(0,1fr)} .decir .decir__l{display:none} }
+.decir__c{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1vw,16px)}
+.decir__c.tint{background:var(--tint-soft);color:var(--tint)}
+.decir__c img{width:clamp(44px,4.6vw,76px)}
+.decir__c b{font-weight:400;font-size:clamp(15px,1.5vw,24px);line-height:1.3}
+.decir__l{height:3px;width:clamp(34px,4vw,70px);background:var(--tint);border-radius:99px}
+.pairs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(12px,1.4vw,26px) clamp(16px,2vw,44px)}
+@media (max-width:900px){ .pairs{grid-template-columns:minmax(0,1fr)} }
+.pair{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);gap:clamp(8px,1vw,16px);align-items:center}
+.pair img{width:clamp(30px,3vw,50px)}
+.pair__a{background:var(--surface);border-radius:6px;padding:clamp(10px,1vw,17px);text-align:center;
+  font-size:clamp(13px,1.1vw,17px);line-height:1.35}
+.pair__b{background:var(--tint-soft);color:var(--tint);border-radius:6px;padding:clamp(10px,1vw,17px);
+  text-align:center;font-size:clamp(13px,1.1vw,17px);line-height:1.35}
+.pair__l{height:1px;width:clamp(14px,1.6vw,30px);background:var(--tint)}
+
+/* p17 · la fórmula para responder */
+.pasos5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(8px,1vw,18px);align-items:end}
+@media (max-width:1150px){ .pasos5{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch} }
+@media (max-width:700px){ .pasos5{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:460px){ .pasos5{grid-template-columns:minmax(0,1fr)} }
+.paso{background:#fff;border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.09);
+  padding:clamp(13px,1.3vw,22px);display:flex;flex-direction:column;gap:clamp(7px,.8vw,13px)}
+.paso:last-child{background:var(--tint-soft);box-shadow:none}
+.paso__top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.paso__n{background:var(--tint);color:#fff;border-radius:7px;width:clamp(26px,2.4vw,38px);height:clamp(26px,2.4vw,38px);
+  display:grid;place-items:center;font-size:clamp(13px,1.15vw,18px);flex:none}
+.paso img{width:clamp(38px,3.8vw,62px)}
+.paso__t{color:var(--tint);letter-spacing:.1em;font-size:clamp(11.5px,1.05vw,16px);font-weight:500}
+.paso p{margin:0;font-size:clamp(12.5px,1.05vw,16px);line-height:1.4;color:var(--muted)}
+.evitar{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.5vw,28px);align-items:center}
+@media (max-width:640px){ .evitar{grid-template-columns:minmax(0,1fr)} }
+.evitar__h{display:flex;align-items:center;gap:clamp(8px,1vw,16px);font-weight:700;letter-spacing:.06em;
+  font-size:clamp(13px,1.2vw,19px)}
+.evitar__h img{width:clamp(30px,3vw,50px)}
+.evitar__l{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(7px,.8vw,12px)}
+.evitar__i{background:var(--dark);color:#fff;border-radius:99px;padding:clamp(7px,.75vw,12px) clamp(13px,1.3vw,22px);
+  display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1vw,15px);line-height:1.3}
+.evitar__i b{color:#E8A0C0;letter-spacing:.1em;font-weight:500;white-space:nowrap}
+.evitar__x{color:#E8A0C0;flex:none}
+
+/* p19 · informar no es vender */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+@media (max-width:900px){ .vs{grid-template-columns:minmax(0,1fr);gap:var(--gap)} .vs__b{border-left:0 !important} }
+.vs__a,.vs__b{padding:clamp(18px,2vw,38px);border-radius:var(--r)}
+.vs__a{background:var(--tint-soft)}
+.vs__b{background:var(--surface);border-left:3px solid var(--tint)}
+.vs__h{display:flex;align-items:center;gap:clamp(10px,1.2vw,22px);margin-bottom:clamp(14px,1.6vw,28px)}
+.vs__h img{width:clamp(44px,4.4vw,74px);background:#fff;border-radius:50%;padding:clamp(5px,.6vw,10px)}
+.vs__h span{letter-spacing:.1em;font-size:clamp(14px,1.4vw,23px)}
+.vs__a .vs__h span{color:var(--tint)}
+.vs ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:clamp(10px,1.2vw,20px)}
+.vs li{font-size:clamp(13.5px,1.15vw,18px);line-height:1.4}
+
+/* p20 · preparar al paciente */
+.pasos3{display:flex;flex-direction:column}
+.paso3{display:grid;grid-template-columns:auto minmax(0,1.1fr) minmax(0,1.6fr);gap:clamp(12px,1.6vw,34px);
+  align-items:center;padding:clamp(14px,1.6vw,28px) 0;border-top:1px solid var(--line)}
+@media (max-width:760px){ .paso3{grid-template-columns:auto minmax(0,1fr)} .paso3 em{grid-column:2} }
+.paso3 b{color:var(--tint);font-size:clamp(26px,3vw,50px);line-height:1;font-weight:700}
+.paso3 strong{font-size:clamp(15px,1.4vw,23px);font-weight:600}
+.paso3 em{font-style:normal;color:var(--muted);font-size:clamp(13.5px,1.15vw,18px);line-height:1.45}
+
+/* p22 · verdadero o falso */
+.vf{display:flex;flex-direction:column;gap:clamp(10px,1.2vw,20px)}
+.vfi{background:var(--surface);border-radius:var(--r);padding:clamp(13px,1.4vw,24px)}
+.vfi__h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.2vw,22px);align-items:center}
+.vfi__n{color:var(--tint);font-weight:700;font-size:clamp(16px,1.5vw,25px);width:1.2em;text-align:center}
+.vfi__t{font-size:clamp(14px,1.25vw,20px);line-height:1.35}
+.vfi__b{display:flex;gap:clamp(6px,.7vw,11px);flex:none}
+.vfi__b button{border:0;border-radius:99px;cursor:pointer;font:inherit;font-weight:600;
+  padding:clamp(6px,.7vw,11px) clamp(16px,1.7vw,30px);background:#fff;color:var(--muted)}
+.vfi__b button[data-v="V"]{background:var(--tint-soft);color:var(--tint)}
+.vfi__b button[data-v="F"]{background:var(--dark);color:#fff}
+.vfi__b button.pick{outline:3px solid var(--tint);outline-offset:2px}
+.vfi.listo .vfi__b button{cursor:default;opacity:.55}
+.vfi.listo .vfi__b button.pick{opacity:1}
+.vfi__f{margin-top:clamp(10px,1.1vw,18px);border:1px dashed var(--tint);border-radius:10px;
+  background:#fff;padding:clamp(11px,1.2vw,20px)}
+.vfi__f[hidden]{display:none}
+.vfi__f b{color:var(--tint);display:block;font-size:clamp(13.5px,1.15vw,18px)}
+.vfi__f span{font-size:clamp(12.5px,1.08vw,16.5px);line-height:1.45;color:var(--muted)}
+.vfi.mal .vfi__f{border-color:#E08787}
+.vfi.mal .vfi__f b{color:#A13A3A}
+@media (max-width:620px){ .vfi__h{grid-template-columns:auto minmax(0,1fr)} .vfi__b{grid-column:2} }
+
+/* ejercicio 1 de este capítulo: la consigna va dentro del casillero */
+.slot__q{font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.4;color:var(--muted)}
+.slot--par{grid-template-columns:auto minmax(0,1.3fr) minmax(0,1fr)}
+@media (max-width:760px){ .slot--par{grid-template-columns:auto minmax(0,1fr)} .slot--par .slot__drop{grid-column:2} }
+.slot__drop{border:1px dashed var(--line);border-radius:10px;min-height:2.8em;display:grid;place-items:center;
+  padding:clamp(8px,.9vw,14px);background:#fff;text-align:center}
+.slot.full .slot__drop{border-style:solid;border-color:var(--tint)}
+
+/* p18 · los tres casos */
+.casos3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(18px,2.2vw,44px)}
+.caso3 h2{font-size:clamp(17px,1.65vw,27px);margin:.15em 0 .7em}
+.caso3 p{margin:.2em 0 1.05em;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
+.caso3 .eyebrow{font-size:clamp(10px,.82vw,12.5px)}
+.caso3__r{display:block;width:clamp(22px,2.2vw,36px);height:2px;background:var(--tint);margin-bottom:clamp(10px,1.2vw,20px)}
+.caso3__no{color:#C0622B}
+.ex1h{display:flex;align-items:center;gap:clamp(10px,1.2vw,20px);margin-bottom:clamp(12px,1.3vw,22px)}
+.ex1h img{width:clamp(38px,3.6vw,60px);background:var(--surface);border-radius:50%;padding:clamp(7px,.8vw,13px);flex:none}
+.ex1h b{display:block;font-size:clamp(14.5px,1.3vw,21px)}
+.ex1h span{display:block;color:var(--muted);font-size:clamp(12px,1.02vw,15.5px);line-height:1.35}
+
+/* ===== capítulo 3 ===== */
+/* p29 · ¿qué es un plan de tratamiento? */
+.plan2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr) minmax(0,1fr);gap:clamp(12px,1.4vw,26px);align-items:stretch}
+@media (max-width:1150px){ .plan2{grid-template-columns:minmax(0,1fr)} }
+.pcard{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.09);
+  padding:clamp(15px,1.6vw,28px);display:flex;flex-direction:column;gap:clamp(11px,1.2vw,20px)}
+.pcard__h{display:flex;align-items:center;gap:clamp(10px,1.1vw,18px);flex-wrap:wrap}
+.pcard__n{background:var(--tint-soft);color:var(--tint);border-radius:50%;width:clamp(36px,3.4vw,56px);
+  height:clamp(36px,3.4vw,56px);display:grid;place-items:center;font-weight:700;font-size:clamp(15px,1.4vw,23px);flex:none}
+.pcard__t{font-weight:600;letter-spacing:.04em;font-size:clamp(14px,1.4vw,23px)}
+.enf{margin-left:auto;border-radius:99px;padding:clamp(6px,.65vw,11px) clamp(11px,1.1vw,18px);
+  display:flex;align-items:center;gap:.5em;font-size:clamp(10.5px,.92vw,14px);line-height:1.2;text-align:left}
+.enf--no{background:var(--dark);color:#fff}
+.enf--si{background:var(--tint-soft);color:var(--tint)}
+.enf i{font-style:normal;font-weight:700}
+.quote2{background:var(--surface);border-radius:var(--r);padding:clamp(13px,1.3vw,22px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(11px,1.2vw,20px);align-items:center}
+.quote2 img{width:clamp(34px,3.2vw,52px)}
+.quote2 p{margin:.2em 0;font-size:clamp(13px,1.1vw,17px);line-height:1.45}
+.rowi{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.rowi div{display:flex;align-items:center;gap:clamp(10px,1.1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
+.rowi img{width:clamp(28px,2.6vw,42px);flex:none}
+.valor{background:var(--tint-soft);border-radius:50%;aspect-ratio:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;padding:clamp(16px,2vw,40px);gap:clamp(8px,.9vw,15px);
+  align-self:center;width:100%}
+@media (max-width:1150px){ .valor{aspect-ratio:auto;border-radius:var(--r)} }
+.valor img{width:clamp(110px,13vw,215px)}
+.valor b{font-size:clamp(15px,1.5vw,24px);letter-spacing:.03em}
+.valor p{margin:0;font-size:clamp(12.5px,1.05vw,16px);line-height:1.45;color:var(--muted)}
+.prod2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(10px,1.1vw,18px)}
+@media (max-width:620px){ .prod2{grid-template-columns:minmax(0,1fr)} }
+.prod2 div{background:var(--surface);border-radius:10px;padding:clamp(12px,1.2vw,20px);
+  display:flex;flex-direction:column;gap:.6em;align-items:center;text-align:center}
+.prod2 img{height:clamp(22px,2.2vw,36px);width:auto;object-fit:contain}
+.prod2 p{margin:0;font-size:clamp(12px,1.02vw,16px);line-height:1.45;text-align:left}
+.mini3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1vw,16px);
+  border-top:1px solid var(--tint);padding-top:clamp(11px,1.2vw,20px)}
+@media (max-width:620px){ .mini3{grid-template-columns:minmax(0,1fr)} }
+.mini3 div{display:flex;align-items:center;gap:.6em;font-size:clamp(11px,.95vw,14.5px);line-height:1.3}
+.mini3 div+div{border-left:1px solid var(--line);padding-left:clamp(8px,1vw,16px)}
+@media (max-width:620px){ .mini3 div+div{border-left:0;padding-left:0} }
+.mini3 img{width:clamp(20px,1.9vw,30px);flex:none}
+.tri{display:grid;grid-template-columns:minmax(0,1.1fr) repeat(3,minmax(0,1fr));gap:clamp(10px,1.2vw,22px);
+  background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);align-items:center}
+@media (max-width:900px){ .tri{grid-template-columns:repeat(3,minmax(0,1fr))} .tri__t{grid-column:1/-1} }
+@media (max-width:560px){ .tri{grid-template-columns:minmax(0,1fr)} }
+.tri__t{color:var(--tint);font-weight:700;font-size:clamp(14px,1.3vw,21px);line-height:1.3}
+.tri__c{text-align:center;display:flex;flex-direction:column;align-items:center;gap:.45em}
+.tri__c+.tri__c{border-left:1px solid var(--tint)}
+@media (max-width:560px){ .tri__c+.tri__c{border-left:0;border-top:1px solid var(--tint);padding-top:.8em} }
+.tri__c img{width:clamp(26px,2.6vw,42px)}
+.tri__c b{font-size:clamp(12.5px,1.1vw,17px);letter-spacing:.04em}
+.tri__c span{color:var(--muted);font-size:clamp(11.5px,1vw,15px);line-height:1.35}
+.quien{background:var(--tint-soft);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);
+  display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.quien b{color:var(--tint);font-size:clamp(14px,1.3vw,21px)}
+.quien div{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
+.quien img{width:clamp(50px,5vw,82px);flex:none}
+.quien p{margin:0;font-size:clamp(13px,1.1vw,17px);line-height:1.5}
+
+/* p30 · la lógica de combinación */
+.comb{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.9fr);gap:clamp(12px,1.4vw,26px);align-items:start}
+@media (max-width:1050px){ .comb{grid-template-columns:minmax(0,1fr)} }
+.comb__l{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.09);
+  padding:clamp(16px,1.8vw,32px);text-align:center;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,24px);align-items:center}
+.comb__l h2{font-size:clamp(15px,1.5vw,25px);letter-spacing:.04em;margin:0}
+.comb__l img{width:min(100%,clamp(130px,14vw,230px))}
+.comb__l p{margin:0;font-size:clamp(13px,1.15vw,18px);line-height:1.5;text-align:left}
+.comb__r{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.6vw,28px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.5vw,30px);align-items:center}
+@media (max-width:820px){ .comb__r{grid-template-columns:minmax(0,1fr)} .comb__d{justify-self:center;max-width:320px} }
+.comb__d{width:clamp(170px,19vw,300px)}
+.pcs{display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
+.pc{background:#fff;border-radius:12px;padding:clamp(12px,1.2vw,20px)}
+.pc b{font-size:clamp(14px,1.25vw,20px)}
+.pc__k{display:block;letter-spacing:.07em;font-size:clamp(9.5px,.82vw,12.5px);font-weight:600;margin:.25em 0 .5em}
+.pc p{margin:0 0 .6em;font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.45}
+.pc__m{display:flex;flex-wrap:wrap;gap:clamp(10px,1.4vw,34px)}
+.pc__m div{display:flex;align-items:center;gap:.55em;font-size:clamp(11.5px,.98vw,15px);line-height:1.3;color:var(--muted)}
+.pc__m img{width:clamp(20px,1.9vw,30px);flex:none}
+.pc--dys b,.pc--dys .pc__k{color:#0C7D4D}
+.pc--res b,.pc--res .pc__k{color:#1B3A6B}
+.pc--scu b,.pc--scu .pc__k{color:var(--tint)}
+.pc--ski b,.pc--ski .pc__k{color:#E08A2B}
+
+/* p31 · frases que abren vs. cierran */
+.frases{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(12px,1.5vw,30px)}
+@media (max-width:860px){ .frases{grid-template-columns:minmax(0,1fr)} }
+.fr{border-radius:var(--r);padding:clamp(15px,1.7vw,32px);display:flex;flex-direction:column;gap:clamp(11px,1.2vw,22px)}
+.fr--no{background:var(--dark)}
+.fr--si{background:var(--surface)}
+.fr__h{display:flex;align-items:center;gap:clamp(10px,1.2vw,22px)}
+.fr__h span{letter-spacing:.06em;font-size:clamp(13px,1.3vw,21px)}
+.fr--no .fr__h span{color:#fff}
+.fr__h img{width:clamp(34px,3.2vw,54px)}
+.fr__x{width:clamp(34px,3.2vw,54px);aspect-ratio:1;border-radius:50%;border:2px solid var(--tint);
+  color:var(--tint);display:grid;place-items:center;font-size:clamp(16px,1.6vw,26px);flex:none;line-height:1}
+.fr q{display:block;border-radius:14px;padding:clamp(13px,1.4vw,24px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.5;quotes:none}
+.fr--no q{background:#6E6E6E;color:#fff}
+.fr--si q{background:#fff}
+
+/* p32 · ejercicio de opción única */
+.uno{display:flex;flex-direction:column;gap:clamp(9px,1vw,15px)}
+.uno button{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.2vw,20px);align-items:center;
+  text-align:left;background:#fff;border:1px solid var(--line);border-radius:var(--r);cursor:pointer;font:inherit;
+  padding:clamp(13px,1.3vw,22px)}
+.uno button i{font-style:normal;font-weight:700;color:var(--tint);font-size:clamp(14px,1.2vw,19px);width:1.1em;text-align:center}
+.uno button span{font-size:clamp(13.5px,1.15vw,18px);line-height:1.4}
+.uno button em{font-style:normal;font-weight:600;color:var(--tint);font-size:clamp(12.5px,1.1vw,17px);opacity:0}
+.uno.listo button{cursor:default}
+.uno button.right{border-color:var(--tint);background:var(--tint-soft)}
+.uno button.right em{opacity:1}
+.uno button.wrong{border-color:#E08787;background:var(--bad-soft)}
+.uno button.wrong em{opacity:1;color:#A13A3A}
+
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
+  <div class="hd__cap">Capítulo 3 de 6<b>Presupuesto y Propuesta de Tratamiento</b></div>
+  <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
+  <div class="hd__lec" id="count">Pantalla 1 de 8</div>
+  <button class="hd__menu" id="menu" type="button" aria-expanded="false"
+          aria-controls="idx" aria-label="Índice del capítulo">☰</button>
+  <nav class="idx" id="idx" hidden></nav>
+</header>
+
+<div class="tip" id="tip" hidden>
+  <span class="tip__ic">⛶</span>
+  <p><b>Se ve mejor en pantalla completa.</b> Vas a ver el capítulo con el diseño completo, sin la columna del curso al costado.</p>
+  <button class="btn btn--tint" id="tipgo" type="button">Ver en pantalla completa</button>
+  <button class="tip__x" id="tipx" type="button" aria-label="Cerrar aviso">&times;</button>
+</div>
+
+<!-- ============ 1 · portada ============ -->
+<section class="scr scr--flush on" data-scr="1">
+  <div class="hero">
+    <div class="hero__pic hero__pic--ilus">
+      <img data-i="ilus_portada" alt="Asesora presentando un plan de tratamiento a una paciente">
+    </div>
+    <div class="hero__txt">
+      <div><div class="eyebrow eyebrow--big">Capítulo 3</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
+      <h1>Presupuesto y<br>propuesta<br>de <em>Tratamiento</em></h1>
+      <p class="lead">Dejar de ‘pasar un precio’ y aprender a presentar un plan de tratamiento integral que genere valor.</p>
+    </div>
+  </div>
+  <div class="ftc">
+    <span>Precio vs. valor</span><span>Presentar un plan</span>
+    <span>Tratamiento integral</span><span>Educar sin prescribir</span>
+  </div>
+</section>
+
+<!-- ============ 2 · video ============ -->
+<section class="scr" data-scr="2">
+  <div class="vid" id="vid">
+    <div id="ytmount"></div>
+    <div class="vid__fb">No se pudo cargar el reproductor.
+      <a id="vidfb" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
+  </div>
+  <div class="reel" id="reel" hidden>
+    <div class="reel__bar" id="reelbar"></div>
+    <div class="reel__now">
+      <b id="reelnum"></b><span class="t" id="reeltit"></span><span class="c" id="reeltime"></span>
+    </div>
+  </div>
+
+  <div class="s2">
+    <div>
+      <div class="eyebrow">Módulo 3 · Presupuesto y Propuesta de Tratamiento</div>
+      <h1 style="margin-top:.3em">Cómo pienso un plan de tratamiento</h1>
+      <p class="lead">En este video, un médico referente explica cómo piensa un plan de tratamiento y cómo el equipo puede acompañar ese proceso desde su rol.</p>
+    </div>
+
+    <div class="s2cols">
+      <div>
+        <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este video</div>
+        <div class="objs">
+          <div><img data-i="v3_a" alt="">Comprender por qué un tratamiento estético no se piensa como un producto aislado.</div>
+          <div><img data-i="v3_b" alt="">Reconocer la lógica de un plan de tratamiento integral y la combinación de soluciones.</div>
+          <div><img data-i="v3_c" alt="">Entender cómo el equipo puede preparar al paciente para la consulta sin vender ni prescribir.</div>
+        </div>
+      </div>
+      <div class="idea">
+        <div class="idea__t"><img data-i="v3_star" alt="">Idea clave</div>
+        <p>Un tratamiento estético nunca es un producto solo. Es un plan que responde a las necesidades de cada paciente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · ¿qué es un plan de tratamiento? (p29) ============ -->
+<section class="scr" data-scr="3">
+  <h1>¿Qué es un plan de tratamiento?</h1>
+  <p class="lead">De una respuesta puntual a una propuesta con sentido.</p>
+
+  <div class="plan2" style="margin-top:var(--gap)">
+    <div class="pcard">
+      <div class="pcard__h"><span class="pcard__n">01</span><span class="pcard__t">PASAR UN PRECIO</span>
+        <span class="enf enf--no"><i>✕</i>ENFOQUE<br>LIMITADO</span></div>
+      <div class="quote2"><img data-i="t3_tag" alt="">
+        <div><p>“El Dysport sale $X por área.”</p><p>“Sculptra son 3 sesiones, cada una a $Y.”</p></div></div>
+      <div class="rowi">
+        <div><img data-i="t3_chat" alt="">Habla principalmente de cuánto cuesta</div>
+        <div><img data-i="t3_balanza" alt="">Facilita la comparación con otras clínicas</div>
+        <div><img data-i="t3_persona" alt="">No ayuda a comprender qué necesita el paciente</div>
+      </div>
+    </div>
+
+    <div class="valor">
+      <img data-i="t3_valor" alt="De un precio a un valor">
+      <b>DEL PRECIO AL VALOR</b>
+      <p>El paciente no solo necesita saber cuánto cuesta. Necesita comprender qué puede aportar el tratamiento y cómo se adapta a cada persona.</p>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard__h"><span class="pcard__n">02</span><span class="pcard__t">PRESENTAR UN PLAN</span>
+        <span class="enf enf--si"><i>✓</i>ENFOQUE<br>INTEGRAL</span></div>
+      <div class="prod2">
+        <div><img data-i="logo_dysport" alt="Dysport">
+          <p>Puede ayudar a suavizar las líneas de expresión. El médico va a evaluar qué zonas son relevantes para tu caso.</p></div>
+        <div><img data-i="logo_sculptra" alt="Sculptra">
+          <p>Trabaja de manera progresiva. El médico define el plan según las características y necesidades de tu piel.</p></div>
+      </div>
+      <div class="mini3">
+        <div><img data-i="t3_i1" alt="">Habla de lo que logra, cuánto dura.</div>
+        <div><img data-i="t3_i2" alt="">Explica cómo se personaliza el plan.</div>
+        <div><img data-i="t3_i3" alt="">Genera diferenciación por enfoque y experiencia.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:var(--gap);align-items:stretch">
+    <div class="tri">
+      <div class="tri__t">UN PRECIO HABLA DE COSTO.<br>UN PLAN EXPLICA VALOR.</div>
+      <div class="tri__c"><img data-i="t3_jar" alt=""><b>PRODUCTO</b><span>Qué solución se presenta.</span></div>
+      <div class="tri__c"><img data-i="t3_nec" alt=""><b>NECESIDAD</b><span>Qué busca mejorar el paciente.</span></div>
+      <div class="tri__c"><img data-i="t3_plan" alt=""><b>PLAN</b><span>Qué define el médico según su evaluación.</span></div>
+    </div>
+    <div class="quien">
+      <b>¿QUIÉN DEFINE EL PLAN?</b>
+      <div><img data-i="t3_equipo" alt="">
+        <p>El equipo acompaña con información.<br>El médico evalúa y define.</p></div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>La mayoría de los centros pasan un precio. Los centros que fidelizan presentan un plan. La diferencia es enorme.</p>
+  </div>
+</section>
+
+<!-- ============ 4 · no es un producto, es un enfoque (p30) ============ -->
+<section class="scr" data-scr="4">
+  <h1>No es un producto. Es un enfoque.</h1>
+  <p class="lead">La combinación permite abordar distintas necesidades en un mismo plan.</p>
+
+  <div class="comb" style="margin-top:var(--gap)">
+    <div class="comb__l">
+      <h2>LA LÓGICA DE COMBINACIÓN</h2>
+      <img data-i="l3_art" alt="">
+      <p>Esta placa no busca que la asesora explique bioquímica. Busca que entienda la lógica de combinación para poder <b>contextualizar — sin prometer ni prescribir.</b></p>
+    </div>
+
+    <div class="comb__r">
+      <img class="comb__d" data-i="d3_donut" alt="Tratamientos que se complementan para resultados reales">
+      <div class="pcs">
+        <div class="pc pc--dys"><b>Dysport®</b><span class="pc__k">RELAJA | SUAVIZA | PREVIENE</span>
+          <p>Neuromodulador. Relaja los músculos que generan arrugas de expresión (frente, entrecejo, patas de gallo).</p>
+          <div class="pc__m">
+            <div><img data-i="m3_reloj" alt="">Resultados en 48 horas.</div>
+            <div><img data-i="m3_cal" alt="">Duración: hasta 6 meses.</div></div></div>
+        <div class="pc pc--res"><b>Restylane®</b><span class="pc__k">RELLENA | DA VOLUMEN | ARMONIZA</span>
+          <p>Ácido hialurónico. Rellena y da volumen en zonas específicas — labios, ojeras, surcos.</p>
+          <div class="pc__m">
+            <div><img data-i="m3_reloj" alt="">Resultados inmediatos.</div>
+            <div><img data-i="m3_cal" alt="">Duración: 6-18 meses según la zona.</div></div></div>
+        <div class="pc pc--scu"><b>Sculptra®</b><span class="pc__k">REGENERA | ESTIMULA | REESTRUCTURA</span>
+          <p>Bioestimulador de colágeno. Regenera la estructura de la piel desde adentro.</p>
+          <div class="pc__m">
+            <div><img data-i="m3_reloj" alt="">Resultados progresivos (semanas).</div>
+            <div><img data-i="m3_cal" alt="">Duración: más de 2 años.</div></div></div>
+        <div class="pc pc--ski"><b>Restylane Skinboosters®</b><span class="pc__k">HIDRATA | ILUMINA | MEJORA CALIDAD</span>
+          <p>Hidratación profunda e iluminación. Mejora la calidad y textura de la piel. Ideal como mantenimiento.</p>
+          <div class="pc__m">
+            <div><img data-i="m3_reloj" alt="">Resultados graduales.</div>
+            <div><img data-i="m3_cal" alt="">Duración: según el tratamiento.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>La asesora menciona los productos en contexto de beneficio, nunca prescribe. <b>“Eso lo define el médico según tu caso”</b> es siempre la frase de cierre.</p>
+  </div>
+</section>
+
+<!-- ============ 5 · frases que abren vs. cierran (p31) ============ -->
+<section class="scr" data-scr="5">
+  <h1>Frases que abren vs. frases que cierran la conversación</h1>
+  <p class="lead">La forma en que hablamos de los tratamientos también genera confianza.</p>
+
+  <div class="frases" style="margin-top:var(--gap)">
+    <div class="fr fr--no">
+      <div class="fr__h"><span class="fr__x">✕</span><span>ORIENTACIÓN INSUFICIENTE</span></div>
+      <q>“El precio de Sculptra son 3 sesiones a $X cada una.”</q>
+      <q>“No te puedo decir cuánto te va a salir sin hablar con el médico.”</q>
+      <q>“Mirá, con $X podés hacer Dysport en frente y entrecejo.”</q>
+    </div>
+    <div class="fr fr--si">
+      <div class="fr__h"><img data-i="c3_ok" alt=""><span>ORIENTACIÓN ADECUADA</span></div>
+      <q>“Sculptra es un tratamiento que regenera el colágeno propio — los resultados se ven en semanas y duran más de 2 años. El costo depende del plan que el médico arme para vos según tu piel hoy.”</q>
+      <q>“Para darte una idea más exacta del plan y los costos, lo mejor es la consulta con el médico, que es sin compromiso. Ahí te va a explicar qué necesitás y por qué.”</q>
+      <q>“Dysport es ideal para las arrugas de expresión — frente, entrecejo, patas de gallo. Los resultados se ven en 48 horas. El médico te va a decir exactamente qué zonas tienen más sentido para lo que buscás.”</q>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>Una orientación profesional entrega información relevante, sin convertirla en una recomendación clínica.</p>
+  </div>
+</section>
+
+<!-- ============ 6 · ejercicio 1 · armá el plan (p32) ============ -->
+<section class="scr" data-scr="6">
+  <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
+  <h1 style="margin-top:.2em">Armá el plan</h1>
+  <p class="lead">Seleccioná la opción que podría formar parte del plan que definirá el médico.</p>
+
+  <div class="consigna" style="margin-top:var(--gap)">
+    <div class="eyebrow">Consigna</div>
+    <p>Una paciente de 48 años dice: <b>“Quiero verme más descansada y con mejor calidad de piel. No quiero nada exagerado.”</b><br>¿Qué productos mencionarías como parte del plan que va a definir el médico?</p>
+  </div>
+
+  <div class="eyebrow" style="margin:var(--gap) 0 .8em">Fragmentos disponibles</div>
+  <div class="uno" id="uno"></div>
+
+  <div class="fb" id="unofb" style="margin-top:var(--gap)">
+    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <p>Elegí una opción para ver la devolución.</p>
+  </div>
+  <div class="meta" style="margin-top:var(--gap)">
+    <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
+  </div>
+</section>
+
+<!-- ============ 7 · ejercicio 2 · ¿esto suma o resta? (p33) ============ -->
+<section class="scr" data-scr="7">
+  <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
+  <h1 style="margin-top:.2em">¿Esto suma o resta?</h1>
+  <p class="lead">Leé cada frase de la asesora y seleccioná si suma valor en la conversación o genera rechazo.</p>
+  <div class="eyebrow" style="margin:var(--gap) 0 .8em">Fragmentos disponibles</div>
+  <div class="vf" id="vf"></div>
+  <div class="meta" style="margin-top:var(--gap)">
+    <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
+  </div>
+</section>
+
+<!-- ============ 8 · checkpoint (p34) ============ -->
+<section class="scr" data-scr="8">
+  <div style="display:flex;justify-content:space-between;gap:var(--gap);flex-wrap:wrap;align-items:flex-start">
+    <div>
+      <div class="eyebrow eyebrow--tint">Evaluación final</div>
+      <h1 style="margin-top:.2em">Checkpoint final</h1>
+      <p class="lead">Respondé las 4 preguntas para completar el capítulo y desbloquear la siguiente etapa.</p>
+    </div>
+    <div class="score"><div class="eyebrow">Puntaje parcial</div><b id="score">0 / 4</b>
+      <small id="scoremsg">Completá correctamente las preguntas para aprobar.</small></div>
+  </div>
+  <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <p>La información clara y equilibrada genera confianza. Enfocarse únicamente en el precio o en una opción específica puede limitar la conversación.</p>
+  </div>
+</section>
+
+<!-- ============ 9 · capítulo completado (p35) ============ -->
+<section class="scr scr--flush" data-scr="9">
+  <div class="done">
+    <div class="badge">
+      <span class="badge__c">&#10003;</span>
+      <span class="badge__e">BADGE DESBLOQUEADO</span>
+      <span class="badge__n">Presupuesto y Propuesta de Tratamiento</span>
+      <span class="badge__l">Nivel 3</span>
+    </div>
+    <h1>¡Capítulo 3 completado!</h1>
+    <p class="lead">Contás con una mirada más estratégica para presentar propuestas de tratamiento y acompañar la conversación con el paciente.</p>
+    <div class="done__checks">
+      <div><i>&#10003;</i>Capítulo completado</div>
+      <div><i>&#10003;</i>Lecciones finalizadas</div>
+      <div><i>&#10003;</i>Competencia adquirida</div>
+    </div>
+    <div class="insignia">
+      <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
+      <strong>Estratega de Tratamientos</strong>
+      <span>Aprendiste a reconocer las necesidades del paciente y conectar cada opción con una propuesta clara, sin prescribir y respetando la evaluación médica.</span>
+    </div>
+    <div class="gen">
+      <div class="eyebrow">Progreso general</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">3 de 6 capítulos completados</div>
+      <div class="gen__bar"><i></i></div>
+    </div>
+  </div>
+</section>
+
+<footer class="ft" id="ft">
+  <div data-cat="1"><img data-i="nav_persona" alt="">Experiencia del paciente</div>
+  <div data-cat="2"><img data-i="nav_chat" alt="">Comunicación efectiva</div>
+  <div data-cat="3"><img data-i="nav_escudo" alt="">Confianza y credibilidad</div>
+  <div data-cat="4"><img data-i="nav_target" alt="">Conversión ética</div>
+</footer>
+
+<nav class="nav">
+  <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
+  <button class="btn btn--ghost" id="full" type="button">⛶ Pantalla completa</button>
+  <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+
+  var IMGS = __IMGS__;
+
+  // ====== configuración del capítulo ======
+  var CFG = {
+    id: "cap3",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
+    quizUrl: "",       // link al Quiz de LearnDash, si lo usás
+    siguienteUrl: ""   // link al Capítulo 2; vacío = el botón final no navega
+  };
+  // Clips del capítulo. Varios bloques se reproducen encadenados, como si fueran un solo video.
+  // s = duración en segundos (solo sirve para que la barra sea proporcional).
+  var VIDEO = {
+    bloques: [
+      { id:"0ECxTi1-4J4", t:"Melissa Gaitan Buelvas · Presentación / por qué medicina estética", s:33 },
+      { id:"LuNj8OmMAVk", t:"Dr. Gustavo Bressan · Presentación / trayectoria", s:78 },
+      { id:"JmUUaTcnY5E", t:"Dra. Valeria Bárbaro · Presentación / por qué medicina estética", s:35 },
+      { id:"JGoxfobTzTc", t:"Dr. Gustavo Bressan · Cómo llegan los pacientes", s:38 },
+      { id:"xzBXQxZCDEg", t:"Dra. Valeria Bárbaro · De lo puntual al abordaje integral", s:33 },
+      { id:"aTSMd7HuBgg", t:"Dr. Gustavo Bressan · Abordaje integral, no vender", s:60 },
+      { id:"XnYgHHXtUkA", t:"Dra. Valeria Bárbaro · Miedo a inyectables, resultados naturales", s:30 },
+      { id:"naumOqoAeg4", t:"Melissa Gaitan Buelvas · Cómo educar a tu paciente", s:50 },
+      { id:"r-zRsCC-GBw", t:"Dra. Valeria Bárbaro · Paciente con miedo: empezar de a poco", s:50 },
+      { id:"G-Vl9K1hENw", t:"Dr. Gustavo Bressan · Expectativas y miedos", s:43 },
+      { id:"qslEDrcN9j0", t:"Dra. Valeria Bárbaro · Resultados no inmediatos", s:32 },
+      { id:"WBnlR6lhUP0", t:"Melissa Gaitan Buelvas · Expectativa vs. realidad", s:60 },
+      { id:"HvFjhnMZcBE", t:"Dra. Valeria Bárbaro · Resultado del protocolo completo", s:24 }
+    ]
+  };
+
+
+  var TOTAL = 9, cur = 1;
+
+  // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
+  // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 4 →" };
+
+  var TITULOS = [
+    "Portada",
+    "Cómo pienso un plan de tratamiento",
+    "¿Qué es un plan de tratamiento?",
+    "No es un producto. Es un enfoque.",
+    "Frases que abren vs. frases que cierran",
+    "Ejercicio 1 · Armá el plan",
+    "Ejercicio 2 · ¿Esto suma o resta?",
+    "Checkpoint final",
+    "Capítulo completado"
+  ];
+  var scrs  = [].slice.call(document.querySelectorAll(".scr"));
+  var bar   = document.getElementById("bar");
+  var count = document.getElementById("count");
+  var prevB = document.getElementById("prev");
+  var nextB = document.getElementById("next");
+  var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
+  var CAT_POR_PANTALLA = {1:1, 2:1, 3:4, 4:3, 5:2, 6:4, 7:2, 8:0, 9:0}; // 0 = todas
+
+  function render() {
+    scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
+    bar.style.width = (cur / TOTAL * 100) + "%";
+    count.textContent = "Pantalla " + cur + " de " + TOTAL;
+    prevB.disabled = cur === 1;
+    nextB.textContent = ETIQUETA[cur] || "Continuar →";
+    var activa = CAT_POR_PANTALLA[cur];
+    cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
+    var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
+    pintarIdx();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    post();
+  }
+  function go(n) { if (n >= 1 && n <= TOTAL) { cur = n; render(); } }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-go]");
+    if (!b) return;
+    if (b.dataset.go === "next") { cur < TOTAL ? go(cur + 1) : finalizar(); }
+    else go(cur - 1);
+  });
+  function finalizar() {
+    var destino = CFG.siguienteUrl || CFG.quizUrl;
+    if (destino) window.top.location.href = destino;   // sale del iframe, no navega adentro
+  }
+
+  // pantalla completa: en la columna angosta de la lección es la forma de ver el layout de escritorio
+  var full = document.getElementById("full");
+  full.addEventListener("click", function () {
+    var el = document.documentElement;
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    } else {
+      (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+    }
+  });
+  ["fullscreenchange","webkitfullscreenchange"].forEach(function (ev) {
+    document.addEventListener(ev, function () {
+      var on = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      full.textContent = on ? "⤡ Salir de pantalla completa" : "⛶ Pantalla completa";
+      verTip();
+      setTimeout(post, 80);
+    });
+  });
+
+  // ====== índice del capítulo (el ícono ☰) ======
+  var menuBtn = document.getElementById("menu");
+  var idx = document.getElementById("idx");
+  idx.innerHTML = TITULOS.map(function (t, i) {
+    return '<button type="button" data-ir="' + (i + 1) + '"><b>' + (i + 1) + '</b><span>' + t + '</span></button>';
+  }).join("");
+
+  function pintarIdx() {
+    var b = idx.querySelectorAll("[data-ir]");
+    for (var i = 0; i < b.length; i++) b[i].setAttribute("aria-current", +b[i].dataset.ir === cur);
+  }
+  function abrirIdx(abrir) {
+    idx.hidden = !abrir;
+    menuBtn.setAttribute("aria-expanded", abrir ? "true" : "false");
+    post();
+  }
+  menuBtn.addEventListener("click", function (e) { e.stopPropagation(); abrirIdx(idx.hidden); });
+  idx.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-ir]"); if (!b) return;
+    go(+b.dataset.ir); abrirIdx(false);
+  });
+  document.addEventListener("click", function (e) {
+    if (!idx.hidden && !idx.contains(e.target) && !menuBtn.contains(e.target)) abrirIdx(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !idx.hidden) abrirIdx(false);
+  });
+
+  // ====== cucarda de pantalla completa ======
+  // Aparece sólo si el capítulo quedó angosto, no estamos ya en pantalla completa
+  // y el alumno no la cerró antes. Requiere que el navegador soporte fullscreen.
+  var tip = document.getElementById("tip");
+  var tipGo = document.getElementById("tipgo");
+  var tipX = document.getElementById("tipx");
+  var CLAVE = "gd-tip-" + CFG.id;
+  var ANCHO_MIN = 1280;   // por debajo de esto conviene pantalla completa
+
+  function hayFullscreen() { return !!(document.fullscreenEnabled || document.webkitFullscreenEnabled); }
+  function enFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function cerrada() { try { return localStorage.getItem(CLAVE) === "1"; } catch (e) { return false; } }
+
+  function verTip() {
+    var mostrar = hayFullscreen() && !enFullscreen() && !cerrada() && window.innerWidth < ANCHO_MIN;
+    if (tip.hidden === !mostrar) return;
+    tip.hidden = !mostrar;
+    post();
+  }
+  tipGo.addEventListener("click", function () { full.click(); });
+  tipX.addEventListener("click", function () {
+    try { localStorage.setItem(CLAVE, "1"); } catch (e) {}
+    tip.hidden = true; post();
+  });
+  window.addEventListener("resize", verTip);
+  verTip();
+
+  // ====== 6 · ejercicio 1: armá el plan (opción única) ======
+  var OPC = [
+    { t:"Solo Dysport para las arrugas.", ok:false },
+    { t:"Sculptra (regeneración y volumen progresivo) + Skinboosters (calidad de piel). El médico evaluará si suma Restylane.", ok:true },
+    { t:"Restylane en labios y mejillas.", ok:false },
+    { t:"Solo Skinboosters porque no quiere que se note.", ok:false }
+  ];
+  var FB_OK = "Esta opción aborda de manera integral las necesidades de la paciente: Sculptra puede ayudar a la regeneración y al volumen progresivo, y los Skinboosters contribuyen a mejorar la calidad de la piel. El médico evaluará si es adecuado complementar con Restylane según la evaluación individual.";
+  var FB_MAL = "Esta opción no aborda de forma integral las necesidades de la paciente o es demasiado específica. Es importante mencionar opciones que puedan ser evaluadas por el médico, evitando limitar la conversación a un solo producto o a una zona específica.";
+  var elUno = document.getElementById("uno"), elUnoFb = document.getElementById("unofb");
+  elUno.innerHTML = OPC.map(function (o, i) {
+    return '<button type="button" data-o="' + i + '"><i>' + "ABCD"[i] + '</i><span>' + o.t + '</span>' +
+      '<em>' + (o.ok ? "¡Correcto!" : "Revisá tu respuesta.") + '</em></button>';
+  }).join("");
+  elUno.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || elUno.classList.contains("listo")) return;
+    var i = +b.dataset.o, bien = OPC[i].ok;
+    elUno.classList.add("listo");
+    b.classList.add(bien ? "right" : "wrong");
+    if (!bien) elUno.querySelector('button[data-o="1"]').classList.add("right");
+    elUnoFb.className = "fb " + (bien ? "good" : "bad");
+    elUnoFb.innerHTML = '<div class="eyebrow eyebrow--tint">Feedback</div>' +
+      '<p><b>' + (bien ? "¡Correcto!" : "Revisá tu respuesta.") + '</b> ' + (bien ? FB_OK : FB_MAL) + '</p>';
+    post();
+  });
+
+  // ====== 7 · ejercicio 2: ¿esto suma o resta? ======
+  var VF_ETIQ = { si:"Suma valor", no:"Genera rechazo" };
+  var VF = [
+    { t:"“Sculptra regenera el colágeno propio. Los resultados son graduales pero duran más de 2 años. El médico te cuenta el plan en la consulta.”", ok:"V",
+      f:"Esta frase suma valor porque brinda información clara y equilibrada sobre los beneficios y el tiempo de resultados, y además invita al siguiente paso: la evaluación médica en consulta." },
+    { t:"“Son 3 sesiones de $X, $Y y $Z. Depende de cuánto querés hacer.”", ok:"F",
+      f:"Esta frase puede generar rechazo porque se enfoca solo en el precio, no brinda contexto clínico y no responde a la necesidad de la paciente. Es importante orientar con información relevante y no limitar la conversación a costos." },
+    { t:"“Dysport actúa sobre las arrugas de expresión. Resultados en 48 horas. ¿Cuál es la zona que más te molesta?”", ok:"V",
+      f:"Suma valor: informa el beneficio y el tiempo de resultado, y devuelve una pregunta que abre la conversación en lugar de cerrarla." },
+    { t:"“La verdad, si querés resultado rápido, Dysport es lo más barato para empezar.”", ok:"F",
+      f:"Genera rechazo: convierte la orientación en una recomendación por precio, sin contexto clínico ni evaluación médica." }
+  ];
+  var elVf = document.getElementById("vf");
+  elVf.innerHTML = VF.map(function (a, i) {
+    return '<div class="vfi" data-i="' + i + '">' +
+      '<div class="vfi__h"><span class="vfi__n">' + (i+1) + '</span>' +
+      '<span class="vfi__t">' + a.t + '</span>' +
+      '<span class="vfi__b"><button type="button" data-v="V">' + VF_ETIQ.si + '</button>' +
+      '<button type="button" data-v="F">' + VF_ETIQ.no + '</button></span></div>' +
+      '<div class="vfi__f" hidden><b></b><span>' + a.f + '</span></div></div>';
+  }).join("");
+  elVf.addEventListener("click", function (e) {
+    var b = e.target.closest(".vfi__b button"); if (!b) return;
+    var caja = b.closest(".vfi"); if (caja.classList.contains("listo")) return;
+    var i = +caja.dataset.i, bien = b.dataset.v === VF[i].ok;
+    caja.classList.add("listo"); if (!bien) caja.classList.add("mal");
+    b.classList.add("pick");
+    var fb = caja.querySelector(".vfi__f");
+    fb.querySelector("b").textContent = bien ? "¡Correcto!" : "Revisá tu respuesta.";
+    fb.hidden = false;
+    post();
+  });
+
+  // ====== 8 · checkpoint final ======
+  var PREGUNTAS = [
+    { t:"¿Cuál es la diferencia clave entre ‘pasar un precio’ y ‘presentar un plan’?",
+      o:["El plan es más caro y por eso necesita más explicación.",
+         "El precio habla del costo; el plan habla del resultado, la duración y el enfoque personalizado.",
+         "El plan lo define la asesora y el precio lo define el médico.",
+         "No hay diferencia real, es solo una forma de hablar."], ok:1, ill:"q3_plan" },
+    { t:"Una paciente pregunta el precio de Sculptra. ¿Cuál es la mejor respuesta?",
+      o:["Decirle el precio exacto de cada sesión.",
+         "Decirle que Sculptra es muy caro y que quizás no lo necesita.",
+         "Explicar que Sculptra regenera colágeno durante más de 2 años y que el plan lo define el médico en consulta.",
+         "Cambiar el tema y hablar de Dysport que es más accesible."], ok:2, ill:"q3_hex" },
+    { t:"¿Para qué tipo de paciente tiene más sentido mencionar Sculptra como parte del plan?",
+      o:["Paciente joven que quiere labios más voluminosos.",
+         "Paciente que busca mejoría global, regeneración progresiva y resultados que duren.",
+         "Paciente con arrugas de expresión en la frente.",
+         "Paciente que quiere hidratación y luminosidad."], ok:1, ill:"q3_piel" },
+    { t:"¿Cuál de estas frases cumple la regla de oro del módulo?",
+      o:["‘Sculptra son 3 sesiones de $X.’",
+         "‘La doctora te va a recomendar lo mejor, yo no puedo decirte nada.’",
+         "‘Sculptra estimula el colágeno propio. El médico te define el plan en consulta — es sin compromiso.’",
+         "‘Todo depende de cuánto querés gastar.’"], ok:2, ill:"q3_chat" }
+  ];
+  var TOTAL_Q = PREGUNTAS.length;
+  var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");
+  elQs.innerHTML = PREGUNTAS.map(function (q, i) {
+    return '<article class="card qcard"><div class="q__h"><span class="q__n">' + (i+1) + '</span><b>Pregunta ' + (i+1) + '</b></div>' +
+      '<p class="q__t">' + q.t + '</p><div class="opts" style="grid-template-columns:minmax(0,1fr)">' +
+      q.o.map(function (t, j) { return '<button class="opt" data-q="' + i + '" data-o="' + j + '"><i>' + "ABCD"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
+      '</div><div class="q__ill"><img data-i="' + q.ill + '" alt=""></div></article>';
+  }).join("");
+  var qResp = {};
+  elQs.addEventListener("click", function (e) {
+    var b = e.target.closest(".opt"); if (!b) return;
+    var qi = +b.dataset.q; if (qResp[qi] !== undefined) return;
+    var oi = +b.dataset.o, q = PREGUNTAS[qi];
+    elQs.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function (x) { x.classList.add("done"); });
+    b.classList.add(oi === q.ok ? "right" : "wrong");
+    if (oi !== q.ok) elQs.querySelector('.opt[data-q="' + qi + '"][data-o="' + q.ok + '"]').classList.add("right");
+    qResp[qi] = oi === q.ok;
+    var bien = Object.keys(qResp).filter(function (k) { return qResp[k]; }).length;
+    var hechas = Object.keys(qResp).length;
+    elScore.textContent = bien + " / " + TOTAL_Q;
+    elMsg.textContent = hechas < TOTAL_Q ? "Te faltan " + (TOTAL_Q - hechas) + " pregunta(s)."
+      : (bien === TOTAL_Q ? "¡Aprobaste el checkpoint!" : "Repasá el capítulo y volvé a intentarlo.");
+    post();
+  });
+
+  // ====== altura para el iframe de la lección ======
+  var ultima = 0;
+  function post() {
+    requestAnimationFrame(function () {
+      var h = Math.ceil(document.documentElement.getBoundingClientRect().height) + 4;
+      if (h === ultima) return;
+      ultima = h;
+      try { parent.postMessage({ gdId: CFG.id, gdHeight: h }, "*"); } catch (e) {}
+    });
+  }
+  var t = setInterval(post, 250);
+  setTimeout(function () { clearInterval(t); }, 6000);
+  window.addEventListener("load", post);
+  window.addEventListener("resize", post);
+  if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
+  window.addEventListener("message", function (e) { if (e.data && e.data.gdAsk === CFG.id) { ultima = 0; post(); } });
+
+  // resolver imágenes: cada asset se embebe una sola vez y se referencia por nombre
+  document.querySelectorAll("[data-i]").forEach(function (el) {
+    var u = IMGS[el.dataset.i]; if (u) el.src = u;
+  });
+
+
+  // ====== reproductor en cadena ======
+  (function () {
+    var lista = (VIDEO && VIDEO.bloques || []).filter(function (b) { return b && b.id; });
+    var caja = document.getElementById("vid");
+    var monte = document.getElementById("ytmount");
+    if (!caja || !monte || !lista.length) return;
+
+    var reel = document.getElementById("reel");
+    var barra = document.getElementById("reelbar");
+    var elNum = document.getElementById("reelnum");
+    var elTit = document.getElementById("reeltit");
+    var elTime = document.getElementById("reeltime");
+    var fb = document.getElementById("vidfb");
+    if (fb) fb.href = "https://youtu.be/" + lista[0].id;
+
+    var varios = lista.length > 1;
+    var duras = lista.map(function (b) { return b.s > 0 ? b.s : 0; });
+    var conocidas = duras.every(function (d) { return d > 0; });
+    var total = duras.reduce(function (a, b) { return a + b; }, 0);
+    var antes = [];                       // segundos acumulados antes de cada bloque
+    duras.reduce(function (a, d, i) { antes[i] = a; return a + d; }, 0);
+
+    var act = 0, pl = null, tic = null, segs = [];
+
+    function mmss(n) {
+      n = Math.max(0, Math.round(n));
+      return Math.floor(n / 60) + ":" + ("0" + (n % 60)).slice(-2);
+    }
+
+    if (varios) {
+      reel.hidden = false;
+      lista.forEach(function (b, i) {
+        var s = document.createElement("button");
+        s.type = "button";
+        s.className = "reel__seg";
+        s.style.flexGrow = conocidas ? String(duras[i]) : "1";
+        s.title = (i + 1) + ". " + b.t;
+        s.setAttribute("aria-label", "Ir al bloque " + (i + 1) + ": " + b.t);
+        s.innerHTML = "<i></i>";
+        s.addEventListener("click", function () { ir(i, true); });
+        barra.appendChild(s);
+        segs.push(s.firstChild);
+      });
+    }
+
+    function pintar(prog) {
+      if (!varios) return;
+      segs.forEach(function (i, n) {
+        i.style.width = n < act ? "100%" : n > act ? "0%" : (prog * 100) + "%";
+      });
+      elNum.textContent = "Bloque " + (act + 1) + " de " + lista.length;
+      elTit.textContent = lista[act].t;
+      if (conocidas && pl && pl.getCurrentTime) {
+        elTime.textContent = mmss(antes[act] + pl.getCurrentTime()) + " / " + mmss(total);
+      } else if (conocidas) {
+        elTime.textContent = mmss(antes[act]) + " / " + mmss(total);
+      }
+    }
+
+    function latir() {
+      if (!pl || !pl.getCurrentTime || !pl.getDuration) return;
+      var d = pl.getDuration() || duras[act] || 0;
+      pintar(d ? Math.min(1, pl.getCurrentTime() / d) : 0);
+    }
+
+    function ir(i, reproducir) {
+      if (i < 0 || i >= lista.length) return;
+      act = i;
+      if (pl && pl.loadVideoById) {
+        if (reproducir) pl.loadVideoById(lista[i].id); else pl.cueVideoById(lista[i].id);
+      }
+      pintar(0);
+    }
+
+    function arrancar() {
+      try {
+        pl = new YT.Player(monte, {
+          videoId: lista[0].id,
+          host: "https://www.youtube-nocookie.com",
+          playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+          events: {
+            onReady: function () { pintar(0); tic = setInterval(latir, 250); },
+            onStateChange: function (e) {
+              if (e.data === YT.PlayerState.ENDED) {
+                if (act < lista.length - 1) ir(act + 1, true);   // encadena solo
+                else pintar(1);
+              }
+            },
+            onError: function () { caja.classList.add("falla"); }
+          }
+        });
+      } catch (err) { caer(); }
+    }
+
+    function caer() {   // sin API: un iframe comun con el primer bloque
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + lista[0].id;
+      f.title = lista[0].t;
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      f.allowFullscreen = true;
+      monte.parentNode.replaceChild(f, monte);
+      if (varios) reel.hidden = true;
+    }
+
+    if (window.YT && window.YT.Player) { arrancar(); return; }
+    var previo = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (previo) try { previo(); } catch (e) {} arrancar(); };
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      var sc = document.createElement("script");
+      sc.src = "https://www.youtube.com/iframe_api";
+      sc.onerror = caer;
+      document.head.appendChild(sc);
+    }
+    setTimeout(function () { if (!pl) caer(); }, 8000);   // la API no llegó
+  })();
+
+  render();
+})();
+</script>
+</body>
+</html>
