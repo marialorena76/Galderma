@@ -22,5 +22,6 @@ h = h.replace('__IMGS__', JSON.stringify(map));
 // 2) los que quedaron como __x__ sueltos (por si alguno se escapo)
 h = h.replace(/__([a-z0-9_]+)__/g, (m, n) => map[n] || m);
 fs.writeFileSync('/home/user/Galderma/fluido/capitulo1-fluido.html', h);
+fs.writeFileSync('/home/user/Galderma/fluido/capitulo1.html', h);
 fs.writeFileSync('serve/capitulo1-fluido.html', h);
 console.log('assets unicos:', Object.keys(map).length, '| crudos:', Math.round(bytes/1024)+' KB | archivo final:', Math.round(h.length/1024)+' KB');
