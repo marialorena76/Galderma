@@ -138,6 +138,25 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
 .idea__t img{width:clamp(16px,1.4vw,22px)}
 .idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
+/* ---- reproductor en cadena (varios clips como si fueran uno) ---- */
+.vid__fb{position:absolute;inset:0;display:none;place-items:center;text-align:center;color:#fff;
+  padding:clamp(16px,2vw,32px);font-size:clamp(13px,1.1vw,17px);line-height:1.5;background:#111}
+.vid.falla .vid__fb{display:grid}
+.vid__fb a{color:#fff}
+.reel{max-width:1020px;margin:clamp(10px,1.1vw,18px) auto 0;display:flex;flex-direction:column;
+  gap:clamp(7px,.8vw,12px)}
+.reel[hidden]{display:none}
+.reel__bar{display:flex;gap:2px;height:7px}
+.reel__seg{flex:1 1 0;background:var(--line);border-radius:99px;overflow:hidden;cursor:pointer;
+  border:0;padding:0;min-width:4px;position:relative}
+.reel__seg i{display:block;height:100%;width:0;background:var(--tint);border-radius:99px}
+.reel__seg:hover{outline:2px solid var(--tint-soft);outline-offset:2px}
+.reel__now{display:flex;align-items:baseline;gap:clamp(8px,1vw,16px);flex-wrap:wrap;
+  font-size:clamp(12px,1.02vw,15.5px);color:var(--muted)}
+.reel__now b{color:var(--tint);font-weight:600;white-space:nowrap}
+.reel__now span.t{color:var(--ink);flex:1 1 220px;min-width:0}
+.reel__now span.c{margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+
 
 /* ---- P3 diagrama ---- */
 .diag{display:grid;align-items:center;
@@ -445,10 +464,16 @@ html:fullscreen body{min-height:100vh}
 
 <!-- ============ 2 · video ============ -->
 <section class="scr" data-scr="2">
-  <div class="vid">
-    <iframe src="https://www.youtube.com/embed/D6t7b_pTBDU" title="Tu impacto comienza antes del primer mensaje"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen loading="lazy"></iframe>
+  <div class="vid" id="vid">
+    <div id="ytmount"></div>
+    <div class="vid__fb">No se pudo cargar el reproductor.
+      <a id="vidfb" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
+  </div>
+  <div class="reel" id="reel" hidden>
+    <div class="reel__bar" id="reelbar"></div>
+    <div class="reel__now">
+      <b id="reelnum"></b><span class="t" id="reeltit"></span><span class="c" id="reeltime"></span>
+    </div>
   </div>
 
   <div class="s2">
@@ -849,6 +874,14 @@ html:fullscreen body{min-height:100vh}
     quizUrl: "",       // link al Quiz de LearnDash, si lo usás
     siguienteUrl: ""   // link al Capítulo 2; vacío = el botón final no navega
   };
+  // Clips del capítulo. Varios bloques se reproducen encadenados, como si fueran un solo video.
+  // s = duración en segundos (solo sirve para que la barra sea proporcional).
+  var VIDEO = {
+    bloques: [
+      { id: "D6t7b_pTBDU", t: "Mariano Vacca · Tu impacto comienza antes del primer mensaje", s: 0 }
+    ]
+  };
+
 
   var TOTAL = 10, cur = 1;
 
@@ -1179,6 +1212,123 @@ html:fullscreen body{min-height:100vh}
   document.querySelectorAll("[data-i]").forEach(function (el) {
     var u = IMGS[el.dataset.i]; if (u) el.src = u;
   });
+
+
+  // ====== reproductor en cadena ======
+  (function () {
+    var lista = (VIDEO && VIDEO.bloques || []).filter(function (b) { return b && b.id; });
+    var caja = document.getElementById("vid");
+    var monte = document.getElementById("ytmount");
+    if (!caja || !monte || !lista.length) return;
+
+    var reel = document.getElementById("reel");
+    var barra = document.getElementById("reelbar");
+    var elNum = document.getElementById("reelnum");
+    var elTit = document.getElementById("reeltit");
+    var elTime = document.getElementById("reeltime");
+    var fb = document.getElementById("vidfb");
+    if (fb) fb.href = "https://youtu.be/" + lista[0].id;
+
+    var varios = lista.length > 1;
+    var duras = lista.map(function (b) { return b.s > 0 ? b.s : 0; });
+    var conocidas = duras.every(function (d) { return d > 0; });
+    var total = duras.reduce(function (a, b) { return a + b; }, 0);
+    var antes = [];                       // segundos acumulados antes de cada bloque
+    duras.reduce(function (a, d, i) { antes[i] = a; return a + d; }, 0);
+
+    var act = 0, pl = null, tic = null, segs = [];
+
+    function mmss(n) {
+      n = Math.max(0, Math.round(n));
+      return Math.floor(n / 60) + ":" + ("0" + (n % 60)).slice(-2);
+    }
+
+    if (varios) {
+      reel.hidden = false;
+      lista.forEach(function (b, i) {
+        var s = document.createElement("button");
+        s.type = "button";
+        s.className = "reel__seg";
+        s.style.flexGrow = conocidas ? String(duras[i]) : "1";
+        s.title = (i + 1) + ". " + b.t;
+        s.setAttribute("aria-label", "Ir al bloque " + (i + 1) + ": " + b.t);
+        s.innerHTML = "<i></i>";
+        s.addEventListener("click", function () { ir(i, true); });
+        barra.appendChild(s);
+        segs.push(s.firstChild);
+      });
+    }
+
+    function pintar(prog) {
+      if (!varios) return;
+      segs.forEach(function (i, n) {
+        i.style.width = n < act ? "100%" : n > act ? "0%" : (prog * 100) + "%";
+      });
+      elNum.textContent = "Bloque " + (act + 1) + " de " + lista.length;
+      elTit.textContent = lista[act].t;
+      if (conocidas && pl && pl.getCurrentTime) {
+        elTime.textContent = mmss(antes[act] + pl.getCurrentTime()) + " / " + mmss(total);
+      } else if (conocidas) {
+        elTime.textContent = mmss(antes[act]) + " / " + mmss(total);
+      }
+    }
+
+    function latir() {
+      if (!pl || !pl.getCurrentTime || !pl.getDuration) return;
+      var d = pl.getDuration() || duras[act] || 0;
+      pintar(d ? Math.min(1, pl.getCurrentTime() / d) : 0);
+    }
+
+    function ir(i, reproducir) {
+      if (i < 0 || i >= lista.length) return;
+      act = i;
+      if (pl && pl.loadVideoById) {
+        if (reproducir) pl.loadVideoById(lista[i].id); else pl.cueVideoById(lista[i].id);
+      }
+      pintar(0);
+    }
+
+    function arrancar() {
+      try {
+        pl = new YT.Player(monte, {
+          videoId: lista[0].id,
+          host: "https://www.youtube-nocookie.com",
+          playerVars: { rel: 0, modestbranding: 1, playsinline: 1 },
+          events: {
+            onReady: function () { pintar(0); tic = setInterval(latir, 250); },
+            onStateChange: function (e) {
+              if (e.data === YT.PlayerState.ENDED) {
+                if (act < lista.length - 1) ir(act + 1, true);   // encadena solo
+                else pintar(1);
+              }
+            },
+            onError: function () { caja.classList.add("falla"); }
+          }
+        });
+      } catch (err) { caer(); }
+    }
+
+    function caer() {   // sin API: un iframe comun con el primer bloque
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/" + lista[0].id;
+      f.title = lista[0].t;
+      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      f.allowFullscreen = true;
+      monte.parentNode.replaceChild(f, monte);
+      if (varios) reel.hidden = true;
+    }
+
+    if (window.YT && window.YT.Player) { arrancar(); return; }
+    var previo = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (previo) try { previo(); } catch (e) {} arrancar(); };
+    if (!document.querySelector('script[src*="youtube.com/iframe_api"]')) {
+      var sc = document.createElement("script");
+      sc.src = "https://www.youtube.com/iframe_api";
+      sc.onerror = caer;
+      document.head.appendChild(sc);
+    }
+    setTimeout(function () { if (!pl) caer(); }, 8000);   // la API no llegó
+  })();
 
   render();
 })();
