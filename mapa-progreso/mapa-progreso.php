@@ -312,6 +312,44 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 	}
 
 	add_shortcode( 'mapa_progreso', 'gd_mapa_shortcode' );
+
+	/*
+	 * Red de seguridad para el visitante sin sesión: con la página del curso hecha en Elementor,
+	 * BuddyBoss/LearnDash le muestra la copia de respaldo del contenido, donde el shortcode queda
+	 * como texto "[mapa_progreso]". Si en la página final aparece así, sin ejecutar, se reemplaza
+	 * por el mapa. Con sesión el shortcode ya llega ejecutado y esto no cambia nada.
+	 */
+	function gd_mapa_rescate_inicio() {
+		if ( ! is_singular( 'sfwd-courses' ) ) {
+			return;
+		}
+		$GLOBALS['gd_mapa_rescate'] = array( 'curso' => (int) get_queried_object_id(), 'nivel' => ob_get_level() + 1 );
+		ob_start();
+		add_action( 'shutdown', 'gd_mapa_rescate_fin', 0 );   // antes de que WordPress vacíe los buffers
+	}
+	add_action( 'template_redirect', 'gd_mapa_rescate_inicio', 1 );
+
+	function gd_mapa_rescate_fin() {
+		$r = isset( $GLOBALS['gd_mapa_rescate'] ) ? $GLOBALS['gd_mapa_rescate'] : null;
+		if ( ! $r || ob_get_level() < $r['nivel'] ) {
+			return;
+		}
+		while ( ob_get_level() > $r['nivel'] ) {   // si alguien abrió buffers después y no los cerró
+			ob_end_flush();
+		}
+		$html = ob_get_clean();
+		if ( false !== strpos( $html, '[mapa_progreso' ) ) {
+			$html = preg_replace_callback( '/(?:<p>\s*)?\[mapa_progreso([^\]]*)\](?:\s*<\/p>)?/', function ( $m ) use ( $r ) {
+				$atts = shortcode_parse_atts( html_entity_decode( $m[1] ) );
+				$atts = is_array( $atts ) ? $atts : array();
+				if ( empty( $atts['curso'] ) ) {
+					$atts['curso'] = $r['curso'];
+				}
+				return gd_mapa_shortcode( $atts );
+			}, $html );
+		}
+		echo $html; // phpcs:ignore -- es la página completa ya armada por WordPress
+	}
 }
 
 /*
