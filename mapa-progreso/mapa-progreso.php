@@ -16,6 +16,9 @@
  *
  * Las imágenes van en wp-content/uploads/academia/mapa/ (mapa-portada, mapa-1 … mapa-6).
  * mapa-N = salas 1..N a color.
+ *
+ * Al final del archivo: completado automático de cada capítulo al terminarlo (sin el botón
+ * "Marcar como completado" de LearnDash).
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -278,4 +281,81 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 	}
 
 	add_shortcode( 'mapa_progreso', 'gd_mapa_shortcode' );
+}
+
+/*
+ * Completado automático de los capítulos.
+ *
+ * Cuando el alumno llega al final de un capítulo (el HTML del iframe), el capítulo le avisa a la
+ * lección; la lección marca la lección como completada en LearnDash y lleva al capítulo siguiente
+ * (o al curso, en el último). Así el mapa avanza solo y el botón "Marcar como completado" sobra:
+ * se oculta en las lecciones que tienen un capítulo embebido.
+ */
+if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
+
+	function gd_leccion_completar_ajax() {
+		check_ajax_referer( 'gd_completar', 'nonce' );
+		$user_id   = get_current_user_id();
+		$lesson_id = isset( $_POST['leccion'] ) ? absint( $_POST['leccion'] ) : 0;
+		$course_id = isset( $_POST['curso'] ) ? absint( $_POST['curso'] ) : 0;
+
+		if ( ! $user_id || ! $lesson_id || 'sfwd-lessons' !== get_post_type( $lesson_id ) || ! function_exists( 'learndash_process_mark_complete' ) ) {
+			wp_send_json_error();
+		}
+		if ( ! $course_id ) {
+			$course_id = (int) learndash_get_course_id( $lesson_id );
+		}
+		if ( function_exists( 'sfwd_lms_has_access' ) && ! sfwd_lms_has_access( $lesson_id, $user_id ) ) {
+			wp_send_json_error();
+		}
+
+		$ok = learndash_is_lesson_complete( $user_id, $lesson_id, $course_id )
+			|| learndash_process_mark_complete( $user_id, $lesson_id, false, $course_id );
+
+		wp_send_json_success( array(
+			'completado' => (bool) $ok,
+			'curso'      => $course_id ? get_permalink( $course_id ) : home_url( '/' ),
+		) );
+	}
+	add_action( 'wp_ajax_gd_completar', 'gd_leccion_completar_ajax' );
+
+	function gd_leccion_completar_script() {
+		if ( ! is_singular( 'sfwd-lessons' ) || ! is_user_logged_in() ) {
+			return;
+		}
+		$lesson_id = get_the_ID();
+		$course_id = function_exists( 'learndash_get_course_id' ) ? (int) learndash_get_course_id( $lesson_id ) : 0;
+		?>
+		<style>
+		/* El capítulo se completa solo al terminarlo: el botón de LearnDash sobra. */
+		body:has(iframe[src*="/uploads/academia/"]) :is(form.sfwd-mark-complete,.learndash_mark_complete_button){display:none !important}
+		</style>
+		<script>
+		(function () {
+			var AJAX = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>,
+				NONCE = <?php echo wp_json_encode( wp_create_nonce( 'gd_completar' ) ); ?>,
+				LECCION = <?php echo (int) $lesson_id; ?>, CURSO = <?php echo (int) $course_id; ?>,
+				enCurso = false;
+			function sinWww(o) { return String(o).replace('//www.', '//'); }
+			window.addEventListener('message', function (e) {
+				if (!e.data || !e.data.gdFin || sinWww(e.origin) !== sinWww(location.origin)) return;
+				try { e.source.postMessage({ gdAck: e.data.gdId }, '*'); } catch (x) {}
+				if (enCurso) return;
+				enCurso = true;
+				var destino = e.data.destino, fd = new FormData();
+				fd.append('action', 'gd_completar'); fd.append('nonce', NONCE);
+				fd.append('leccion', LECCION); fd.append('curso', CURSO);
+				fetch(AJAX, { method: 'POST', body: fd, credentials: 'same-origin' })
+					.then(function (r) { return r.json(); })
+					.catch(function () { return null; })
+					.then(function (r) {
+						var curso = r && r.success && r.data.curso;
+						window.location.href = destino || curso || '/';
+					});
+			});
+		})();
+		</script>
+		<?php
+	}
+	add_action( 'wp_footer', 'gd_leccion_completar_script' );
 }

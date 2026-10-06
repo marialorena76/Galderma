@@ -1169,7 +1169,7 @@ html:fullscreen body{min-height:100vh}
     prevB.disabled = cur === 1;
     nextB.textContent = ETIQUETA[cur] || "Continuar →";
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
-    nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
+    nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl && window.top === window);
     var activa = CAT_POR_PANTALLA[cur];
     cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
     var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
@@ -1185,9 +1185,25 @@ html:fullscreen body{min-height:100vh}
     if (b.dataset.go === "next") { cur < TOTAL ? go(cur + 1) : finalizar(); }
     else go(cur - 1);
   });
+  // Al terminar, le pide a la lección de LearnDash que marque el capítulo como completado y
+  // lleve al siguiente (lo hace el snippet "Mapa de progreso"). Si la lección no contesta en
+  // 1,5 s (snippet apagado), navega directo como antes.
+  var finalizando = false;
   function finalizar() {
     var destino = CFG.siguienteUrl || CFG.quizUrl;
-    if (destino) window.top.location.href = destino;   // sale del iframe, no navega adentro
+    if (window.top === window) { if (destino) location.href = destino; return; }
+    if (finalizando) return;
+    finalizando = true;
+    nextB.disabled = true;
+    nextB.textContent = "Guardando tu avance…";
+    var atendido = false;
+    window.addEventListener("message", function (e) { if (e.data && e.data.gdAck === CFG.id) atendido = true; });
+    try { parent.postMessage({ gdId: CFG.id, gdFin: true, destino: destino }, "*"); } catch (e) {}
+    setTimeout(function () {
+      if (atendido) return;
+      finalizando = false; nextB.disabled = false; render();
+      if (destino) window.top.location.href = destino;   // sale del iframe, no navega adentro
+    }, 1500);
   }
 
   // pantalla completa: en la columna angosta de la lección es la forma de ver el layout de escritorio

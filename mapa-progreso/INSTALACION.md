@@ -54,3 +54,13 @@ indicá el ID del curso: `[mapa_progreso curso="123"]`.
 ## Cambiar algo
 - Textos de las salas y posición de pines/tildes: `gd_mapa_salas()`, al principio del snippet (en % de la imagen).
 - Probarlo local sin WordPress: `php test/render.php 1,2 > test/out/12.html` (simula los capítulos 1 y 2 completos).
+
+## Completado automático de los capítulos
+El mismo snippet hace que cada capítulo se marque como completado solo, al tocar el botón de la
+última pantalla del capítulo, y lleve al siguiente (el 6 vuelve a la página del curso, con el mapa completo).
+En las lecciones con un capítulo embebido, el botón "Marcar como completado" de LearnDash se oculta.
+
+Requiere los `capituloN.html` actualizados de la carpeta `fluido/` (suben a `wp-content/uploads/academia/`,
+reemplazando los anteriores). Si el snippet se desactiva, los capítulos navegan igual que antes.
+
+Probarlo localmente: `php test/leccion.php > test/out/sitio/leccion.html` (simula una lección con el capítulo adentro).
