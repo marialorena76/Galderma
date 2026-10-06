@@ -1,16 +1,16 @@
 # Mapa de progreso — cómo instalarlo
 
 El alumno abre el curso y ve el recorrido con **su** avance: los capítulos hechos a color
-con tilde, el actual con el pin "Estás acá" y el resto en gris con candado. Debajo, una barra
-"Vas por el Capítulo 03 · 2/6 · Continuar →". El progreso sale de LearnDash, así que se ve
+con tilde, el actual con el pin "Estás acá" y el resto en gris con candado.
+Si además querés la barra "Vas por el Capítulo 03 · 2/6 · Continuar →" debajo, usá `[mapa_progreso barra="si"]`. El progreso sale de LearnDash, así que se ve
 igual en el celular, en la compu o en otra sesión.
 
 | Situación | Imagen | Qué se ve |
 |---|---|---|
 | Visitante sin sesión | `mapa-portada` | La portada a color, sin progreso |
-| 0 completos | `mapa-1` | Pin "Empezá acá" en el 01 · botón "Empezar" |
+| 0 completos | `mapa-1` | Pin "Empezá acá" en el 01 |
 | 2 completos | `mapa-3` | ✓ en 01 y 02 · pin en 03 · 04-06 grises con candado |
-| 6 completos | `mapa-6` | ✓ en los seis · "¡Completaste el recorrido!" |
+| 6 completos | `mapa-6` | ✓ en los seis |
 
 ## 1. Subir las imágenes
 hPanel → Administrador de archivos → crear `public_html/experienciaconproposito/wp-content/uploads/academia/mapa/`

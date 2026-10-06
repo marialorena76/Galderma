@@ -18,4 +18,4 @@ function esc_attr( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 function esc_html( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 require __DIR__ . '/../mapa-progreso.php';
 echo '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"><body style="margin:0;padding:24px 16px;background:#f6f4f2">';
-echo call_user_func( $GLOBALS['sc'], array() );
+echo call_user_func( $GLOBALS['sc'], getenv('BARRA') ? array('barra'=>'si') : array() );

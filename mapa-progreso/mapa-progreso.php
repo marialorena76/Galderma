@@ -4,6 +4,7 @@
  *
  * Shortcode: [mapa_progreso]
  *   Opcional: [mapa_progreso curso="123"] si se usa fuera de la página del curso.
+ *   Opcional: [mapa_progreso barra="si"] suma debajo la barra "Vas por el Capítulo N · 2/6 · Continuar".
  *
  * Muestra la ilustración del recorrido con el avance real del alumno en LearnDash:
  * las salas de los capítulos hechos y el actual a color, el resto en gris, un tilde
@@ -49,7 +50,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 	}
 
 	function gd_mapa_shortcode( $atts ) {
-		$atts      = shortcode_atts( array( 'curso' => 0 ), $atts, 'mapa_progreso' );
+		$atts      = shortcode_atts( array( 'curso' => 0, 'barra' => 'no' ), $atts, 'mapa_progreso' );
 		$course_id = $atts['curso'] ? (int) $atts['curso'] : ( function_exists( 'learndash_get_course_id' ) ? (int) learndash_get_course_id() : 0 );
 		$img_base  = content_url( '/uploads/academia/mapa/' );
 		$salas     = gd_mapa_salas();
@@ -114,6 +115,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 				<?php endforeach; ?>
 			</div>
 
+			<?php if ( 'si' === $atts['barra'] ) : ?>
 			<div class="gd-mapa__barra">
 				<div class="gd-mapa__texto">
 					<?php if ( false === $actual ) : ?>
@@ -134,6 +136,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 					</a>
 				<?php endif; ?>
 			</div>
+			<?php endif; ?>
 		</div>
 		<?php
 		return ob_get_clean() . gd_mapa_estilos();
