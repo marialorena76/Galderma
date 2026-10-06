@@ -15,6 +15,10 @@ function wp_create_nonce( $a ) { return 'nonce-de-prueba'; }
 require __DIR__ . '/../mapa-progreso.php';
 ?><!doctype html><meta charset="utf-8"><title>Capítulo 2</title>
 <body style="margin:0;font-family:sans-serif">
+<div class="zz-wrap"><div class="zz-cabecera"><div class="zz-migas"><a href="/courses/patient-journey-en-accion/">Patient Journey en Acción</a> &gt; <a href="#">Capítulo 1</a></div>
+<div class="zz-fila"><div><span>LECCIÓN <span>1</span> OF 6</span></div><div><a href="#">‹</a><a href="#">›</a></div></div></div>
+<div class="zz-contenido">
 <iframe id="gd-cap2" src="/wp-content/uploads/academia/capitulo2.html" style="width:100%;height:700px;border:0"></iframe>
+</div></div>
 <form class="sfwd-mark-complete" method="post"><input type="submit" class="learndash_mark_complete_button" value="Marcar como completado"></form>
 <?php foreach ( $GLOBALS['acciones']['wp_footer'] as $f ) { $f(); } ?>

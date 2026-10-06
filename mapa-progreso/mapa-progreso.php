@@ -327,8 +327,11 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 		$course_id = function_exists( 'learndash_get_course_id' ) ? (int) learndash_get_course_id( $lesson_id ) : 0;
 		?>
 		<style>
-		/* El capítulo se completa solo al terminarlo: el botón de LearnDash sobra. */
-		body:has(iframe[src*="/uploads/academia/"]) :is(form.sfwd-mark-complete,.learndash_mark_complete_button){display:none !important}
+		/* El capítulo se completa solo al terminarlo: el botón de LearnDash sobra. Tampoco hace
+		   falta la cabecera de la lección (migas "Curso > Capítulo 1", "Lección 1 of 6" y flechas):
+		   el capítulo trae su propia navegación. */
+		body:has(iframe[src*="/uploads/academia/"]) :is(form.sfwd-mark-complete,.learndash_mark_complete_button,
+			.bb-lms-header,.ld-breadcrumbs,.bb-position,.sfwd-course-position,.sfwd-course-nav){display:none !important}
 		</style>
 		<script>
 		(function () {
@@ -337,6 +340,26 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 				LECCION = <?php echo (int) $lesson_id; ?>, CURSO = <?php echo (int) $course_id; ?>,
 				enCurso = false;
 			function sinWww(o) { return String(o).replace('//www.', '//'); }
+
+			// Cabecera de la lección, aunque el tema use otras clases: el bloque que tiene el texto
+			// "Lección N of M" y el link al curso, sin el capítulo adentro.
+			function sacarCabecera() {
+				if (!document.querySelector('iframe[src*="/uploads/academia/"]')) return;
+				var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n, el;
+				while ((n = w.nextNode())) {
+					if (!/lecci[oó]n|lesson/i.test(n.nodeValue)) continue;
+					el = n.parentElement;
+					if (!el || !/(lecci[oó]n|lesson)\s*\d+\s*(of|de)\s*\d+/i.test(el.closest('div') ? el.closest('div').textContent : '')) continue;
+					while (el.parentElement && el.parentElement !== document.body) {
+						var p = el.parentElement;
+						if (p.querySelector('iframe, .lms-topic-sidebar-wrapper')) break;
+						el = p;
+					}
+					if (el.querySelector('a[href*="/courses/"]')) el.style.setProperty('display', 'none', 'important');
+					return;
+				}
+			}
+			if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sacarCabecera); else sacarCabecera();
 			window.addEventListener('message', function (e) {
 				if (!e.data || !e.data.gdFin || sinWww(e.origin) !== sinWww(location.origin)) return;
 				try { e.source.postMessage({ gdAck: e.data.gdId }, '*'); } catch (x) {}

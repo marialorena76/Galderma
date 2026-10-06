@@ -58,7 +58,8 @@ indicá el ID del curso: `[mapa_progreso curso="123"]`.
 ## Completado automático de los capítulos
 El mismo snippet hace que cada capítulo se marque como completado solo, al tocar el botón de la
 última pantalla del capítulo, y lleve al siguiente (el 6 vuelve a la página del curso, con el mapa completo).
-En las lecciones con un capítulo embebido, el botón "Marcar como completado" de LearnDash se oculta.
+En las lecciones con un capítulo embebido se ocultan el botón "Marcar como completado" y la cabecera de
+la lección (migas "Curso > Capítulo 1", "Lección 1 of 6" y las flechas): el capítulo trae su propia navegación.
 
 Requiere los `capituloN.html` actualizados de la carpeta `fluido/` (suben a `wp-content/uploads/academia/`,
 reemplazando los anteriores). Si el snippet se desactiva, los capítulos navegan igual que antes.
