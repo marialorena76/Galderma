@@ -24,9 +24,15 @@ y subir los 7 `.webp` de la carpeta `img/` (≈130 KB cada uno).
 
 Probá que abra: `https://soyloregonzalez.com.ar/experienciaconproposito/wp-content/uploads/academia/mapa/mapa-1.webp`
 
-## 2. Agregar el snippet
-Code Snippets → Agregar nuevo → pegar todo `mapa-progreso.php` **sin la primera línea `<?php`**
-→ "Ejecutar en todo el sitio" → Guardar y activar.
+## 2. Instalar el plugin (recomendado)
+Comprimir `mapa-progreso.php` dentro de una carpeta `gd-mapa-progreso/` (como `gd-mapa-progreso.php`) y subir
+el `.zip` en Plugins → Añadir nuevo → Subir plugin → Activar. Para actualizarlo, subir el `.zip` nuevo y elegir
+"Reemplazar el actual por el subido".
+
+Alternativa: Code Snippets, pegando todo `mapa-progreso.php` sin la primera línea `<?php`. Ojo: si se pega
+incompleto, Code Snippets lo desactiva y el shortcode aparece como texto. Usar uno de los dos, no ambos.
+
+**Caché:** el sitio usa **SpeedyCache**. Después de cada cambio: SpeedyCache → borrar caché.
 
 ## 3. Ponerlo en el curso
 En la página del curso (`/courses/patient-journey-en-accion/`), arriba de la lista de lecciones:

@@ -1,5 +1,12 @@
 <?php
 /**
+ * Plugin Name: Mapa de progreso — Experiencia con propósito
+ * Description: Mapa interactivo del recorrido en la página del curso, completado automático de cada capítulo, barra lateral de lecciones con estética Galderma y página limpia para alumnos y visitantes.
+ * Version: 1.0.0
+ * Author: Lorena González
+ * Requires PHP: 7.2
+ */
+/**
  * Mapa de progreso — "Experiencia con propósito"
  *
  * Shortcode: [mapa_progreso]
