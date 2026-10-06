@@ -338,16 +338,23 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 			ob_end_flush();
 		}
 		$html = ob_get_clean();
-		if ( false !== strpos( $html, '[mapa_progreso' ) ) {
-			$html = preg_replace_callback( '/(?:<p>\s*)?\[mapa_progreso([^\]]*)\](?:\s*<\/p>)?/', function ( $m ) use ( $r ) {
+		// El corchete puede llegar tal cual o como entidad (&#91; &#091; &lsqb;), según qué filtro lo haya pasado.
+		$abre   = '(?:\[|&#0?91;|&lsqb;|&#x5[bB];)';
+		$cierra = '(?:\]|&#0?93;|&rsqb;|&#x5[dD];)';
+		$patron = '/(?:<p[^>]*>\s*)?' . $abre . 'mapa_progreso((?:(?!' . $cierra . ').)*)' . $cierra . '(?:\s*<\/p>)?/s';
+		$n      = 0;
+		if ( false !== stripos( $html, 'mapa_progreso' ) ) {
+			$html = preg_replace_callback( $patron, function ( $m ) use ( $r ) {
 				$atts = shortcode_parse_atts( html_entity_decode( $m[1] ) );
 				$atts = is_array( $atts ) ? $atts : array();
 				if ( empty( $atts['curso'] ) ) {
 					$atts['curso'] = $r['curso'];
 				}
 				return gd_mapa_shortcode( $atts );
-			}, $html );
+			}, $html, -1, $n );
 		}
+		// Marca de diagnóstico (invisible): confirma que el snippet corrió y cuántos rescató.
+		$html = str_replace( '</body>', '<!-- gd-mapa: snippet activo, rescatados ' . (int) $n . ', sesion ' . ( is_user_logged_in() ? 'si' : 'no' ) . " -->\n</body>", $html );
 		echo $html; // phpcs:ignore -- es la página completa ya armada por WordPress
 	}
 }
