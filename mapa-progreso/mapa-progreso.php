@@ -63,27 +63,12 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 		$salas     = gd_mapa_salas();
 		$user_id   = get_current_user_id();
 
-		// Sin sesión o fuera de un curso: la portada a color, sin progreso.
-		if ( ! $user_id || ! $course_id ) {
+		// Fuera de un curso: la portada a color, sin progreso.
+		if ( ! $course_id ) {
 			return '<div class="gd-mapa"><img class="gd-mapa__img" src="' . esc_url( $img_base . 'mapa-portada.webp' ) . '" width="1920" height="1080" alt="Experiencia con propósito: de la recepción a la fidelización" loading="lazy"></div>' . gd_mapa_estilos();
 		}
 
 		$lecciones = array_slice( gd_mapa_lecciones( $course_id ), 0, count( $salas ) );
-		$total     = count( $salas );
-		$hechos    = array();
-		foreach ( $salas as $i => $s ) {
-			$hechos[ $i ] = isset( $lecciones[ $i ] ) && learndash_is_lesson_complete( $user_id, $lecciones[ $i ], $course_id );
-		}
-
-		$actual = array_search( false, $hechos, true );  // primer capítulo sin completar (false = terminó todo)
-		$ultimo = 0;                                      // hasta qué sala va a color
-		foreach ( $hechos as $i => $h ) {
-			if ( $h ) {
-				$ultimo = $i + 1;
-			}
-		}
-		$color     = false === $actual ? $total : max( $actual + 1, $ultimo );
-		$n_hechos  = count( array_filter( $hechos ) );
 		$lineal    = function_exists( 'learndash_lesson_progression_enabled' ) ? learndash_lesson_progression_enabled( $course_id ) : true;
 
 		// Link de cada sala. Si la lección no está cargada en el curso (Constructor de LearnDash),
@@ -98,11 +83,57 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 			}
 		}
 
+		$abierto = function_exists( 'learndash_get_setting' ) && 'open' === learndash_get_setting( $course_id, 'course_price_type' );
+		// "Solo el mapa": al alumno con sesión siempre; al visitante solo si el curso es abierto
+		// (si no, necesita ver la tarjeta para inscribirse).
+		$solo  = 'si' === $atts['solo'] && ( $user_id || $abierto );
+		$clase = 'gd-mapa-grupo' . ( $solo ? ' gd-mapa--solo' : '' );
+
+		if ( $user_id ) {
+			$hechos = array();
+			foreach ( $salas as $i => $s ) {
+				$hechos[ $i ] = isset( $lecciones[ $i ] ) && learndash_is_lesson_complete( $user_id, $lecciones[ $i ], $course_id );
+			}
+			return '<div class="' . $clase . '">' . gd_mapa_html( $hechos, $salas, $urls, $lineal, $img_base, $atts, false ) . '</div>' . gd_mapa_estilos();
+		}
+
+		// Visitante sin sesión: LearnDash no le guarda el avance, así que lo lleva su navegador
+		// (lo anota la lección al terminar cada capítulo). Van los 7 estados posibles y se muestra
+		// el que corresponde; las imágenes de los ocultos no se descargan. Así además la página
+		// sirve igual desde la caché de LiteSpeed.
+		$html = '';
+		for ( $k = 0; $k <= count( $salas ); $k++ ) {
+			$hechos = array();
+			foreach ( $salas as $i => $s ) {
+				$hechos[ $i ] = $i < $k;
+			}
+			$html .= '<div class="gd-mapa-var" data-k="' . $k . '"' . ( $k ? ' hidden' : '' ) . '>' . gd_mapa_html( $hechos, $salas, $urls, $lineal, $img_base, $atts, true ) . '</div>';
+		}
+		$html  = '<div class="' . $clase . '" data-gd-invitado="' . (int) $course_id . '">' . $html . '</div>';
+		$html .= '<script>(function(){var g=document.currentScript.previousElementSibling,k=0;'
+			. 'try{k=parseInt(localStorage.getItem("gd_hechos_"+g.dataset.gdInvitado),10)||0}catch(e){}'
+			. 'g.querySelectorAll(".gd-mapa-var").forEach(function(v){v.hidden=+v.dataset.k!==k})})();</script>';
+		return $html . gd_mapa_estilos();
+	}
+
+	/** Un estado del mapa: $hechos[i] = capítulo i completado. */
+	function gd_mapa_html( $hechos, $salas, $urls, $lineal, $img_base, $atts, $diferida ) {
+		$total  = count( $salas );
+		$actual = array_search( false, $hechos, true );  // primer capítulo sin completar (false = terminó todo)
+		$ultimo = 0;                                      // hasta qué sala va a color
+		foreach ( $hechos as $i => $h ) {
+			if ( $h ) {
+				$ultimo = $i + 1;
+			}
+		}
+		$color    = false === $actual ? $total : max( $actual + 1, $ultimo );
+		$n_hechos = count( array_filter( $hechos ) );
+
 		ob_start();
 		?>
-		<div class="gd-mapa<?php echo 'si' === $atts['solo'] ? ' gd-mapa--solo' : ''; ?>" data-gd-mapa>
+		<div class="gd-mapa" data-gd-mapa>
 			<div class="gd-mapa__lienzo">
-				<img class="gd-mapa__img" src="<?php echo esc_url( $img_base . 'mapa-' . $color . '.webp' ); ?>" width="1920" height="1080"
+				<img class="gd-mapa__img"<?php echo $diferida ? ' loading="lazy"' : ''; ?> src="<?php echo esc_url( $img_base . 'mapa-' . $color . '.webp' ); ?>" width="1920" height="1080"
 					alt="<?php echo esc_attr( sprintf( 'Tu recorrido: %d de %d capítulos completados', $n_hechos, $total ) ); ?>">
 				<?php foreach ( $salas as $i => $s ) :
 					$url    = $urls[ $i ];
@@ -158,7 +189,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 			<?php endif; ?>
 		</div>
 		<?php
-		return ob_get_clean() . gd_mapa_estilos();
+		return ob_get_clean();
 	}
 
 	/** CSS y JS, una sola vez por página. */
@@ -320,11 +351,17 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 	add_action( 'wp_ajax_gd_completar', 'gd_leccion_completar_ajax' );
 
 	function gd_leccion_completar_script() {
-		if ( ! is_singular( 'sfwd-lessons' ) || ! is_user_logged_in() ) {
+		if ( ! is_singular( 'sfwd-lessons' ) ) {
 			return;
 		}
 		$lesson_id = get_the_ID();
 		$course_id = function_exists( 'learndash_get_course_id' ) ? (int) learndash_get_course_id( $lesson_id ) : 0;
+		$con_login = is_user_logged_in();
+		// Para el visitante: qué número de capítulo es esta lección (orden del curso, o el slug capitulo-N).
+		$posicion  = $course_id ? array_search( $lesson_id, gd_mapa_lecciones( $course_id ), true ) : false;
+		if ( false === $posicion && preg_match( '/^capitulo-(\d+)$/', (string) get_post_field( 'post_name', $lesson_id ), $m ) ) {
+			$posicion = (int) $m[1] - 1;
+		}
 		?>
 		<style>
 		/* El capítulo se completa solo al terminarlo: el botón de LearnDash sobra. Tampoco hace
@@ -335,9 +372,12 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 		</style>
 		<script>
 		(function () {
-			var AJAX = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>,
-				NONCE = <?php echo wp_json_encode( wp_create_nonce( 'gd_completar' ) ); ?>,
+			var CON_LOGIN = <?php echo $con_login ? 'true' : 'false'; ?>,
+				AJAX = <?php echo wp_json_encode( admin_url( 'admin-ajax.php' ) ); ?>,
+				NONCE = <?php echo wp_json_encode( $con_login ? wp_create_nonce( 'gd_completar' ) : '' ); ?>,
 				LECCION = <?php echo (int) $lesson_id; ?>, CURSO = <?php echo (int) $course_id; ?>,
+				POSICION = <?php echo false === $posicion ? -1 : (int) $posicion; ?>,
+				URL_CURSO = <?php echo wp_json_encode( $course_id ? get_permalink( $course_id ) : home_url( '/' ) ); ?>,
 				enCurso = false;
 			function sinWww(o) { return String(o).replace('//www.', '//'); }
 
@@ -365,7 +405,17 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 				try { e.source.postMessage({ gdAck: e.data.gdId }, '*'); } catch (x) {}
 				if (enCurso) return;
 				enCurso = true;
-				var destino = e.data.destino, fd = new FormData();
+				var destino = e.data.destino;
+				if (!CON_LOGIN) {
+					// Visitante: el avance queda en su navegador y lo lee el mapa del curso.
+					try {
+						var clave = 'gd_hechos_' + CURSO, antes = parseInt(localStorage.getItem(clave), 10) || 0;
+						if (POSICION >= 0 && POSICION + 1 > antes) localStorage.setItem(clave, POSICION + 1);
+					} catch (x) {}
+					window.location.href = destino || URL_CURSO;
+					return;
+				}
+				var fd = new FormData();
 				fd.append('action', 'gd_completar'); fd.append('nonce', NONCE);
 				fd.append('leccion', LECCION); fd.append('curso', CURSO);
 				fetch(AJAX, { method: 'POST', body: fd, credentials: 'same-origin' })

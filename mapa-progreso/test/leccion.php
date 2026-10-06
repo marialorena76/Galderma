@@ -6,12 +6,17 @@ $GLOBALS['acciones'] = array();
 function add_shortcode() {}
 function add_action( $h, $f ) { $GLOBALS['acciones'][ $h ][] = $f; }
 function is_singular( $t ) { return 'sfwd-lessons' === $t; }
-function is_user_logged_in() { return true; }
+function is_user_logged_in() { return ! getenv( 'VISITANTE' ); }
 function get_the_ID() { return 102; }
 function learndash_get_course_id( $id = 0 ) { return 99; }
 function wp_json_encode( $v ) { return json_encode( $v, JSON_UNESCAPED_SLASHES ); }
 function admin_url( $p ) { return '/wp-admin/' . $p; }
 function wp_create_nonce( $a ) { return 'nonce-de-prueba'; }
+function is_user_logged_in_stub() {}
+function get_post_field( $f, $id ) { return 'capitulo-2'; }
+function learndash_course_get_steps_by_type( $c, $t ) { return array( 101, 102, 103, 104, 105, 106 ); }
+function get_permalink( $id ) { return 'https://soyloregonzalez.com.ar/experienciaconproposito/courses/patient-journey-en-accion/'; }
+function home_url( $p ) { return '/'; }
 require __DIR__ . '/../mapa-progreso.php';
 ?><!doctype html><meta charset="utf-8"><title>Capítulo 2</title>
 <body style="margin:0;font-family:sans-serif">

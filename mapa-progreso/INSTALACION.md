@@ -13,7 +13,7 @@ igual en el celular, en la compu o en otra sesión.
 
 | Situación | Imagen | Qué se ve |
 |---|---|---|
-| Visitante sin sesión | `mapa-portada` | La portada a color, sin progreso |
+| Visitante sin sesión (curso abierto) | `mapa-1` … `mapa-6` | Igual que un alumno; el avance queda guardado en su navegador |
 | 0 completos | `mapa-1` | Pin "Empezá acá" en el 01 |
 | 2 completos | `mapa-3` | ✓ en 01 y 02 · pin en 03 · 04-06 grises con candado |
 | 6 completos | `mapa-6` | ✓ en los seis |
@@ -72,3 +72,12 @@ lugar del azul del tema (barra de avance, tildes, botón "Volver al curso"), Pop
 resaltado con fondo rosado y línea magenta, sin tachado en los completos, y los textos que BuddyBoss
 deja en inglés pasados a español. El azul se detecta por color, así que cubre también elementos con
 otros nombres de clase. Réplica para probar: `php test/sidebar.php > test/out/sidebar.html`.
+
+## Visitantes sin sesión (curso abierto)
+Si el curso está como **Abierto** en LearnDash, el visitante ve lo mismo que el alumno: solo el mapa, con su
+barra, y la página limpia. Como LearnDash no guarda avance sin sesión, el avance queda en el navegador del
+visitante: al terminar cada capítulo se anota y el mapa del curso lo muestra. Si el curso no es abierto, el
+visitante ve la página completa para poder inscribirse.
+
+**Importante:** LiteSpeed guarda una copia de las páginas para los visitantes. Después de cada cambio del
+snippet hay que **purgar la caché** (LiteSpeed Cache → Purgar todo); si no, el visitante sigue viendo la copia vieja.

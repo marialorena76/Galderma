@@ -6,6 +6,7 @@ $arg  = $argv[1] ?? '';
 $GLOBALS['done'] = $arg === '' ? array() : array_map( 'intval', explode( ',', $arg ) );
 function shortcode_atts( $d, $a ) { return array_merge( $d, (array) $a ); }
 function add_shortcode( $t, $f ) { $GLOBALS['sc'] = $f; }
+function add_action() {}
 function content_url( $p ) { return str_replace( '/uploads/academia/mapa', '../../img', $p ); }
 function get_current_user_id() { return $GLOBALS['argv'][1] === 'visitante' ? 0 : 7; }
 function learndash_get_course_id() { return 99; }
@@ -16,6 +17,7 @@ function get_permalink( $p ) { return 'https://soyloregonzalez.com.ar/experienci
 function learndash_is_lesson_complete( $u, $l, $c ) { return in_array( $l - 100, $GLOBALS['done'], true ); }
 function learndash_get_step_permalink( $l, $c ) { return 'https://soyloregonzalez.com.ar/experienciaconproposito/lessons/capitulo-' . ( $l - 100 ) . '/'; }
 function learndash_lesson_progression_enabled( $c ) { return true; }
+function learndash_get_setting( $c, $k ) { return getenv( 'CERRADO' ) ? 'paynow' : 'open'; }
 function esc_url( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 function esc_attr( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
 function esc_html( $s ) { return htmlspecialchars( $s, ENT_QUOTES ); }
