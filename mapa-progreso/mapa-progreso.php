@@ -359,3 +359,116 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 	}
 	add_action( 'wp_footer', 'gd_leccion_completar_script' );
 }
+
+/*
+ * Barra lateral de las lecciones (BuddyBoss) con la estética Galderma: magenta en lugar del azul
+ * del tema, tipografía Poppins, capítulo actual resaltado, sin tachado en los completos y textos
+ * en español ("Volver al curso", "33% completado", "Última actividad", "Participantes").
+ */
+if ( ! function_exists( 'gd_sidebar_galderma' ) ) {
+
+	function gd_sidebar_es_leccion() {
+		return is_singular( array( 'sfwd-lessons', 'sfwd-topic', 'sfwd-quiz' ) );
+	}
+
+	function gd_sidebar_galderma() {
+		if ( ! gd_sidebar_es_leccion() ) {
+			return;
+		}
+		?>
+		<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		<style>
+		.lms-topic-sidebar-wrapper{
+			--gd-tint:#9A064E;--gd-tint-soft:#F7E8EF;--gd-ink:#1A1A1A;--gd-muted:#737373;--gd-line:#EADDE3;
+			--bb-primary-color:var(--gd-tint);--bb-primary-button-background-regular:var(--gd-tint);
+			--bb-primary-button-border-regular:var(--gd-tint);--bb-primary-button-background-hover:#7d043f;
+			background:#fff !important;border-right:1px solid var(--gd-line);
+		}
+		.lms-topic-sidebar-wrapper,.lms-topic-sidebar-wrapper *:not([class*="icon"]):not(i){font-family:'Poppins',system-ui,-apple-system,"Segoe UI",sans-serif !important}
+
+		/* "Volver al curso" */
+		.lms-topic-sidebar-wrapper a[class*="course-entry"],
+		.lms-topic-sidebar-wrapper [class*="navigation-heading"] a{
+			background:var(--gd-tint-soft) !important;color:var(--gd-tint) !important;border:0 !important;border-radius:999px !important;
+			font-weight:500;font-size:13px;padding:6px 14px !important;transition:background .15s}
+		.lms-topic-sidebar-wrapper a[class*="course-entry"]:hover,
+		.lms-topic-sidebar-wrapper [class*="navigation-heading"] a:hover{background:#efd3e0 !important}
+		.lms-topic-sidebar-wrapper a[class*="course-entry"] *{color:inherit !important}
+
+		/* Título del curso */
+		.lms-topic-sidebar-wrapper :is(h1,h2,h3)[class*="title"],.lms-topic-sidebar-wrapper :is(h1,h2,h3)[class*="title"] a{
+			color:var(--gd-ink) !important;font-weight:600 !important;letter-spacing:-.01em}
+
+		/* Barra de avance */
+		.lms-topic-sidebar-wrapper .ld-progress-bar{background:var(--gd-tint-soft) !important;border-radius:99px;height:6px !important;overflow:hidden}
+		.lms-topic-sidebar-wrapper .ld-progress-bar-percentage{background:var(--gd-tint) !important;border-radius:99px}
+		.lms-topic-sidebar-wrapper .ld-progress-percentage{color:var(--gd-tint) !important;font-weight:600}
+		.lms-topic-sidebar-wrapper :is(.ld-progress-steps,.ld-progress-stats,[class*="last-activity"]){color:var(--gd-muted) !important}
+
+		/* Lista de capítulos */
+		.lms-topic-sidebar-wrapper .lms-lesson-item,.lms-topic-sidebar-wrapper .lms-lesson-item *{text-decoration:none !important}
+		.lms-topic-sidebar-wrapper .lms-lesson-item a{color:var(--gd-ink) !important;transition:color .15s}
+		.lms-topic-sidebar-wrapper .lms-lesson-item a:hover{color:var(--gd-tint) !important}
+		.lms-topic-sidebar-wrapper .lms-lesson-item:is([class*="complete"],[class*="completed"]) a{color:var(--gd-muted) !important}
+		.lms-topic-sidebar-wrapper .lms-lesson-item.current,.lms-topic-sidebar-wrapper .lms-lesson-item.current > *{background:var(--gd-tint-soft) !important}
+		.lms-topic-sidebar-wrapper .lms-lesson-item.current,.lms-topic-sidebar-wrapper .lms-lesson-item.current > :first-child{box-shadow:inset 3px 0 0 var(--gd-tint)}
+		.lms-topic-sidebar-wrapper .lms-lesson-item.current a{color:var(--gd-tint) !important;font-weight:600}
+		</style>
+		<?php
+	}
+	add_action( 'wp_head', 'gd_sidebar_galderma', 99 );
+
+	function gd_sidebar_galderma_js() {
+		if ( ! gd_sidebar_es_leccion() ) {
+			return;
+		}
+		?>
+		<script>
+		(function () {
+			var TINT = '#9A064E';
+			var TEXTOS = [
+				[/Back to (Course|Curso)/i, 'Volver al curso'],
+				[/(\d+)\s*% Complete/i, '$1% completado'],
+				[/Last activity on/i, 'Última actividad:'],
+				[/\bParticipants\b/, 'Participantes']
+			];
+			// Azul del tema (BuddyBoss): se detecta por tono, así cubre tildes, círculos y bordes
+			// aunque cambie el nombre de las clases.
+			function esAzul(c) {
+				var m = /rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/.exec(c || '');
+				if (!m || (m[4] !== undefined && +m[4] === 0)) return false;
+				var r = +m[1], g = +m[2], b = +m[3];
+				return b > 180 && b - r > 90 && b - g > 60;
+			}
+			function pintar(raiz) {
+				raiz.querySelectorAll('*').forEach(function (el) {
+					var cs = getComputedStyle(el);
+					if (esAzul(cs.backgroundColor)) el.style.setProperty('background-color', TINT, 'important');
+					if (esAzul(cs.borderTopColor) || esAzul(cs.borderLeftColor)) el.style.setProperty('border-color', TINT, 'important');
+					if (esAzul(cs.color)) el.style.setProperty('color', TINT, 'important');
+					if (el instanceof SVGElement) {
+						if (esAzul(cs.fill)) el.style.setProperty('fill', TINT, 'important');
+						if (esAzul(cs.stroke)) el.style.setProperty('stroke', TINT, 'important');
+					}
+				});
+			}
+			function traducir(raiz) {
+				var w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT), n;
+				while ((n = w.nextNode())) {
+					TEXTOS.forEach(function (t) { if (t[0].test(n.nodeValue)) n.nodeValue = n.nodeValue.replace(t[0], t[1]); });
+				}
+			}
+			function aplicar() {
+				var s = document.querySelector('.lms-topic-sidebar-wrapper');
+				if (!s) return;
+				traducir(s); pintar(s);
+			}
+			if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', aplicar); else aplicar();
+			window.addEventListener('load', aplicar);
+		})();
+		</script>
+		<?php
+	}
+	add_action( 'wp_footer', 'gd_sidebar_galderma_js', 99 );
+}

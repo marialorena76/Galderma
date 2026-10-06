@@ -64,3 +64,10 @@ Requiere los `capituloN.html` actualizados de la carpeta `fluido/` (suben a `wp-
 reemplazando los anteriores). Si el snippet se desactiva, los capítulos navegan igual que antes.
 
 Probarlo localmente: `php test/leccion.php > test/out/sitio/leccion.html` (simula una lección con el capítulo adentro).
+
+## Barra lateral de las lecciones con estética Galderma
+El snippet también restiliza la barra lateral de BuddyBoss en lecciones, temas y quizzes: magenta en
+lugar del azul del tema (barra de avance, tildes, botón "Volver al curso"), Poppins, capítulo actual
+resaltado con fondo rosado y línea magenta, sin tachado en los completos, y los textos que BuddyBoss
+deja en inglés pasados a español. El azul se detecta por color, así que cubre también elementos con
+otros nombres de clase. Réplica para probar: `php test/sidebar.php > test/out/sidebar.html`.
