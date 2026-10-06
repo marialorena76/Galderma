@@ -2,7 +2,13 @@
 
 El alumno abre el curso y ve el recorrido con **su** avance: los capítulos hechos a color
 con tilde, el actual con el pin "Estás acá" y el resto en gris con candado.
-Si además querés la barra "Vas por el Capítulo 03 · 2/6 · Continuar →" debajo, usá `[mapa_progreso barra="si"]`. El progreso sale de LearnDash, así que se ve
+Debajo va la barra "Vas por el Capítulo 03 · 2/6 · Continuar →" (para sacarla: `[mapa_progreso barra="no"]`).
+
+**Modo "solo el mapa" (por defecto):** al alumno con sesión la página del curso le muestra únicamente
+el encabezado del sitio, el mapa con su barra y el pie. Oculta el banner del curso, la tarjeta lateral
+"Completado / Curso Includes", las barras "100% Complete" y los listados "Contenido del Curso".
+Al visitante sin sesión no le oculta nada, para que pueda inscribirse.
+Para ver la página completa otra vez: `[mapa_progreso solo="no"]`. El progreso sale de LearnDash, así que se ve
 igual en el celular, en la compu o en otra sesión.
 
 | Situación | Imagen | Qué se ve |

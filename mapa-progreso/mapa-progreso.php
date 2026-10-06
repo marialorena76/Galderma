@@ -4,7 +4,11 @@
  *
  * Shortcode: [mapa_progreso]
  *   Opcional: [mapa_progreso curso="123"] si se usa fuera de la página del curso.
- *   Opcional: [mapa_progreso barra="si"] suma debajo la barra "Vas por el Capítulo N · 2/6 · Continuar".
+ *   Opcional: [mapa_progreso barra="no"] saca la barra "Vas por el Capítulo N · 2/6 · Continuar" de abajo.
+ *   Opcional: [mapa_progreso solo="no"] deja visible el resto de la página del curso.
+ *     Por defecto, al alumno con sesión le muestra solo el mapa: oculta el banner del curso, la
+ *     tarjeta lateral, las barras "100% Complete" y los listados "Contenido del Curso".
+ *     Al visitante sin sesión no le oculta nada, para que vea cómo inscribirse.
  *
  * Muestra la ilustración del recorrido con el avance real del alumno en LearnDash:
  * las salas de los capítulos hechos y el actual a color, el resto en gris, un tilde
@@ -50,7 +54,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 	}
 
 	function gd_mapa_shortcode( $atts ) {
-		$atts      = shortcode_atts( array( 'curso' => 0, 'barra' => 'no' ), $atts, 'mapa_progreso' );
+		$atts      = shortcode_atts( array( 'curso' => 0, 'barra' => 'si', 'solo' => 'si' ), $atts, 'mapa_progreso' );
 		$course_id = $atts['curso'] ? (int) $atts['curso'] : ( function_exists( 'learndash_get_course_id' ) ? (int) learndash_get_course_id() : 0 );
 		$img_base  = content_url( '/uploads/academia/mapa/' );
 		$salas     = gd_mapa_salas();
@@ -81,7 +85,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 
 		ob_start();
 		?>
-		<div class="gd-mapa" data-gd-mapa>
+		<div class="gd-mapa<?php echo 'si' === $atts['solo'] ? ' gd-mapa--solo' : ''; ?>" data-gd-mapa>
 			<div class="gd-mapa__lienzo">
 				<img class="gd-mapa__img" src="<?php echo esc_url( $img_base . 'mapa-' . $color . '.webp' ); ?>" width="1920" height="1080"
 					alt="<?php echo esc_attr( sprintf( 'Tu recorrido: %d de %d capítulos completados', $n_hechos, $total ) ); ?>">
@@ -214,6 +218,13 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 			.gd-sala__nota{display:none}
 		}
 		@media (prefers-reduced-motion:reduce){.gd-pin__onda,.gd-pin__chip{animation:none}}
+
+		/* Modo "solo el mapa": se ocultan de entrada los bloques conocidos de BuddyBoss/LearnDash
+		   (evita el parpadeo); el script de abajo se encarga del resto, se llamen como se llamen. */
+		body:has(.gd-mapa--solo) :is(.bb-learndash-banner,.bb-single-course-sidebar,.bb-course-preview-wrap,
+			.learndash-wrapper .ld-course-status,.learndash-wrapper .ld-progress,.learndash-wrapper .ld-item-list,
+			.learndash-wrapper .ld-section-heading,.learndash-wrapper .ld-tabs-navigation):not(:has(.gd-mapa)){display:none !important}
+		.gd-mapa--solo{width:100%;padding-top:24px}
 		</style>
 		<script>
 		/* En pantallas táctiles: el primer toque en una sala bloqueada muestra la nota en vez de no hacer nada. */
@@ -221,6 +232,34 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 			var s=e.target.closest&&e.target.closest('.gd-sala[aria-disabled]');
 			if(s){s.focus();}
 		});
+
+		/* Modo "solo el mapa": sube desde el mapa hasta el contenedor de la página y oculta todo
+		   lo que tenga al lado en cada nivel (banner, tarjeta lateral, progreso, listados, duplicados).
+		   Nunca toca el encabezado ni el pie del sitio. A los contenedores del camino les saca el
+		   ancho fijo de columna para que el mapa use todo el ancho. */
+		(function(){
+			var SALVAR='script,style,link,template,#wpadminbar,.site-header,#masthead,.site-footer,#colophon,'+
+				'[data-elementor-type="header"],[data-elementor-type="footer"],.bb-mobile-header,.buddypanel';
+			var TOPE='#content,.site-content,#page,body';
+			function aislar(){
+				var m=document.querySelector('.gd-mapa--solo'); if(!m) return;
+				var el=m;
+				while(el.parentElement && !el.matches(TOPE)){
+					var padre=el.parentElement;
+					Array.prototype.forEach.call(padre.children,function(h){
+						if(h===el || h.matches(SALVAR) || h.querySelector(SALVAR)) return;
+						h.style.setProperty('display','none','important');
+					});
+					if(padre.matches(TOPE)) break;
+					padre.style.setProperty('max-width','100%','important');
+					padre.style.setProperty('width','100%','important');
+					padre.style.setProperty('flex','0 0 100%','important');
+					padre.style.setProperty('grid-column','1 / -1','important');
+					el=padre;
+				}
+			}
+			if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',aislar);}else{aislar();}
+		})();
 		</script>
 		<?php
 		return ob_get_clean();
