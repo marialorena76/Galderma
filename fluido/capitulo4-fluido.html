@@ -1013,8 +1013,10 @@ html:fullscreen body{min-height:100vh}
   // ====== configuración del capítulo ======
   var CFG = {
     id: "cap4",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
-    quizUrl: "",       // link al Quiz de LearnDash, si lo usás
-    siguienteUrl: ""   // link al Capítulo 2; vacío = el botón final no navega
+    quizUrl: "",  // link al Quiz de LearnDash, si lo usás (tiene prioridad menor que siguienteUrl)
+    // A dónde lleva el botón de la última pantalla. Vacío = el botón se oculta
+    // y el alumno cierra con el "Marcar como completado" de LearnDash.
+    siguienteUrl: "https://soyloregonzalez.com.ar/experienciaconproposito/lessons/capitulo-5/"
   };
   // Clips del capítulo. Varios bloques se reproducen encadenados, como si fueran un solo video.
   // s = duración en segundos (solo sirve para que la barra sea proporcional).
@@ -1029,7 +1031,7 @@ html:fullscreen body{min-height:100vh}
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 4 →" };
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 5 →" };
 
   var TITULOS = [
     "Portada",
@@ -1056,6 +1058,8 @@ html:fullscreen body{min-height:100vh}
     count.textContent = "Pantalla " + cur + " de " + TOTAL;
     prevB.disabled = cur === 1;
     nextB.textContent = ETIQUETA[cur] || "Continuar →";
+    // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
+    nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
     var activa = CAT_POR_PANTALLA[cur];
     cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
     var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
