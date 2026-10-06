@@ -9,7 +9,10 @@ function add_shortcode( $t, $f ) { $GLOBALS['sc'] = $f; }
 function content_url( $p ) { return str_replace( '/uploads/academia/mapa', '../../img', $p ); }
 function get_current_user_id() { return $GLOBALS['argv'][1] === 'visitante' ? 0 : 7; }
 function learndash_get_course_id() { return 99; }
-function learndash_course_get_steps_by_type( $c, $t ) { return array( 101, 102, 103, 104, 105, 106 ); }
+function learndash_course_get_steps_by_type( $c, $t ) { return getenv( 'UNA_LECCION' ) ? array( 101 ) : array( 101, 102, 103, 104, 105, 106 ); }
+if ( ! defined( 'OBJECT' ) ) define( 'OBJECT', 'OBJECT' );
+function get_page_by_path( $slug, $o, $t ) { return (object) array( 'slug' => $slug ); }
+function get_permalink( $p ) { return 'https://soyloregonzalez.com.ar/experienciaconproposito/lessons/' . $p->slug . '/'; }
 function learndash_is_lesson_complete( $u, $l, $c ) { return in_array( $l - 100, $GLOBALS['done'], true ); }
 function learndash_get_step_permalink( $l, $c ) { return 'https://soyloregonzalez.com.ar/experienciaconproposito/lessons/capitulo-' . ( $l - 100 ) . '/'; }
 function learndash_lesson_progression_enabled( $c ) { return true; }

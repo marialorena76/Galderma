@@ -83,6 +83,18 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 		$n_hechos  = count( array_filter( $hechos ) );
 		$lineal    = function_exists( 'learndash_lesson_progression_enabled' ) ? learndash_lesson_progression_enabled( $course_id ) : true;
 
+		// Link de cada sala. Si la lección no está cargada en el curso (Constructor de LearnDash),
+		// se busca igual por su slug "capitulo-N" para que la sala no quede muerta.
+		$urls = array();
+		foreach ( $salas as $i => $s ) {
+			if ( isset( $lecciones[ $i ] ) ) {
+				$urls[ $i ] = function_exists( 'learndash_get_step_permalink' ) ? learndash_get_step_permalink( $lecciones[ $i ], $course_id ) : get_permalink( $lecciones[ $i ] );
+			} else {
+				$suelta     = get_page_by_path( 'capitulo-' . ( $i + 1 ), OBJECT, 'sfwd-lessons' );
+				$urls[ $i ] = $suelta ? get_permalink( $suelta ) : '';
+			}
+		}
+
 		ob_start();
 		?>
 		<div class="gd-mapa<?php echo 'si' === $atts['solo'] ? ' gd-mapa--solo' : ''; ?>" data-gd-mapa>
@@ -90,7 +102,7 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 				<img class="gd-mapa__img" src="<?php echo esc_url( $img_base . 'mapa-' . $color . '.webp' ); ?>" width="1920" height="1080"
 					alt="<?php echo esc_attr( sprintf( 'Tu recorrido: %d de %d capítulos completados', $n_hechos, $total ) ); ?>">
 				<?php foreach ( $salas as $i => $s ) :
-					$url    = isset( $lecciones[ $i ] ) ? ( function_exists( 'learndash_get_step_permalink' ) ? learndash_get_step_permalink( $lecciones[ $i ], $course_id ) : get_permalink( $lecciones[ $i ] ) ) : '';
+					$url    = $urls[ $i ];
 					$estado = $hechos[ $i ] ? 'hecho' : ( $i === $actual ? 'actual' : 'pendiente' );
 					$traba  = 'pendiente' === $estado && $lineal;
 					if ( 'hecho' === $estado ) {
@@ -134,8 +146,8 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 					<span class="gd-mapa__riel"><span style="width:<?php echo esc_attr( round( $n_hechos / $total * 100, 2 ) ); ?>%"></span></span>
 					<span class="gd-mapa__cuenta"><?php echo (int) $n_hechos; ?>/<?php echo (int) $total; ?></span>
 				</div>
-				<?php if ( false !== $actual && isset( $lecciones[ $actual ] ) ) : ?>
-					<a class="gd-mapa__cta" href="<?php echo esc_url( function_exists( 'learndash_get_step_permalink' ) ? learndash_get_step_permalink( $lecciones[ $actual ], $course_id ) : get_permalink( $lecciones[ $actual ] ) ); ?>">
+				<?php if ( false !== $actual && $urls[ $actual ] ) : ?>
+					<a class="gd-mapa__cta" href="<?php echo esc_url( $urls[ $actual ] ); ?>">
 						<?php echo $n_hechos ? 'Continuar' : 'Empezar'; ?> <span aria-hidden="true">→</span>
 					</a>
 				<?php endif; ?>
