@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capítulo 4 — Momento del tratamiento | Galderma</title>
+<title>Capítulo 5 — Seguimiento Post-Tratamiento | Galderma</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -367,7 +367,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insignia span{color:var(--muted);font-size:clamp(12px,1.02vw,15.5px);line-height:1.45}
 .gen{width:min(100%,520px);display:flex;flex-direction:column;gap:.45em}
 .gen__bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
-.gen__bar i{display:block;height:100%;width:66.6%;background:var(--tint);border-radius:99px}
+.gen__bar i{display:block;height:100%;width:83.3%;background:var(--tint);border-radius:99px}
 @media (max-width:860px){
   .cmp{grid-template-columns:minmax(0,1fr)}
   .cmp__arrow{transform:rotate(90deg);justify-self:center}
@@ -698,13 +698,101 @@ html:fullscreen body{min-height:100vh}
 .protf{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:clamp(18px,2vw,32px)}
 @media (max-width:1000px){ .protf{display:none} }
 
+/* ===== capítulo 5 ===== */
+/* p49 · línea de tiempo del seguimiento */
+.tl{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.09);
+  padding:clamp(16px,1.8vw,34px);display:flex;flex-direction:column;gap:clamp(14px,1.6vw,30px)}
+.tli{display:grid;grid-template-columns:auto minmax(0,.52fr) minmax(0,1.45fr);gap:clamp(11px,1.3vw,24px);align-items:start}
+@media (max-width:860px){ .tli{grid-template-columns:auto minmax(0,1fr)} .tli__msg{grid-column:2} }
+.tli__rail{position:relative;display:grid;place-items:start center;padding-top:.35em;align-self:stretch}
+.tli__rail span{width:clamp(16px,1.5vw,24px);aspect-ratio:1;border-radius:50%;background:var(--tint);
+  box-shadow:0 0 0 3px #fff, 0 0 0 clamp(4px,.45vw,7px) var(--tint);display:block;z-index:1}
+.tli__rail::after{content:"";position:absolute;top:1.1em;bottom:calc(-1 * clamp(14px,1.6vw,30px));
+  left:50%;width:2px;background:var(--line);transform:translateX(-50%)}
+.tli:last-child .tli__rail::after{display:none}
+.tli__t{display:flex;flex-direction:column;gap:.55em;align-items:flex-start}
+.tli__t b{font-size:clamp(14px,1.25vw,20px)}
+.canal{display:inline-flex;align-items:center;gap:.4em;background:var(--surface);border-radius:99px;
+  padding:clamp(5px,.5vw,9px) clamp(10px,1vw,16px);font-size:clamp(11.5px,1vw,15px);color:var(--muted);line-height:1.2}
+.canal img{width:clamp(13px,1.2vw,18px)}
+.tli__msg{background:var(--surface);border-radius:12px;padding:clamp(12px,1.3vw,22px);
+  font-size:clamp(13px,1.12vw,17.5px);line-height:1.5}
+
+/* p50 · mensajes que fidelizan */
+.etapas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,26px);align-items:stretch}
+@media (max-width:1000px){ .etapas{grid-template-columns:minmax(0,1fr)} }
+.etapa{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);
+  display:flex;flex-direction:column;gap:clamp(11px,1.2vw,20px)}
+.etapa__h{background:var(--tint-soft);color:var(--tint);border-radius:12px;text-align:center;
+  padding:clamp(11px,1.2vw,20px);font-weight:600;font-size:clamp(13.5px,1.25vw,20px);line-height:1.3}
+.etapa__no{background:var(--dark);color:#fff;border-radius:14px;padding:clamp(12px,1.3vw,22px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:start;
+  font-size:clamp(13px,1.15vw,18px);line-height:1.4}
+.etapa__si{background:#fff;border-radius:14px;padding:clamp(12px,1.3vw,22px);flex:1;
+  font-size:clamp(13px,1.12vw,17.5px);line-height:1.5}
+.etapa__si b{color:var(--tint);font-weight:400}
+.etapa__si .med{float:left;margin:0 .5em .2em 0}
+.etapa__p{text-align:center;color:var(--muted);font-size:clamp(12px,1.05vw,16px);line-height:1.4;margin:0}
+
+/* p51 · fórmula del seguimiento sin presión */
+.f5{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.6vw,28px);
+  display:flex;flex-direction:column;gap:clamp(11px,1.2vw,20px);align-items:center}
+.f5__t{letter-spacing:.14em;color:var(--muted);font-size:clamp(11px,1vw,15px)}
+.f5__row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:clamp(8px,1vw,18px)}
+.f5__p{background:#fff;border-radius:99px;padding:clamp(8px,.9vw,15px) clamp(13px,1.4vw,26px);
+  display:flex;align-items:center;gap:clamp(8px,.9vw,16px)}
+.f5__p b{color:var(--tint);font-size:clamp(15px,1.5vw,25px)}
+.f5__p img{width:clamp(24px,2.3vw,38px);border-left:1px solid var(--line);padding-left:clamp(8px,.9vw,16px)}
+.f5__p span{letter-spacing:.06em;font-size:clamp(11.5px,1.05vw,17px)}
+.f5__op{color:var(--tint);font-size:clamp(15px,1.5vw,25px);font-weight:600}
+.f5__r{color:var(--tint);font-weight:600;letter-spacing:.04em;font-size:clamp(13px,1.3vw,21px)}
+.pasosf{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.09);
+  padding:clamp(14px,1.6vw,30px);display:flex;flex-direction:column;gap:clamp(12px,1.4vw,26px)}
+.pasof{display:grid;grid-template-columns:auto minmax(0,.28fr) minmax(0,1fr) minmax(0,.9fr);
+  gap:clamp(10px,1.2vw,24px);align-items:center}
+@media (max-width:1000px){ .pasof{grid-template-columns:auto minmax(0,1fr)} .pasof__d,.pasof__e{grid-column:2} }
+.pasof__n{background:var(--surface);color:var(--muted);border-radius:50%;width:clamp(34px,3.2vw,54px);
+  height:clamp(34px,3.2vw,54px);display:grid;place-items:center;font-size:clamp(13px,1.2vw,19px);flex:none}
+.pasof__t{font-weight:700;letter-spacing:.04em;font-size:clamp(14px,1.3vw,21px)}
+.pasof__d{font-size:clamp(13.5px,1.18vw,19px);line-height:1.4}
+.pasof__e{background:var(--surface);border-radius:12px;padding:clamp(11px,1.2vw,20px);
+  font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.45}
+.pasof--3 .pasof__t,.pasof--3 .pasof__d,.pasof--3 .pasof__e{color:var(--tint)}
+
+/* p52 · ejercicio de respuesta libre */
+.libre{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(14px,1.6vw,30px);align-items:start}
+@media (max-width:900px){ .libre{grid-template-columns:minmax(0,1fr)} }
+.libre textarea{width:100%;min-height:clamp(170px,22vh,280px);border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(13px,1.3vw,22px);font:inherit;font-size:clamp(13.5px,1.15vw,18px);line-height:1.5;resize:vertical;
+  background:#fff;color:var(--ink)}
+.libre textarea:focus{outline:2px solid var(--tint);outline-offset:1px}
+.pautas{background:#fff;border-radius:var(--r);box-shadow:0 2px 16px rgba(0,0,0,.09);
+  padding:clamp(15px,1.7vw,30px);display:flex;flex-direction:column;gap:clamp(11px,1.2vw,20px)}
+.pautas__h{display:flex;align-items:center;gap:clamp(10px,1.1vw,18px);color:var(--tint);
+  letter-spacing:.08em;font-size:clamp(13px,1.25vw,20px)}
+.pautas__h i{font-style:normal;font-size:clamp(18px,1.8vw,30px)}
+.pautas p{margin:0;font-size:clamp(12.5px,1.08vw,17px);line-height:1.4}
+.pautas ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
+.pautas li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(9px,1vw,16px);align-items:center;
+  font-size:clamp(13px,1.1vw,17.5px);line-height:1.35;color:var(--muted)}
+.pautas li b{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border:1px solid var(--line);border-radius:5px;
+  display:grid;place-items:center;font-size:clamp(12px,1.1vw,17px);color:transparent;flex:none}
+.pautas li.hecho{color:var(--ink)}
+.pautas li.hecho b{background:var(--tint);border-color:var(--tint);color:#fff}
+.modelo{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(12px,1.4vw,28px);align-items:start}
+@media (max-width:620px){ .modelo{grid-template-columns:minmax(0,1fr)} }
+.modelo[hidden]{display:none}
+.modelo b{color:var(--tint);letter-spacing:.06em;font-size:clamp(12px,1.08vw,17px);white-space:nowrap}
+.modelo p{margin:0;color:var(--tint);font-size:clamp(13px,1.1vw,17.5px);line-height:1.5}
+
 </style>
 </head>
 <body>
 
 <header class="hd">
   <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
-  <div class="hd__cap">Capítulo 4 de 6<b>Momento del tratamiento</b></div>
+  <div class="hd__cap">Capítulo 5 de 6<b>Seguimiento Post-Tratamiento</b></div>
   <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
   <div class="hd__lec" id="count">Pantalla 1 de 8</div>
   <button class="hd__menu" id="menu" type="button" aria-expanded="false"
@@ -723,17 +811,17 @@ html:fullscreen body{min-height:100vh}
 <section class="scr scr--flush on" data-scr="1">
   <div class="hero">
     <div class="hero__pic hero__pic--ilus">
-      <img data-i="ilus_portada" alt="Paciente recibiendo un tratamiento en la sala">
+      <img data-i="ilus_portada" alt="Asesora conversando con una paciente en el seguimiento">
     </div>
     <div class="hero__txt">
-      <div><div class="eyebrow eyebrow--big">Capítulo 4</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
-      <h1>Momento<br>del <em>tratamiento</em></h1>
-      <p class="lead">Cada gesto cuenta en el momento del tratamiento.</p>
+      <div><div class="eyebrow eyebrow--big">Capítulo 5</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
+      <h1>Seguimiento<br>Post-<em>Tratamiento</em></h1>
+      <p class="lead">Evitar el abandono y convertir el post-tratamiento en el inicio del siguiente ciclo de fidelización.</p>
     </div>
   </div>
   <div class="ftc">
-    <span>Informar con claridad</span><span>Transmitir seguridad</span>
-    <span>Reforzar la decisión</span><span>Mantener el vínculo</span>
+    <span>Evitar el abandono</span><span>Sistema de seguimiento</span>
+    <span>Mensajes que fidelizan</span><span>Continuidad del plan</span>
   </div>
 </section>
 
@@ -753,176 +841,198 @@ html:fullscreen body{min-height:100vh}
 
   <div class="s2">
     <div>
-      <div class="eyebrow">Capítulo 4 · Momento del Tratamiento</div>
-      <h1 style="margin-top:.3em">El equipo ideal en la sala de tratamiento</h1>
-      <p class="lead">En este video descubrirás por qué el momento del tratamiento es el más íntimo de la experiencia del paciente y cómo el equipo cumple un rol central antes, durante y después del procedimiento.</p>
+      <div class="eyebrow">Capítulo 5 · Seguimiento Post-Tratamiento</div>
+      <h1 style="margin-top:.3em">Por qué los pacientes no vuelven</h1>
+      <p class="lead">En este video descubrirás por qué la falta de contacto post-tratamiento es la principal causa de abandono y cómo un sistema de seguimiento activo transforma la experiencia en fidelización continua.</p>
     </div>
 
     <div class="s2cols">
       <div>
         <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
         <div class="objs">
-          <div><img data-i="w4_a" alt="">Acompañar en el pre-ingreso</div>
-          <div><img data-i="w4_b" alt="">Discreción durante el procedimiento</div>
-          <div><img data-i="w4_c" alt="">Validar sensaciones al salir</div>
-          <div><img data-i="w4_d" alt="">Abrir el canal de seguimiento</div>
+          <div><img data-i="w5_a" alt="">Evitar el abandono silencioso</div>
+          <div><img data-i="w5_b" alt="">Protocolo de tiempos de contacto</div>
+          <div><img data-i="w5_c" alt="">Mensajes que abren el siguiente paso</div>
+          <div><img data-i="w5_d" alt="">Acompañar en lugar de vender</div>
         </div>
       </div>
       <div class="idea">
-        <div class="idea__t"><img data-i="w4_star" alt="">Idea clave</div>
-        <p>Tu rol es estar disponible — no estar encima. El médico trabaja, el paciente confía, vos acompañás.</p>
+        <div class="idea__t"><img data-i="w5_star" alt="">Idea clave</div>
+        <p>El silencio se interpreta como indiferencia. El seguimiento no es un gesto de amabilidad: es la estrategia que duplica la tasa de retorno.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 3 · qué explicar antes del procedimiento (p39) ============ -->
+<!-- ============ 3 · el seguimiento activo (p49) ============ -->
 <section class="scr" data-scr="3">
-  <h1>¿Qué explicar antes del procedimiento (y qué NO decir)?</h1>
-  <p class="lead">Las palabras previas al tratamiento reducen la ansiedad o generan dudas innecesarias.</p>
+  <h1>El seguimiento activo: cuándo, cómo y qué decir</h1>
+  <p class="lead">Protocolo de seguimiento post-tratamiento.</p>
 
-  <div class="frases" style="margin-top:var(--gap)">
-    <div class="fr fr--no">
-      <div class="fr__h"><span class="med med--soft">✕</span><span>QUÉ NO DECIR / NO HACER</span></div>
-      <q class="pill">Comentar sobre cómo va quedando durante el tratamiento.</q>
-      <q class="pill">‘Ay, te va a doler un poco, preparate.’</q>
-      <q class="pill">Hablar de casos de otros pacientes (real o inventado).</q>
-      <q class="pill">Entrar al consultorio a buscar cosas sin avisar.</q>
-      <q class="pill">Opinar sobre el procedimiento o los resultados esperados.</q>
+  <div class="tl" style="margin-top:var(--gap)">
+    <div class="tli">
+      <div class="tli__rail"><span></span></div>
+      <div class="tli__t"><b>48 horas post-tratamiento</b>
+        <span class="canal"><img data-i="ic_wa" alt="">WhatsApp</span></div>
+      <div class="tli__msg">¡Hola [nombre]! ¿Cómo estás? Ya deberías estar viendo los primeros resultados del Dysport. ¿Cómo te sentiste? Cualquier duda, estamos acá 💖</div>
     </div>
-    <div class="fr fr--si">
-      <div class="fr__h"><span class="med">✓</span><span>QUÉ SÍ DECIR</span></div>
-      <q>‘El procedimiento dura aproximadamente [X] minutos.’</q>
-      <q>‘Es normal sentir un leve pinchazo — el médico te va a avisar.’</q>
-      <q>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</q>
-      <q>‘Si tenés alguna pregunta, estamos acá.’</q>
-      <q>‘La doctora te va a explicar todo antes de empezar.’</q>
+    <div class="tli">
+      <div class="tli__rail"><span></span></div>
+      <div class="tli__t"><b>7 días post-tratamiento</b>
+        <span class="canal"><img data-i="ic_wa" alt="">WhatsApp o <img data-i="ic_tel" alt="">llamada</span></div>
+      <div class="tli__msg">¡Hola [nombre]! ¿Cómo estás? Queríamos saber cómo seguiste después de tu tratamiento. ¿Cómo te sentís? Si tenés alguna duda o querés contarnos cómo evolucionaste, estamos acá para ayudarte.</div>
+    </div>
+    <div class="tli">
+      <div class="tli__rail"><span></span></div>
+      <div class="tli__t"><b>30 días post-tratamiento</b>
+        <span class="canal"><img data-i="ic_wa" alt="">WhatsApp</span></div>
+      <div class="tli__msg">[Nombre], ya pasó un mes desde tu tratamiento. ¿Cómo te sentís? Nos gustaría saber cómo fue tu experiencia y cómo estás viendo los resultados. Si querés, coordinamos una consulta para conversar sobre los próximos pasos.</div>
+    </div>
+    <div class="tli">
+      <div class="tli__rail"><span></span></div>
+      <div class="tli__t"><b>4-5 meses post Dysport</b>
+        <span class="canal"><img data-i="ic_wa" alt="">WhatsApp o <img data-i="ic_tel" alt="">llamada</span></div>
+      <div class="tli__msg">¡Hola! El Dysport tiene una duración de hasta 6 meses. Si querés seguir antes de que termine el efecto, podemos coordinar tu próxima sesión. ¿Te armamos un turno?</div>
+    </div>
+    <div class="tli">
+      <div class="tli__rail"><span></span></div>
+      <div class="tli__t"><b>Post Sculptra (2-3 meses)</b>
+        <span class="canal"><img data-i="ic_wa" alt="">WhatsApp o <img data-i="ic_mail" alt="">Email</span></div>
+      <div class="tli__msg">A esta altura ya estás viendo los cambios progresivos de Sculptra, ¿los notaste? Es el momento ideal para la segunda sesión del plan — ¿coordinamos?</div>
     </div>
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
-    <p>Anticipar sensaciones y tiempos da seguridad; opinar o improvisar traslada inseguridad al paciente.</p>
+    <p>El protocolo de seguimiento no improvisa momentos ni canales: responde al tiempo biológico de cada producto para asegurar la continuidad del paciente.</p>
   </div>
 </section>
 
-<!-- ============ 4 · reforzar la decisión (p40) ============ -->
+<!-- ============ 4 · mensajes que fidelizan (p50) ============ -->
 <section class="scr" data-scr="4">
-  <h1>Cómo reforzar la decisión del paciente durante el tratamiento</h1>
-  <p class="lead">El paciente ya decidió. Tu trabajo es que se sienta bien con esa decisión.</p>
+  <h1>Mensajes post-tratamiento que fidelizan: ejemplos reales</h1>
+  <p class="lead">La diferencia está en el tono.</p>
 
-  <div class="mom" style="margin-top:var(--gap)">
-    <div class="momr">
-      <div class="momr__l">CUANDO ENTRA AL CONSULTORIO</div>
-      <div class="momr__r">
-        <p>“Estás en muy buenas manos. Cualquier cosa, avisá.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Breve, cálido, sin exagerar.</span></div>
-      </div>
+  <div class="etapas" style="margin-top:var(--gap)">
+    <div class="etapa">
+      <div class="etapa__h">ETAPA 1 · 48 HORAS<br>(DYSPORT)</div>
+      <div class="etapa__no"><span class="med med--soft">✕</span>
+        <span>GENÉRICO: “Hola, ¿cómo le fue con el tratamiento?”</span></div>
+      <div class="etapa__si"><span class="med">✓</span><b>QUE FIDELIZA:</b>
+        “¡Hola [Valentina]! ¿Cómo va? Te escribo para saber cómo estás después del tratamiento con Dysport. A las 48 horas ya deberías notar la diferencia en las líneas de expresión 🌸 ¿Cómo lo notás? Si tenés alguna duda o algo que quieras consultarle a la doctora, avisanos sin problema.”</div>
+      <p class="etapa__p">Nombrar el tratamiento y anticipar tiempos.</p>
     </div>
-    <div class="momr">
-      <div class="momr__l">CUANDO SALE<br>(primeros 2 minutos)</div>
-      <div class="momr__r">
-        <p>“¿Cómo estás? Es normal lo que estás viendo — en 48 horas vas a ver cómo va mejorando.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Valida su estado actual. Da certeza sobre el proceso.</span></div>
-      </div>
+    <div class="etapa">
+      <div class="etapa__h">ETAPA 2 · 30 DÍAS<br>(SKINBOOSTERS)</div>
+      <div class="etapa__no"><span class="med med--soft">✕</span>
+        <span>GENÉRICO: “Hola, ¿cuándo querés volver para un nuevo turno?”</span></div>
+      <div class="etapa__si"><span class="med">✓</span><b>QUE FIDELIZA:</b>
+        “¡Hola [nombre]! ¿Cómo va? Ya pasó un mes desde tu sesión de Skinboosters. Es el momento ideal para evaluar cómo está tu piel y ver cómo continuar con tu plan de tratamiento. ¿Te parece si coordinamos un turno esta semana?”</div>
+      <p class="etapa__p">Evaluar evolución y continuar el plan integral.</p>
     </div>
-    <div class="momr">
-      <div class="momr__l">ANTES DE QUE SE VAYA</div>
-      <div class="momr__r">
-        <p>“Te mando un mensaje en 2 días para saber cómo estás. Y si tenés cualquier duda antes, no dudes en escribirnos.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Abre el canal de seguimiento. Genera vínculo.</span></div>
-      </div>
+    <div class="etapa">
+      <div class="etapa__h">ETAPA 3 · 5 MESES<br>(RENOVACIÓN)</div>
+      <div class="etapa__no"><span class="med med--soft">✕</span>
+        <span>GENÉRICO: “Hola, se te vence el efecto del Dysport, ¿querés renovar?”</span></div>
+      <div class="etapa__si"><span class="med">✓</span><b>QUE FIDELIZA:</b>
+        “¡Hola [nombre]! ¿Cómo va? El tratamiento con Dysport tiene una duración de hasta 6 meses, y estamos cerca de ese momento. Muchas pacientes eligen realizarlo nuevamente antes de que el efecto se vaya del todo, para obtener los resultados de forma continua. ¿Querés que te busquemos un turno?”</div>
+      <p class="etapa__p">Anticipar la duración para mantener el resultado continuo.</p>
     </div>
-  </div>
-
-  <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
-    <p>Reforzar la decisión no significa elogiar el tratamiento. Significa acompañar emocionalmente al paciente en el proceso.</p>
   </div>
 </section>
 
-<!-- ============ 5 · el protocolo de los 10 minutos (p41) ============ -->
+<!-- ============ 5 · control y continuidad (p51) ============ -->
 <section class="scr" data-scr="5">
-  <h1>El protocolo de los 10 minutos más importantes</h1>
-  <p class="lead">Los 3 momentos clave: pre-ingreso, durante y salida del consultorio.</p>
+  <h1>Control y continuidad: cómo proponer el siguiente turno sin presionar</h1>
+  <p class="lead">Resultado + Lógica + Propuesta.</p>
 
-  <div class="prot" style="margin-top:var(--gap)">
-    <div class="protc">
-      <div class="protc__h"><span class="protc__n">01</span><span class="protc__t">PRE-INGRESO</span></div>
-      <div class="protc__r"></div>
-      <ul>
-        <li><i>&#10003;</i>Recibirlo por su nombre.</li>
-        <li><i>&#10003;</i>Decirle cuánto dura el procedimiento.</li>
-        <li><i>&#10003;</i>Avisarle qué puede sentir (pinchazo leve o sensación de presión).</li>
-        <li><i>&#10003;</i>Ofrecerle agua o material de lectura mientras espera.</li>
-      </ul>
-      <div class="protc__f protc__f--no"><span class="med">✕</span>
-        No hablar de precios ni de otras personas que se atendieron.</div>
+  <div class="f5" style="margin-top:var(--gap)">
+    <div class="f5__t">FÓRMULA</div>
+    <div class="f5__row">
+      <div class="f5__p"><b>1</b><img data-i="f5_target" alt=""><span>[ RESULTADO ]</span></div>
+      <span class="f5__op">+</span>
+      <div class="f5__p"><b>2</b><img data-i="f5_cerebro" alt=""><span>[ LÓGICA ]</span></div>
+      <span class="f5__op">+</span>
+      <div class="f5__p"><b>3</b><img data-i="f5_doc" alt=""><span>[ PROPUESTA ]</span></div>
+      <span class="f5__op">=</span>
+      <span class="f5__r">SEGUIMIENTO SIN PRESIÓN</span>
     </div>
-    <div class="protc">
-      <div class="protc__h"><span class="protc__n">02</span><span class="protc__t">DURANTE EL TRATAMIENTO</span></div>
-      <div class="protc__r"></div>
-      <ul>
-        <li><i>&#10003;</i>Estar disponible — no estar en la sala si no es necesario.</li>
-        <li><i>&#10003;</i>Si estás en la sala: silencio y atención total al médico.</li>
-        <li><i>&#10003;</i>Mantener un ambiente sereno y de concentración.</li>
-      </ul>
-      <div class="protc__f protc__f--no"><span class="med">✕</span>
-        No opinar sobre el aspecto del paciente ni usar el celular o hablar de temas ajenos.</div>
+  </div>
+
+  <div class="pasosf" style="margin-top:var(--gap)">
+    <div class="pasof">
+      <span class="pasof__n">01</span><span class="pasof__t">RESULTADO</span>
+      <span class="pasof__d">Mencioná qué está pasando con el tratamiento que ya hizo.</span>
+      <div class="pasof__e">Ejemplo: “Ya pasó un mes desde tu Sculptra — a esta altura el colágeno está activándose y vas a seguir viendo mejoras.”</div>
     </div>
-    <div class="protc">
-      <div class="protc__h"><span class="protc__n">03</span><span class="protc__t">SALIDA DEL CONSULTORIO</span></div>
-      <div class="protc__r"></div>
-      <ul>
-        <li><i>&#10003;</i>Recibir al paciente con una sonrisa calmada.</li>
-        <li><i>&#10003;</i>Validar cómo se ve: ‘Es completamente normal.’</li>
-        <li><i>&#10003;</i>Dar información concreta sobre tiempos y resultados.</li>
-        <li><i>&#10003;</i>Confirmar seguimiento: ‘Te escribo en dos días.’</li>
-        <li><i>&#10003;</i>Despedirlo por su nombre.</li>
-      </ul>
-      <div class="protc__f protc__f--si"><span class="med">★</span>
-        Acompañar sin invadir: validar, informar y mantener el canal abierto.</div>
+    <div class="pasof">
+      <span class="pasof__n">02</span><span class="pasof__t">LÓGICA</span>
+      <span class="pasof__d">Explicá por qué tiene sentido el siguiente paso.</span>
+      <div class="pasof__e">Ejemplo: “La segunda sesión potencia los resultados de la primera y completa el plan que armó la doctora.”</div>
+    </div>
+    <div class="pasof pasof--3">
+      <span class="pasof__n">03</span><span class="pasof__t">PROPUESTA</span>
+      <span class="pasof__d">Ofrecé el siguiente paso de forma concreta y sin presión.</span>
+      <div class="pasof__e">Ejemplo: “¿Querés que te busquemos un turno para las próximas dos semanas?”</div>
     </div>
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
-    <p>La percepción de calidad médica depende de la precisión y discreción del equipo en cada uno de estos 3 momentos.</p>
+    <p>La propuesta del turno no irrumpe de la nada: es el cierre natural de un proceso biológico y un criterio médico previo.</p>
   </div>
 </section>
 
-<!-- ============ 6 · ejercicio 1 (p42) ============ -->
+<!-- ============ 6 · ejercicio 1 · completá el mensaje (p52) ============ -->
 <section class="scr" data-scr="6">
   <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
-  <h1 style="margin-top:.2em">¿Qué decís en este momento?</h1>
-  <p class="lead">Opción múltiple.</p>
+  <h1 style="margin-top:.2em">Completá el mensaje</h1>
 
   <div class="consigna" style="margin-top:var(--gap)">
     <div class="eyebrow">Consigna</div>
-    <p>Un paciente sale del consultorio después de aplicarse Dysport. Tiene una leve marca roja en la frente y se ve la toca con el dedo. Te mira. <b>¿Qué hacés?</b></p>
+    <p>Es la primera noche después del tratamiento de Dysport de Luciana. Escribí el mensaje de WhatsApp de seguimiento aplicando los criterios aprendidos en el módulo.</p>
   </div>
 
-  <div class="eyebrow" style="margin:var(--gap) 0 .8em">Fragmentos disponibles</div>
-  <div class="uno" id="uno"></div>
-
-  <div class="fb" id="unofb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
-    <p>Elegí una opción para ver la devolución.</p>
+  <div class="libre" style="margin-top:var(--gap)">
+    <div>
+      <div class="eyebrow" style="margin-bottom:.8em">Tu respuesta</div>
+      <textarea id="resp" placeholder="Escribí acá el mensaje de WhatsApp que le enviarías a Luciana…"></textarea>
+      <div style="display:flex;justify-content:flex-end;margin-top:var(--gap)">
+        <button class="btn btn--tint" id="comprobar">Comprobar respuesta &raquo;</button>
+      </div>
+    </div>
+    <div class="pautas">
+      <div class="pautas__h"><i>&#9745;</i>PAUTAS A INCLUIR</div>
+      <p>Antes de enviar, revisá que tu mensaje cumpla con:</p>
+      <ul id="pautas">
+        <li data-k="nombre"><b>&#10003;</b>Usar el nombre de la paciente</li>
+        <li data-k="producto"><b>&#10003;</b>Mencionar el producto (Dysport)</li>
+        <li data-k="concreto"><b>&#10003;</b>Dar información concreta sobre qué esperar</li>
+        <li data-k="ayuda"><b>&#10003;</b>Terminar con oferta de ayuda</li>
+        <li data-k="tono"><b>&#10003;</b>Tono cálido y no invasivo</li>
+      </ul>
+    </div>
   </div>
+
+  <div class="modelo" id="modelo" hidden>
+    <b>RESPUESTA MODELO</b>
+    <p>“¡Hola Luciana! ¿Cómo va? Te escribo para saber cómo estás después del Dysport de hoy. Es normal si tenés un poco de enrojecimiento — en 48 horas vas a empezar a notar la diferencia en las líneas de expresión 😊 Cualquier duda que tengas, escribinos. Estamos acá. ¡Que descanses!”</p>
+  </div>
+
   <div class="meta" style="margin-top:var(--gap)">
     <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
   </div>
 </section>
 
-<!-- ============ 7 · ejercicio 2 · ordenar el protocolo (p43) ============ -->
+<!-- ============ 7 · ejercicio 2 · cronograma (p53) ============ -->
 <section class="scr" data-scr="7">
   <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
-  <h1 style="margin-top:.2em">Ordenar el protocolo</h1>
-  <p class="lead">Arrastrá estas acciones —o tocá una y después el casillero— en el orden correcto para cuando el paciente sale del consultorio.</p>
+  <h1 style="margin-top:.2em">¿A los cuántos días?</h1>
+  <p class="lead">Arrastrá cada acción —o tocá una y después el casillero— al día correcto del cronograma post-tratamiento.</p>
 
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
-      <div class="eyebrow" style="margin-bottom:.8em">Fragmentos disponibles</div>
+      <div class="eyebrow" style="margin-bottom:.8em">Acciones disponibles</div>
       <div class="stack" id="frags" style="gap:clamp(9px,.9vw,14px)"></div>
     </div>
     <div>
@@ -937,14 +1047,14 @@ html:fullscreen body{min-height:100vh}
 
   <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
     <div class="eyebrow eyebrow--tint">Feedback</div>
-    <p>El orden importa porque cada paso prepara el siguiente. Primero generás tranquilidad, después brindás orientación, anticipás el seguimiento y cerrás la atención de manera personalizada.</p>
+    <p>Cada contacto responde al tiempo biológico del producto: a las 48 horas se consultan los primeros resultados, a los 7 días cómo siguió, al mes se propone mantenimiento y a los 4-5 meses el recordatorio de renovación.</p>
   </div>
   <div class="meta" style="margin-top:var(--gap)">
     <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
   </div>
 </section>
 
-<!-- ============ 8 · checkpoint (p44) ============ -->
+<!-- ============ 8 · checkpoint (p54) ============ -->
 <section class="scr" data-scr="8">
   <div style="display:flex;justify-content:space-between;gap:var(--gap);flex-wrap:wrap;align-items:flex-start">
     <div>
@@ -958,21 +1068,21 @@ html:fullscreen body{min-height:100vh}
   <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
-    <p>Durante el tratamiento, el paciente no necesita más información, sino la información adecuada en el momento adecuado: anticipar lo necesario, evitar comentarios que generen inseguridad y saber cómo responder cuando algo le preocupa.</p>
+    <p>El contacto post-tratamiento tiene un propósito concreto: retomar el tratamiento desde la experiencia del paciente, anticipar lo que puede esperar y dejar abierta una vía de atención. Un mensaje genérico pierde esa oportunidad.</p>
   </div>
 </section>
 
-<!-- ============ 9 · capítulo completado (p45) ============ -->
+<!-- ============ 9 · capítulo completado (p55) ============ -->
 <section class="scr scr--flush" data-scr="9">
   <div class="done">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
       <span class="badge__e">BADGE DESBLOQUEADO</span>
-      <span class="badge__n">Momento del tratamiento</span>
-      <span class="badge__l">Nivel 4</span>
+      <span class="badge__n">Seguimiento Post-Tratamiento</span>
+      <span class="badge__l">Nivel 5</span>
     </div>
-    <h1>¡Capítulo 4 completado!</h1>
-    <p class="lead">Aprendiste a reconocer qué hacer, qué decir y qué evitar durante el momento del tratamiento.</p>
+    <h1>¡Capítulo 5 completado!</h1>
+    <p class="lead">Incorporaste las claves para realizar un seguimiento oportuno, personalizado y orientado a las necesidades del paciente después del tratamiento.</p>
     <div class="done__checks">
       <div><i>&#10003;</i>Capítulo completado</div>
       <div><i>&#10003;</i>Lecciones finalizadas</div>
@@ -980,12 +1090,12 @@ html:fullscreen body{min-height:100vh}
     </div>
     <div class="insignia">
       <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
-      <strong>Acompañante Experta</strong>
-      <span>Sabés cómo intervenir en los momentos adecuados, brindar orientación sin generar inseguridad y respetar el espacio del paciente durante el tratamiento.</span>
+      <strong>Especialista en Continuidad</strong>
+      <span>Sumaste criterio para reconocer qué necesita cada paciente, cuándo intervenir y cómo adaptar tu comunicación en cada contacto.</span>
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
-      <div style="font-size:clamp(12.5px,1.08vw,16px)">4 de 6 capítulos completados</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">5 de 6 capítulos completados</div>
       <div class="gen__bar"><i></i></div>
     </div>
   </div>
@@ -1012,7 +1122,7 @@ html:fullscreen body{min-height:100vh}
 
   // ====== configuración del capítulo ======
   var CFG = {
-    id: "cap4",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
+    id: "cap5",   // cambiar por cap2, cap3... en cada capítulo (tiene que coincidir con el embed)
     quizUrl: "",       // link al Quiz de LearnDash, si lo usás
     siguienteUrl: ""   // link al Capítulo 2; vacío = el botón final no navega
   };
@@ -1020,7 +1130,7 @@ html:fullscreen body{min-height:100vh}
   // s = duración en segundos (solo sirve para que la barra sea proporcional).
   var VIDEO = {
     bloques: [
-      { id: "hf6G2188IkI", t: "Mariano Vacca · El equipo ideal en la sala de tratamiento", s: 0 }
+      { id: "", t: "Mariano Vacca · Por qué los pacientes no vuelven", s: 0 }   // FALTA EL LINK: poner acá el ID de YouTube del video del capítulo 5
     ]
   };
 
@@ -1029,16 +1139,16 @@ html:fullscreen body{min-height:100vh}
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 4 →" };
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 6 →" };
 
   var TITULOS = [
     "Portada",
-    "El equipo ideal en la sala de tratamiento",
-    "¿Qué explicar antes del procedimiento?",
-    "Cómo reforzar la decisión del paciente",
-    "El protocolo de los 10 minutos",
-    "Ejercicio 1 · ¿Qué decís en este momento?",
-    "Ejercicio 2 · Ordenar el protocolo",
+    "Por qué los pacientes no vuelven",
+    "El seguimiento activo: cuándo, cómo y qué decir",
+    "Mensajes post-tratamiento que fidelizan",
+    "Control y continuidad",
+    "Ejercicio 1 · Completá el mensaje",
+    "Ejercicio 2 · ¿A los cuántos días?",
     "Checkpoint final",
     "Capítulo completado"
   ];
@@ -1048,7 +1158,7 @@ html:fullscreen body{min-height:100vh}
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
   var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
-  var CAT_POR_PANTALLA = {1:1, 2:1, 3:2, 4:3, 5:1, 6:2, 7:1, 8:0, 9:0}; // 0 = todas
+  var CAT_POR_PANTALLA = {1:1, 2:1, 3:2, 4:2, 5:4, 6:2, 7:1, 8:0, 9:0}; // 0 = todas
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
@@ -1150,41 +1260,36 @@ html:fullscreen body{min-height:100vh}
   window.addEventListener("resize", verTip);
   verTip();
 
-  // ====== 6 · ejercicio 1: ¿qué decís en este momento? ======
-  var OPC = [
-    { t:"Le decís que no se toque para no arruinar el resultado.", ok:false },
-    { t:"Le preguntás si le dolió y si está conforme.", ok:false },
-    { t:"Le sonreís y decís: ‘¿Cómo estás? Es normal lo que estás viendo — en 48 horas vas a notar la diferencia. Te mando un mensaje para saber cómo seguiste.’", ok:true },
-    { t:"Le ofrecés un espejo para que vea cómo quedó.", ok:false }
-  ];
-  var FB_TXT = "Después del tratamiento, el paciente puede necesitar tranquilidad y orientación sobre lo que está viendo. Acompañar sin invadir implica validar lo que siente, brindar información concreta y dejar abierto el canal de seguimiento.";
-  var OK_I = 2;
-  var elUno = document.getElementById("uno"), elUnoFb = document.getElementById("unofb");
-  elUno.innerHTML = OPC.map(function (o, i) {
-    return '<button type="button" data-o="' + i + '"><i>' + "ABCD"[i] + '</i><span>' + o.t + '</span>' +
-      '<em>' + (o.ok ? "¡Correcto!" : "Revisá tu respuesta.") + '</em></button>';
-  }).join("");
-  elUno.addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b || elUno.classList.contains("listo")) return;
-    var i = +b.dataset.o, bien = OPC[i].ok;
-    elUno.classList.add("listo");
-    b.classList.add(bien ? "right" : "wrong");
-    if (!bien) elUno.querySelector('button[data-o="' + OK_I + '"]').classList.add("right");
-    elUnoFb.className = "fb " + (bien ? "good" : "bad");
-    elUnoFb.innerHTML = '<div class="eyebrow eyebrow--tint">Feedback</div>' +
-      '<p><b>' + (bien ? "¡Correcto!" : "Revisá tu respuesta.") + '</b> ' + FB_TXT + '</p>';
-    post();
-  });
+  // ====== 6 · ejercicio 1: completá el mensaje (respuesta libre) ======
+  // Cada pauta se chequea sola mientras la persona escribe. Es una guía, no una nota.
+  var PAUTAS = {
+    nombre:   function (t) { return /lucian/.test(t); },
+    producto: function (t) { return /dysport/.test(t); },
+    concreto: function (t) { return /(48\s*(h|hs|horas))|(\d+\s*(h|hs|horas|d[ií]as))|enrojecimiento|l[ií]neas de expresi[oó]n|resultad/.test(t); },
+    ayuda:    function (t) { return /(escribinos|escribime|consult|avisanos|avisame|estamos ac[áa]|cualquier duda|a disposici[oó]n)/.test(t); },
+    tono:     function (t) { return t.length > 90 && !/(ten[eé]s que|deb[eé]s|urgente|promoci[oó]n|descuento|ya mismo)/.test(t); }
+  };
+  var elResp = document.getElementById("resp"), elPautas = document.getElementById("pautas");
+  var elModelo = document.getElementById("modelo"), btnComp = document.getElementById("comprobar");
+  function revisar() {
+    var t = (elResp.value || "").toLowerCase();
+    Array.prototype.forEach.call(elPautas.children, function (li) {
+      li.classList.toggle("hecho", !!t && PAUTAS[li.dataset.k](t));
+    });
+  }
+  elResp.addEventListener("input", revisar);
+  btnComp.addEventListener("click", function () { revisar(); elModelo.hidden = false; post(); });
+  revisar();
 
-  // ====== 7 · ejercicio 2: ordenar el protocolo ======
+  // ====== 7 · ejercicio 2: cronograma post-tratamiento ======
   var FRAGS = [
-    { id:"A", t:"Anticiparle que volverás a contactarlo para conocer cómo evoluciona." },
-    { id:"B", t:"Recibirlo de manera amable y transmitir tranquilidad." },
-    { id:"C", t:"Finalizar la atención dirigiéndote al paciente por su nombre." },
-    { id:"D", t:"Validar su percepción y transmitirle tranquilidad." },
-    { id:"E", t:"Explicarle qué cambios puede esperar durante las próximas horas." }
+    { id:"A", t:"¿Cómo estás? ¿Ya notás la diferencia?" },
+    { id:"B", t:"¿Cómo siguió todo?" },
+    { id:"C", t:"Propuesta de mantenimiento" },
+    { id:"D", t:"Recordatorio de renovación" }
   ];
-  var ORDEN = ["B","D","E","A","C"];
+  var SLOTQ = ["48 horas", "7 días", "30 días post-tratamiento", "4-5 meses post Dysport"];
+  var ORDEN = ["A","B","C","D"];
   var elFrags = document.getElementById("frags"), elSlots = document.getElementById("slots");
   var btnVal = document.getElementById("ex1val"), btnRes = document.getElementById("ex1reset");
   var elFb = document.getElementById("ex1fb");
@@ -1210,10 +1315,12 @@ html:fullscreen body{min-height:100vh}
     elSlots.innerHTML = "";
     slots.forEach(function (s, i) {
       var d = document.createElement("div");
-      d.className = "slot" + (s.id ? " full" : ""); d.dataset.i = i;
+      d.className = "slot slot--par" + (s.id ? " full" : ""); d.dataset.i = i;
       var f = FRAGS.filter(function (x) { return x.id === s.id; })[0];
       d.innerHTML = '<span class="slot__n">' + s.n + '</span>' +
-        (f ? '<span class="frag__t">' + f.t + '</span>' : '<span class="slot__ph">Arrastrá o tocá acá</span>');
+        '<span class="frag__t"><b>' + SLOTQ[i] + '</b></span>' +
+        '<span class="slot__drop">' + (f ? '<span class="frag__t">' + f.t + '</span>'
+                                         : '<span class="slot__ph">Arrastrá o tocá acá</span>') + '</span>';
       if (s.id) { d.draggable = true;
         d.addEventListener("dragstart", function (e) { arrastrado = { desde:i }; e.dataTransfer.effectAllowed = "move"; }); }
       d.addEventListener("dragover", function (e) { e.preventDefault(); d.classList.add("over"); });
@@ -1240,8 +1347,8 @@ html:fullscreen body{min-height:100vh}
     var ok = slots.every(function (s, i) { return s.id === ORDEN[i]; });
     elFb.className = "fb " + (ok ? "good" : "bad");
     elFb.innerHTML = '<div class="eyebrow eyebrow--tint">Feedback</div><p>' +
-      (ok ? "✅ ¡Ese es el orden! Cada paso prepara el siguiente: primero generás tranquilidad, después brindás orientación, anticipás el seguimiento y cerrás la atención de manera personalizada."
-          : "❌ Todavía no es el orden ideal. Pensá la secuencia: tranquilidad → validar lo que ve → explicar qué puede esperar → anticipar el seguimiento → despedirlo por su nombre.") + "</p>";
+      (ok ? "✅ ¡Exacto! 48 horas: ¿cómo estás? · 7 días: ¿cómo siguió todo? · 30 días: propuesta de mantenimiento · 4-5 meses: recordatorio de renovación."
+          : "❌ Todavía no coincide. Cada contacto responde al tiempo biológico del producto: primero los resultados iniciales, después la evolución, después el mantenimiento y al final la renovación.") + "</p>";
     post();
   });
   btnRes.addEventListener("click", function () {
@@ -1252,21 +1359,21 @@ html:fullscreen body{min-height:100vh}
 
   // ====== 8 · checkpoint final ======
   var PREGUNTAS = [
-    { t:"¿Cuál es la función principal del equipo DURANTE el tratamiento (mientras el médico trabaja)?",
-      o:["Hablar con el paciente para distraerlo.",
-         "Estar disponible y en silencio, sin interferir en el trabajo del médico.",
-         "Explicar al paciente qué está haciendo el médico.",
-         "Tomar fotos del procedimiento para redes sociales."], ok:1, ill:"q4_chat" },
-    { t:"Un paciente sale del consultorio con enrojecimiento. Lo correcto es:",
-      o:["Decirle que se vea en el espejo para ver cómo quedó.",
-         "Decirle que el enrojecimiento es raro y que avise si empeora.",
-         "Validar que es normal, dar información de cuándo verá el resultado, y confirmar el seguimiento.",
-         "No decir nada para no preocuparlo más."], ok:2, ill:"q4_mano" },
-    { t:"¿Cuál de estas acciones en sala de espera PRE-ingreso es incorrecta?",
-      o:["Decirle cuánto dura el procedimiento.",
-         "Hablar de otros pacientes que se atendieron ese día como referencia.",
-         "Ofrecerle agua mientras espera.",
-         "Decirle que puede haber un leve pinchazo."], ok:1, ill:"q4_info" }
+    { t:"Según lo trabajado en este módulo, ¿qué situación puede afectar la continuidad del vínculo con el paciente después del tratamiento?",
+      o:["El precio del tratamiento.",
+         "El dolor del procedimiento.",
+         "La falta de seguimiento y contacto post-tratamiento.",
+         "Que no les gustó el resultado."], ok:2, ill:"q5_link" },
+    { t:"¿Cuándo es el momento ideal para el primer contacto post-tratamiento de Dysport?",
+      o:["El mismo día, apenas sale del consultorio.",
+         "A las 48 horas, cuando ya pueden ver los primeros resultados.",
+         "A la semana, para no ser invasiva.",
+         "Al mes, cuando ya se fue el efecto."], ok:1, ill:"q5_cal" },
+    { t:"Un mensaje de seguimiento efectivo incluye:",
+      o:["Solo el saludo y la pregunta de cómo está.",
+         "El nombre del paciente, referencia al producto/tratamiento, qué esperar, y oferta de ayuda.",
+         "Una oferta de descuento para la próxima sesión.",
+         "Una lista de todos los tratamientos disponibles."], ok:1, ill:"q5_mail" }
   ];
   var TOTAL_Q = PREGUNTAS.length;
   var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");

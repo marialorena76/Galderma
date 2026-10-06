@@ -1249,7 +1249,14 @@ html:fullscreen body{min-height:100vh}
     var lista = (VIDEO && VIDEO.bloques || []).filter(function (b) { return b && b.id; });
     var caja = document.getElementById("vid");
     var monte = document.getElementById("ytmount");
-    if (!caja || !monte || !lista.length) return;
+    if (!caja || !monte) return;
+    if (!lista.length) {   // el capítulo todavía no tiene el link cargado
+      caja.classList.add("falla");
+      caja.querySelector(".vid__fb").innerHTML =
+        "Falta cargar el video de este capítulo.<br>" +
+        "<small>Pegá el ID de YouTube en <b>VIDEO.bloques</b>, dentro de este mismo archivo.</small>";
+      return;
+    }
 
     var reel = document.getElementById("reel");
     var barra = document.getElementById("reelbar");
