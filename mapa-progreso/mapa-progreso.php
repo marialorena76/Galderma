@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Mapa de progreso — Experiencia con propósito
  * Description: Mapa interactivo del recorrido en la página del curso, completado automático de cada capítulo, barra lateral de lecciones con estética Galderma y página limpia para alumnos y visitantes.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Lorena González
  * Requires PHP: 7.2
  */
@@ -370,8 +370,8 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
  * Completado automático de los capítulos.
  *
  * Cuando el alumno llega al final de un capítulo (el HTML del iframe), el capítulo le avisa a la
- * lección; la lección marca la lección como completada en LearnDash y lleva al capítulo siguiente
- * (o al curso, en el último). Así el mapa avanza solo y el botón "Marcar como completado" sobra:
+ * lección; la lección marca la lección como completada en LearnDash y vuelve al mapa del curso,
+ * donde el alumno ve su avance y elige el capítulo siguiente. Así el mapa avanza solo y el botón "Marcar como completado" sobra:
  * se oculta en las lecciones que tienen un capítulo embebido.
  */
 if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
@@ -464,7 +464,7 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 						var clave = 'gd_hechos_' + CURSO, antes = parseInt(localStorage.getItem(clave), 10) || 0;
 						if (POSICION >= 0 && POSICION + 1 > antes) localStorage.setItem(clave, POSICION + 1);
 					} catch (x) {}
-					window.location.href = destino || URL_CURSO;
+					window.location.href = URL_CURSO;   // vuelve al mapa: desde ahí elige el próximo capítulo
 					return;
 				}
 				var fd = new FormData();
@@ -474,8 +474,9 @@ if ( ! function_exists( 'gd_leccion_completar_ajax' ) ) {
 					.then(function (r) { return r.json(); })
 					.catch(function () { return null; })
 					.then(function (r) {
+						// Vuelve al mapa del curso, que ya muestra el capítulo completado y el siguiente.
 						var curso = r && r.success && r.data.curso;
-						window.location.href = destino || curso || '/';
+						window.location.href = curso || URL_CURSO || destino || '/';
 					});
 			});
 		})();
