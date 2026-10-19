@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capítulo 1 — Descubrimiento y Primer Contacto | Galderma</title>
+<title>Capítulo 1 · Descubrimiento y Primer Contacto | Galderma</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -28,7 +28,6 @@ button{font:inherit}
 .hd{display:flex;align-items:center;gap:clamp(10px,1.6vw,26px);
   padding:12px var(--pad);border-bottom:1px solid var(--line);flex-wrap:wrap;
   position:sticky;top:0;background:#fff;z-index:20}
-.hd__logo{height:clamp(19px,1.8vw,27px);width:auto;flex:none}
 .hd__cap{font-size:clamp(10.5px,.82vw,13px);color:var(--muted);line-height:1.35}
 .hd__cap b{display:block;font-size:clamp(12.5px,1vw,16px);color:var(--ink);font-weight:600}
 .hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
@@ -57,7 +56,16 @@ button{font:inherit}
 .btn--tint{background:var(--tint);color:#fff}
 .btn--dark{background:var(--ink);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+/* el botón que abre la práctica y el que cierra el capítulo no son el "Continuar" de siempre */
+.btn--go{background:var(--tint);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* pantallas de práctica: tienen que distinguirse de la teoría */
+.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
+  background:var(--tint);color:#fff;border-radius:99px;
+  padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
+.exbadge i{font-style:normal;font-size:1.05em}
 
 /* ============ pantallas ============ */
 .scr{display:none;padding:clamp(18px,2.4vw,38px) var(--pad) 0}
@@ -67,7 +75,7 @@ h1{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.1;
   font-size:clamp(23px,3.1vw,44px);text-wrap:balance}
 h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);text-wrap:balance}
 .lead{margin:.45em 0 0;color:var(--muted);line-height:1.5;font-size:clamp(14.5px,1.3vw,20px);max-width:70ch}
-.eyebrow{font-size:clamp(10.5px,.85vw,13px);letter-spacing:.18em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.eyebrow{font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .eyebrow--tint{color:var(--tint)}
 
 .card{background:var(--card);border-radius:var(--r);padding:clamp(14px,1.35vw,24px);box-shadow:var(--shadow)}
@@ -79,17 +87,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight{margin:var(--gap) 0 clamp(18px,2.2vw,32px);background:var(--surface);border-radius:var(--r);
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.6vw,28px);
   display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:clamp(10px,1.4vw,24px)}
-.insight img{width:clamp(30px,3vw,48px);background:#fff;border-radius:50%;padding:7px}
+.insight img{width:clamp(30px,3vw,48px);background:var(--tint-soft);border-radius:50%;padding:7px}
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
-/* pie de categorias */
-.ft{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  gap:clamp(8px,1vw,16px);padding:clamp(11px,1.3vw,20px) var(--pad)}
-.ft div{display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1.05vw,17px);line-height:1.25;opacity:.55}
-.ft div.on{opacity:1}
-.ft[hidden]{display:none}
-.ft img{width:clamp(20px,2.1vw,32px);flex:none}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -118,24 +119,20 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .hero__pic--ilus img{width:100%;height:100%;object-fit:contain;object-position:center}
 .hero__txt h1 em{font-style:normal;color:var(--tint)}
 .eyebrow--big{font-size:clamp(13px,1.35vw,21px);letter-spacing:.01em;text-transform:none;color:var(--muted)}
-.ftc{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  padding:clamp(11px,1.3vw,20px) var(--pad);text-align:center}
-.ftc span{font-size:clamp(10.5px,1.02vw,16px);letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
-.ftc span+span{border-left:1px solid rgba(255,255,255,.3)}
 .hero__quote{border-left:3px solid var(--ink);padding-left:.9em;font-size:clamp(15px,1.5vw,23px);line-height:1.45}
 
 /* ---- P2 video ---- */
 .vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden;
   max-width:1020px;margin:0 auto}
 .s2{max-width:1020px;margin:var(--gap) auto 0;display:flex;flex-direction:column;gap:var(--gap)}
-.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:start}
+.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:end}
 @media (max-width:820px){ .s2cols{grid-template-columns:minmax(0,1fr)} }
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.objs{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.objs{display:flex;flex-direction:column;gap:clamp(7px,.75vw,12px)}
 .objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
-.objs img{width:clamp(26px,2.4vw,38px);flex:none}
+.objs img{width:clamp(19px,1.75vw,27px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
-.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
+.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .idea__t img{width:clamp(16px,1.4vw,22px)}
 .idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
 /* ---- reproductor en cadena (varios clips como si fueran uno) ---- */
@@ -185,7 +182,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .k1::before,.k2::before{left:-3.5px}.k3::before,.k4::before{right:-3.5px}
 .rowlist{display:flex;flex-direction:column;gap:clamp(9px,.95vw,15px)}
 .rowlist .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(9px,1vw,17px)}
-.rowlist img{width:clamp(24px,2.4vw,36px)}
+.rowlist img{width:clamp(19px,1.8vw,27px);background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .rowlist span{font-size:clamp(13.5px,1.2vw,17px);line-height:1.3}
 .ok{width:clamp(17px,1.4vw,23px);aspect-ratio:1;border:2px solid var(--tint);border-radius:50%;
   display:grid;place-items:center;color:var(--tint);font-size:clamp(9px,.8vw,12px);font-weight:700}
@@ -194,9 +191,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .chans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
 .chan__h{display:flex;align-items:center;gap:clamp(8px,.9vw,14px);margin-bottom:.7em}
 .chan__h img{width:clamp(30px,2.9vw,46px);flex:none}
-.chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--surface);
+.chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--tint-soft);color:var(--tint);flex:none;
   color:var(--muted);display:grid;place-items:center;font-size:clamp(10px,.9vw,14px);font-weight:600;margin-left:auto;flex:none}
-.chan h3{margin:0 0 .55em;font-weight:500;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2}
+.chan h3{margin:0 0 .55em;font-weight:500;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2;
+  display:flex;align-items:center;gap:clamp(7px,.75vw,12px)}
 .chan__f{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(7px,.7vw,11px);align-items:start;margin-bottom:.55em}
 .chan__f img{width:clamp(16px,1.5vw,23px);margin-top:.15em}
 .chan__f p{margin:0;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
@@ -209,7 +207,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .dlg dt{font-weight:600;font-size:clamp(12px,1vw,15px);white-space:nowrap}
 .dlg dd{margin:0;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
 .recall{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:start}
-.recall__ic{background:var(--surface);border-radius:12px;padding:clamp(8px,.8vw,13px);flex:none}
+.recall__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(8px,.8vw,13px);flex:none}
 .recall__ic img{width:clamp(22px,2.1vw,32px)}
 .recall b{display:block;font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
 .recall p{margin:.35em 0 0;color:var(--muted);font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
@@ -231,17 +229,17 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:var(--gap)}
 .prod__l{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
 .prod__l img{width:clamp(17px,1.6vw,25px);flex:none}
-.prod__l em{font-style:normal;font-size:clamp(10.5px,.88vw,13px);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.prod__l em{font-style:normal;font-size:clamp(11px,.92vw,14px);letter-spacing:.01em;color:var(--muted)}
 .prod h3{margin:0 0 .55em;font-weight:600;font-size:clamp(16px,1.5vw,23px)}
 .prod p{margin:0 0 .9em;font-size:clamp(13px,1.05vw,16px);line-height:1.45;color:#3A3A3A}
 .prod .qz{color:var(--ink)}
 .why{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
-.why__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
-.why__ic img{width:clamp(28px,2.6vw,42px)}
+.why__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
+.why__ic img{width:clamp(22px,2vw,32px)}
 .why b{font-weight:600;line-height:1.35;font-size:clamp(13.5px,1.15vw,18px)}
 
 /* ---- P6 ejercicio 1 ---- */
-.consigna{background:var(--surface);border-left:4px solid var(--tint);border-radius:0 var(--r) var(--r) 0;
+.consigna{border-left:3px solid var(--tint);border-radius:0;
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.5vw,26px)}
 .consigna p{margin:.3em 0 0;font-size:clamp(14.5px,1.3vw,20px);line-height:1.45}
 .ex1{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--gap)}
@@ -285,6 +283,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .opt.wrong{border-color:#E08787;background:var(--bad-soft);color:#A13A3A}
 .opt.done{cursor:default}
 .opt i{font-style:normal;font-weight:700;flex:none}
+/* que se vea de un vistazo cuál era la correcta (slides 18 y 35) */
+.opt.right::after,.opt.wrong::after{margin-left:auto;font-weight:700;font-size:1.05em;flex:none}
+.opt.right::after{content:"✓";color:var(--tint)}
+.opt.wrong::after{content:"✕";color:#A13A3A}
 .keys .k{border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px)}
 .keys .k b{display:flex;align-items:center;gap:.45em;color:var(--tint);font-size:clamp(12.5px,1.05vw,16px)}
 .keys .k img{width:clamp(14px,1.25vw,19px)}
@@ -303,7 +305,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
 .q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
 .q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
-.q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
+.q__ill img{width:clamp(52px,6vw,92px);opacity:.8;mix-blend-mode:multiply}
 .qcard{display:flex;flex-direction:column}
 
 
@@ -311,38 +313,38 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
 .cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
 .chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
-.chat--bad{background:#111}
-.chat--good{background:var(--surface)}
+.chat--bad{background:var(--surface);border:1px solid var(--line)}
+.chat--good{background:var(--tint-soft)}
 .chat__h{display:flex;align-items:center;gap:clamp(8px,.9vw,15px)}
 .chat__h img{width:clamp(26px,2.6vw,42px);border-radius:50%;background:#fff;padding:3px}
 .chat__h b{font-size:clamp(12.5px,1.2vw,18px);font-weight:600;letter-spacing:.02em}
-.chat--bad .chat__h b{color:#fff}
+.chat--bad .chat__h b{color:var(--ink)}
 .chat__b{border-radius:14px;padding:clamp(11px,1.15vw,19px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.5}
-.chat--bad .chat__b{background:#3A3A3A;color:#E4E4E4}
+.chat--bad .chat__b{background:#fff;color:var(--ink)}
 .chat--good .chat__b{background:#fff;color:var(--ink)}
 .chat__t{align-self:flex-end;font-size:clamp(10.5px,.92vw,13.5px)}
-.chat--bad .chat__t{color:#9A9A9A}
+.chat--bad .chat__t{color:var(--muted)}
 .chat--good .chat__t{color:var(--muted)}
 .tags{display:flex;flex-direction:column;gap:clamp(6px,.65vw,10px);margin-top:clamp(9px,1vw,15px)}
 .tag{display:flex;align-items:center;gap:clamp(8px,.85vw,14px);border-radius:99px;
   padding:clamp(7px,.72vw,12px) clamp(11px,1.05vw,18px);font-size:clamp(12px,1.02vw,15.5px);line-height:1.3}
-.tag--bad{background:#111;color:#fff}
-.tag--good{background:var(--surface);color:var(--ink)}
+.tag--bad{background:var(--surface);color:var(--ink)}
+.tag--good{background:var(--tint-soft);color:var(--ink)}
 .tag i{flex:none;width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;
   font-style:normal;font-size:.78em;font-weight:700}
 .tag--bad i{background:#E0653A;color:#fff}
 .tag--good i{border:2px solid var(--tint);color:var(--tint)}
 .changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:var(--gap)}
 .change{display:flex;align-items:center;gap:clamp(10px,1.05vw,18px)}
-.change__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
+.change__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
 .change__ic img{width:clamp(22px,2.1vw,32px)}
 .change b{font-weight:500;line-height:1.35;font-size:clamp(13px,1.12vw,17px)}
 .keyrow{display:flex;align-items:center;gap:clamp(10px,1.15vw,20px)}
-.keyrow img{width:clamp(28px,2.7vw,42px);flex:none}
+.keyrow img{width:clamp(20px,1.9vw,29px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .keyrow span{font-size:clamp(13px,1.12vw,17.5px);line-height:1.35}
 
 /* ---- P10 cierre y badge ---- */
-.done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
+.cierre{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
   padding:clamp(26px,3.4vw,54px) var(--pad) clamp(24px,3vw,44px);
   background:radial-gradient(closest-side,#F6E6EE,#fff 78%)}
 .badge{width:clamp(140px,16vw,225px);aspect-ratio:1;border-radius:50%;background:#2B2B2B;
@@ -354,11 +356,8 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .badge__e{font-size:clamp(8.5px,.76vw,11.5px);letter-spacing:.14em;color:#D8AEC5}
 .badge__n{font-size:clamp(10.5px,1.03vw,15.5px);font-weight:600;padding:0 5%;line-height:1.25}
 .badge__l{font-size:clamp(10.5px,.92vw,13.5px);color:#B5B5B5}
-.done h1{font-size:clamp(25px,3.4vw,50px)}
-.done .lead{margin-inline:auto;text-align:center;max-width:56ch}
-.done__checks{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.6vw,34px)}
-.done__checks div{display:flex;align-items:center;gap:.45em;font-weight:600;font-size:clamp(12.5px,1.08vw,16.5px)}
-.done__checks i{color:var(--tint);font-style:normal}
+.cierre h1{font-size:clamp(25px,3.4vw,50px)}
+.cierre .lead{margin-inline:auto;text-align:center;max-width:56ch}
 .insignia{background:#fff;border:1px solid var(--line);border-radius:var(--r);
   padding:clamp(13px,1.35vw,24px) clamp(17px,1.9vw,34px);display:flex;flex-direction:column;gap:.28em;
   max-width:min(100%,560px)}
@@ -381,9 +380,6 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   .hero{grid-template-columns:minmax(0,1fr)}
   .hero__pic{aspect-ratio:4/3}
   .hero__pic--ilus{aspect-ratio:auto;height:min(62vh,420px)}
-  .ftc{grid-template-columns:repeat(2,1fr);gap:clamp(8px,2vw,14px) 0}
-  .ftc span:nth-child(odd){border-left:0}
-  .ftc span:nth-child(-n+2){padding-bottom:clamp(7px,1.6vw,12px)}
   .lnk{display:none}
   .diag{grid-template-columns:minmax(0,1fr);grid-template-rows:none;gap:var(--gap)}
   .hub{grid-column:1;grid-row:1;aspect-ratio:auto;border-radius:var(--r);
@@ -506,7 +502,6 @@ html:fullscreen body{min-height:100vh}
 <body>
 
 <header class="hd">
-  <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
   <div class="hd__cap">Capítulo 1 de 6<b>Descubrimiento y Primer Contacto</b></div>
   <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
   <div class="hd__lec" id="count">Pantalla 1 de 8</div>
@@ -529,14 +524,10 @@ html:fullscreen body{min-height:100vh}
       <img data-i="ilus_portada" alt="Paciente ingresando a un centro estético">
     </div>
     <div class="hero__txt">
-      <div><div class="eyebrow eyebrow--big">Capítulo 1</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
+      <div class="eyebrow eyebrow--big">Capítulo 1</div>
       <h1>Descubrimiento y<br>Primer <em>Contacto</em></h1>
       <p class="lead">La experiencia del paciente comienza antes del primer mensaje.</p>
     </div>
-  </div>
-  <div class="ftc">
-    <span>Detectar la intención</span><span>Comprender al paciente</span>
-    <span>Generar conexión</span><span>Abrir la conversación</span>
   </div>
 </section>
 
@@ -618,17 +609,17 @@ html:fullscreen body{min-height:100vh}
     <aside class="panel">
       <h2 style="text-align:center">Lo que el paciente ya hizo para decidir</h2>
       <div class="rowlist">
-        <div class="r"><img data-i="ic_google" alt=""><span>Buscar en Google</span><i class="ok">✓</i></div>
-        <div class="r"><img data-i="ic_instagram" alt=""><span>Revisar Instagram</span><i class="ok">✓</i></div>
-        <div class="r"><img data-i="ic_opiniones" alt=""><span>Leer opiniones</span><i class="ok">✓</i></div>
-        <div class="r"><img data-i="ic_balanza" alt=""><span>Comparar opciones</span><i class="ok">✓</i></div>
-        <div class="r"><img data-i="ic_riesgos" alt=""><span>Evaluar riesgos</span><i class="ok">✓</i></div>
-        <div class="r"><img data-i="ic_resultados" alt=""><span>Buscar resultados</span><i class="ok">✓</i></div>
+        <div class="r"><img data-i="ic_google" alt=""><span>Buscar en Google</span></div>
+        <div class="r"><img data-i="ic_instagram" alt=""><span>Revisar Instagram</span></div>
+        <div class="r"><img data-i="ic_opiniones" alt=""><span>Leer opiniones</span></div>
+        <div class="r"><img data-i="ic_balanza" alt=""><span>Comparar opciones</span></div>
+        <div class="r"><img data-i="ic_riesgos" alt=""><span>Evaluar riesgos</span></div>
+        <div class="r"><img data-i="ic_resultados" alt=""><span>Buscar resultados</span></div>
       </div>
     </aside>
   </div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>El primer contacto no comienza cuando el paciente escribe. Comienza mucho antes, durante todo el proceso de búsqueda y evaluación.</p>
   </div>
 </section>
@@ -641,29 +632,25 @@ html:fullscreen body{min-height:100vh}
     <div class="stack">
       <div class="chans">
         <div class="chan">
-          <div class="chan__h"><img data-i="ch_whatsapp" alt=""><span class="chan__n">1</span></div>
-          <h3>WhatsApp / DM</h3>
+          <h3><span class="chan__n">1</span>WhatsApp / DM</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 1 hora, en horario de atención. Ideal contar con agente IA.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cercano, rápido, claro. Sin formalismos.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> responder solo el precio sin conectar con la persona.</p></div>
         </div>
         <div class="chan">
-          <div class="chan__h"><img data-i="ch_phone" alt=""><span class="chan__n">2</span></div>
-          <h3>Llamada telefónica</h3>
+          <h3><span class="chan__n">2</span>Llamada telefónica</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> inmediato, o devolver la llamada en el día.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cálido, profesional, con escucha activa.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> hablar más de los tratamientos que de las necesidades del paciente.</p></div>
         </div>
         <div class="chan">
-          <div class="chan__h"><img data-i="ch_email" alt=""><span class="chan__n">3</span></div>
-          <h3>Email / Web</h3>
+          <h3><span class="chan__n">3</span>Email / Web</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 24 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> formal pero amigable. Personalizado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> mandar una respuesta genérica con precios sin preguntar qué busca.</p></div>
         </div>
         <div class="chan">
-          <div class="chan__h"><img data-i="ch_instagram" alt=""><span class="chan__n">4</span></div>
-          <h3>RRSS (comentario / story reply)</h3>
+          <h3><span class="chan__n">4</span>RRSS (comentario / story reply)</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 2 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> breve, empático, con invitación a continuar en privado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> no responder, o responder solo con un emoji.</p></div>
@@ -683,7 +670,7 @@ html:fullscreen body{min-height:100vh}
     </div>
 
     <aside class="panel">
-      <div class="eyebrow">Lo que debes recordar</div>
+      <div class="eyebrow">Lo importante</div>
       <div class="recall">
         <div class="recall__ic"><img data-i="rec_clock" alt=""></div>
         <div><b>Cada canal tiene un ritmo, un tono y una expectativa diferente.</b>
@@ -701,13 +688,9 @@ html:fullscreen body{min-height:100vh}
       </div>
     </aside>
   </div>
-  <div class="soft insight" style="grid-template-columns:auto minmax(0,1fr)">
-    <b>INSIGHT CLAVE</b>
-    <div class="ins3">
-      <div><img data-i="ins_person" alt="">El mismo paciente puede escribir por distintos canales.</div>
-      <div><img data-i="ins_target" alt="">Lo que cambia no es la intención.</div>
-      <div><img data-i="ins_chats" alt="">Lo que cambia es la forma en que respondemos.</div>
-    </div>
+  <div class="insight">
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
+    <p>El mismo paciente puede escribir por distintos canales: lo que cambia no es su intención, sino la forma en que respondemos.</p>
   </div>
 </section>
 
@@ -720,10 +703,11 @@ html:fullscreen body{min-height:100vh}
       <div class="cmp">
         <div>
           <div class="chat chat--bad">
-            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>RESPUESTA GENÉRICA</b></div>
+            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>Respuesta genérica</b></div>
             <div class="chat__b">Hola. El precio de Dysport es $X por área. Cualquier consulta estamos a disposición. Saludos.</div>
             <div class="chat__t">10.00</div>
           </div>
+          <div class="eyebrow" style="margin-top:clamp(9px,1vw,15px)">Qué transmite este mensaje</div>
           <div class="tags">
             <div class="tag tag--bad"><i>&times;</i>Impersonal</div>
             <div class="tag tag--bad"><i>&times;</i>Centrada en el precio</div>
@@ -736,10 +720,11 @@ html:fullscreen body{min-height:100vh}
 
         <div>
           <div class="chat chat--good">
-            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>RESPUESTA QUE CONECTA</b></div>
+            <div class="chat__h"><img data-i="q6_avatar" alt=""><b>Respuesta que conecta</b></div>
             <div class="chat__b">¡Hola! Gracias por escribirnos 👇<br>Dysport es uno de los tratamientos que más recomendamos para líneas de expresión. Los resultados suelen verse en pocos días y mantienen una apariencia natural.<br><b>Para orientarte mejor, ¿me contás qué zona te gustaría tratar?</b></div>
             <div class="chat__t">10.30</div>
           </div>
+          <div class="eyebrow" style="margin-top:clamp(9px,1vw,15px)">Qué transmite este mensaje</div>
           <div class="tags">
             <div class="tag tag--good"><i>&#10003;</i>Hace preguntas</div>
             <div class="tag tag--good"><i>&#10003;</i>Genera confianza</div>
@@ -769,7 +754,7 @@ html:fullscreen body{min-height:100vh}
     </aside>
   </div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Una respuesta efectiva no se limita a informar el precio: comprende la intención del paciente, genera confianza y abre la conversación.</p>
   </div>
 </section>
@@ -781,13 +766,13 @@ html:fullscreen body{min-height:100vh}
   <div class="two" style="margin-top:var(--gap)">
     <div class="stack">
       <div class="formula">
-        <div class="formula__t">FÓRMULA DE CONEXIÓN</div>
+        <div class="formula__t">Fórmula de conexión</div>
         <div class="formula__row">
-          <div class="step"><b>1</b><img data-i="f_jar" alt=""><span>PRODUCTO</span></div>
+          <div class="step"><b>1</b><img data-i="f_jar" alt=""><span>Producto</span></div>
           <span class="arrow">→</span>
-          <div class="step"><b>2</b><img data-i="f_box" alt=""><span>BENEFICIO</span></div>
+          <div class="step"><b>2</b><img data-i="f_box" alt=""><span>Beneficio</span></div>
           <span class="arrow">→</span>
-          <div class="step"><b>3</b><img data-i="f_quest" alt=""><span>PREGUNTA DE CONEXIÓN</span></div>
+          <div class="step"><b>3</b><img data-i="f_quest" alt=""><span>Pregunta de conexión</span></div>
         </div>
       </div>
       <div class="prods" id="prods"></div>
@@ -800,18 +785,18 @@ html:fullscreen body{min-height:100vh}
     </aside>
   </div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>La diferencia entre responder y conectar está en la pregunta que hacés después de entregar la información.</p>
   </div>
 </section>
 
 <!-- ============ 7 · ejercicio 1 ============ -->
-<section class="scr" data-scr="7">
-  <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
+<section class="scr scr--ex" data-scr="7">
+  <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">Ordená la respuesta</h1>
-  <p class="lead">Arrastrá los fragmentos —o tocá uno y después el casillero— para construir una respuesta que genere conversación.</p>
+  <p class="lead">Arrastrá los fragmentos, o tocá uno y después el casillero, para construir una respuesta que genere conversación.</p>
   <div class="consigna" style="margin-top:var(--gap)">
-    <div class="eyebrow">Consigna</div>
+    <div class="eyebrow">Situación</div>
     <p>Una paciente escribe por Instagram: <b>“Hola, me interesa saber sobre tratamientos para arrugas.”</b></p>
   </div>
   <div class="ex1" style="margin-top:var(--gap)">
@@ -829,7 +814,7 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
   <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <div class="eyebrow eyebrow--tint">Consejo</div>
     <p style="color:var(--muted)">¿Qué debería lograr una buena respuesta?</p>
     <div class="checks">
       <div><i>✓</i>Generar cercanía</div><div><i>✓</i>Presentar un beneficio real</div>
@@ -837,42 +822,23 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Las mejores conversaciones comienzan con preguntas, no con respuestas.</p>
   </div>
-  <div class="meta" style="margin-bottom:var(--gap)"><span>⏱ Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span></div>
 </section>
 
 <!-- ============ 8 · ejercicio 2 ============ -->
-<section class="scr" data-scr="8">
-  <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
+<section class="scr scr--ex" data-scr="8">
+  <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">¿Qué canal usarías?</h1>
   <p class="lead">Cada canal requiere una forma distinta de responder. Elegí la mejor acción para cada situación.</p>
-  <div class="two" style="margin-top:var(--gap)">
-    <div class="cases" id="cases"></div>
-    <div class="stack">
-      <aside class="panel keys">
-        <h2>Claves para elegir el canal correcto</h2>
-        <div class="k"><b><img data-i="ch_instagram" alt="">Instagram</b><span>Generar conversación.</span></div>
-        <div class="k"><b><img data-i="ch_email" alt="">Email</b><span>Responder con claridad y rapidez.</span></div>
-        <div class="k"><b><img data-i="ch_phone" alt="">Teléfono</b><span>Recuperar oportunidades perdidas.</span></div>
-        <div class="k"><b><img data-i="ch_whatsapp" alt="">WhatsApp</b><span>Continuar la conversación.</span></div>
-      </aside>
-      <aside class="panel">
-        <h2>Qué tienen en común las respuestas correctas</h2>
-        <ul class="bullets">
-          <li>Generan conversación.</li><li>Mantienen cercanía.</li>
-          <li>Facilitan el siguiente paso.</li><li>Evitan respuestas automáticas.</li>
-        </ul>
-      </aside>
-    </div>
-  </div>
+  <div class="cases" id="cases" style="margin-top:var(--gap)"></div>
   <div class="fb" id="ex2fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <div class="eyebrow eyebrow--tint">Consejo</div>
     <p style="color:var(--muted)">Elegí una opción en cada caso para ver si generás conversación o la cortás.</p>
   </div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>El mejor canal es el que facilita continuar la conversación. El objetivo nunca es responder más: es generar conexión.</p>
   </div>
 </section>
@@ -893,31 +859,23 @@ html:fullscreen body{min-height:100vh}
   </div>
   <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
   <div class="insight">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Los pacientes no buscan únicamente información: buscan sentirse comprendidos. Las conversaciones que generan conexión comienzan con empatía, continúan con una pregunta y terminan guiando el siguiente paso.</p>
   </div>
 </section>
 
 <!-- ============ 10 · cierre del capitulo ============ -->
 <section class="scr scr--flush" data-scr="10">
-  <div class="done">
+  <div class="cierre">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
-      <span class="badge__e">BADGE DESBLOQUEADO</span>
       <span class="badge__n">Descubrimiento y Primer Contacto</span>
-      <span class="badge__l">Nivel 1</span>
     </div>
     <h1>¡Capítulo 1 completado!</h1>
-    <p class="lead">Completaste el capítulo y dominás las bases para transformar el primer contacto en una conexión genuina.</p>
-    <div class="done__checks">
-      <div><i>&#10003;</i>Capítulo completado</div>
-      <div><i>&#10003;</i>Lecciones finalizadas</div>
-      <div><i>&#10003;</i>Competencia adquirida</div>
-    </div>
     <div class="insignia">
-      <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
+      <b>🏅 Nueva insignia obtenida</b>
       <strong>Comunicación Personalizada</strong>
-      <span>Tu capacidad para detectar la intención real del paciente fue validada.</span>
+      <span>Completaste el capítulo y dominás las bases para transformar el primer contacto en una conexión genuina.</span>
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
@@ -927,12 +885,6 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<footer class="ft" id="ft">
-  <div data-cat="1"><img data-i="nav_persona" alt="">Experiencia del paciente</div>
-  <div data-cat="2"><img data-i="nav_chat" alt="">Comunicación efectiva</div>
-  <div data-cat="3"><img data-i="nav_escudo" alt="">Confianza y credibilidad</div>
-  <div data-cat="4"><img data-i="nav_target" alt="">Conversión ética</div>
-</footer>
 
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
@@ -967,7 +919,7 @@ html:fullscreen body{min-height:100vh}
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 9: "Ver mi resultado →", 10: "Ir al Capítulo 2 →" };
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 6: "Comenzar ejercicios →", 9: "Ver mi resultado →", 10: "Ir al Capítulo 2 →" };
 
   var TITULOS = [
     "Portada",
@@ -986,20 +938,20 @@ html:fullscreen body{min-height:100vh}
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
-  var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
-  var CAT_POR_PANTALLA = {1:1, 2:1, 3:1, 4:2, 5:2, 6:3, 7:2, 8:4, 9:0, 10:0}; // 0 = todas
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
     bar.style.width = (cur / TOTAL * 100) + "%";
     count.textContent = "Pantalla " + cur + " de " + TOTAL;
     prevB.disabled = cur === 1;
-    nextB.textContent = ETIQUETA[cur] || "Continuar →";
+    var txt = ETIQUETA[cur] || "Continuar →";
+    nextB.textContent = txt;
+    // color distinto para "Comenzar ejercicios" y para el cierre, que no son un "Continuar" más
+    var destacado = txt.indexOf("ejercicios") > -1 || cur === TOTAL;
+    nextB.classList.toggle("btn--go", destacado);
+    nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
-    var activa = CAT_POR_PANTALLA[cur];
-    cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
-    var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1064,8 +1016,7 @@ html:fullscreen body{min-height:100vh}
     ["Dysport®", "Ayuda a suavizar líneas de expresión y prevenir que se marquen más con el tiempo.", "¿Qué zona te gustaría tratar?"],
     ["Restylane®", "Permite restaurar volumen, mejorar contornos y armonizar rasgos de forma personalizada.", "¿Hay alguna área específica que te gustaría mejorar?"],
     ["Restylane Skinboosters®", "Mejora la hidratación, luminosidad y calidad de la piel desde el interior.", "¿Lo que más te preocupa es la hidratación, la textura o la luminosidad de tu piel?"],
-    ["Sculptra®", "Estimula la producción natural de colágeno para mejorar firmeza y calidad de la piel progresivamente.", "¿Qué cambio te gustaría lograr en tu rostro o en tu piel?"],
-    ["Alastin Skincare", "Ayuda a mejorar la calidad de la piel y acompaña los resultados de los procedimientos estéticos.", "¿Qué aspecto de tu piel te gustaría mejorar más?"]
+    ["Sculptra®", "Estimula la producción natural de colágeno para mejorar firmeza y calidad de la piel progresivamente.", "¿Qué cambio te gustaría lograr en tu rostro o en tu piel?"]
   ];
   document.getElementById("prods").innerHTML = PRODUCTOS.map(function (p) {
     return '<article class="card prod">' +
@@ -1205,15 +1156,15 @@ html:fullscreen body{min-height:100vh}
 
   // ====== 7 · ejercicio 2: qué canal usarías ======
   var CASOS = [
-    { ic:"ch_instagram", tag:"Caso 1 — Instagram", q:'Un paciente deja un comentario en Instagram: <b>“¿Tienen descuentos?”</b>',
+    { ic:"ch_instagram", tag:"Caso 1 · Instagram", q:'Un paciente deja un comentario en Instagram: <b>“¿Tienen descuentos?”</b>',
       o:["Responder brevemente e invitarlo a continuar por mensaje privado.","Publicar promociones y precios.","Responder únicamente con un emoji.","Ignorar el comentario."], ok:0 },
-    { ic:"ch_email", tag:"Caso 2 — Email", q:"Recibiste un email hace 30 horas y todavía no respondiste.",
+    { ic:"ch_email", tag:"Caso 2 · Email", q:"Recibiste un email hace 30 horas y todavía no respondiste.",
       o:["Esperar hasta tener tiempo.","Responder de inmediato, disculparte por la demora y brindar información concreta.","Usar una plantilla sin leer la consulta.","Pedir que vuelva a escribir."], ok:1 },
-    { ic:"ch_phone", tag:"Caso 3 — Teléfono", q:"Un paciente llamó y no atendiste.",
+    { ic:"ch_phone", tag:"Caso 3 · Teléfono", q:"Un paciente llamó y no atendiste.",
       o:["Esperar que vuelva a llamar.","Guardar el número y llamarlo varios días después.","Devolver la llamada el mismo día, dentro del horario de atención.","Enviar un mensaje automático."], ok:2 },
-    { ic:"ch_whatsapp", tag:"Caso 4 — WhatsApp", q:'Un paciente escribe: <b>“Hola, ¿cuánto cuesta Dysport?”</b>',
+    { ic:"ch_whatsapp", tag:"Caso 4 · WhatsApp", q:'Un paciente escribe: <b>“Hola, ¿cuánto cuesta Dysport?”</b>',
       o:["Mencionar brevemente el beneficio y preguntar qué necesita el paciente.","Enviar únicamente el precio.","Enviar un PDF de tratamientos.","Decir que los precios se informan únicamente en consulta."], ok:0 },
-    { ic:"ch_instagram", tag:"Caso 5 — Instagram Story", q:"Un paciente responde una historia con un ❤️",
+    { ic:"ch_instagram", tag:"Caso 5 · Instagram Story", q:"Un paciente responde una historia con un ❤️",
       o:["Responder con otro emoji.","Ignorar el mensaje.","Enviar una promoción completa.","Agradecer la interacción e invitarlo a conversar si tiene alguna consulta."], ok:3 }
   ];
   var elCasos = document.getElementById("cases"), elFb2 = document.getElementById("ex2fb");
@@ -1251,7 +1202,7 @@ html:fullscreen body{min-height:100vh}
   ];
   var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");
   elQs.innerHTML = PREGUNTAS.map(function (q, i) {
-    return '<article class="card qcard"><div class="q__h"><span class="q__n">' + (i+1) + '</span><b>Pregunta ' + (i+1) + '</b></div>' +
+    return '<article class="card qcard"><div class="q__h"><b>Pregunta ' + (i+1) + '</b></div>' +
       '<p class="q__t">' + q.t + '</p><div class="opts" style="grid-template-columns:minmax(0,1fr)">' +
       q.o.map(function (t, j) { return '<button class="opt" data-q="' + i + '" data-o="' + j + '"><i>' + "ABC"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
       '</div><div class="q__ill"><img data-i="' + q.ill + '" alt=""></div></article>';

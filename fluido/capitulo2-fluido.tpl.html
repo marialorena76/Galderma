@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capítulo 2 — Consulta y Recepción | Galderma</title>
+<title>Capítulo 2 · Consulta y Recepción | Galderma</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -28,7 +28,6 @@ button{font:inherit}
 .hd{display:flex;align-items:center;gap:clamp(10px,1.6vw,26px);
   padding:12px var(--pad);border-bottom:1px solid var(--line);flex-wrap:wrap;
   position:sticky;top:0;background:#fff;z-index:20}
-.hd__logo{height:clamp(19px,1.8vw,27px);width:auto;flex:none}
 .hd__cap{font-size:clamp(10.5px,.82vw,13px);color:var(--muted);line-height:1.35}
 .hd__cap b{display:block;font-size:clamp(12.5px,1vw,16px);color:var(--ink);font-weight:600}
 .hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
@@ -57,7 +56,16 @@ button{font:inherit}
 .btn--tint{background:var(--tint);color:#fff}
 .btn--dark{background:var(--ink);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+/* el botón que abre la práctica y el que cierra el capítulo no son el "Continuar" de siempre */
+.btn--go{background:var(--tint);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* pantallas de práctica: tienen que distinguirse de la teoría */
+.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
+  background:var(--tint);color:#fff;border-radius:99px;
+  padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
+.exbadge i{font-style:normal;font-size:1.05em}
 
 /* ============ pantallas ============ */
 .scr{display:none;padding:clamp(18px,2.4vw,38px) var(--pad) 0}
@@ -67,7 +75,7 @@ h1{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.1;
   font-size:clamp(23px,3.1vw,44px);text-wrap:balance}
 h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);text-wrap:balance}
 .lead{margin:.45em 0 0;color:var(--muted);line-height:1.5;font-size:clamp(14.5px,1.3vw,20px);max-width:70ch}
-.eyebrow{font-size:clamp(10.5px,.85vw,13px);letter-spacing:.18em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.eyebrow{font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .eyebrow--tint{color:var(--tint)}
 
 .card{background:var(--card);border-radius:var(--r);padding:clamp(14px,1.35vw,24px);box-shadow:var(--shadow)}
@@ -79,17 +87,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight{margin:var(--gap) 0 clamp(18px,2.2vw,32px);background:var(--surface);border-radius:var(--r);
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.6vw,28px);
   display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:clamp(10px,1.4vw,24px)}
-.insight img{width:clamp(30px,3vw,48px);background:#fff;border-radius:50%;padding:7px}
+.insight img{width:clamp(30px,3vw,48px);background:var(--tint-soft);border-radius:50%;padding:7px}
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
-/* pie de categorias */
-.ft{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  gap:clamp(8px,1vw,16px);padding:clamp(11px,1.3vw,20px) var(--pad)}
-.ft div{display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1.05vw,17px);line-height:1.25;opacity:.55}
-.ft div.on{opacity:1}
-.ft[hidden]{display:none}
-.ft img{width:clamp(20px,2.1vw,32px);flex:none}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -118,24 +119,20 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .hero__pic--ilus img{width:100%;height:100%;object-fit:contain;object-position:center}
 .hero__txt h1 em{font-style:normal;color:var(--tint)}
 .eyebrow--big{font-size:clamp(13px,1.35vw,21px);letter-spacing:.01em;text-transform:none;color:var(--muted)}
-.ftc{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  padding:clamp(11px,1.3vw,20px) var(--pad);text-align:center}
-.ftc span{font-size:clamp(10.5px,1.02vw,16px);letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
-.ftc span+span{border-left:1px solid rgba(255,255,255,.3)}
 .hero__quote{border-left:3px solid var(--ink);padding-left:.9em;font-size:clamp(15px,1.5vw,23px);line-height:1.45}
 
 /* ---- P2 video ---- */
 .vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden;
   max-width:1020px;margin:0 auto}
 .s2{max-width:1020px;margin:var(--gap) auto 0;display:flex;flex-direction:column;gap:var(--gap)}
-.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:start}
+.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:end}
 @media (max-width:820px){ .s2cols{grid-template-columns:minmax(0,1fr)} }
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.objs{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.objs{display:flex;flex-direction:column;gap:clamp(7px,.75vw,12px)}
 .objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
-.objs img{width:clamp(26px,2.4vw,38px);flex:none}
+.objs img{width:clamp(19px,1.75vw,27px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
-.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
+.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .idea__t img{width:clamp(16px,1.4vw,22px)}
 .idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
 /* ---- reproductor en cadena (varios clips como si fueran uno) ---- */
@@ -185,7 +182,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .k1::before,.k2::before{left:-3.5px}.k3::before,.k4::before{right:-3.5px}
 .rowlist{display:flex;flex-direction:column;gap:clamp(9px,.95vw,15px)}
 .rowlist .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(9px,1vw,17px)}
-.rowlist img{width:clamp(24px,2.4vw,36px)}
+.rowlist img{width:clamp(19px,1.8vw,27px);background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .rowlist span{font-size:clamp(13.5px,1.2vw,17px);line-height:1.3}
 .ok{width:clamp(17px,1.4vw,23px);aspect-ratio:1;border:2px solid var(--tint);border-radius:50%;
   display:grid;place-items:center;color:var(--tint);font-size:clamp(9px,.8vw,12px);font-weight:700}
@@ -209,7 +206,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .dlg dt{font-weight:600;font-size:clamp(12px,1vw,15px);white-space:nowrap}
 .dlg dd{margin:0;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
 .recall{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:start}
-.recall__ic{background:var(--surface);border-radius:12px;padding:clamp(8px,.8vw,13px);flex:none}
+.recall__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(8px,.8vw,13px);flex:none}
 .recall__ic img{width:clamp(22px,2.1vw,32px)}
 .recall b{display:block;font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
 .recall p{margin:.35em 0 0;color:var(--muted);font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
@@ -231,17 +228,17 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:var(--gap)}
 .prod__l{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
 .prod__l img{width:clamp(17px,1.6vw,25px);flex:none}
-.prod__l em{font-style:normal;font-size:clamp(10.5px,.88vw,13px);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.prod__l em{font-style:normal;font-size:clamp(11px,.92vw,14px);letter-spacing:.01em;color:var(--muted)}
 .prod h3{margin:0 0 .55em;font-weight:600;font-size:clamp(16px,1.5vw,23px)}
 .prod p{margin:0 0 .9em;font-size:clamp(13px,1.05vw,16px);line-height:1.45;color:#3A3A3A}
 .prod .qz{color:var(--ink)}
 .why{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
-.why__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
-.why__ic img{width:clamp(28px,2.6vw,42px)}
+.why__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
+.why__ic img{width:clamp(22px,2vw,32px)}
 .why b{font-weight:600;line-height:1.35;font-size:clamp(13.5px,1.15vw,18px)}
 
 /* ---- P6 ejercicio 1 ---- */
-.consigna{background:var(--surface);border-left:4px solid var(--tint);border-radius:0 var(--r) var(--r) 0;
+.consigna{border-left:3px solid var(--tint);border-radius:0;
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.5vw,26px)}
 .consigna p{margin:.3em 0 0;font-size:clamp(14.5px,1.3vw,20px);line-height:1.45}
 .ex1{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--gap)}
@@ -285,6 +282,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .opt.wrong{border-color:#E08787;background:var(--bad-soft);color:#A13A3A}
 .opt.done{cursor:default}
 .opt i{font-style:normal;font-weight:700;flex:none}
+/* que se vea de un vistazo cuál era la correcta (slides 18 y 35) */
+.opt.right::after,.opt.wrong::after{margin-left:auto;font-weight:700;font-size:1.05em;flex:none}
+.opt.right::after{content:"✓";color:var(--tint)}
+.opt.wrong::after{content:"✕";color:#A13A3A}
 .keys .k{border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px)}
 .keys .k b{display:flex;align-items:center;gap:.45em;color:var(--tint);font-size:clamp(12.5px,1.05vw,16px)}
 .keys .k img{width:clamp(14px,1.25vw,19px)}
@@ -303,7 +304,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
 .q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
 .q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
-.q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
+.q__ill img{width:clamp(52px,6vw,92px);opacity:.8;mix-blend-mode:multiply}
 .qcard{display:flex;flex-direction:column}
 
 
@@ -311,22 +312,22 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
 .cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
 .chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
-.chat--bad{background:#111}
+.chat--bad{background:var(--surface)}
 .chat--good{background:var(--surface)}
 .chat__h{display:flex;align-items:center;gap:clamp(8px,.9vw,15px)}
 .chat__h img{width:clamp(26px,2.6vw,42px);border-radius:50%;background:#fff;padding:3px}
 .chat__h b{font-size:clamp(12.5px,1.2vw,18px);font-weight:600;letter-spacing:.02em}
-.chat--bad .chat__h b{color:#fff}
+.chat--bad .chat__h b{color:var(--ink)}
 .chat__b{border-radius:14px;padding:clamp(11px,1.15vw,19px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.5}
-.chat--bad .chat__b{background:#3A3A3A;color:#E4E4E4}
+.chat--bad .chat__b{background:#fff;color:var(--ink)}
 .chat--good .chat__b{background:#fff;color:var(--ink)}
 .chat__t{align-self:flex-end;font-size:clamp(10.5px,.92vw,13.5px)}
-.chat--bad .chat__t{color:#9A9A9A}
+.chat--bad .chat__t{color:var(--muted)}
 .chat--good .chat__t{color:var(--muted)}
 .tags{display:flex;flex-direction:column;gap:clamp(6px,.65vw,10px);margin-top:clamp(9px,1vw,15px)}
 .tag{display:flex;align-items:center;gap:clamp(8px,.85vw,14px);border-radius:99px;
   padding:clamp(7px,.72vw,12px) clamp(11px,1.05vw,18px);font-size:clamp(12px,1.02vw,15.5px);line-height:1.3}
-.tag--bad{background:#111;color:#fff}
+.tag--bad{background:var(--surface);color:var(--ink)}
 .tag--good{background:var(--surface);color:var(--ink)}
 .tag i{flex:none;width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;
   font-style:normal;font-size:.78em;font-weight:700}
@@ -334,15 +335,15 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .tag--good i{border:2px solid var(--tint);color:var(--tint)}
 .changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:var(--gap)}
 .change{display:flex;align-items:center;gap:clamp(10px,1.05vw,18px)}
-.change__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
+.change__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
 .change__ic img{width:clamp(22px,2.1vw,32px)}
 .change b{font-weight:500;line-height:1.35;font-size:clamp(13px,1.12vw,17px)}
 .keyrow{display:flex;align-items:center;gap:clamp(10px,1.15vw,20px)}
-.keyrow img{width:clamp(28px,2.7vw,42px);flex:none}
+.keyrow img{width:clamp(20px,1.9vw,29px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .keyrow span{font-size:clamp(13px,1.12vw,17.5px);line-height:1.35}
 
 /* ---- P10 cierre y badge ---- */
-.done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
+.cierre{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
   padding:clamp(26px,3.4vw,54px) var(--pad) clamp(24px,3vw,44px);
   background:radial-gradient(closest-side,#F6E6EE,#fff 78%)}
 .badge{width:clamp(140px,16vw,225px);aspect-ratio:1;border-radius:50%;background:#2B2B2B;
@@ -354,11 +355,8 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .badge__e{font-size:clamp(8.5px,.76vw,11.5px);letter-spacing:.14em;color:#D8AEC5}
 .badge__n{font-size:clamp(10.5px,1.03vw,15.5px);font-weight:600;padding:0 5%;line-height:1.25}
 .badge__l{font-size:clamp(10.5px,.92vw,13.5px);color:#B5B5B5}
-.done h1{font-size:clamp(25px,3.4vw,50px)}
-.done .lead{margin-inline:auto;text-align:center;max-width:56ch}
-.done__checks{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.6vw,34px)}
-.done__checks div{display:flex;align-items:center;gap:.45em;font-weight:600;font-size:clamp(12.5px,1.08vw,16.5px)}
-.done__checks i{color:var(--tint);font-style:normal}
+.cierre h1{font-size:clamp(25px,3.4vw,50px)}
+.cierre .lead{margin-inline:auto;text-align:center;max-width:56ch}
 .insignia{background:#fff;border:1px solid var(--line);border-radius:var(--r);
   padding:clamp(13px,1.35vw,24px) clamp(17px,1.9vw,34px);display:flex;flex-direction:column;gap:.28em;
   max-width:min(100%,560px)}
@@ -381,9 +379,6 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   .hero{grid-template-columns:minmax(0,1fr)}
   .hero__pic{aspect-ratio:4/3}
   .hero__pic--ilus{aspect-ratio:auto;height:min(62vh,420px)}
-  .ftc{grid-template-columns:repeat(2,1fr);gap:clamp(8px,2vw,14px) 0}
-  .ftc span:nth-child(odd){border-left:0}
-  .ftc span:nth-child(-n+2){padding-bottom:clamp(7px,1.6vw,12px)}
   .lnk{display:none}
   .diag{grid-template-columns:minmax(0,1fr);grid-template-rows:none;gap:var(--gap)}
   .hub{grid-column:1;grid-row:1;aspect-ratio:auto;border-radius:var(--r);
@@ -428,9 +423,9 @@ html:fullscreen body{min-height:100vh}
 .obj2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--gap);align-items:center}
 @media (max-width:900px){ .obj2{grid-template-columns:minmax(0,1fr)} }
 .obj2__q{font-family:Georgia,"Times New Roman",serif;font-size:clamp(17px,1.85vw,29px);line-height:1.45}
-.decir{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(8px,1vw,18px);align-items:center}
+.decir{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(8px,1vw,18px);align-items:stretch}
 @media (max-width:620px){ .decir{grid-template-columns:minmax(0,1fr)} .decir .decir__l{display:none} }
-.decir__c{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);text-align:center;
+.decir__c{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.5vw,26px);text-align:center;justify-content:center;
   display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1vw,16px)}
 .decir__c.tint{background:var(--tint-soft);color:var(--tint)}
 .decir__c img{width:clamp(44px,4.6vw,76px)}
@@ -477,11 +472,11 @@ html:fullscreen body{min-height:100vh}
 @media (max-width:900px){ .vs{grid-template-columns:minmax(0,1fr);gap:var(--gap)} .vs__b{border-left:0 !important} }
 .vs__a,.vs__b{padding:clamp(18px,2vw,38px);border-radius:var(--r)}
 .vs__a{background:var(--tint-soft)}
-.vs__b{background:var(--surface);border-left:3px solid var(--tint)}
+.vs__b{background:var(--tint-soft);border-left:3px solid #fff}
 .vs__h{display:flex;align-items:center;gap:clamp(10px,1.2vw,22px);margin-bottom:clamp(14px,1.6vw,28px)}
 .vs__h img{width:clamp(44px,4.4vw,74px);background:#fff;border-radius:50%;padding:clamp(5px,.6vw,10px)}
-.vs__h span{letter-spacing:.1em;font-size:clamp(14px,1.4vw,23px)}
-.vs__a .vs__h span{color:var(--tint)}
+.vs__h span{letter-spacing:.01em;font-weight:600;font-size:clamp(14px,1.4vw,23px)}
+.vs__h span{color:var(--tint)}
 .vs ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:clamp(10px,1.2vw,20px)}
 .vs li{font-size:clamp(13.5px,1.15vw,18px);line-height:1.4}
 
@@ -654,7 +649,6 @@ html:fullscreen body{min-height:100vh}
 <body>
 
 <header class="hd">
-  <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
   <div class="hd__cap">Capítulo 2 de 6<b>Consulta y Recepción</b></div>
   <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
   <div class="hd__lec" id="count">Pantalla 1 de 8</div>
@@ -677,14 +671,10 @@ html:fullscreen body{min-height:100vh}
       <img data-i="ilus_portada" alt="Recepcionista atendiendo a una paciente en el mostrador">
     </div>
     <div class="hero__txt">
-      <div><div class="eyebrow eyebrow--big">Capítulo 2</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
+      <div class="eyebrow eyebrow--big">Capítulo 2</div>
       <h1>Consulta y<br><em>Recepción</em></h1>
       <p class="lead">Preparar al paciente es parte del tratamiento.</p>
     </div>
-  </div>
-  <div class="ftc">
-    <span>Anticipar objeciones</span><span>Ordenar expectativas</span>
-    <span>Transmitir seguridad</span><span>Preparar la consulta</span>
   </div>
 </section>
 
@@ -744,7 +734,6 @@ html:fullscreen body{min-height:100vh}
 
   <hr style="border:0;border-top:1px solid var(--line);margin:var(--gap) 0">
 
-  <div class="eyebrow eyebrow--tint">Leer entre líneas</div>
   <h2 style="margin-top:.25em">Detrás de cada objeción hay una emoción</h2>
   <p class="lead">La frase visible es una puerta para preguntar mejor. Leé cada objeción, pensá qué hay detrás y después descubrila.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -767,6 +756,11 @@ html:fullscreen body{min-height:100vh}
       <div class="rev__dorso"><div class="pairv__b">¿Voy a arrepentirme en el momento?</div></div>
     </div>
   </div>
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="o_lamp" alt="">
+    <b>Para recordar</b>
+    <p>Antes de responder la objeción, entendé la emoción que hay detrás: el paciente no está diciendo que no, está pidiendo más confianza.</p>
+  </div>
 </section>
 
 <!-- ============ 4 · la fórmula para responder (p17) ============ -->
@@ -777,41 +771,41 @@ html:fullscreen body{min-height:100vh}
 
   <div class="pasosacc" data-solo style="margin-top:var(--gap)">
     <div class="acc">
-      <button class="acc__h" type="button"><span class="acc__n">1</span><b>ESCUCHAR</b><i>+</i></button>
+      <button class="acc__h" type="button"><span class="acc__n">1</span><b>Escuchar</b><i>+</i></button>
       <div class="acc__b"><img data-i="f_oreja" alt=""><p>No interrumpas. Dejá que termine.</p></div>
     </div>
     <div class="acc">
-      <button class="acc__h" type="button"><span class="acc__n">2</span><b>VALIDAR</b><i>+</i></button>
+      <button class="acc__h" type="button"><span class="acc__n">2</span><b>Validar</b><i>+</i></button>
       <div class="acc__b"><img data-i="f_manocheck" alt=""><p>Reconocé lo que siente sin minimizarlo.</p></div>
     </div>
     <div class="acc">
-      <button class="acc__h" type="button"><span class="acc__n">3</span><b>PREGUNTAR</b><i>+</i></button>
+      <button class="acc__h" type="button"><span class="acc__n">3</span><b>Preguntar</b><i>+</i></button>
       <div class="acc__b"><img data-i="f_chatq" alt=""><p>Descubrí qué hay detrás de la duda.</p></div>
     </div>
     <div class="acc">
-      <button class="acc__h" type="button"><span class="acc__n">4</span><b>APORTAR VALOR</b><i>+</i></button>
+      <button class="acc__h" type="button"><span class="acc__n">4</span><b>Aportar valor</b><i>+</i></button>
       <div class="acc__b"><img data-i="f_estrella" alt=""><p>Compartí información general y concreta.</p></div>
     </div>
     <div class="acc">
-      <button class="acc__h" type="button"><span class="acc__n">5</span><b>DERIVAR</b><i>+</i></button>
+      <button class="acc__h" type="button"><span class="acc__n">5</span><b>Derivar</b><i>+</i></button>
       <div class="acc__b"><img data-i="f_personas" alt=""><p>Recordá que el médico evalúa el caso.</p></div>
     </div>
   </div>
 
   <div class="evitar" style="margin-top:var(--gap)">
-    <div class="evitar__h"><img data-i="f_stop" alt="">EVITAR</div>
+    <div class="evitar__h"><img data-i="f_stop" alt="">Evitar</div>
     <div class="evitar__l">
-      <div class="evitar__i"><span class="evitar__x">✕</span><b>MINIMIZAR</b>“No te preocupes, no es para tanto.”</div>
-      <div class="evitar__i"><span class="evitar__x">✕</span><b>PROMETER</b>“Te va a quedar perfecto y no te va a doler nada.”</div>
-      <div class="evitar__i"><span class="evitar__x">✕</span><b>DEFENDERSE</b>“El precio es el que es.”</div>
-      <div class="evitar__i"><span class="evitar__x">✕</span><b>CERRAR LA PUERTA</b>“Bueno, avisame cuando quieras.”</div>
-      <div class="evitar__i"><span class="evitar__x">✕</span><b>PRESIONAR</b>“Si no lo hacés ahora, después te va a salir más.”</div>
+      <div class="evitar__i"><span class="evitar__x">✕</span><b>Minimizar</b>“No te preocupes, no es para tanto.”</div>
+      <div class="evitar__i"><span class="evitar__x">✕</span><b>Prometer</b>“Te va a quedar perfecto y no te va a doler nada.”</div>
+      <div class="evitar__i"><span class="evitar__x">✕</span><b>Defenderse</b>“El precio es el que es.”</div>
+      <div class="evitar__i"><span class="evitar__x">✕</span><b>Cerrar la puerta</b>“Bueno, avisame cuando quieras.”</div>
+      <div class="evitar__i"><span class="evitar__x">✕</span><b>Presionar</b>“Si no lo hacés ahora, después te va a salir más.”</div>
     </div>
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="o_lamp" alt="">
-    <b>INSIGHT CLAVE</b>
+    <b>Para recordar</b>
     <p>El objetivo no es ganar la discusión, sino generar seguridad. Una respuesta apresurada puede aumentar la incertidumbre en lugar de resolverla.</p>
   </div>
 </section>
@@ -825,36 +819,13 @@ html:fullscreen body{min-height:100vh}
 
   <div class="sol" data-grupo style="margin-top:var(--gap)">
     <div class="sol__tabs" role="tablist">
-      <button data-tab>Caso 01 · “Es muy caro”</button>
-      <button data-tab>Caso 02 · “Miedo a quedar artificial”</button>
-      <button data-tab>Caso 03 · “Necesito pensarlo”</button>
+      <button data-tab>Caso 01 · “Miedo a quedar artificial”</button>
+      <button data-tab>Caso 02 · “Necesito pensarlo”</button>
+      <button data-tab>Caso 03 · “Es muy caro”</button>
     </div>
 
     <div class="sol__pan" data-pan>
       <div class="sol__rot">Caso 01</div>
-      <div class="caso1">
-        <div>
-          <h2>“Es muy caro”</h2>
-          <div class="caso1__b"><div class="eyebrow">Lo que realmente piensa</div>
-            <p>¿Vale la pena lo que voy a pagar?</p></div>
-          <div class="caso1__b caso1__b--no"><div class="eyebrow">Qué no decir</div>
-            <p>“El precio es el que es, es un tratamiento de alta calidad.”</p></div>
-        </div>
-        <div class="caso1__r rev">
-          <button class="rev__cara" type="button">
-            <div class="eyebrow eyebrow--tint">Respuesta esperada</div>
-            <p class="caso1__pista">¿Qué le dirías vos? Pensalo un segundo y después descubrí la respuesta.</p>
-          </button>
-          <div class="rev__dorso">
-            <p>Entiendo que es una inversión. Lo bueno de estos tratamientos es que los resultados duran. Por ejemplo, Sculptra estimula el colágeno propio durante más de dos años. Te propongo que en la consulta con el médico hables de cuáles son las opciones según lo que buscás, y así evaluás si tiene sentido para vos.</p>
-            <div class="caso1__pq"><b>Por qué funciona:</b> valida la preocupación, aporta información concreta y deriva al médico.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sol__pan oculto" data-pan>
-      <div class="sol__rot">Caso 02</div>
       <div class="caso1">
         <div>
           <h2>“Me da miedo quedar artificial”</h2>
@@ -869,7 +840,12 @@ html:fullscreen body{min-height:100vh}
             <p class="caso1__pista">¿Qué le dirías vos? Pensalo un segundo y después descubrí la respuesta.</p>
           </button>
           <div class="rev__dorso">
-            <p>Es una preocupación muy común, y es totalmente válida. Los productos que usamos, como Dysport y Restylane, están diseñados para resultados que se ven naturales. El objetivo no es cambiar cómo sos, sino resaltar lo que ya tenés. Eso es exactamente lo que el médico te va a explicar en la consulta.</p>
+            <ul class="bullets">
+              <li>Es una preocupación muy común, y es totalmente válida.</li>
+              <li>Los productos que usamos, como Dysport y Restylane, están diseñados para resultados que se ven naturales.</li>
+              <li>El objetivo no es cambiar cómo sos, sino resaltar lo que ya tenés.</li>
+              <li>Eso es exactamente lo que el médico te va a explicar en la consulta.</li>
+            </ul>
             <div class="caso1__pq"><b>Por qué funciona:</b> no minimiza el miedo, aporta información y refuerza la autoridad del médico.</div>
           </div>
         </div>
@@ -877,7 +853,7 @@ html:fullscreen body{min-height:100vh}
     </div>
 
     <div class="sol__pan oculto" data-pan>
-      <div class="sol__rot">Caso 03</div>
+      <div class="sol__rot">Caso 02</div>
       <div class="caso1">
         <div>
           <h2>“Necesito pensarlo / hablarlo con mi pareja”</h2>
@@ -892,8 +868,41 @@ html:fullscreen body{min-height:100vh}
             <p class="caso1__pista">¿Qué le dirías vos? Pensalo un segundo y después descubrí la respuesta.</p>
           </button>
           <div class="rev__dorso">
-            <p>Por supuesto, es una decisión personal y está perfecto que lo pienses. ¿Qué es lo que más dudas? A veces puedo darte más información que te ayude a evaluar mejor. Y si querés, te puedo enviar info por WhatsApp para que lo analices con tiempo.</p>
+            <ul class="bullets">
+              <li>Por supuesto, es una decisión personal y está perfecto que lo pienses.</li>
+              <li>¿Qué es lo que más dudas?</li>
+              <li>A veces puedo darte más información que te ayude a evaluar mejor.</li>
+              <li>Si querés, te puedo enviar info por WhatsApp para que lo analices con tiempo.</li>
+            </ul>
             <div class="caso1__pq"><b>Por qué funciona:</b> mantiene la conversación abierta, ofrece información sin presionar y facilita el seguimiento.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sol__pan oculto" data-pan>
+      <div class="sol__rot">Caso 03</div>
+      <div class="caso1">
+        <div>
+          <h2>“Es muy caro”</h2>
+          <div class="caso1__b"><div class="eyebrow">Lo que realmente piensa</div>
+            <p>¿Vale la pena lo que voy a pagar?</p></div>
+          <div class="caso1__b caso1__b--no"><div class="eyebrow">Qué no decir</div>
+            <p>“El precio es el que es, es un tratamiento de alta calidad.”</p></div>
+        </div>
+        <div class="caso1__r rev">
+          <button class="rev__cara" type="button">
+            <div class="eyebrow eyebrow--tint">Respuesta esperada</div>
+            <p class="caso1__pista">¿Qué le dirías vos? Pensalo un segundo y después descubrí la respuesta.</p>
+          </button>
+          <div class="rev__dorso">
+            <ul class="bullets">
+              <li>Entiendo que es una inversión.</li>
+              <li>Lo bueno de estos tratamientos es que los resultados duran: Sculptra, por ejemplo, estimula el colágeno propio durante más de dos años.</li>
+              <li>Te propongo que en la consulta con el médico veas qué opciones hay según lo que buscás.</li>
+              <li>Así evaluás con información si tiene sentido para vos.</li>
+            </ul>
+            <div class="caso1__pq"><b>Por qué funciona:</b> valida la preocupación, aporta información concreta y deriva al médico.</div>
           </div>
         </div>
       </div>
@@ -902,7 +911,7 @@ html:fullscreen body{min-height:100vh}
 
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="c_excl" alt="">
-    <b>PARA TENER EN CUENTA</b>
+    <b>Para recordar</b>
     <p>Los casos frecuentes ayudan a reconocer patrones, pero no existe una respuesta única para cada objeción. El desafío está en adaptar el abordaje a la situación, manteniendo el objetivo de orientar la conversación sin convertirla en un guion.</p>
   </div>
 </section>
@@ -914,7 +923,7 @@ html:fullscreen body{min-height:100vh}
 
   <div class="vs" style="margin-top:var(--gap)">
     <div class="vs__a">
-      <div class="vs__h"><img data-i="v_mano" alt=""><span>SUMA VALOR</span></div>
+      <div class="vs__h"><img data-i="v_mano" alt=""><span>Suma valor</span></div>
       <ul>
         <li>Explicar cómo funciona la consulta.</li>
         <li>Aclarar que el médico escucha y orienta.</li>
@@ -924,7 +933,7 @@ html:fullscreen body{min-height:100vh}
       </ul>
     </div>
     <div class="vs__b">
-      <div class="vs__h"><img data-i="v_mega" alt=""><span>GENERA PRESIÓN</span></div>
+      <div class="vs__h"><img data-i="v_mega" alt=""><span>Genera presión</span></div>
       <ul>
         <li>Hablar de precios antes de la evaluación.</li>
         <li>Decir sesiones mínimas necesarias.</li>
@@ -935,13 +944,16 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
 
-  <p class="obj2__q" style="text-align:center;margin-top:var(--gap)">“La buena información da herramientas para decidir. La presión quita seguridad.”</p>
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="v_mano" alt="">
+    <b>Para recordar</b>
+    <p>La buena información da herramientas para decidir. La presión quita seguridad.</p>
+  </div>
 </section>
 
 <!-- ============ 7 · preparar al paciente (p20) ============ -->
 <section class="scr" data-scr="7">
-  <div class="eyebrow eyebrow--tint">Antes de la consulta</div>
-  <h1 style="margin-top:.2em">Preparar al paciente es parte del tratamiento.</h1>
+  <h1>Preparar al paciente es parte del tratamiento.</h1>
   <p class="lead">Un paciente informado, tranquilo y con expectativas reales toma mejores decisiones.</p>
 
   <div class="pasos3" style="margin-top:var(--gap)">
@@ -953,17 +965,18 @@ html:fullscreen body{min-height:100vh}
       <em>Información sobre tratamientos, casos y beneficios.</em></div>
   </div>
 
-  <div class="soft" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">De la idea a la acción</div>
-    <p style="margin:.35em 0 0;font-weight:600">Es momento de integrar lo aprendido y llevarlo a la práctica.</p>
+  <div class="insight" style="margin-top:var(--gap)">
+    <img data-i="f_personas" alt="">
+    <b>Para recordar</b>
+    <p>Un paciente que sabe qué va a pasar llega a la consulta más tranquilo y con más confianza para decidir.</p>
   </div>
 </section>
 
 <!-- ============ 8 · ejercicio 1 (p21) ============ -->
-<section class="scr" data-scr="8">
-  <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
+<section class="scr scr--ex" data-scr="8">
+  <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">Conectá la objeción con la respuesta correcta</h1>
-  <p class="lead">Arrastrá cada objeción —o tocá una y después el casillero— hacia la respuesta que consideres más adecuada.</p>
+  <p class="lead">Arrastrá cada objeción, o tocá una y después el casillero, hacia la respuesta que consideres más adecuada.</p>
 
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
@@ -981,7 +994,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <div class="eyebrow eyebrow--tint">Consejo</div>
     <p style="font-weight:600">¿Qué debería lograr una buena respuesta?</p>
     <div class="checks">
       <div><i>&#10003;</i>Escuchar la preocupación</div>
@@ -990,20 +1003,14 @@ html:fullscreen body{min-height:100vh}
       <div><i>&#10003;</i>Invitar al siguiente paso</div>
     </div>
   </div>
-  <div class="meta" style="margin-top:var(--gap)">
-    <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
-  </div>
 </section>
 
 <!-- ============ 9 · ejercicio 2 · verdadero o falso (p22) ============ -->
-<section class="scr" data-scr="9">
-  <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
+<section class="scr scr--ex" data-scr="9">
+  <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">Verdadero o falso: sala de espera</h1>
   <p class="lead">Marcá una opción en cada afirmación.</p>
   <div class="vf" id="vf" style="margin-top:var(--gap)"></div>
-  <div class="meta" style="margin-top:var(--gap)">
-    <span>&#9201; Tiempo estimado: 2 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
-  </div>
 </section>
 
 <!-- ============ 10 · checkpoint (p24) ============ -->
@@ -1020,31 +1027,23 @@ html:fullscreen body{min-height:100vh}
   <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
   <div class="insight" style="margin-top:var(--gap)">
     <img data-i="o_lamp" alt="">
-    <b>INSIGHT CLAVE</b>
+    <b>Para recordar</b>
     <p>Una buena experiencia no depende de una sola acción. Cada interacción puede ayudar a generar confianza y preparar al paciente para la consulta.</p>
   </div>
 </section>
 
 <!-- ============ 11 · capítulo completado (p25) ============ -->
 <section class="scr scr--flush" data-scr="11">
-  <div class="done">
+  <div class="cierre">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
-      <span class="badge__e">BADGE DESBLOQUEADO</span>
       <span class="badge__n">Consulta y Recepción</span>
-      <span class="badge__l">Nivel 2</span>
     </div>
     <h1>¡Capítulo 2 completado!</h1>
-    <p class="lead">Ahora contás con más herramientas para responder con claridad, empatía y seguridad en cada interacción con el paciente.</p>
-    <div class="done__checks">
-      <div><i>&#10003;</i>Capítulo completado</div>
-      <div><i>&#10003;</i>Lecciones finalizadas</div>
-      <div><i>&#10003;</i>Competencia adquirida</div>
-    </div>
     <div class="insignia">
-      <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
+      <b>🏅 Nueva insignia obtenida</b>
       <strong>Asesora de Confianza</strong>
-      <span>Aprendiste a reconocer las necesidades detrás de cada duda, ordenar expectativas y acompañar al paciente durante su proceso de decisión.</span>
+      <span>Ahora contás con más herramientas para responder con claridad, empatía y seguridad en cada interacción con el paciente.</span>
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
@@ -1054,12 +1053,6 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<footer class="ft" id="ft">
-  <div data-cat="1"><img data-i="nav_persona" alt="">Experiencia del paciente</div>
-  <div data-cat="2"><img data-i="nav_chat" alt="">Comunicación efectiva</div>
-  <div data-cat="3"><img data-i="nav_escudo" alt="">Confianza y credibilidad</div>
-  <div data-cat="4"><img data-i="nav_target" alt="">Conversión ética</div>
-</footer>
 
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
@@ -1114,20 +1107,20 @@ html:fullscreen body{min-height:100vh}
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
-  var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
-  var CAT_POR_PANTALLA = {1:1, 2:1, 3:1, 4:2, 5:2, 6:3, 7:1, 8:2, 9:4, 10:0, 11:0}; // 0 = todas
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
     bar.style.width = (cur / TOTAL * 100) + "%";
     count.textContent = "Pantalla " + cur + " de " + TOTAL;
     prevB.disabled = cur === 1;
-    nextB.textContent = ETIQUETA[cur] || "Continuar →";
+    var txt = ETIQUETA[cur] || "Continuar →";
+    nextB.textContent = txt;
+    // color distinto para "Comenzar ejercicios" y para el cierre, que no son un "Continuar" más
+    var destacado = txt.indexOf("ejercicios") > -1 || cur === TOTAL;
+    nextB.classList.toggle("btn--go", destacado);
+    nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
-    var activa = CAT_POR_PANTALLA[cur];
-    cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
-    var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1352,7 +1345,7 @@ html:fullscreen body{min-height:100vh}
   ];
   var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");
   elQs.innerHTML = PREGUNTAS.map(function (q, i) {
-    return '<article class="card qcard"><div class="q__h"><span class="q__n">' + (i+1) + '</span><b>Pregunta ' + (i+1) + '</b></div>' +
+    return '<article class="card qcard"><div class="q__h"><b>Pregunta ' + (i+1) + '</b></div>' +
       '<p class="q__t">' + q.t + '</p><div class="opts" style="grid-template-columns:minmax(0,1fr)">' +
       q.o.map(function (t, j) { return '<button class="opt" data-q="' + i + '" data-o="' + j + '"><i>' + "ABCD"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
       '</div><div class="q__ill"><img data-i="' + q.ill + '" alt=""></div></article>';

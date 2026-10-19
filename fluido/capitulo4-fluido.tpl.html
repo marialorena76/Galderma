@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capítulo 4 — Momento del tratamiento | Galderma</title>
+<title>Capítulo 4 · Momento del tratamiento | Galderma</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -28,7 +28,6 @@ button{font:inherit}
 .hd{display:flex;align-items:center;gap:clamp(10px,1.6vw,26px);
   padding:12px var(--pad);border-bottom:1px solid var(--line);flex-wrap:wrap;
   position:sticky;top:0;background:#fff;z-index:20}
-.hd__logo{height:clamp(19px,1.8vw,27px);width:auto;flex:none}
 .hd__cap{font-size:clamp(10.5px,.82vw,13px);color:var(--muted);line-height:1.35}
 .hd__cap b{display:block;font-size:clamp(12.5px,1vw,16px);color:var(--ink);font-weight:600}
 .hd__bar{flex:1;min-width:80px;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
@@ -57,7 +56,16 @@ button{font:inherit}
 .btn--tint{background:var(--tint);color:#fff}
 .btn--dark{background:var(--ink);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+/* el botón que abre la práctica y el que cierra el capítulo no son el "Continuar" de siempre */
+.btn--go{background:var(--tint);color:#fff;padding:.85em 1.8em;font-size:clamp(14px,1.15vw,19px)}
 .btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* pantallas de práctica: tienen que distinguirse de la teoría */
+.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
+  background:var(--tint);color:#fff;border-radius:99px;
+  padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
+.exbadge i{font-style:normal;font-size:1.05em}
 
 /* ============ pantallas ============ */
 .scr{display:none;padding:clamp(18px,2.4vw,38px) var(--pad) 0}
@@ -67,7 +75,7 @@ h1{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.1;
   font-size:clamp(23px,3.1vw,44px);text-wrap:balance}
 h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);text-wrap:balance}
 .lead{margin:.45em 0 0;color:var(--muted);line-height:1.5;font-size:clamp(14.5px,1.3vw,20px);max-width:70ch}
-.eyebrow{font-size:clamp(10.5px,.85vw,13px);letter-spacing:.18em;font-weight:600;color:var(--muted);text-transform:uppercase}
+.eyebrow{font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .eyebrow--tint{color:var(--tint)}
 
 .card{background:var(--card);border-radius:var(--r);padding:clamp(14px,1.35vw,24px);box-shadow:var(--shadow)}
@@ -79,17 +87,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight{margin:var(--gap) 0 clamp(18px,2.2vw,32px);background:var(--surface);border-radius:var(--r);
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.6vw,28px);
   display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:clamp(10px,1.4vw,24px)}
-.insight img{width:clamp(30px,3vw,48px);background:#fff;border-radius:50%;padding:7px}
+.insight img{width:clamp(30px,3vw,48px);background:var(--tint-soft);border-radius:50%;padding:7px}
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
-/* pie de categorias */
-.ft{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  gap:clamp(8px,1vw,16px);padding:clamp(11px,1.3vw,20px) var(--pad)}
-.ft div{display:flex;align-items:center;gap:clamp(7px,.8vw,14px);font-size:clamp(11.5px,1.05vw,17px);line-height:1.25;opacity:.55}
-.ft div.on{opacity:1}
-.ft[hidden]{display:none}
-.ft img{width:clamp(20px,2.1vw,32px);flex:none}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -118,24 +119,20 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .hero__pic--ilus img{width:100%;height:100%;object-fit:contain;object-position:center}
 .hero__txt h1 em{font-style:normal;color:var(--tint)}
 .eyebrow--big{font-size:clamp(13px,1.35vw,21px);letter-spacing:.01em;text-transform:none;color:var(--muted)}
-.ftc{background:var(--dark);color:#fff;display:grid;grid-template-columns:repeat(4,1fr);
-  padding:clamp(11px,1.3vw,20px) var(--pad);text-align:center}
-.ftc span{font-size:clamp(10.5px,1.02vw,16px);letter-spacing:.06em;text-transform:uppercase;line-height:1.3}
-.ftc span+span{border-left:1px solid rgba(255,255,255,.3)}
 .hero__quote{border-left:3px solid var(--ink);padding-left:.9em;font-size:clamp(15px,1.5vw,23px);line-height:1.45}
 
 /* ---- P2 video ---- */
 .vid{position:relative;aspect-ratio:16/9;background:#000;border-radius:var(--r);overflow:hidden;
   max-width:1020px;margin:0 auto}
 .s2{max-width:1020px;margin:var(--gap) auto 0;display:flex;flex-direction:column;gap:var(--gap)}
-.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:start}
+.s2cols{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:var(--gap);align-items:end}
 @media (max-width:820px){ .s2cols{grid-template-columns:minmax(0,1fr)} }
 .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.objs{display:flex;flex-direction:column;gap:clamp(10px,1.1vw,18px)}
+.objs{display:flex;flex-direction:column;gap:clamp(7px,.75vw,12px)}
 .objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
-.objs img{width:clamp(26px,2.4vw,38px);flex:none}
+.objs img{width:clamp(19px,1.75vw,27px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
-.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(10.5px,.85vw,13px);letter-spacing:.16em;font-weight:600;color:var(--muted)}
+.idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .idea__t img{width:clamp(16px,1.4vw,22px)}
 .idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
 /* ---- reproductor en cadena (varios clips como si fueran uno) ---- */
@@ -185,7 +182,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .k1::before,.k2::before{left:-3.5px}.k3::before,.k4::before{right:-3.5px}
 .rowlist{display:flex;flex-direction:column;gap:clamp(9px,.95vw,15px)}
 .rowlist .r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:clamp(9px,1vw,17px)}
-.rowlist img{width:clamp(24px,2.4vw,36px)}
+.rowlist img{width:clamp(19px,1.8vw,27px);background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .rowlist span{font-size:clamp(13.5px,1.2vw,17px);line-height:1.3}
 .ok{width:clamp(17px,1.4vw,23px);aspect-ratio:1;border:2px solid var(--tint);border-radius:50%;
   display:grid;place-items:center;color:var(--tint);font-size:clamp(9px,.8vw,12px);font-weight:700}
@@ -209,7 +206,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .dlg dt{font-weight:600;font-size:clamp(12px,1vw,15px);white-space:nowrap}
 .dlg dd{margin:0;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
 .recall{display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:start}
-.recall__ic{background:var(--surface);border-radius:12px;padding:clamp(8px,.8vw,13px);flex:none}
+.recall__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(8px,.8vw,13px);flex:none}
 .recall__ic img{width:clamp(22px,2.1vw,32px)}
 .recall b{display:block;font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
 .recall p{margin:.35em 0 0;color:var(--muted);font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
@@ -231,17 +228,17 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .prods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:var(--gap)}
 .prod__l{display:flex;align-items:center;gap:.5em;margin-bottom:.35em}
 .prod__l img{width:clamp(17px,1.6vw,25px);flex:none}
-.prod__l em{font-style:normal;font-size:clamp(10.5px,.88vw,13px);letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.prod__l em{font-style:normal;font-size:clamp(11px,.92vw,14px);letter-spacing:.01em;color:var(--muted)}
 .prod h3{margin:0 0 .55em;font-weight:600;font-size:clamp(16px,1.5vw,23px)}
 .prod p{margin:0 0 .9em;font-size:clamp(13px,1.05vw,16px);line-height:1.45;color:#3A3A3A}
 .prod .qz{color:var(--ink)}
 .why{display:flex;align-items:center;gap:clamp(11px,1.2vw,20px)}
-.why__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
-.why__ic img{width:clamp(28px,2.6vw,42px)}
+.why__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.95vw,16px);flex:none}
+.why__ic img{width:clamp(22px,2vw,32px)}
 .why b{font-weight:600;line-height:1.35;font-size:clamp(13.5px,1.15vw,18px)}
 
 /* ---- P6 ejercicio 1 ---- */
-.consigna{background:var(--surface);border-left:4px solid var(--tint);border-radius:0 var(--r) var(--r) 0;
+.consigna{border-left:3px solid var(--tint);border-radius:0;
   padding:clamp(13px,1.3vw,22px) clamp(15px,1.5vw,26px)}
 .consigna p{margin:.3em 0 0;font-size:clamp(14.5px,1.3vw,20px);line-height:1.45}
 .ex1{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--gap)}
@@ -285,6 +282,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .opt.wrong{border-color:#E08787;background:var(--bad-soft);color:#A13A3A}
 .opt.done{cursor:default}
 .opt i{font-style:normal;font-weight:700;flex:none}
+/* que se vea de un vistazo cuál era la correcta (slides 18 y 35) */
+.opt.right::after,.opt.wrong::after{margin-left:auto;font-weight:700;font-size:1.05em;flex:none}
+.opt.right::after{content:"✓";color:var(--tint)}
+.opt.wrong::after{content:"✕";color:#A13A3A}
 .keys .k{border:1px solid var(--line);border-radius:10px;padding:clamp(9px,.9vw,15px)}
 .keys .k b{display:flex;align-items:center;gap:.45em;color:var(--tint);font-size:clamp(12.5px,1.05vw,16px)}
 .keys .k img{width:clamp(14px,1.25vw,19px)}
@@ -303,7 +304,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
 .q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
 .q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
-.q__ill img{width:clamp(90px,11vw,165px);opacity:.85;mix-blend-mode:multiply}
+.q__ill img{width:clamp(52px,6vw,92px);opacity:.8;mix-blend-mode:multiply}
 .qcard{display:flex;flex-direction:column}
 
 
@@ -311,22 +312,22 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
 .cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
 .chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
-.chat--bad{background:#111}
+.chat--bad{background:var(--surface)}
 .chat--good{background:var(--surface)}
 .chat__h{display:flex;align-items:center;gap:clamp(8px,.9vw,15px)}
 .chat__h img{width:clamp(26px,2.6vw,42px);border-radius:50%;background:#fff;padding:3px}
 .chat__h b{font-size:clamp(12.5px,1.2vw,18px);font-weight:600;letter-spacing:.02em}
-.chat--bad .chat__h b{color:#fff}
+.chat--bad .chat__h b{color:var(--ink)}
 .chat__b{border-radius:14px;padding:clamp(11px,1.15vw,19px);font-size:clamp(12.5px,1.05vw,16px);line-height:1.5}
-.chat--bad .chat__b{background:#3A3A3A;color:#E4E4E4}
+.chat--bad .chat__b{background:#fff;color:var(--ink)}
 .chat--good .chat__b{background:#fff;color:var(--ink)}
 .chat__t{align-self:flex-end;font-size:clamp(10.5px,.92vw,13.5px)}
-.chat--bad .chat__t{color:#9A9A9A}
+.chat--bad .chat__t{color:var(--muted)}
 .chat--good .chat__t{color:var(--muted)}
 .tags{display:flex;flex-direction:column;gap:clamp(6px,.65vw,10px);margin-top:clamp(9px,1vw,15px)}
 .tag{display:flex;align-items:center;gap:clamp(8px,.85vw,14px);border-radius:99px;
   padding:clamp(7px,.72vw,12px) clamp(11px,1.05vw,18px);font-size:clamp(12px,1.02vw,15.5px);line-height:1.3}
-.tag--bad{background:#111;color:#fff}
+.tag--bad{background:var(--surface);color:var(--ink)}
 .tag--good{background:var(--surface);color:var(--ink)}
 .tag i{flex:none;width:1.35em;height:1.35em;border-radius:50%;display:grid;place-items:center;
   font-style:normal;font-size:.78em;font-weight:700}
@@ -334,15 +335,15 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .tag--good i{border:2px solid var(--tint);color:var(--tint)}
 .changes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:var(--gap)}
 .change{display:flex;align-items:center;gap:clamp(10px,1.05vw,18px)}
-.change__ic{background:var(--surface);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
+.change__ic{background:var(--tint-soft);border-radius:50%;padding:clamp(9px,.9vw,15px);flex:none}
 .change__ic img{width:clamp(22px,2.1vw,32px)}
 .change b{font-weight:500;line-height:1.35;font-size:clamp(13px,1.12vw,17px)}
 .keyrow{display:flex;align-items:center;gap:clamp(10px,1.15vw,20px)}
-.keyrow img{width:clamp(28px,2.7vw,42px);flex:none}
+.keyrow img{width:clamp(20px,1.9vw,29px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .keyrow span{font-size:clamp(13px,1.12vw,17.5px);line-height:1.35}
 
 /* ---- P10 cierre y badge ---- */
-.done{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
+.cierre{text-align:center;display:flex;flex-direction:column;align-items:center;gap:clamp(11px,1.4vw,22px);
   padding:clamp(26px,3.4vw,54px) var(--pad) clamp(24px,3vw,44px);
   background:radial-gradient(closest-side,#F6E6EE,#fff 78%)}
 .badge{width:clamp(140px,16vw,225px);aspect-ratio:1;border-radius:50%;background:#2B2B2B;
@@ -354,11 +355,8 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .badge__e{font-size:clamp(8.5px,.76vw,11.5px);letter-spacing:.14em;color:#D8AEC5}
 .badge__n{font-size:clamp(10.5px,1.03vw,15.5px);font-weight:600;padding:0 5%;line-height:1.25}
 .badge__l{font-size:clamp(10.5px,.92vw,13.5px);color:#B5B5B5}
-.done h1{font-size:clamp(25px,3.4vw,50px)}
-.done .lead{margin-inline:auto;text-align:center;max-width:56ch}
-.done__checks{display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(10px,1.6vw,34px)}
-.done__checks div{display:flex;align-items:center;gap:.45em;font-weight:600;font-size:clamp(12.5px,1.08vw,16.5px)}
-.done__checks i{color:var(--tint);font-style:normal}
+.cierre h1{font-size:clamp(25px,3.4vw,50px)}
+.cierre .lead{margin-inline:auto;text-align:center;max-width:56ch}
 .insignia{background:#fff;border:1px solid var(--line);border-radius:var(--r);
   padding:clamp(13px,1.35vw,24px) clamp(17px,1.9vw,34px);display:flex;flex-direction:column;gap:.28em;
   max-width:min(100%,560px)}
@@ -381,9 +379,6 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   .hero{grid-template-columns:minmax(0,1fr)}
   .hero__pic{aspect-ratio:4/3}
   .hero__pic--ilus{aspect-ratio:auto;height:min(62vh,420px)}
-  .ftc{grid-template-columns:repeat(2,1fr);gap:clamp(8px,2vw,14px) 0}
-  .ftc span:nth-child(odd){border-left:0}
-  .ftc span:nth-child(-n+2){padding-bottom:clamp(7px,1.6vw,12px)}
   .lnk{display:none}
   .diag{grid-template-columns:minmax(0,1fr);grid-template-rows:none;gap:var(--gap)}
   .hub{grid-column:1;grid-row:1;aspect-ratio:auto;border-radius:var(--r);
@@ -688,13 +683,15 @@ html:fullscreen body{min-height:100vh}
 .protc li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.65em;
   font-size:clamp(13px,1.1vw,17.5px);line-height:1.4}
 .protc li i{color:var(--tint);font-style:normal;font-weight:700}
+/* los tres cajones de "qué no hacer" arrancan a la misma altura (slide 41) */
 .protc__f{border-radius:12px;padding:clamp(11px,1.2vw,20px);display:grid;grid-template-columns:auto minmax(0,1fr);
-  gap:clamp(9px,1vw,16px);align-items:center;font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.4;color:#fff}
-.protc__f--no{background:var(--dark)}
-.protc__f--si{background:var(--tint)}
+  gap:clamp(9px,1vw,16px);align-items:center;font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.4;
+  min-height:clamp(74px,7.4vw,122px)}
+.protc__f--no{background:var(--bad-soft);color:var(--ink)}
+.protc__f--si{background:var(--tint-soft);color:var(--ink)}
 .protc__f .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px);background:transparent;
-  border:2px solid rgba(255,255,255,.55)}
-.protc__f--si .med{border-color:transparent;font-size:clamp(15px,1.5vw,24px)}
+  border:2px solid var(--bad);color:var(--bad)}
+.protc__f--si .med{border-color:var(--tint);color:var(--tint);font-size:clamp(15px,1.5vw,24px)}
 .protf{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:clamp(18px,2vw,32px)}
 @media (max-width:1000px){ .protf{display:none} }
 
@@ -779,12 +776,12 @@ html:fullscreen body{min-height:100vh}
 /* --- cap 4 · interacciones --- */
 .frev{background:var(--surface);border-radius:var(--r);padding:clamp(13px,1.4vw,24px)}
 .frev+.frev{margin-top:clamp(10px,1.1vw,18px)}
-.frev__no{background:var(--dark);color:#fff;border-radius:12px;padding:clamp(12px,1.3vw,22px);
+.frev__no{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:clamp(12px,1.3vw,22px);
   font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
   grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
 .frev__no .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
 .frev .rev__cara{margin-top:clamp(9px,1vw,16px)}
-.frev__si{background:#fff;border-radius:12px;padding:clamp(12px,1.3vw,22px);
+.frev__si{background:var(--tint-soft);border-radius:12px;padding:clamp(12px,1.3vw,22px);
   font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
   grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
 .frev__si .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
@@ -793,7 +790,7 @@ html:fullscreen body{min-height:100vh}
 .frev__cab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(10px,1.1vw,18px);
   margin-bottom:var(--gap)}
 @media (max-width:760px){ .frev__cab{grid-template-columns:minmax(0,1fr)} }
-.frev__cab div{display:flex;align-items:center;gap:clamp(9px,1vw,16px);letter-spacing:.05em;
+.frev__cab div{display:flex;align-items:center;gap:clamp(9px,1vw,16px);letter-spacing:.01em;
   font-size:clamp(12px,1.08vw,17px);font-weight:600}
 
 /* el "por qué funciona" se descubre */
@@ -814,7 +811,6 @@ html:fullscreen body{min-height:100vh}
 <body>
 
 <header class="hd">
-  <img class="hd__logo" data-i="logo_galderma" alt="Galderma">
   <div class="hd__cap">Capítulo 4 de 6<b>Momento del tratamiento</b></div>
   <div class="hd__bar"><i id="bar" style="width:12.5%"></i></div>
   <div class="hd__lec" id="count">Pantalla 1 de 8</div>
@@ -837,14 +833,10 @@ html:fullscreen body{min-height:100vh}
       <img data-i="ilus_portada" alt="Paciente recibiendo un tratamiento en la sala">
     </div>
     <div class="hero__txt">
-      <div><div class="eyebrow eyebrow--big">Capítulo 4</div><div class="eyebrow eyebrow--big">Capacitación Galderma</div></div>
+      <div class="eyebrow eyebrow--big">Capítulo 4</div>
       <h1>Momento<br>del <em>tratamiento</em></h1>
       <p class="lead">Cada gesto cuenta en el momento del tratamiento.</p>
     </div>
-  </div>
-  <div class="ftc">
-    <span>Informar con claridad</span><span>Transmitir seguridad</span>
-    <span>Reforzar la decisión</span><span>Mantener el vínculo</span>
   </div>
 </section>
 
@@ -881,7 +873,7 @@ html:fullscreen body{min-height:100vh}
       </div>
       <div class="idea">
         <div class="idea__t"><img data-i="w4_star" alt="">Idea clave</div>
-        <p>Tu rol es estar disponible — no estar encima. El médico trabaja, el paciente confía, vos acompañás.</p>
+        <p>Tu rol es estar disponible, no estar encima. El médico trabaja, el paciente confía, vos acompañás.</p>
       </div>
     </div>
   </div>
@@ -889,14 +881,14 @@ html:fullscreen body{min-height:100vh}
 
 <!-- ============ 3 · qué explicar antes del procedimiento (p39) ============ -->
 <section class="scr" data-scr="3">
-  <h1>¿Qué explicar antes del procedimiento (y qué NO decir)?</h1>
+  <h1>Qué explicar antes del procedimiento y qué no decir</h1>
   <p class="lead">Las palabras previas al tratamiento reducen la ansiedad o generan dudas innecesarias. Leé lo que no conviene decir y descubrí con qué reemplazarlo.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
 
   <div style="margin-top:var(--gap)">
     <div class="frev__cab">
-      <div><span class="med med--soft">✕</span>QUÉ NO DECIR / NO HACER</div>
-      <div><span class="med">✓</span>QUÉ SÍ DECIR</div>
+      <div><span class="med med--soft">✕</span>Qué no decir / no hacer</div>
+      <div><span class="med">✓</span>Qué sí decir</div>
     </div>
 
     <div class="frev rev">
@@ -904,40 +896,40 @@ html:fullscreen body{min-height:100vh}
         <span>Comentar sobre cómo va quedando durante el tratamiento.</span></div>
       <button class="rev__cara" type="button"></button>
       <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
-        <span><span class="frev__r">EN SU LUGAR</span>‘El procedimiento dura aproximadamente [X] minutos.’</span></div></div>
+        <span><span class="frev__r">En su lugar</span>‘El procedimiento dura aproximadamente [X] minutos.’</span></div></div>
     </div>
     <div class="frev rev">
       <div class="frev__no"><span class="med med--soft">✕</span>
         <span>‘Ay, te va a doler un poco, preparate.’</span></div>
       <button class="rev__cara" type="button"></button>
       <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
-        <span><span class="frev__r">EN SU LUGAR</span>‘Es normal sentir un leve pinchazo — el médico te va a avisar.’</span></div></div>
+        <span><span class="frev__r">En su lugar</span>‘Es normal sentir un leve pinchazo, el médico te va a avisar.’</span></div></div>
     </div>
     <div class="frev rev">
       <div class="frev__no"><span class="med med--soft">✕</span>
         <span>Hablar de casos de otros pacientes (real o inventado).</span></div>
       <button class="rev__cara" type="button"></button>
       <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
-        <span><span class="frev__r">EN SU LUGAR</span>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</span></div></div>
+        <span><span class="frev__r">En su lugar</span>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</span></div></div>
     </div>
     <div class="frev rev">
       <div class="frev__no"><span class="med med--soft">✕</span>
         <span>Entrar al consultorio a buscar cosas sin avisar.</span></div>
       <button class="rev__cara" type="button"></button>
       <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
-        <span><span class="frev__r">EN SU LUGAR</span>‘Si tenés alguna pregunta, estamos acá.’</span></div></div>
+        <span><span class="frev__r">En su lugar</span>‘Si tenés alguna pregunta, estamos acá.’</span></div></div>
     </div>
     <div class="frev rev">
       <div class="frev__no"><span class="med med--soft">✕</span>
         <span>Opinar sobre el procedimiento o los resultados esperados.</span></div>
       <button class="rev__cara" type="button"></button>
       <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
-        <span><span class="frev__r">EN SU LUGAR</span>‘La doctora te va a explicar todo antes de empezar.’</span></div></div>
+        <span><span class="frev__r">En su lugar</span>‘La doctora te va a explicar todo antes de empezar.’</span></div></div>
     </div>
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Anticipar sensaciones y tiempos da seguridad; opinar o improvisar traslada inseguridad al paciente.</p>
   </div>
 </section>
@@ -950,21 +942,21 @@ html:fullscreen body{min-height:100vh}
 
   <div class="mom" style="margin-top:var(--gap)">
     <div class="momr">
-      <div class="momr__l">CUANDO ENTRA AL CONSULTORIO</div>
+      <div class="momr__l">Cuando entra al consultorio</div>
       <div class="momr__r">
         <p>“Estás en muy buenas manos. Cualquier cosa, avisá.”</p>
         <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Breve, cálido, sin exagerar.</span></div></div></div>
       </div>
     </div>
     <div class="momr">
-      <div class="momr__l">CUANDO SALE<br>(primeros 2 minutos)</div>
+      <div class="momr__l">Cuando sale<br>(primeros 2 minutos)</div>
       <div class="momr__r">
-        <p>“¿Cómo estás? Es normal lo que estás viendo — en 48 horas vas a ver cómo va mejorando.”</p>
+        <p>“¿Cómo estás? Es normal lo que estás viendo: en 48 horas vas a ver cómo va mejorando.”</p>
         <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Valida su estado actual. Da certeza sobre el proceso.</span></div></div></div>
       </div>
     </div>
     <div class="momr">
-      <div class="momr__l">ANTES DE QUE SE VAYA</div>
+      <div class="momr__l">Antes de que se vaya</div>
       <div class="momr__r">
         <p>“Te mando un mensaje en 2 días para saber cómo estás. Y si tenés cualquier duda antes, no dudes en escribirnos.”</p>
         <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Abre el canal de seguimiento. Genera vínculo.</span></div></div></div>
@@ -973,7 +965,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Reforzar la decisión no significa elogiar el tratamiento. Significa acompañar emocionalmente al paciente en el proceso.</p>
   </div>
 </section>
@@ -985,7 +977,7 @@ html:fullscreen body{min-height:100vh}
 
   <div class="prot" style="margin-top:var(--gap)">
     <div class="protc">
-      <div class="protc__h"><span class="protc__n">01</span><span class="protc__t">PRE-INGRESO</span></div>
+      <div class="protc__h"><span class="protc__n">01</span><span class="protc__t">Pre-ingreso</span></div>
       <div class="protc__r"></div>
       <ul>
         <li class="tick"><i>&#10003;</i>Recibirlo por su nombre.</li>
@@ -997,10 +989,10 @@ html:fullscreen body{min-height:100vh}
         No hablar de precios ni de otras personas que se atendieron.</div>
     </div>
     <div class="protc">
-      <div class="protc__h"><span class="protc__n">02</span><span class="protc__t">DURANTE EL TRATAMIENTO</span></div>
+      <div class="protc__h"><span class="protc__n">02</span><span class="protc__t">Durante el tratamiento</span></div>
       <div class="protc__r"></div>
       <ul>
-        <li class="tick"><i>&#10003;</i>Estar disponible — no estar en la sala si no es necesario.</li>
+        <li class="tick"><i>&#10003;</i>Estar disponible, no estar en la sala si no es necesario.</li>
         <li class="tick"><i>&#10003;</i>Si estás en la sala: silencio y atención total al médico.</li>
         <li class="tick"><i>&#10003;</i>Mantener un ambiente sereno y de concentración.</li>
       </ul>
@@ -1008,7 +1000,7 @@ html:fullscreen body{min-height:100vh}
         No opinar sobre el aspecto del paciente ni usar el celular o hablar de temas ajenos.</div>
     </div>
     <div class="protc">
-      <div class="protc__h"><span class="protc__n">03</span><span class="protc__t">SALIDA DEL CONSULTORIO</span></div>
+      <div class="protc__h"><span class="protc__n">03</span><span class="protc__t">Salida del consultorio</span></div>
       <div class="protc__r"></div>
       <ul>
         <li class="tick"><i>&#10003;</i>Recibir al paciente con una sonrisa calmada.</li>
@@ -1017,25 +1009,25 @@ html:fullscreen body{min-height:100vh}
         <li class="tick"><i>&#10003;</i>Confirmar seguimiento: ‘Te escribo en dos días.’</li>
         <li class="tick"><i>&#10003;</i>Despedirlo por su nombre.</li>
       </ul>
-      <div class="protc__f protc__f--si"><span class="med">★</span>
-        Acompañar sin invadir: validar, informar y mantener el canal abierto.</div>
+      <div class="protc__f protc__f--no"><span class="med">✕</span>
+        No apurar la salida ni comentar el resultado antes que el médico.</div>
     </div>
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>La percepción de calidad médica depende de la precisión y discreción del equipo en cada uno de estos 3 momentos.</p>
   </div>
 </section>
 
 <!-- ============ 6 · ejercicio 1 (p42) ============ -->
-<section class="scr" data-scr="6">
-  <div class="eyebrow eyebrow--tint">Ejercicio 1</div>
+<section class="scr scr--ex" data-scr="6">
+  <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">¿Qué decís en este momento?</h1>
   <p class="lead">Opción múltiple.</p>
 
   <div class="consigna" style="margin-top:var(--gap)">
-    <div class="eyebrow">Consigna</div>
+    <div class="eyebrow">Situación</div>
     <p>Un paciente sale del consultorio después de aplicarse Dysport. Tiene una leve marca roja en la frente y se ve la toca con el dedo. Te mira. <b>¿Qué hacés?</b></p>
   </div>
 
@@ -1043,19 +1035,16 @@ html:fullscreen body{min-height:100vh}
   <div class="uno" id="uno"></div>
 
   <div class="fb" id="unofb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <div class="eyebrow eyebrow--tint">Consejo</div>
     <p>Elegí una opción para ver la devolución.</p>
-  </div>
-  <div class="meta" style="margin-top:var(--gap)">
-    <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
   </div>
 </section>
 
 <!-- ============ 7 · ejercicio 2 · ordenar el protocolo (p43) ============ -->
-<section class="scr" data-scr="7">
-  <div class="eyebrow eyebrow--tint">Ejercicio 2</div>
+<section class="scr scr--ex" data-scr="7">
+  <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">Ordenar el protocolo</h1>
-  <p class="lead">Arrastrá estas acciones —o tocá una y después el casillero— en el orden correcto para cuando el paciente sale del consultorio.</p>
+  <p class="lead">Arrastrá estas acciones, o tocá una y después el casillero, en el orden correcto para cuando el paciente sale del consultorio.</p>
 
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
@@ -1073,11 +1062,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Feedback</div>
+    <div class="eyebrow eyebrow--tint">Consejo</div>
     <p>El orden importa porque cada paso prepara el siguiente. Primero generás tranquilidad, después brindás orientación, anticipás el seguimiento y cerrás la atención de manera personalizada.</p>
-  </div>
-  <div class="meta" style="margin-top:var(--gap)">
-    <span>&#9201; Tiempo estimado: 3 minutos</span><span>Tipo de actividad: ejercicio práctico</span>
   </div>
 </section>
 
@@ -1094,31 +1080,23 @@ html:fullscreen body{min-height:100vh}
   </div>
   <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="ic_lightbulb" alt=""><b>INSIGHT CLAVE</b>
+    <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Durante el tratamiento, el paciente no necesita más información, sino la información adecuada en el momento adecuado: anticipar lo necesario, evitar comentarios que generen inseguridad y saber cómo responder cuando algo le preocupa.</p>
   </div>
 </section>
 
 <!-- ============ 9 · capítulo completado (p45) ============ -->
 <section class="scr scr--flush" data-scr="9">
-  <div class="done">
+  <div class="cierre">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
-      <span class="badge__e">BADGE DESBLOQUEADO</span>
       <span class="badge__n">Momento del tratamiento</span>
-      <span class="badge__l">Nivel 4</span>
     </div>
     <h1>¡Capítulo 4 completado!</h1>
-    <p class="lead">Aprendiste a reconocer qué hacer, qué decir y qué evitar durante el momento del tratamiento.</p>
-    <div class="done__checks">
-      <div><i>&#10003;</i>Capítulo completado</div>
-      <div><i>&#10003;</i>Lecciones finalizadas</div>
-      <div><i>&#10003;</i>Competencia adquirida</div>
-    </div>
     <div class="insignia">
-      <b>🏅 NUEVA INSIGNIA OBTENIDA</b>
+      <b>🏅 Nueva insignia obtenida</b>
       <strong>Acompañante Experta</strong>
-      <span>Sabés cómo intervenir en los momentos adecuados, brindar orientación sin generar inseguridad y respetar el espacio del paciente durante el tratamiento.</span>
+      <span>Aprendiste a reconocer qué hacer, qué decir y qué evitar durante el momento del tratamiento.</span>
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
@@ -1128,12 +1106,6 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<footer class="ft" id="ft">
-  <div data-cat="1"><img data-i="nav_persona" alt="">Experiencia del paciente</div>
-  <div data-cat="2"><img data-i="nav_chat" alt="">Comunicación efectiva</div>
-  <div data-cat="3"><img data-i="nav_escudo" alt="">Confianza y credibilidad</div>
-  <div data-cat="4"><img data-i="nav_target" alt="">Conversión ética</div>
-</footer>
 
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
@@ -1186,20 +1158,20 @@ html:fullscreen body{min-height:100vh}
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
-  var cats  = [].slice.call(document.querySelectorAll("#ft [data-cat]"));
-  var CAT_POR_PANTALLA = {1:1, 2:1, 3:2, 4:3, 5:1, 6:2, 7:1, 8:0, 9:0}; // 0 = todas
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
     bar.style.width = (cur / TOTAL * 100) + "%";
     count.textContent = "Pantalla " + cur + " de " + TOTAL;
     prevB.disabled = cur === 1;
-    nextB.textContent = ETIQUETA[cur] || "Continuar →";
+    var txt = ETIQUETA[cur] || "Continuar →";
+    nextB.textContent = txt;
+    // color distinto para "Comenzar ejercicios" y para el cierre, que no son un "Continuar" más
+    var destacado = txt.indexOf("ejercicios") > -1 || cur === TOTAL;
+    nextB.classList.toggle("btn--go", destacado);
+    nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
-    var activa = CAT_POR_PANTALLA[cur];
-    cats.forEach(function (c) { c.classList.toggle("on", activa === 0 || +c.dataset.cat === activa); });
-    var pie = document.getElementById("ft"); if (pie) pie.hidden = (cur === 1); // la portada tiene su propio pie
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1295,7 +1267,7 @@ html:fullscreen body{min-height:100vh}
   var OPC = [
     { t:"Le decís que no se toque para no arruinar el resultado.", ok:false },
     { t:"Le preguntás si le dolió y si está conforme.", ok:false },
-    { t:"Le sonreís y decís: ‘¿Cómo estás? Es normal lo que estás viendo — en 48 horas vas a notar la diferencia. Te mando un mensaje para saber cómo seguiste.’", ok:true },
+    { t:"Le sonreís y decís: ‘¿Cómo estás? Es normal lo que estás viendo: en 48 horas vas a notar la diferencia. Te mando un mensaje para saber cómo seguiste.’", ok:true },
     { t:"Le ofrecés un espejo para que vea cómo quedó.", ok:false }
   ];
   var FB_TXT = "Después del tratamiento, el paciente puede necesitar tranquilidad y orientación sobre lo que está viendo. Acompañar sin invadir implica validar lo que siente, brindar información concreta y dejar abierto el canal de seguimiento.";
@@ -1412,7 +1384,7 @@ html:fullscreen body{min-height:100vh}
   var TOTAL_Q = PREGUNTAS.length;
   var elQs = document.getElementById("qs"), elScore = document.getElementById("score"), elMsg = document.getElementById("scoremsg");
   elQs.innerHTML = PREGUNTAS.map(function (q, i) {
-    return '<article class="card qcard"><div class="q__h"><span class="q__n">' + (i+1) + '</span><b>Pregunta ' + (i+1) + '</b></div>' +
+    return '<article class="card qcard"><div class="q__h"><b>Pregunta ' + (i+1) + '</b></div>' +
       '<p class="q__t">' + q.t + '</p><div class="opts" style="grid-template-columns:minmax(0,1fr)">' +
       q.o.map(function (t, j) { return '<button class="opt" data-q="' + i + '" data-o="' + j + '"><i>' + "ABCD"[j] + '.</i><span>' + t + '</span></button>'; }).join("") +
       '</div><div class="q__ill"><img data-i="' + q.ill + '" alt=""></div></article>';
