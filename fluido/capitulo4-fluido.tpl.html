@@ -698,6 +698,117 @@ html:fullscreen body{min-height:100vh}
 .protf{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:clamp(18px,2vw,32px)}
 @media (max-width:1000px){ .protf{display:none} }
 
+/* ================= interacciones de contenido =================
+   Cuatro formas, usadas igual en los seis capítulos:
+   .sol  solapas        .rev  descubrir
+   .acc  paso a paso    .sel  selector con fichas
+   Todo lo que se oculta se abre junto con el botón "Mostrar todo". */
+.oculto{display:none}
+.scr.todo .oculto{display:block}
+
+/* barra del botón mostrar todo */
+.vt{display:flex;justify-content:flex-end;margin:calc(var(--gap) * .6) 0 0}
+.btn--todo{font-size:clamp(11.5px,1vw,15px);padding:.55em 1.1em}
+.btn--todo::before{content:"⊕";margin-right:.5em;font-weight:400}
+.scr.todo .btn--todo::before{content:"⊖"}
+
+/* ---- solapas ---- */
+.sol__tabs{display:flex;flex-wrap:wrap;gap:clamp(7px,.8vw,12px);margin-bottom:var(--gap)}
+.sol__tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;cursor:pointer;font:inherit;
+  color:var(--muted);padding:clamp(7px,.8vw,13px) clamp(14px,1.5vw,26px);
+  font-size:clamp(12.5px,1.08vw,17px);display:flex;align-items:center;gap:.5em;transition:.15s}
+.sol__tabs button img{width:clamp(16px,1.6vw,24px)}
+.sol__tabs button[aria-selected="true"]{border-color:var(--tint);color:var(--tint);font-weight:600;
+  box-shadow:0 0 0 1px var(--tint)}
+.scr.todo .sol__tabs{display:none}
+.scr.todo .sol__pan{margin-bottom:var(--gap)}
+.sol__pan>.sol__rot{display:none}
+.scr.todo .sol__pan>.sol__rot{display:block;color:var(--tint);font-weight:600;letter-spacing:.04em;
+  font-size:clamp(12px,1.05vw,16px);margin-bottom:.6em}
+
+/* ---- descubrir ---- */
+.rev{position:relative}
+.rev__cara{display:block;width:100%;text-align:left;font:inherit;cursor:pointer;background:transparent;
+  border:0;padding:0;color:inherit}
+.rev__cara::after{content:"Tocá para ver ▾";display:block;margin-top:.7em;color:var(--tint);font-weight:600;
+  font-size:clamp(11px,.95vw,14.5px);letter-spacing:.02em}
+.rev.abierto .rev__cara::after{content:"▴ Ocultar";color:var(--muted);font-weight:400}
+.scr.todo .rev__cara::after{content:"";margin:0}
+.rev__dorso{display:none;margin-top:clamp(9px,1vw,16px);animation:aparece .22s ease}
+.rev.abierto .rev__dorso,.scr.todo .rev__dorso{display:block}
+@keyframes aparece{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.rev__cara:focus-visible{outline:2px solid var(--tint);outline-offset:4px;border-radius:8px}
+
+/* ---- paso a paso ---- */
+.acc{background:#fff;border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.08);overflow:hidden}
+.acc+.acc{margin-top:clamp(9px,1vw,15px)}
+.acc__h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.2vw,20px);align-items:center;
+  width:100%;text-align:left;font:inherit;cursor:pointer;background:transparent;border:0;
+  padding:clamp(13px,1.4vw,24px);color:inherit}
+.acc__h b{font-size:clamp(13.5px,1.2vw,19px);letter-spacing:.03em}
+.acc__h i{font-style:normal;color:var(--tint);font-size:clamp(15px,1.4vw,22px);transition:transform .2s}
+.acc.abierto .acc__h i,.scr.todo .acc__h i{transform:rotate(45deg)}
+.acc__n{background:var(--tint);color:#fff;border-radius:8px;width:clamp(26px,2.4vw,38px);height:clamp(26px,2.4vw,38px);
+  display:grid;place-items:center;font-size:clamp(12.5px,1.1vw,17px);flex:none}
+.acc__b{display:none;padding:0 clamp(13px,1.4vw,24px) clamp(13px,1.4vw,24px);
+  font-size:clamp(13px,1.1vw,17.5px);line-height:1.5;animation:aparece .22s ease}
+.acc.abierto .acc__b,.scr.todo .acc__b{display:block}
+.acc__b p{margin:0 0 .6em}
+.acc__b img{width:clamp(34px,3.4vw,56px);float:right;margin:0 0 .5em .8em}
+.acc__h:focus-visible{outline:2px solid var(--tint);outline-offset:-3px}
+
+/* ---- selector con fichas ---- */
+.sel__fichas{display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,16px);margin-bottom:var(--gap);justify-content:center}
+.sel__fichas button{border:1px solid var(--line);background:#fff;border-radius:var(--r);cursor:pointer;font:inherit;
+  padding:clamp(10px,1.1vw,18px) clamp(12px,1.3vw,22px);display:flex;flex-direction:column;align-items:center;
+  gap:.45em;min-width:clamp(92px,11vw,150px);transition:.15s;color:var(--muted)}
+.sel__fichas button img{width:clamp(26px,2.6vw,42px)}
+.sel__fichas button span{font-size:clamp(11px,.98vw,15px);line-height:1.25;text-align:center}
+.sel__fichas button[aria-selected="true"]{border-color:var(--tint);background:var(--tint-soft);color:var(--tint);
+  font-weight:600;box-shadow:0 0 0 1px var(--tint)}
+.scr.todo .sel__fichas{display:none}
+.scr.todo .sel__pan{margin-bottom:var(--gap)}
+
+/* ---- checklist que se tilda ---- */
+.tick{cursor:pointer}
+.tick i{display:inline-grid;place-items:center;width:clamp(18px,1.7vw,26px);aspect-ratio:1;border-radius:5px;
+  border:1.5px solid var(--line);color:transparent;font-size:clamp(11px,1vw,15px);flex:none;transition:.15s}
+.tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
+.tick.hecho{color:var(--muted)}
+
+/* --- cap 4 · interacciones --- */
+.frev{background:var(--surface);border-radius:var(--r);padding:clamp(13px,1.4vw,24px)}
+.frev+.frev{margin-top:clamp(10px,1.1vw,18px)}
+.frev__no{background:var(--dark);color:#fff;border-radius:12px;padding:clamp(12px,1.3vw,22px);
+  font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
+  grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
+.frev__no .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
+.frev .rev__cara{margin-top:clamp(9px,1vw,16px)}
+.frev__si{background:#fff;border-radius:12px;padding:clamp(12px,1.3vw,22px);
+  font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
+  grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
+.frev__si .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
+.frev__r{display:block;color:var(--tint);letter-spacing:.06em;font-weight:600;
+  font-size:clamp(11px,.95vw,14.5px);margin-bottom:.45em}
+.frev__cab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(10px,1.1vw,18px);
+  margin-bottom:var(--gap)}
+@media (max-width:760px){ .frev__cab{grid-template-columns:minmax(0,1fr)} }
+.frev__cab div{display:flex;align-items:center;gap:clamp(9px,1vw,16px);letter-spacing:.05em;
+  font-size:clamp(12px,1.08vw,17px);font-weight:600}
+
+/* el "por qué funciona" se descubre */
+.momr__r .rev__cara{text-align:left}
+.porque--rev{margin-top:clamp(9px,1vw,16px)}
+
+/* checklist del protocolo */
+.protc li.tick{cursor:pointer;align-items:center}
+.protc li.tick i{border:1.5px solid var(--line);border-radius:5px;color:transparent;
+  display:inline-grid;place-items:center;width:clamp(19px,1.8vw,27px);aspect-ratio:1;font-weight:700}
+.protc li.tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
+.protc li.tick.hecho{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.protc__cont{margin-top:auto;padding-top:clamp(9px,1vw,16px);color:var(--tint);font-weight:600;
+  font-size:clamp(11.5px,1vw,15px);letter-spacing:.02em}
+
 </style>
 </head>
 <body>
@@ -779,24 +890,49 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 3 · qué explicar antes del procedimiento (p39) ============ -->
 <section class="scr" data-scr="3">
   <h1>¿Qué explicar antes del procedimiento (y qué NO decir)?</h1>
-  <p class="lead">Las palabras previas al tratamiento reducen la ansiedad o generan dudas innecesarias.</p>
+  <p class="lead">Las palabras previas al tratamiento reducen la ansiedad o generan dudas innecesarias. Leé lo que no conviene decir y descubrí con qué reemplazarlo.</p>
+  <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
 
-  <div class="frases" style="margin-top:var(--gap)">
-    <div class="fr fr--no">
-      <div class="fr__h"><span class="med med--soft">✕</span><span>QUÉ NO DECIR / NO HACER</span></div>
-      <q class="pill">Comentar sobre cómo va quedando durante el tratamiento.</q>
-      <q class="pill">‘Ay, te va a doler un poco, preparate.’</q>
-      <q class="pill">Hablar de casos de otros pacientes (real o inventado).</q>
-      <q class="pill">Entrar al consultorio a buscar cosas sin avisar.</q>
-      <q class="pill">Opinar sobre el procedimiento o los resultados esperados.</q>
+  <div style="margin-top:var(--gap)">
+    <div class="frev__cab">
+      <div><span class="med med--soft">✕</span>QUÉ NO DECIR / NO HACER</div>
+      <div><span class="med">✓</span>QUÉ SÍ DECIR</div>
     </div>
-    <div class="fr fr--si">
-      <div class="fr__h"><span class="med">✓</span><span>QUÉ SÍ DECIR</span></div>
-      <q>‘El procedimiento dura aproximadamente [X] minutos.’</q>
-      <q>‘Es normal sentir un leve pinchazo — el médico te va a avisar.’</q>
-      <q>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</q>
-      <q>‘Si tenés alguna pregunta, estamos acá.’</q>
-      <q>‘La doctora te va a explicar todo antes de empezar.’</q>
+
+    <div class="frev rev">
+      <div class="frev__no"><span class="med med--soft">✕</span>
+        <span>Comentar sobre cómo va quedando durante el tratamiento.</span></div>
+      <button class="rev__cara" type="button"></button>
+      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+        <span><span class="frev__r">EN SU LUGAR</span>‘El procedimiento dura aproximadamente [X] minutos.’</span></div></div>
+    </div>
+    <div class="frev rev">
+      <div class="frev__no"><span class="med med--soft">✕</span>
+        <span>‘Ay, te va a doler un poco, preparate.’</span></div>
+      <button class="rev__cara" type="button"></button>
+      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+        <span><span class="frev__r">EN SU LUGAR</span>‘Es normal sentir un leve pinchazo — el médico te va a avisar.’</span></div></div>
+    </div>
+    <div class="frev rev">
+      <div class="frev__no"><span class="med med--soft">✕</span>
+        <span>Hablar de casos de otros pacientes (real o inventado).</span></div>
+      <button class="rev__cara" type="button"></button>
+      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+        <span><span class="frev__r">EN SU LUGAR</span>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</span></div></div>
+    </div>
+    <div class="frev rev">
+      <div class="frev__no"><span class="med med--soft">✕</span>
+        <span>Entrar al consultorio a buscar cosas sin avisar.</span></div>
+      <button class="rev__cara" type="button"></button>
+      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+        <span><span class="frev__r">EN SU LUGAR</span>‘Si tenés alguna pregunta, estamos acá.’</span></div></div>
+    </div>
+    <div class="frev rev">
+      <div class="frev__no"><span class="med med--soft">✕</span>
+        <span>Opinar sobre el procedimiento o los resultados esperados.</span></div>
+      <button class="rev__cara" type="button"></button>
+      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+        <span><span class="frev__r">EN SU LUGAR</span>‘La doctora te va a explicar todo antes de empezar.’</span></div></div>
     </div>
   </div>
 
@@ -809,28 +945,29 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 4 · reforzar la decisión (p40) ============ -->
 <section class="scr" data-scr="4">
   <h1>Cómo reforzar la decisión del paciente durante el tratamiento</h1>
-  <p class="lead">El paciente ya decidió. Tu trabajo es que se sienta bien con esa decisión.</p>
+  <p class="lead">El paciente ya decidió. Tu trabajo es que se sienta bien con esa decisión. Leé cada frase y descubrí por qué funciona.</p>
+  <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
 
   <div class="mom" style="margin-top:var(--gap)">
     <div class="momr">
       <div class="momr__l">CUANDO ENTRA AL CONSULTORIO</div>
       <div class="momr__r">
         <p>“Estás en muy buenas manos. Cualquier cosa, avisá.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Breve, cálido, sin exagerar.</span></div>
+        <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Breve, cálido, sin exagerar.</span></div></div></div>
       </div>
     </div>
     <div class="momr">
       <div class="momr__l">CUANDO SALE<br>(primeros 2 minutos)</div>
       <div class="momr__r">
         <p>“¿Cómo estás? Es normal lo que estás viendo — en 48 horas vas a ver cómo va mejorando.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Valida su estado actual. Da certeza sobre el proceso.</span></div>
+        <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Valida su estado actual. Da certeza sobre el proceso.</span></div></div></div>
       </div>
     </div>
     <div class="momr">
       <div class="momr__l">ANTES DE QUE SE VAYA</div>
       <div class="momr__r">
         <p>“Te mando un mensaje en 2 días para saber cómo estás. Y si tenés cualquier duda antes, no dudes en escribirnos.”</p>
-        <div class="porque"><b>→ Por qué funciona:</b><span>Abre el canal de seguimiento. Genera vínculo.</span></div>
+        <div class="rev porque--rev"><button class="rev__cara" type="button"></button><div class="rev__dorso"><div class="porque"><b>→ Por qué funciona:</b><span>Abre el canal de seguimiento. Genera vínculo.</span></div></div></div>
       </div>
     </div>
   </div>
@@ -844,17 +981,17 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 5 · el protocolo de los 10 minutos (p41) ============ -->
 <section class="scr" data-scr="5">
   <h1>El protocolo de los 10 minutos más importantes</h1>
-  <p class="lead">Los 3 momentos clave: pre-ingreso, durante y salida del consultorio.</p>
+  <p class="lead">Los 3 momentos clave: pre-ingreso, durante y salida del consultorio. Tildá lo que ya hacés para ver qué te falta incorporar.</p>
 
   <div class="prot" style="margin-top:var(--gap)">
     <div class="protc">
       <div class="protc__h"><span class="protc__n">01</span><span class="protc__t">PRE-INGRESO</span></div>
       <div class="protc__r"></div>
       <ul>
-        <li><i>&#10003;</i>Recibirlo por su nombre.</li>
-        <li><i>&#10003;</i>Decirle cuánto dura el procedimiento.</li>
-        <li><i>&#10003;</i>Avisarle qué puede sentir (pinchazo leve o sensación de presión).</li>
-        <li><i>&#10003;</i>Ofrecerle agua o material de lectura mientras espera.</li>
+        <li class="tick"><i>&#10003;</i>Recibirlo por su nombre.</li>
+        <li class="tick"><i>&#10003;</i>Decirle cuánto dura el procedimiento.</li>
+        <li class="tick"><i>&#10003;</i>Avisarle qué puede sentir (pinchazo leve o sensación de presión).</li>
+        <li class="tick"><i>&#10003;</i>Ofrecerle agua o material de lectura mientras espera.</li>
       </ul>
       <div class="protc__f protc__f--no"><span class="med">✕</span>
         No hablar de precios ni de otras personas que se atendieron.</div>
@@ -863,9 +1000,9 @@ html:fullscreen body{min-height:100vh}
       <div class="protc__h"><span class="protc__n">02</span><span class="protc__t">DURANTE EL TRATAMIENTO</span></div>
       <div class="protc__r"></div>
       <ul>
-        <li><i>&#10003;</i>Estar disponible — no estar en la sala si no es necesario.</li>
-        <li><i>&#10003;</i>Si estás en la sala: silencio y atención total al médico.</li>
-        <li><i>&#10003;</i>Mantener un ambiente sereno y de concentración.</li>
+        <li class="tick"><i>&#10003;</i>Estar disponible — no estar en la sala si no es necesario.</li>
+        <li class="tick"><i>&#10003;</i>Si estás en la sala: silencio y atención total al médico.</li>
+        <li class="tick"><i>&#10003;</i>Mantener un ambiente sereno y de concentración.</li>
       </ul>
       <div class="protc__f protc__f--no"><span class="med">✕</span>
         No opinar sobre el aspecto del paciente ni usar el celular o hablar de temas ajenos.</div>
@@ -874,11 +1011,11 @@ html:fullscreen body{min-height:100vh}
       <div class="protc__h"><span class="protc__n">03</span><span class="protc__t">SALIDA DEL CONSULTORIO</span></div>
       <div class="protc__r"></div>
       <ul>
-        <li><i>&#10003;</i>Recibir al paciente con una sonrisa calmada.</li>
-        <li><i>&#10003;</i>Validar cómo se ve: ‘Es completamente normal.’</li>
-        <li><i>&#10003;</i>Dar información concreta sobre tiempos y resultados.</li>
-        <li><i>&#10003;</i>Confirmar seguimiento: ‘Te escribo en dos días.’</li>
-        <li><i>&#10003;</i>Despedirlo por su nombre.</li>
+        <li class="tick"><i>&#10003;</i>Recibir al paciente con una sonrisa calmada.</li>
+        <li class="tick"><i>&#10003;</i>Validar cómo se ve: ‘Es completamente normal.’</li>
+        <li class="tick"><i>&#10003;</i>Dar información concreta sobre tiempos y resultados.</li>
+        <li class="tick"><i>&#10003;</i>Confirmar seguimiento: ‘Te escribo en dos días.’</li>
+        <li class="tick"><i>&#10003;</i>Despedirlo por su nombre.</li>
       </ul>
       <div class="protc__f protc__f--si"><span class="med">★</span>
         Acompañar sin invadir: validar, informar y mantener el canal abierto.</div>
@@ -1296,6 +1433,65 @@ html:fullscreen body{min-height:100vh}
       : (bien === TOTAL_Q ? "¡Aprobaste el checkpoint!" : "Repasá el capítulo y volvé a intentarlo.");
     post();
   });
+
+
+  // ====== interacciones de contenido (solapas, descubrir, paso a paso, selector) ======
+  (function () {
+    // solapas y selectores: mismo motor, distinta piel
+    document.querySelectorAll("[data-grupo]").forEach(function (g) {
+      var tabs = [].slice.call(g.querySelectorAll("[data-tab]"));
+      var pans = [].slice.call(g.querySelectorAll("[data-pan]"));
+      if (!tabs.length || tabs.length !== pans.length) return;
+      function ir(i) {
+        tabs.forEach(function (t, j) { t.setAttribute("aria-selected", j === i ? "true" : "false"); });
+        pans.forEach(function (p, j) { p.classList.toggle("oculto", j !== i); });
+        post();
+      }
+      tabs.forEach(function (t, i) {
+        t.type = "button";
+        t.setAttribute("role", "tab");
+        t.addEventListener("click", function () { ir(i); });
+      });
+      ir(0);
+    });
+
+    document.addEventListener("click", function (e) {
+      // descubrir
+      var cara = e.target.closest(".rev__cara");
+      if (cara) { cara.closest(".rev").classList.toggle("abierto"); post(); return; }
+
+      // paso a paso (si el grupo lleva data-solo, se abre de a uno)
+      var cab = e.target.closest(".acc__h");
+      if (cab) {
+        var acc = cab.closest(".acc"), grupo = acc.parentElement;
+        if (grupo && grupo.hasAttribute("data-solo"))
+          grupo.querySelectorAll(".acc").forEach(function (x) { if (x !== acc) x.classList.remove("abierto"); });
+        acc.classList.toggle("abierto"); post(); return;
+      }
+
+      // checklist
+      var tick = e.target.closest(".tick");
+      if (tick) { tick.classList.toggle("hecho"); post(); return; }
+
+      // mostrar todo / ocultar detalle
+      var bt = e.target.closest("[data-todo]");
+      if (bt) {
+        var scr = bt.closest(".scr");
+        bt.textContent = scr.classList.toggle("todo") ? "Ocultar detalle" : "Mostrar todo";
+        post();
+      }
+    });
+
+    // accesibilidad: las caras y cabeceras responden a Enter y Espacio como botones
+    document.querySelectorAll(".rev__cara,.acc__h,.tick").forEach(function (el) {
+      if (el.tagName !== "BUTTON") { el.tabIndex = 0; el.setAttribute("role", "button"); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var el = e.target.closest(".tick");
+      if (el) { e.preventDefault(); el.click(); }
+    });
+  })();
 
   // ====== altura para el iframe de la lección ======
   var ultima = 0;

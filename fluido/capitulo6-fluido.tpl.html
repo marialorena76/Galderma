@@ -772,6 +772,104 @@ html:fullscreen body{min-height:100vh}
 .emb__t span{color:var(--muted);font-size:clamp(12.5px,1.08vw,17px)}
 .emb__d{font-size:clamp(13px,1.1vw,17.5px);line-height:1.55}
 
+/* ================= interacciones de contenido =================
+   Cuatro formas, usadas igual en los seis capítulos:
+   .sol  solapas        .rev  descubrir
+   .acc  paso a paso    .sel  selector con fichas
+   Todo lo que se oculta se abre junto con el botón "Mostrar todo". */
+.oculto{display:none}
+.scr.todo .oculto{display:block}
+
+/* barra del botón mostrar todo */
+.vt{display:flex;justify-content:flex-end;margin:calc(var(--gap) * .6) 0 0}
+.btn--todo{font-size:clamp(11.5px,1vw,15px);padding:.55em 1.1em}
+.btn--todo::before{content:"⊕";margin-right:.5em;font-weight:400}
+.scr.todo .btn--todo::before{content:"⊖"}
+
+/* ---- solapas ---- */
+.sol__tabs{display:flex;flex-wrap:wrap;gap:clamp(7px,.8vw,12px);margin-bottom:var(--gap)}
+.sol__tabs button{border:1px solid var(--line);background:#fff;border-radius:99px;cursor:pointer;font:inherit;
+  color:var(--muted);padding:clamp(7px,.8vw,13px) clamp(14px,1.5vw,26px);
+  font-size:clamp(12.5px,1.08vw,17px);display:flex;align-items:center;gap:.5em;transition:.15s}
+.sol__tabs button img{width:clamp(16px,1.6vw,24px)}
+.sol__tabs button[aria-selected="true"]{border-color:var(--tint);color:var(--tint);font-weight:600;
+  box-shadow:0 0 0 1px var(--tint)}
+.scr.todo .sol__tabs{display:none}
+.scr.todo .sol__pan{margin-bottom:var(--gap)}
+.sol__pan>.sol__rot{display:none}
+.scr.todo .sol__pan>.sol__rot{display:block;color:var(--tint);font-weight:600;letter-spacing:.04em;
+  font-size:clamp(12px,1.05vw,16px);margin-bottom:.6em}
+
+/* ---- descubrir ---- */
+.rev{position:relative}
+.rev__cara{display:block;width:100%;text-align:left;font:inherit;cursor:pointer;background:transparent;
+  border:0;padding:0;color:inherit}
+.rev__cara::after{content:"Tocá para ver ▾";display:block;margin-top:.7em;color:var(--tint);font-weight:600;
+  font-size:clamp(11px,.95vw,14.5px);letter-spacing:.02em}
+.rev.abierto .rev__cara::after{content:"▴ Ocultar";color:var(--muted);font-weight:400}
+.scr.todo .rev__cara::after{content:"";margin:0}
+.rev__dorso{display:none;margin-top:clamp(9px,1vw,16px);animation:aparece .22s ease}
+.rev.abierto .rev__dorso,.scr.todo .rev__dorso{display:block}
+@keyframes aparece{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.rev__cara:focus-visible{outline:2px solid var(--tint);outline-offset:4px;border-radius:8px}
+
+/* ---- paso a paso ---- */
+.acc{background:#fff;border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.08);overflow:hidden}
+.acc+.acc{margin-top:clamp(9px,1vw,15px)}
+.acc__h{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.2vw,20px);align-items:center;
+  width:100%;text-align:left;font:inherit;cursor:pointer;background:transparent;border:0;
+  padding:clamp(13px,1.4vw,24px);color:inherit}
+.acc__h b{font-size:clamp(13.5px,1.2vw,19px);letter-spacing:.03em}
+.acc__h i{font-style:normal;color:var(--tint);font-size:clamp(15px,1.4vw,22px);transition:transform .2s}
+.acc.abierto .acc__h i,.scr.todo .acc__h i{transform:rotate(45deg)}
+.acc__n{background:var(--tint);color:#fff;border-radius:8px;width:clamp(26px,2.4vw,38px);height:clamp(26px,2.4vw,38px);
+  display:grid;place-items:center;font-size:clamp(12.5px,1.1vw,17px);flex:none}
+.acc__b{display:none;padding:0 clamp(13px,1.4vw,24px) clamp(13px,1.4vw,24px);
+  font-size:clamp(13px,1.1vw,17.5px);line-height:1.5;animation:aparece .22s ease}
+.acc.abierto .acc__b,.scr.todo .acc__b{display:block}
+.acc__b p{margin:0 0 .6em}
+.acc__b img{width:clamp(34px,3.4vw,56px);float:right;margin:0 0 .5em .8em}
+.acc__h:focus-visible{outline:2px solid var(--tint);outline-offset:-3px}
+
+/* ---- selector con fichas ---- */
+.sel__fichas{display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,16px);margin-bottom:var(--gap);justify-content:center}
+.sel__fichas button{border:1px solid var(--line);background:#fff;border-radius:var(--r);cursor:pointer;font:inherit;
+  padding:clamp(10px,1.1vw,18px) clamp(12px,1.3vw,22px);display:flex;flex-direction:column;align-items:center;
+  gap:.45em;min-width:clamp(92px,11vw,150px);transition:.15s;color:var(--muted)}
+.sel__fichas button img{width:clamp(26px,2.6vw,42px)}
+.sel__fichas button span{font-size:clamp(11px,.98vw,15px);line-height:1.25;text-align:center}
+.sel__fichas button[aria-selected="true"]{border-color:var(--tint);background:var(--tint-soft);color:var(--tint);
+  font-weight:600;box-shadow:0 0 0 1px var(--tint)}
+.scr.todo .sel__fichas{display:none}
+.scr.todo .sel__pan{margin-bottom:var(--gap)}
+
+/* ---- checklist que se tilda ---- */
+.tick{cursor:pointer}
+.tick i{display:inline-grid;place-items:center;width:clamp(18px,1.7vw,26px);aspect-ratio:1;border-radius:5px;
+  border:1.5px solid var(--line);color:transparent;font-size:clamp(11px,1vw,15px);flex:none;transition:.15s}
+.tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
+.tick.hecho{color:var(--muted)}
+
+/* --- cap 6 · interacciones --- */
+.recm__c .rev__cara{color:var(--muted);font-size:clamp(12.5px,1.05vw,16.5px)}
+.recm__c .rev__dorso{margin-top:clamp(9px,1vw,16px)}
+
+/* oportunidades: primero lo que dice el paciente, después el resto */
+.opr--rev{grid-template-columns:minmax(0,1fr) minmax(0,2.2fr)}
+@media (max-width:980px){ .opr--rev{grid-template-columns:minmax(0,1fr)} }
+.opr--rev .rev{display:flex;flex-direction:column;justify-content:center}
+.opr--rev .rev__cara{background:var(--surface);border-radius:var(--r);padding:clamp(13px,1.4vw,24px);
+  color:var(--muted);font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.45}
+.opr--rev .rev.abierto .rev__cara,.scr.todo .opr--rev .rev__cara{display:none}
+.opr__par{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(11px,1.3vw,24px);align-items:stretch}
+@media (max-width:980px){ .opr__par{grid-template-columns:minmax(0,1fr)} }
+
+/* ciclo: cada etapa descubre su descripción */
+.cic .rev__cara{display:flex;flex-direction:column;align-items:center;gap:clamp(9px,1vw,16px);width:100%}
+.cic .rev__cara::after{margin-top:.2em}
+.cic .rev__dorso{margin-top:clamp(9px,1vw,16px)}
+.scr.todo .cic .rev__cara::after{display:none}
+
 </style>
 </head>
 <body>
@@ -853,7 +951,8 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 3 · pedir recomendación sin que suene a venta (p59) ============ -->
 <section class="scr" data-scr="3">
   <h1>Cómo pedir recomendación sin que suene a venta</h1>
-  <p class="lead">La mejor recomendación no se pide. Se gana. Pero hay momentos donde sí se puede pedir — y cómo se hace marca la diferencia.</p>
+  <p class="lead">La mejor recomendación no se pide. Se gana. Pero hay momentos donde sí se puede pedir — y cómo se hace marca la diferencia. Pensá qué dirías en cada momento y después descubrí la frase.</p>
+  <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
 
   <div class="rec" style="margin-top:var(--gap)">
     <div class="rec__l">
@@ -862,8 +961,8 @@ html:fullscreen body{min-height:100vh}
         <div class="recm__c">
           <b>CUANDO EL PACIENTE EXPRESA SATISFACCIÓN</b>
           <i>(Si dice: “Quedé muy bien” o “Me encantó el resultado”)</i>
-          <div class="recm__q"><img data-i="m6_chat" alt="">
-            <span>“Qué bueno que estés contenta con el resultado. Si alguien cercano está buscando algo parecido, podés contarle sobre tu experiencia con nosotros 💖”</span></div>
+          <div class="rev"><button class="rev__cara" type="button">¿Qué le dirías en este momento?</button><div class="rev__dorso"><div class="recm__q"><img data-i="m6_chat" alt="">
+            <span>“Qué bueno que estés contenta con el resultado. Si alguien cercano está buscando algo parecido, podés contarle sobre tu experiencia con nosotros 💖”</span></div></div></div>
         </div>
       </div>
       <div class="recm">
@@ -871,8 +970,8 @@ html:fullscreen body{min-height:100vh}
         <div class="recm__c">
           <b>ANTES DE QUE SE VAYA DESPUÉS DEL TRATAMIENTO</b>
           <i>(Momento de despedida: paciente relajada y contenta)</i>
-          <div class="recm__q"><img data-i="m6_pers" alt="">
-            <span>“Te vamos a escribir en unos días para saber cómo seguís. Y si alguien te pregunta qué tal fue tu experiencia, nos va a encantar que se la cuentes.”</span></div>
+          <div class="rev"><button class="rev__cara" type="button">¿Qué le dirías en este momento?</button><div class="rev__dorso"><div class="recm__q"><img data-i="m6_pers" alt="">
+            <span>“Te vamos a escribir en unos días para saber cómo seguís. Y si alguien te pregunta qué tal fue tu experiencia, nos va a encantar que se la cuentes.”</span></div></div></div>
         </div>
       </div>
       <div class="recm">
@@ -880,8 +979,8 @@ html:fullscreen body{min-height:100vh}
         <div class="recm__c">
           <b>EN EL SEGUIMIENTO DE 30 DÍAS</b>
           <i>(Cuando el paciente ya consolidó los resultados)</i>
-          <div class="recm__q"><img data-i="m6_clip" alt="">
-            <span>“¿Cómo estás viendo el resultado después de este tiempo? Nos interesa saber cómo te sentís con el tratamiento. Si alguien cercano está pensando en hacerse algo parecido, podés compartirle tu experiencia.”</span></div>
+          <div class="rev"><button class="rev__cara" type="button">¿Qué le dirías en este momento?</button><div class="rev__dorso"><div class="recm__q"><img data-i="m6_clip" alt="">
+            <span>“¿Cómo estás viendo el resultado después de este tiempo? Nos interesa saber cómo te sentís con el tratamiento. Si alguien cercano está pensando en hacerse algo parecido, podés compartirle tu experiencia.”</span></div></div></div>
         </div>
       </div>
     </div>
@@ -908,7 +1007,8 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 4 · oportunidades en cada interacción (p60) ============ -->
 <section class="scr" data-scr="4">
   <h1>Cómo descubrir oportunidades en cada interacción</h1>
-  <p class="lead">Cada conversación tiene una puerta.</p>
+  <p class="lead">Cada conversación tiene una puerta. Leé lo que dice el paciente, pensá qué oportunidad hay y después descubrila.</p>
+  <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
   <p style="margin:var(--gap) 0 0;font-size:clamp(13px,1.1vw,17.5px);line-height:1.6">
     Un paciente que viene por Dysport puede ser candidato a Skinboosters.<br>
     Uno que hace Sculptra puede beneficiarse de Restylane.<br>
@@ -916,26 +1016,23 @@ html:fullscreen body{min-height:100vh}
 
   <div class="op6" style="margin-top:var(--gap)">
     <div class="op6__h"><span>PACIENTE DICE:</span><span>OPORTUNIDAD:</span><span>CÓMO RESPONDER:</span></div>
-    <div class="opr">
+    <div class="opr opr--rev">
       <div class="opr__a"><img data-i="o6_piel" alt="">
         <span>“Siento la <b>piel mucho más</b> seca cuando hace frío o mucho calor.”</span></div>
-      <div class="opr__b"><img data-i="logo_skinboosters" alt="Restylane Skinboosters">
-        <span>– hidratación profunda y mejora de calidad de piel.</span></div>
-      <div class="opr__c">Sí, eso puede tener que ver con cómo está respondiendo tu piel a los cambios de clima. Hay un tratamiento que trabaja muy bien la hidratación y la calidad de la piel, se llama Skinboosters. Te cuento a la doctora lo que me comentaste para que pueda orientarte.</div>
+      <div class="rev"><button class="rev__cara" type="button">¿Qué oportunidad ves acá? Tocá para descubrirla.</button><div class="rev__dorso"><div class="opr__par"><div class="opr__b"><img data-i="logo_skinboosters" alt="Restylane Skinboosters">
+        <span>– hidratación profunda y mejora de calidad de piel.</span></div><div class="opr__c">Sí, eso puede tener que ver con cómo está respondiendo tu piel a los cambios de clima. Hay un tratamiento que trabaja muy bien la hidratación y la calidad de la piel, se llama Skinboosters. Te cuento a la doctora lo que me comentaste para que pueda orientarte.</div></div></div></div>
     </div>
-    <div class="opr">
+    <div class="opr opr--rev">
       <div class="opr__a"><img data-i="o6_flechas" alt="">
         <span>“Me noto muy cansada en la cara, como que se me cae.”</span></div>
-      <div class="opr__b"><img data-i="logo_sculptra" alt="Sculptra">
-        <span>– regeneración y recuperación de volumen.</span></div>
-      <div class="opr__c">Te entiendo. Hay un tratamiento que trabaja sobre la pérdida de colágeno y ayuda a mejorar el aspecto de la piel y la estructura del rostro, se llama Sculptra. Te lo comento porque puede ser una opción para lo que me contaste y también se lo voy a mencionar a la doctora.</div>
+      <div class="rev"><button class="rev__cara" type="button">¿Qué oportunidad ves acá? Tocá para descubrirla.</button><div class="rev__dorso"><div class="opr__par"><div class="opr__b"><img data-i="logo_sculptra" alt="Sculptra">
+        <span>– regeneración y recuperación de volumen.</span></div><div class="opr__c">Te entiendo. Hay un tratamiento que trabaja sobre la pérdida de colágeno y ayuda a mejorar el aspecto de la piel y la estructura del rostro, se llama Sculptra. Te lo comento porque puede ser una opción para lo que me contaste y también se lo voy a mencionar a la doctora.</div></div></div></div>
     </div>
-    <div class="opr">
+    <div class="opr opr--rev">
       <div class="opr__a"><img data-i="o6_labios" alt="">
         <span>“El Dysport me quedó bárbaro pero igual noto algo acá en los labios.”</span></div>
-      <div class="opr__b"><img data-i="logo_restylane" alt="Restylane">
-        <span>– una alternativa específica para la zona de los labios.</span></div>
-      <div class="opr__c">Sí, son zonas diferentes y se trabajan de manera específica. La doctora puede evaluar qué alternativa sería adecuada para esa zona y comentártelo en la consulta.</div>
+      <div class="rev"><button class="rev__cara" type="button">¿Qué oportunidad ves acá? Tocá para descubrirla.</button><div class="rev__dorso"><div class="opr__par"><div class="opr__b"><img data-i="logo_restylane" alt="Restylane">
+        <span>– una alternativa específica para la zona de los labios.</span></div><div class="opr__c">Sí, son zonas diferentes y se trabajan de manera específica. La doctora puede evaluar qué alternativa sería adecuada para esa zona y comentártelo en la consulta.</div></div></div></div>
     </div>
   </div>
 
@@ -948,7 +1045,8 @@ html:fullscreen body{min-height:100vh}
 <!-- ============ 5 · el ciclo completo (p61) ============ -->
 <section class="scr" data-scr="5">
   <h1>El ciclo completo: de paciente satisfecho a paciente embajador</h1>
-  <p class="lead">El ciclo que no tiene fin.</p>
+  <p class="lead">El ciclo que no tiene fin. Tocá cada etapa para ver qué pasa en ella.</p>
+  <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
 
   <div class="emb" style="margin-top:var(--gap)">
     <img data-i="c6_medalla" alt="">
@@ -957,24 +1055,12 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="ciclo" style="margin-top:var(--gap)">
-    <div class="cic"><div class="cic__t"><span class="cic__n">01</span><img data-i="c6_m1" alt=""></div>
-      <b>PRIMER CONTACTO EXCELENTE</b>
-      <p>La asesora detecta la intención real, responde en tiempo y conecta desde el primer mensaje. (M1)</p></div>
-    <div class="cic"><div class="cic__t"><span class="cic__n">02</span><img data-i="c6_m2" alt=""></div>
-      <b>CONSULTA QUE PREPARA</b>
-      <p>El paciente llega informado y tranquilo. Sus expectativas están ordenadas. (M2)</p></div>
-    <div class="cic"><div class="cic__t"><span class="cic__n">03</span><img data-i="c6_m3" alt=""></div>
-      <b>PROPUESTA QUE GENERA VALOR</b>
-      <p>Entiende que hay un plan, no solo un precio. Confía en el enfoque del centro. (M3)</p></div>
-    <div class="cic"><div class="cic__t"><span class="cic__n">04</span><img data-i="c6_m4" alt=""></div>
-      <b>EXPERIENCIA IMPECABLE</b>
-      <p>El tratamiento fue bien. El equipo acompañó sin invadir. Se fue sintiéndose cuidado. (M4)</p></div>
-    <div class="cic"><div class="cic__t"><span class="cic__n">05</span><img data-i="c6_m5" alt=""></div>
-      <b>SEGUIMIENTO QUE FIDELIZA</b>
-      <p>Alguien lo llamó. Alguien se acordó. Sintió que importa. (M5)</p></div>
-    <div class="cic"><div class="cic__t"><span class="cic__n">06</span><img data-i="c6_m6" alt=""></div>
-      <b>RECOMENDACIÓN NATURAL</b>
-      <p>Habla de su experiencia. Trae a alguien. El ciclo vuelve a empezar. (M6)</p></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">01</span><img data-i="c6_m1" alt=""></div><b>PRIMER CONTACTO EXCELENTE</b></button><div class="rev__dorso"><p>La asesora detecta la intención real, responde en tiempo y conecta desde el primer mensaje. (M1)</p></div></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">02</span><img data-i="c6_m2" alt=""></div><b>CONSULTA QUE PREPARA</b></button><div class="rev__dorso"><p>El paciente llega informado y tranquilo. Sus expectativas están ordenadas. (M2)</p></div></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">03</span><img data-i="c6_m3" alt=""></div><b>PROPUESTA QUE GENERA VALOR</b></button><div class="rev__dorso"><p>Entiende que hay un plan, no solo un precio. Confía en el enfoque del centro. (M3)</p></div></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">04</span><img data-i="c6_m4" alt=""></div><b>EXPERIENCIA IMPECABLE</b></button><div class="rev__dorso"><p>El tratamiento fue bien. El equipo acompañó sin invadir. Se fue sintiéndose cuidado. (M4)</p></div></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">05</span><img data-i="c6_m5" alt=""></div><b>SEGUIMIENTO QUE FIDELIZA</b></button><div class="rev__dorso"><p>Alguien lo llamó. Alguien se acordó. Sintió que importa. (M5)</p></div></div>
+    <div class="cic rev"><button class="rev__cara" type="button"><div class="cic__t"><span class="cic__n">06</span><img data-i="c6_m6" alt=""></div><b>RECOMENDACIÓN NATURAL</b></button><div class="rev__dorso"><p>Habla de su experiencia. Trae a alguien. El ciclo vuelve a empezar. (M6)</p></div></div>
   </div>
 </section>
 
@@ -1341,6 +1427,65 @@ html:fullscreen body{min-height:100vh}
       : (bien === TOTAL_Q ? "¡Aprobaste el checkpoint!" : "Repasá el capítulo y volvé a intentarlo.");
     post();
   });
+
+
+  // ====== interacciones de contenido (solapas, descubrir, paso a paso, selector) ======
+  (function () {
+    // solapas y selectores: mismo motor, distinta piel
+    document.querySelectorAll("[data-grupo]").forEach(function (g) {
+      var tabs = [].slice.call(g.querySelectorAll("[data-tab]"));
+      var pans = [].slice.call(g.querySelectorAll("[data-pan]"));
+      if (!tabs.length || tabs.length !== pans.length) return;
+      function ir(i) {
+        tabs.forEach(function (t, j) { t.setAttribute("aria-selected", j === i ? "true" : "false"); });
+        pans.forEach(function (p, j) { p.classList.toggle("oculto", j !== i); });
+        post();
+      }
+      tabs.forEach(function (t, i) {
+        t.type = "button";
+        t.setAttribute("role", "tab");
+        t.addEventListener("click", function () { ir(i); });
+      });
+      ir(0);
+    });
+
+    document.addEventListener("click", function (e) {
+      // descubrir
+      var cara = e.target.closest(".rev__cara");
+      if (cara) { cara.closest(".rev").classList.toggle("abierto"); post(); return; }
+
+      // paso a paso (si el grupo lleva data-solo, se abre de a uno)
+      var cab = e.target.closest(".acc__h");
+      if (cab) {
+        var acc = cab.closest(".acc"), grupo = acc.parentElement;
+        if (grupo && grupo.hasAttribute("data-solo"))
+          grupo.querySelectorAll(".acc").forEach(function (x) { if (x !== acc) x.classList.remove("abierto"); });
+        acc.classList.toggle("abierto"); post(); return;
+      }
+
+      // checklist
+      var tick = e.target.closest(".tick");
+      if (tick) { tick.classList.toggle("hecho"); post(); return; }
+
+      // mostrar todo / ocultar detalle
+      var bt = e.target.closest("[data-todo]");
+      if (bt) {
+        var scr = bt.closest(".scr");
+        bt.textContent = scr.classList.toggle("todo") ? "Ocultar detalle" : "Mostrar todo";
+        post();
+      }
+    });
+
+    // accesibilidad: las caras y cabeceras responden a Enter y Espacio como botones
+    document.querySelectorAll(".rev__cara,.acc__h,.tick").forEach(function (el) {
+      if (el.tagName !== "BUTTON") { el.tabIndex = 0; el.setAttribute("role", "button"); }
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var el = e.target.closest(".tick");
+      if (el) { e.preventDefault(); el.click(); }
+    });
+  })();
 
   // ====== altura para el iframe de la lección ======
   var ultima = 0;
