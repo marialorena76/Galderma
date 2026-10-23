@@ -92,6 +92,40 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
 
+/* guía de bloques del video encadenado */
+.reel__ficha{background:var(--surface);border-radius:var(--r);
+  padding:clamp(13px,1.4vw,24px) clamp(15px,1.7vw,30px);display:flex;flex-direction:column;gap:.3em}
+.reel__cab{display:flex;align-items:baseline;gap:clamp(8px,1vw,16px);flex-wrap:wrap}
+.reel__cab b{color:var(--tint);font-weight:600;font-size:clamp(12px,1.05vw,16px);white-space:nowrap}
+.reel__cab .c{margin-left:auto;color:var(--muted);font-size:clamp(11.5px,1vw,15px);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+.reel__tit{font-weight:600;line-height:1.25;font-size:clamp(17px,1.75vw,27px);text-wrap:balance}
+.reel__q{margin:0;color:var(--ink);line-height:1.4;font-size:clamp(13.5px,1.2vw,18.5px)}
+.reel__quien{color:var(--muted);font-size:clamp(12px,1.02vw,15.5px)}
+
+.blq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.1vw,18px)}
+@media (max-width:760px){ .blq{grid-template-columns:minmax(0,1fr)} }
+.blqc{position:relative;text-align:left;font-family:inherit;cursor:pointer;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(12px,1.25vw,21px) clamp(13px,1.4vw,24px);
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.1vw,18px);
+  align-items:start;transition:border-color .15s,background .15s}
+.blqc:hover{border-color:#D9A8C2}
+.blqc__n{color:var(--muted);font-weight:600;font-size:clamp(14px,1.3vw,20px);
+  font-variant-numeric:tabular-nums;line-height:1.3}
+.blqc__t{display:block;font-weight:600;line-height:1.3;font-size:clamp(13.5px,1.15vw,17.5px)}
+.blqc__q{display:block;margin-top:.3em;color:var(--ink);line-height:1.4;font-size:clamp(12.5px,1.05vw,16px)}
+.blqc__m{display:block;margin-top:.35em;color:var(--muted);font-size:clamp(11.5px,.98vw,14.5px)}
+.blqc__e{width:clamp(22px,2vw,30px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+  font-size:clamp(10px,.9vw,13px);line-height:1;flex:none;background:var(--line);color:#fff}
+.blqc.visto .blqc__e{background:var(--tint)}
+.blqc.ahora{background:var(--tint-soft);border-color:var(--tint);box-shadow:0 0 0 1px var(--tint)}
+.blqc.ahora .blqc__n,.blqc.ahora .blqc__t{color:var(--tint)}
+.blqc.ahora .blqc__e{background:var(--tint)}
+.blqc__vivo{position:absolute;top:0;right:clamp(46px,4.2vw,66px);transform:translateY(-50%);
+  background:var(--tint);color:#fff;border-radius:99px;padding:.22em .8em;
+  font-size:clamp(9.5px,.8vw,12px);font-weight:600;letter-spacing:.04em;white-space:nowrap}
+
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:clamp(10px,1.2vw,16px) var(--pad);border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
@@ -132,6 +166,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .objs div{display:flex;align-items:center;gap:clamp(10px,1vw,18px);font-size:clamp(13.5px,1.15vw,18px);line-height:1.35}
 .objs img{width:clamp(19px,1.75vw,27px);flex:none;background:var(--tint-soft);border-radius:50%;padding:clamp(7px,.72vw,12px);box-sizing:content-box}
 .idea{background:var(--surface);border-radius:var(--r);padding:clamp(14px,1.4vw,24px);display:flex;flex-direction:column;gap:.6em}
+.s2 > .idea{margin-top:var(--gap)}
 .idea__t{display:flex;align-items:center;gap:.55em;font-size:clamp(11.5px,.95vw,14.5px);letter-spacing:.01em;font-weight:600;color:var(--muted)}
 .idea__t img{width:clamp(16px,1.4vw,22px)}
 .idea p{margin:0;font-weight:600;line-height:1.3;font-size:clamp(17px,1.7vw,26px)}
@@ -915,8 +950,11 @@ html:fullscreen body{min-height:100vh}
   </div>
   <div class="reel" id="reel" hidden>
     <div class="reel__bar" id="reelbar"></div>
-    <div class="reel__now">
-      <b id="reelnum"></b><span class="t" id="reeltit"></span><span class="c" id="reeltime"></span>
+    <div class="reel__ficha">
+      <div class="reel__cab"><b id="reelnum"></b><span class="c" id="reeltime"></span></div>
+      <div class="reel__tit" id="reeltit"></div>
+      <p class="reel__q" id="reelq"></p>
+      <span class="reel__quien" id="reelquien"></span>
     </div>
   </div>
 
@@ -927,16 +965,11 @@ html:fullscreen body{min-height:100vh}
       <p class="lead">En este video de cierre, el médico referente explica por qué la medicina estética es un acompañamiento a largo plazo en capas y cómo el cuidado del equipo transforma la satisfacción en recomendación genuina.</p>
     </div>
 
-    <div class="s2cols">
-      <div>
-        <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
-        <div class="objs">
-          <div><img data-i="w6_a" alt="">El plan de tratamiento en capas</div>
-          <div><img data-i="w6_b" alt="">Construir resultados a largo plazo</div>
-          <div><img data-i="w6_c" alt="">El impacto del “¿Cómo estás?”</div>
-          <div><img data-i="w6_d" alt="">Fidelizar cuidando, no vendiendo</div>
-        </div>
-      </div>
+    <div id="blqzona" hidden>
+      <div class="eyebrow" style="margin-bottom:.8em">Los bloques de este video</div>
+      <div class="blq" id="blq"></div>
+    </div>
+
       <div class="idea">
         <div class="idea__t"><img data-i="w6_star" alt="">Idea clave</div>
         <p>El equipo que domina la experiencia con propósito no está vendiendo: está cuidando. Y cuando el equipo cuida, el paciente vuelve y recomienda.</p>
@@ -1172,17 +1205,17 @@ html:fullscreen body{min-height:100vh}
   // s = duración en segundos (solo sirve para que la barra sea proporcional).
   var VIDEO = {
     bloques: [
-      { id:"v-Jhz0tSKcM", t:"Melissa Gaitan Buelvas · Primer contacto: redes, boca a boca, referencias", s:53 },
-      { id:"WYfddFf4l60", t:"Dr. Gustavo Bressan · Una sonrisa puede cambiar todo (rol del equipo)", s:31 },
-      { id:"_dvcI4fwzTs", t:"Melissa Gaitan Buelvas · Primer impacto: humanizar la marca personal", s:46 },
-      { id:"kamoBcm8IAU", t:"Dr. Gustavo Bressan · Cuándo empieza el tratamiento (desde el 1er mensaje)", s:63 },
-      { id:"AM_XpLM-6no", t:"Melissa Gaitan Buelvas · “Es mucho más que una consulta”: escuchar y valorar", s:42 },
-      { id:"mmCF3USYmn4", t:"Dra. Valeria Bárbaro · Seguimiento post-tratamiento", s:78 },
-      { id:"jYgampbIE_4", t:"Melissa Gaitan Buelvas · Generar vínculo con el paciente", s:25 },
+      { id:"v-Jhz0tSKcM", quien:"Melissa Gaitan Buelvas", tit:"Primer contacto: redes, boca a boca, referencias", q:"¿Por dónde llega hoy un paciente nuevo?", s:53 },
+      { id:"WYfddFf4l60", quien:"Dr. Gustavo Bressan", tit:"Una sonrisa puede cambiar todo", q:"¿Qué rol juega el equipo en la primera impresión?", s:31 },
+      { id:"_dvcI4fwzTs", quien:"Melissa Gaitan Buelvas", tit:"Primer impacto: humanizar la marca", q:"¿Cómo se construye cercanía desde el primer contacto?", s:46 },
+      { id:"kamoBcm8IAU", quien:"Dr. Gustavo Bressan", tit:"Cuándo empieza el tratamiento", q:"¿En qué momento arranca realmente la experiencia?", s:63 },
+      { id:"AM_XpLM-6no", quien:"Melissa Gaitan Buelvas", tit:"Es mucho más que una consulta", q:"¿Qué espera el paciente además del resultado?", s:42 },
+      { id:"mmCF3USYmn4", quien:"Dra. Valeria Bárbaro", tit:"Seguimiento post-tratamiento", q:"¿Qué cambia cuando el equipo hace seguimiento?", s:78 },
+      { id:"jYgampbIE_4", quien:"Melissa Gaitan Buelvas", tit:"Generar vínculo con el paciente", q:"¿Cómo se sostiene el vínculo en el tiempo?", s:25 },
       // FALTA EL LINK (orden 8): Dra. Valeria Bárbaro · Acompañar el envejecimiento a largo plazo (0:41)
       // Cuando llegue, pegá el ID acá y descomentá la línea:
-      // { id:"", t:"Dra. Valeria Bárbaro · Acompañar el envejecimiento a largo plazo", s:41 },
-      { id:"1BmEHmARmg4", t:"Melissa Gaitan Buelvas · ¿Por qué elijo Galderma?", s:65 }
+      // { id:"", quien:"Dra. Valeria Bárbaro", tit:"Acompañar el envejecimiento a largo plazo", q:"¿Cómo se acompaña al paciente año tras año?", s:41 },
+      { id:"1BmEHmARmg4", quien:"Melissa Gaitan Buelvas", tit:"¿Por qué elijo Galderma?", q:"¿Qué hace que un profesional confíe en una marca?", s:65 }
     ]
   };
 
@@ -1541,13 +1574,60 @@ html:fullscreen body{min-height:100vh}
       });
     }
 
+
+    // ---- guía de bloques: una tarjeta por video, la que suena se marca ----
+    var grilla = document.getElementById("blq");
+    var tarjetas = [];
+    if (grilla && varios) {
+      var zona = document.getElementById("blqzona");
+      if (zona) zona.hidden = false;
+      lista.forEach(function (b, i) {
+        var c = document.createElement("button");
+        c.type = "button";
+        c.className = "blqc";
+        c.innerHTML =
+          '<span class="blqc__n">' + ("0" + (i + 1)).slice(-2) + '</span>' +
+          '<span><span class="blqc__t"></span>' +
+          (b.q ? '<span class="blqc__q"></span>' : '') +
+          '<span class="blqc__m"></span></span>' +
+          '<span class="blqc__e"></span>';
+        c.querySelector(".blqc__t").textContent = b.tit || b.t;
+        if (b.q) c.querySelector(".blqc__q").textContent = b.q;
+        c.querySelector(".blqc__m").textContent =
+          (b.quien ? b.quien + " · " : "") + (b.s > 0 ? mmss(b.s) : "");
+        c.addEventListener("click", function () { ir(i, true); });
+        grilla.appendChild(c);
+        tarjetas.push(c);
+      });
+    }
+
+    function marcar() {
+      tarjetas.forEach(function (c, i) {
+        c.classList.toggle("ahora", i === act);
+        c.classList.toggle("visto", i < act);
+        c.querySelector(".blqc__e").innerHTML = i === act ? "&#9654;" : i < act ? "&#10003;" : "";
+        var v = c.querySelector(".blqc__vivo");
+        if (i === act && !v) {
+          v = document.createElement("span");
+          v.className = "blqc__vivo";
+          v.textContent = "Reproduciendo";
+          c.appendChild(v);
+        } else if (i !== act && v) { v.remove(); }
+      });
+    }
+
     function pintar(prog) {
       if (!varios) return;
       segs.forEach(function (i, n) {
         i.style.width = n < act ? "100%" : n > act ? "0%" : (prog * 100) + "%";
       });
       elNum.textContent = "Bloque " + (act + 1) + " de " + lista.length;
-      elTit.textContent = lista[act].t;
+      elTit.textContent = lista[act].tit || lista[act].t;
+      var elQ = document.getElementById("reelq");
+      var elQuien = document.getElementById("reelquien");
+      if (elQ) { elQ.textContent = lista[act].q || ""; elQ.hidden = !lista[act].q; }
+      if (elQuien) { elQuien.textContent = lista[act].quien || ""; elQuien.hidden = !lista[act].quien; }
+      marcar();
       if (conocidas && pl && pl.getCurrentTime) {
         elTime.textContent = mmss(antes[act] + pl.getCurrentTime()) + " / " + mmss(total);
       } else if (conocidas) {
