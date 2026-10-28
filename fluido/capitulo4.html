@@ -61,7 +61,8 @@ button{font:inherit}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* pantallas de práctica: tienen que distinguirse de la teoría */
-.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.scr--ex{background:#FBF2F6}
+.scr--ex .card,.scr--ex .panel,.scr--ex .frag,.scr--ex .slot,.scr--ex .opt{background:#fff}
 .exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
   background:var(--tint);color:#fff;border-radius:99px;
   padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
@@ -91,6 +92,11 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
+
+/* aviso de la pantalla que todavia tiene referencias sin abrir */
+.falta{display:none;color:var(--tint);font-weight:600;font-size:clamp(11.5px,1vw,14.5px);
+  text-align:right;line-height:1.3;max-width:26ch}
+.nav.trabada .falta{display:block}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -256,7 +262,9 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .slot__n{font-weight:600;font-size:clamp(13px,1.1vw,17px);color:var(--muted);width:1.2em;text-align:center}
 .slot.full .slot__n{color:var(--tint)}
 .slot__ph{color:#A8A8A8;font-size:clamp(12.5px,1.05vw,16px)}
-.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:var(--surface)}
+.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:#fff;border:1px solid var(--line)}
+.fb:empty{display:none}
+.fb--antes{margin-top:var(--gap)}
 .fb.good{background:var(--tint-soft);box-shadow:inset 0 0 0 1px var(--tint)}
 .fb.bad{background:var(--bad-soft);box-shadow:inset 0 0 0 1px #E08787}
 .fb p{margin:.35em 0 0;font-size:clamp(13.5px,1.12vw,17px);line-height:1.45}
@@ -799,10 +807,11 @@ html:fullscreen body{min-height:100vh}
 
 /* checklist del protocolo */
 .protc li.tick{cursor:pointer;align-items:center}
+.protc li.tick{color:var(--muted)}
 .protc li.tick i{border:1.5px solid var(--line);border-radius:5px;color:transparent;
   display:inline-grid;place-items:center;width:clamp(19px,1.8vw,27px);aspect-ratio:1;font-weight:700}
 .protc li.tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
-.protc li.tick.hecho{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.protc li.tick.hecho{color:var(--ink);font-weight:600}
 .protc__cont{margin-top:auto;padding-top:clamp(9px,1vw,16px);color:var(--tint);font-weight:600;
   font-size:clamp(11.5px,1vw,15px);letter-spacing:.02em}
 
@@ -1030,12 +1039,8 @@ html:fullscreen body{min-height:100vh}
     <div class="eyebrow">Situación</div>
     <p>Un paciente sale del consultorio después de aplicarse Dysport. Tiene una leve marca roja en la frente y se ve la toca con el dedo. Te mira. <b>¿Qué hacés?</b></p>
   </div>
-
-  <div class="eyebrow" style="margin:var(--gap) 0 .8em">Fragmentos disponibles</div>
-  <div class="uno" id="uno"></div>
-
-  <div class="fb" id="unofb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Consejo</div>
+  <div class="fb fb--antes">
+    <div class="eyebrow eyebrow--tint">Antes de empezar</div>
     <p style="font-weight:600">¿Qué debería lograr tu respuesta?</p>
     <div class="checks">
       <div><i>&#10003;</i>Validar lo que el paciente ve</div>
@@ -1043,6 +1048,11 @@ html:fullscreen body{min-height:100vh}
       <div><i>&#10003;</i>Abrir el canal de seguimiento</div>
     </div>
   </div>
+
+  <div class="eyebrow" style="margin:var(--gap) 0 .8em">Fragmentos disponibles</div>
+  <div class="uno" id="uno"></div>
+
+  <div class="fb" id="unofb" style="margin-top:var(--gap)"></div>
 </section>
 
 <!-- ============ 7 · ejercicio 2 · ordenar el protocolo (p43) ============ -->
@@ -1050,6 +1060,10 @@ html:fullscreen body{min-height:100vh}
   <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">Ordenar el protocolo</h1>
   <p class="lead">Arrastrá estas acciones, o tocá una y después el casillero, en el orden correcto para cuando el paciente sale del consultorio.</p>
+  <div class="fb fb--antes">
+    <div class="eyebrow eyebrow--tint">Antes de empezar</div>
+    <p>El orden importa porque cada paso prepara el siguiente. Primero generás tranquilidad, después brindás orientación, anticipás el seguimiento y cerrás la atención de manera personalizada.</p>
+  </div>
 
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
@@ -1066,10 +1080,7 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
 
-  <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Consejo</div>
-    <p>El orden importa porque cada paso prepara el siguiente. Primero generás tranquilidad, después brindás orientación, anticipás el seguimiento y cerrás la atención de manera personalizada.</p>
-  </div>
+  <div class="fb" id="ex1fb" style="margin-top:var(--gap)"></div>
 </section>
 
 <!-- ============ 8 · checkpoint (p44) ============ -->
@@ -1097,7 +1108,7 @@ html:fullscreen body{min-height:100vh}
       <span class="badge__c">&#10003;</span>
       <span class="badge__n">Momento del tratamiento</span>
     </div>
-    <h1>¡Capítulo 4 completado!</h1>
+    <h1>¡Capítulo 4 finalizado!</h1>
     <div class="insignia">
       <b>🏅 Nueva insignia obtenida</b>
       <strong>Acompañante Experta</strong>
@@ -1105,7 +1116,7 @@ html:fullscreen body{min-height:100vh}
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
-      <div style="font-size:clamp(12.5px,1.08vw,16px)">4 de 6 capítulos completados</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">4 de 6 capítulos finalizados</div>
       <div class="gen__bar"><i></i></div>
     </div>
   </div>
@@ -1115,6 +1126,7 @@ html:fullscreen body{min-height:100vh}
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
   <button class="btn btn--ghost" id="full" type="button">⛶ Pantalla completa</button>
+  <span class="falta" id="falta"></span>
   <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
 </nav>
 
@@ -1156,13 +1168,33 @@ html:fullscreen body{min-height:100vh}
     "Ejercicio 1 · ¿Qué decís en este momento?",
     "Ejercicio 2 · Ordenar el protocolo",
     "Checkpoint final",
-    "Capítulo completado"
+    "Capítulo finalizado"
   ];
   var scrs  = [].slice.call(document.querySelectorAll(".scr"));
   var bar   = document.getElementById("bar");
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
+
+
+  // ====== no se avanza hasta abrir todas las referencias de la pantalla ======
+  var elFalta = document.getElementById("falta");
+  var elNav = document.querySelector(".nav");
+
+  function revisarPuerta() {
+    var scr = document.querySelector(".scr.on");
+    if (!scr) return;
+    var cajas = [].slice.call(scr.querySelectorAll(".rev,.acc"));
+    var abiertas = cajas.filter(function (x) { return x.dataset.visto === "1"; }).length;
+    var faltan = cajas.length - abiertas;
+    var trabada = faltan > 0 && cur < TOTAL;
+    nextB.disabled = trabada;
+    elNav.classList.toggle("trabada", trabada);
+    if (trabada) elFalta.textContent = faltan === 1
+      ? "Te queda 1 tarjeta por descubrir"
+      : "Te quedan " + faltan + " tarjetas por descubrir";
+  }
+  document.addEventListener("click", function () { setTimeout(revisarPuerta, 0); });
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
@@ -1177,6 +1209,7 @@ html:fullscreen body{min-height:100vh}
     nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
+    revisarPuerta();
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1435,7 +1468,7 @@ html:fullscreen body{min-height:100vh}
     document.addEventListener("click", function (e) {
       // descubrir
       var cara = e.target.closest(".rev__cara");
-      if (cara) { cara.closest(".rev").classList.toggle("abierto"); post(); return; }
+      if (cara) { var r = cara.closest(".rev"); r.classList.toggle("abierto"); r.dataset.visto = "1"; post(); return; }
 
       // paso a paso (si el grupo lleva data-solo, se abre de a uno)
       var cab = e.target.closest(".acc__h");
@@ -1443,7 +1476,7 @@ html:fullscreen body{min-height:100vh}
         var acc = cab.closest(".acc"), grupo = acc.parentElement;
         if (grupo && grupo.hasAttribute("data-solo"))
           grupo.querySelectorAll(".acc").forEach(function (x) { if (x !== acc) x.classList.remove("abierto"); });
-        acc.classList.toggle("abierto"); post(); return;
+        acc.classList.toggle("abierto"); acc.dataset.visto = "1"; post(); return;
       }
 
       // checklist
@@ -1454,7 +1487,10 @@ html:fullscreen body{min-height:100vh}
       var bt = e.target.closest("[data-todo]");
       if (bt) {
         var scr = bt.closest(".scr");
-        bt.textContent = scr.classList.toggle("todo") ? "Ocultar detalle" : "Mostrar todo";
+        if (scr.classList.toggle("todo")) {
+          bt.textContent = "Ocultar detalle";
+          scr.querySelectorAll(".rev,.acc").forEach(function (x) { x.dataset.visto = "1"; });
+        } else { bt.textContent = "Mostrar todo"; }
         post();
       }
     });

@@ -61,7 +61,8 @@ button{font:inherit}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* pantallas de práctica: tienen que distinguirse de la teoría */
-.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.scr--ex{background:#FBF2F6}
+.scr--ex .card,.scr--ex .panel,.scr--ex .frag,.scr--ex .slot,.scr--ex .opt{background:#fff}
 .exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
   background:var(--tint);color:#fff;border-radius:99px;
   padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
@@ -91,6 +92,11 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
+
+/* aviso de la pantalla que todavia tiene referencias sin abrir */
+.falta{display:none;color:var(--tint);font-weight:600;font-size:clamp(11.5px,1vw,14.5px);
+  text-align:right;line-height:1.3;max-width:26ch}
+.nav.trabada .falta{display:block}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -256,7 +262,9 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .slot__n{font-weight:600;font-size:clamp(13px,1.1vw,17px);color:var(--muted);width:1.2em;text-align:center}
 .slot.full .slot__n{color:var(--tint)}
 .slot__ph{color:#A8A8A8;font-size:clamp(12.5px,1.05vw,16px)}
-.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:var(--surface)}
+.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:#fff;border:1px solid var(--line)}
+.fb:empty{display:none}
+.fb--antes{margin-top:var(--gap)}
 .fb.good{background:var(--tint-soft);box-shadow:inset 0 0 0 1px var(--tint)}
 .fb.bad{background:var(--bad-soft);box-shadow:inset 0 0 0 1px #E08787}
 .fb p{margin:.35em 0 0;font-size:clamp(13.5px,1.12vw,17px);line-height:1.45}
@@ -430,7 +438,7 @@ html:fullscreen body{min-height:100vh}
 .decir__c.tint{background:var(--tint-soft);color:var(--tint)}
 .decir__c img{width:clamp(44px,4.6vw,76px)}
 .decir__c b{font-weight:400;font-size:clamp(15px,1.5vw,24px);line-height:1.3}
-.decir__l{height:3px;width:clamp(34px,4vw,70px);background:var(--tint);border-radius:99px}
+.decir__l{height:3px;width:clamp(34px,4vw,70px);background:var(--tint);border-radius:99px;align-self:center}
 .pairs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:clamp(12px,1.4vw,26px) clamp(16px,2vw,44px)}
 @media (max-width:900px){ .pairs{grid-template-columns:minmax(0,1fr)} }
@@ -757,7 +765,7 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="o_lamp" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>Antes de responder la objeción, entendé la emoción que hay detrás: el paciente no está diciendo que no, está pidiendo más confianza.</p>
   </div>
@@ -804,7 +812,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="o_lamp" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>El objetivo no es ganar la discusión, sino generar seguridad. Una respuesta apresurada puede aumentar la incertidumbre en lugar de resolverla.</p>
   </div>
@@ -910,7 +918,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="c_excl" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>Los casos frecuentes ayudan a reconocer patrones, pero no existe una respuesta única para cada objeción. El desafío está en adaptar el abordaje a la situación, manteniendo el objetivo de orientar la conversación sin convertirla en un guion.</p>
   </div>
@@ -945,7 +953,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="v_mano" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>La buena información da herramientas para decidir. La presión quita seguridad.</p>
   </div>
@@ -966,7 +974,7 @@ html:fullscreen body{min-height:100vh}
   </div>
 
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="f_personas" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>Un paciente que sabe qué va a pasar llega a la consulta más tranquilo y con más confianza para decidir.</p>
   </div>
@@ -977,6 +985,16 @@ html:fullscreen body{min-height:100vh}
   <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">Conectá la objeción con la respuesta correcta</h1>
   <p class="lead">Arrastrá cada objeción, o tocá una y después el casillero, hacia la respuesta que consideres más adecuada.</p>
+  <div class="fb fb--antes">
+    <div class="eyebrow eyebrow--tint">Antes de empezar</div>
+    <p style="font-weight:600">¿Qué debería lograr una buena respuesta?</p>
+    <div class="checks">
+      <div><i>&#10003;</i>Escuchar la preocupación</div>
+      <div><i>&#10003;</i>Brindar información clara</div>
+      <div><i>&#10003;</i>Transmitir confianza</div>
+      <div><i>&#10003;</i>Invitar al siguiente paso</div>
+    </div>
+  </div>
 
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
@@ -993,16 +1011,7 @@ html:fullscreen body{min-height:100vh}
     </div>
   </div>
 
-  <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Consejo</div>
-    <p style="font-weight:600">¿Qué debería lograr una buena respuesta?</p>
-    <div class="checks">
-      <div><i>&#10003;</i>Escuchar la preocupación</div>
-      <div><i>&#10003;</i>Brindar información clara</div>
-      <div><i>&#10003;</i>Transmitir confianza</div>
-      <div><i>&#10003;</i>Invitar al siguiente paso</div>
-    </div>
-  </div>
+  <div class="fb" id="ex1fb" style="margin-top:var(--gap)"></div>
 </section>
 
 <!-- ============ 9 · ejercicio 2 · verdadero o falso (p22) ============ -->
@@ -1026,7 +1035,7 @@ html:fullscreen body{min-height:100vh}
   </div>
   <div class="qs" id="qs" style="margin-top:var(--gap)"></div>
   <div class="insight" style="margin-top:var(--gap)">
-    <img data-i="o_lamp" alt="">
+    <img data-i="ic_lightbulb" alt="">
     <b>Para recordar</b>
     <p>Una buena experiencia no depende de una sola acción. Cada interacción puede ayudar a generar confianza y preparar al paciente para la consulta.</p>
   </div>
@@ -1039,7 +1048,7 @@ html:fullscreen body{min-height:100vh}
       <span class="badge__c">&#10003;</span>
       <span class="badge__n">Consulta y Recepción</span>
     </div>
-    <h1>¡Capítulo 2 completado!</h1>
+    <h1>¡Capítulo 2 finalizado!</h1>
     <div class="insignia">
       <b>🏅 Nueva insignia obtenida</b>
       <strong>Asesora de Confianza</strong>
@@ -1047,7 +1056,7 @@ html:fullscreen body{min-height:100vh}
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
-      <div style="font-size:clamp(12.5px,1.08vw,16px)">2 de 6 capítulos completados</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">2 de 6 capítulos finalizados</div>
       <div class="gen__bar"><i></i></div>
     </div>
   </div>
@@ -1057,6 +1066,7 @@ html:fullscreen body{min-height:100vh}
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
   <button class="btn btn--ghost" id="full" type="button">⛶ Pantalla completa</button>
+  <span class="falta" id="falta"></span>
   <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
 </nav>
 
@@ -1100,13 +1110,33 @@ html:fullscreen body{min-height:100vh}
     "Ejercicio 1 · Conectá la objeción",
     "Ejercicio 2 · Verdadero o falso",
     "Checkpoint final",
-    "Capítulo completado"
+    "Capítulo finalizado"
   ];
   var scrs  = [].slice.call(document.querySelectorAll(".scr"));
   var bar   = document.getElementById("bar");
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
+
+
+  // ====== no se avanza hasta abrir todas las referencias de la pantalla ======
+  var elFalta = document.getElementById("falta");
+  var elNav = document.querySelector(".nav");
+
+  function revisarPuerta() {
+    var scr = document.querySelector(".scr.on");
+    if (!scr) return;
+    var cajas = [].slice.call(scr.querySelectorAll(".rev,.acc"));
+    var abiertas = cajas.filter(function (x) { return x.dataset.visto === "1"; }).length;
+    var faltan = cajas.length - abiertas;
+    var trabada = faltan > 0 && cur < TOTAL;
+    nextB.disabled = trabada;
+    elNav.classList.toggle("trabada", trabada);
+    if (trabada) elFalta.textContent = faltan === 1
+      ? "Te queda 1 tarjeta por descubrir"
+      : "Te quedan " + faltan + " tarjetas por descubrir";
+  }
+  document.addEventListener("click", function () { setTimeout(revisarPuerta, 0); });
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
@@ -1121,6 +1151,7 @@ html:fullscreen body{min-height:100vh}
     nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
+    revisarPuerta();
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1391,7 +1422,7 @@ html:fullscreen body{min-height:100vh}
     document.addEventListener("click", function (e) {
       // descubrir
       var cara = e.target.closest(".rev__cara");
-      if (cara) { cara.closest(".rev").classList.toggle("abierto"); post(); return; }
+      if (cara) { var r = cara.closest(".rev"); r.classList.toggle("abierto"); r.dataset.visto = "1"; post(); return; }
 
       // paso a paso (si el grupo lleva data-solo, se abre de a uno)
       var cab = e.target.closest(".acc__h");
@@ -1399,7 +1430,7 @@ html:fullscreen body{min-height:100vh}
         var acc = cab.closest(".acc"), grupo = acc.parentElement;
         if (grupo && grupo.hasAttribute("data-solo"))
           grupo.querySelectorAll(".acc").forEach(function (x) { if (x !== acc) x.classList.remove("abierto"); });
-        acc.classList.toggle("abierto"); post(); return;
+        acc.classList.toggle("abierto"); acc.dataset.visto = "1"; post(); return;
       }
 
       // checklist
@@ -1410,7 +1441,10 @@ html:fullscreen body{min-height:100vh}
       var bt = e.target.closest("[data-todo]");
       if (bt) {
         var scr = bt.closest(".scr");
-        bt.textContent = scr.classList.toggle("todo") ? "Ocultar detalle" : "Mostrar todo";
+        if (scr.classList.toggle("todo")) {
+          bt.textContent = "Ocultar detalle";
+          scr.querySelectorAll(".rev,.acc").forEach(function (x) { x.dataset.visto = "1"; });
+        } else { bt.textContent = "Mostrar todo"; }
         post();
       }
     });

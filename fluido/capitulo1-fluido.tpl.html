@@ -61,7 +61,8 @@ button{font:inherit}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* pantallas de práctica: tienen que distinguirse de la teoría */
-.scr--ex{background:linear-gradient(180deg,#FBF2F6,#fff clamp(150px,19vh,250px))}
+.scr--ex{background:#FBF2F6}
+.scr--ex .card,.scr--ex .panel,.scr--ex .frag,.scr--ex .slot,.scr--ex .opt{background:#fff}
 .exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
   background:var(--tint);color:#fff;border-radius:99px;
   padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
@@ -91,6 +92,11 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .insight b{font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:clamp(13px,1.25vw,19px)}
 .insight p{margin:0;line-height:1.45;font-size:clamp(13.5px,1.15vw,18px)}
 
+
+/* aviso de la pantalla que todavia tiene referencias sin abrir */
+.falta{display:none;color:var(--tint);font-weight:600;font-size:clamp(11.5px,1vw,14.5px);
+  text-align:right;line-height:1.3;max-width:26ch}
+.nav.trabada .falta{display:block}
 
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -193,8 +199,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .chan__h img{width:clamp(30px,2.9vw,46px);flex:none}
 .chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--tint-soft);color:var(--tint);flex:none;
   color:var(--muted);display:grid;place-items:center;font-size:clamp(10px,.9vw,14px);font-weight:600;margin-left:auto;flex:none}
-.chan h3{margin:0 0 .55em;font-weight:500;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2;
-  display:flex;align-items:center;gap:clamp(7px,.75vw,12px)}
+.chan h3{margin:0 0 .55em;font-weight:700;font-size:clamp(14.5px,1.3vw,20px);line-height:1.2}
 .chan__f{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.5em clamp(7px,.7vw,11px);align-items:start;margin-bottom:.55em}
 .chan__f img{width:clamp(16px,1.5vw,23px);margin-top:.15em}
 .chan__f p{margin:0;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.4}
@@ -257,7 +262,9 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .slot__n{font-weight:600;font-size:clamp(13px,1.1vw,17px);color:var(--muted);width:1.2em;text-align:center}
 .slot.full .slot__n{color:var(--tint)}
 .slot__ph{color:#A8A8A8;font-size:clamp(12.5px,1.05vw,16px)}
-.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:var(--surface)}
+.fb{border-radius:var(--r);padding:clamp(13px,1.3vw,22px);background:#fff;border:1px solid var(--line)}
+.fb:empty{display:none}
+.fb--antes{margin-top:var(--gap)}
 .fb.good{background:var(--tint-soft);box-shadow:inset 0 0 0 1px var(--tint)}
 .fb.bad{background:var(--bad-soft);box-shadow:inset 0 0 0 1px #E08787}
 .fb p{margin:.35em 0 0;font-size:clamp(13.5px,1.12vw,17px);line-height:1.45}
@@ -310,7 +317,10 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 
 
 /* ---- P5 genérico vs conecta ---- */
-.cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:start}
+.cmp{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:clamp(10px,1.2vw,20px);align-items:stretch}
+.cmp > div{display:flex;flex-direction:column}
+.chat{flex:1}
+.chat__b{margin-bottom:auto}
 .cmp__arrow{align-self:center;font-size:clamp(20px,2.2vw,34px);color:#6B6B6B;line-height:1}
 .chat{border-radius:clamp(14px,1.3vw,22px);padding:clamp(13px,1.35vw,24px);display:flex;flex-direction:column;gap:clamp(9px,1vw,16px)}
 .chat--bad{background:var(--surface);border:1px solid var(--line)}
@@ -568,10 +578,6 @@ html:fullscreen body{min-height:100vh}
       </div>
     </div>
 
-    <div class="chips">
-      <span class="chip">Dysport®</span><span class="chip">Restylane®</span>
-      <span class="chip">Sculptra®</span><span class="chip">Skinboosters®</span>
-    </div>
   </div>
 </section>
 
@@ -632,25 +638,25 @@ html:fullscreen body{min-height:100vh}
     <div class="stack">
       <div class="chans">
         <div class="chan">
-          <h3><span class="chan__n">1</span>WhatsApp / DM</h3>
+          <h3>WhatsApp / DM</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 1 hora, en horario de atención. Ideal contar con agente IA.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cercano, rápido, claro. Sin formalismos.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> responder solo el precio sin conectar con la persona.</p></div>
         </div>
         <div class="chan">
-          <h3><span class="chan__n">2</span>Llamada telefónica</h3>
+          <h3>Llamada telefónica</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> inmediato, o devolver la llamada en el día.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cálido, profesional, con escucha activa.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> hablar más de los tratamientos que de las necesidades del paciente.</p></div>
         </div>
         <div class="chan">
-          <h3><span class="chan__n">3</span>Email / Web</h3>
+          <h3>Email / Web</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 24 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> formal pero amigable. Personalizado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> mandar una respuesta genérica con precios sin preguntar qué busca.</p></div>
         </div>
         <div class="chan">
-          <h3><span class="chan__n">4</span>RRSS (comentario / story reply)</h3>
+          <h3>RRSS (comentario / story reply)</h3>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 2 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> breve, empático, con invitación a continuar en privado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> no responder, o responder solo con un emoji.</p></div>
@@ -799,6 +805,14 @@ html:fullscreen body{min-height:100vh}
     <div class="eyebrow">Situación</div>
     <p>Una paciente escribe por Instagram: <b>“Hola, me interesa saber sobre tratamientos para arrugas.”</b></p>
   </div>
+  <div class="fb fb--antes">
+    <div class="eyebrow eyebrow--tint">Antes de empezar</div>
+    <p style="color:var(--muted)">¿Qué debería lograr una buena respuesta?</p>
+    <div class="checks">
+      <div><i>✓</i>Generar cercanía</div><div><i>✓</i>Presentar un beneficio real</div>
+      <div><i>✓</i>Hacer una pregunta de conexión</div><div><i>✓</i>Invitar al siguiente paso</div>
+    </div>
+  </div>
   <div class="ex1" style="margin-top:var(--gap)">
     <div>
       <div class="eyebrow" style="margin-bottom:.7em">Fragmentos disponibles</div>
@@ -813,14 +827,7 @@ html:fullscreen body{min-height:100vh}
       </div>
     </div>
   </div>
-  <div class="fb" id="ex1fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Consejo</div>
-    <p style="color:var(--muted)">¿Qué debería lograr una buena respuesta?</p>
-    <div class="checks">
-      <div><i>✓</i>Generar cercanía</div><div><i>✓</i>Presentar un beneficio real</div>
-      <div><i>✓</i>Hacer una pregunta de conexión</div><div><i>✓</i>Invitar al siguiente paso</div>
-    </div>
-  </div>
+  <div class="fb" id="ex1fb" style="margin-top:var(--gap)"></div>
   <div class="insight">
     <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>Las mejores conversaciones comienzan con preguntas, no con respuestas.</p>
@@ -832,11 +839,12 @@ html:fullscreen body{min-height:100vh}
   <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">¿Qué canal usarías?</h1>
   <p class="lead">Cada canal requiere una forma distinta de responder. Elegí la mejor acción para cada situación.</p>
-  <div class="cases" id="cases" style="margin-top:var(--gap)"></div>
-  <div class="fb" id="ex2fb" style="margin-top:var(--gap)">
-    <div class="eyebrow eyebrow--tint">Consejo</div>
+  <div class="fb fb--antes">
+    <div class="eyebrow eyebrow--tint">Antes de empezar</div>
     <p style="color:var(--muted)">Elegí una opción en cada caso para ver si generás conversación o la cortás.</p>
   </div>
+  <div class="cases" id="cases" style="margin-top:var(--gap)"></div>
+  <div class="fb" id="ex2fb" style="margin-top:var(--gap)"></div>
   <div class="insight">
     <img data-i="ic_lightbulb" alt=""><b>Para recordar</b>
     <p>El mejor canal es el que facilita continuar la conversación. El objetivo nunca es responder más: es generar conexión.</p>
@@ -871,7 +879,7 @@ html:fullscreen body{min-height:100vh}
       <span class="badge__c">&#10003;</span>
       <span class="badge__n">Descubrimiento y Primer Contacto</span>
     </div>
-    <h1>¡Capítulo 1 completado!</h1>
+    <h1>¡Capítulo 1 finalizado!</h1>
     <div class="insignia">
       <b>🏅 Nueva insignia obtenida</b>
       <strong>Comunicación Personalizada</strong>
@@ -879,7 +887,7 @@ html:fullscreen body{min-height:100vh}
     </div>
     <div class="gen">
       <div class="eyebrow">Progreso general</div>
-      <div style="font-size:clamp(12.5px,1.08vw,16px)">1 de 6 capítulos completados</div>
+      <div style="font-size:clamp(12.5px,1.08vw,16px)">1 de 6 capítulos finalizados</div>
       <div class="gen__bar"><i></i></div>
     </div>
   </div>
@@ -889,6 +897,7 @@ html:fullscreen body{min-height:100vh}
 <nav class="nav">
   <button class="btn btn--ghost" data-go="prev" id="prev">← Anterior</button>
   <button class="btn btn--ghost" id="full" type="button">⛶ Pantalla completa</button>
+  <span class="falta" id="falta"></span>
   <button class="btn btn--dark" data-go="next" id="next">Continuar →</button>
 </nav>
 
@@ -931,13 +940,33 @@ html:fullscreen body{min-height:100vh}
     "Ejercicio 1 · Ordená la respuesta",
     "Ejercicio 2 · ¿Qué canal usarías?",
     "Checkpoint final",
-    "Capítulo completado"
+    "Capítulo finalizado"
   ];
   var scrs  = [].slice.call(document.querySelectorAll(".scr"));
   var bar   = document.getElementById("bar");
   var count = document.getElementById("count");
   var prevB = document.getElementById("prev");
   var nextB = document.getElementById("next");
+
+
+  // ====== no se avanza hasta abrir todas las referencias de la pantalla ======
+  var elFalta = document.getElementById("falta");
+  var elNav = document.querySelector(".nav");
+
+  function revisarPuerta() {
+    var scr = document.querySelector(".scr.on");
+    if (!scr) return;
+    var cajas = [].slice.call(scr.querySelectorAll(".rev,.acc"));
+    var abiertas = cajas.filter(function (x) { return x.dataset.visto === "1"; }).length;
+    var faltan = cajas.length - abiertas;
+    var trabada = faltan > 0 && cur < TOTAL;
+    nextB.disabled = trabada;
+    elNav.classList.toggle("trabada", trabada);
+    if (trabada) elFalta.textContent = faltan === 1
+      ? "Te queda 1 tarjeta por descubrir"
+      : "Te quedan " + faltan + " tarjetas por descubrir";
+  }
+  document.addEventListener("click", function () { setTimeout(revisarPuerta, 0); });
 
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
@@ -952,6 +981,7 @@ html:fullscreen body{min-height:100vh}
     nextB.classList.toggle("btn--dark", !destacado);
     // botón muerto nunca: en la última pantalla sólo aparece si hay a dónde ir
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
+    revisarPuerta();
     pintarIdx();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
@@ -1248,7 +1278,7 @@ html:fullscreen body{min-height:100vh}
     document.addEventListener("click", function (e) {
       // descubrir
       var cara = e.target.closest(".rev__cara");
-      if (cara) { cara.closest(".rev").classList.toggle("abierto"); post(); return; }
+      if (cara) { var r = cara.closest(".rev"); r.classList.toggle("abierto"); r.dataset.visto = "1"; post(); return; }
 
       // paso a paso (si el grupo lleva data-solo, se abre de a uno)
       var cab = e.target.closest(".acc__h");
@@ -1256,7 +1286,7 @@ html:fullscreen body{min-height:100vh}
         var acc = cab.closest(".acc"), grupo = acc.parentElement;
         if (grupo && grupo.hasAttribute("data-solo"))
           grupo.querySelectorAll(".acc").forEach(function (x) { if (x !== acc) x.classList.remove("abierto"); });
-        acc.classList.toggle("abierto"); post(); return;
+        acc.classList.toggle("abierto"); acc.dataset.visto = "1"; post(); return;
       }
 
       // checklist
@@ -1267,7 +1297,10 @@ html:fullscreen body{min-height:100vh}
       var bt = e.target.closest("[data-todo]");
       if (bt) {
         var scr = bt.closest(".scr");
-        bt.textContent = scr.classList.toggle("todo") ? "Ocultar detalle" : "Mostrar todo";
+        if (scr.classList.toggle("todo")) {
+          bt.textContent = "Ocultar detalle";
+          scr.querySelectorAll(".rev,.acc").forEach(function (x) { x.dataset.visto = "1"; });
+        } else { bt.textContent = "Mostrar todo"; }
         post();
       }
     });
