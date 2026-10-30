@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiencia con Propósito · El recorrido | Galderma</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+:root{
+  --tint:#9A064E; --tint-soft:#F7E8EF; --ink:#1A1A1A; --muted:#737373;
+  --line:#E0E0E0; --surface:#F2F2F2; --card:#FFFFFF;
+  --pad:clamp(16px,3.2vw,44px);
+  --r:clamp(12px,1.1vw,18px);
+  --shadow:0 3px 16px rgba(0,0,0,.09);
+  --gap:clamp(12px,1.5vw,24px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);
+  font-family:'Poppins',system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+
+.env{padding:clamp(22px,3.4vw,52px) var(--pad) clamp(26px,3.6vw,56px);max-width:1320px;margin:0 auto}
+
+/* ============ encabezado ============ */
+.enc{text-align:center;max-width:46ch;margin:0 auto clamp(20px,2.6vw,38px)}
+.enc__ojo{font-size:clamp(10.5px,.86vw,13px);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tint);font-weight:600;margin:0 0 .7em}
+.enc h1{margin:0;font-size:clamp(27px,3.5vw,54px);line-height:1.1;font-weight:700;letter-spacing:-.01em}
+.enc h1 em{font-style:normal;color:var(--tint)}
+.enc__sub{margin:.65em 0 0;color:var(--muted);font-size:clamp(13.5px,1.15vw,18px);line-height:1.5}
+
+/* ============ barra del recorrido ============ */
+.rec{display:flex;align-items:center;gap:clamp(10px,1.3vw,20px);
+  max-width:760px;margin:0 auto clamp(22px,3vw,44px)}
+.rec__tit{font-size:clamp(11px,.9vw,14px);color:var(--muted);white-space:nowrap}
+.rec__tit b{color:var(--ink);font-weight:600}
+.rec__bar{flex:1;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.rec__bar i{height:7px;border-radius:99px;background:var(--line);
+  transition:background .5s ease}
+.rec__bar i.lleno{background:var(--tint)}
+
+/* ============ los seis pasos ============ */
+.pasos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,1.8vw,30px)}
+/* el mapa se lee de un vistazo: dos columnas aun en celular, nunca una sola
+   (apilados en columna el recorrido completo queda a tres pantallas de scroll) */
+@media (max-width:900px){.pasos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){
+  .pasos{gap:10px}
+  .paso__t{font-size:14px}
+  .paso__d{font-size:11.5px}
+  .paso__txt{padding:9px 11px 13px}
+}
+
+.paso{position:relative;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;
+  transition:border-color .45s ease,box-shadow .45s ease,transform .45s ease}
+
+.paso__pic{background:var(--surface);padding:clamp(6px,.7vw,12px);overflow:hidden}
+/* las ilustraciones son verticales y de alto distinto: el cuadrado lo pone la
+   propia imagen, asi entran enteras y centradas sin que se recorte ninguna */
+.paso__pic img{width:100%;aspect-ratio:1/1;object-fit:contain;
+  filter:grayscale(1);opacity:.38;transition:filter .75s ease,opacity .75s ease}
+
+.paso__txt{padding:clamp(12px,1.3vw,20px) clamp(13px,1.4vw,22px) clamp(15px,1.6vw,24px);
+  display:flex;flex-direction:column;gap:.35em;flex:1}
+.paso__n{font-size:clamp(11px,.9vw,14px);font-weight:700;letter-spacing:.1em;
+  color:var(--muted);transition:color .5s ease}
+.paso__t{margin:0;font-size:clamp(15px,1.35vw,21px);line-height:1.25;font-weight:600;
+  color:var(--muted);transition:color .5s ease}
+.paso__d{margin:0;font-size:clamp(12.5px,1.02vw,15.5px);line-height:1.5;color:var(--muted);
+  opacity:.75;transition:opacity .5s ease}
+
+/* encendido: el capítulo ya recorrido vuelve a color */
+.paso.on .paso__pic img{filter:none;opacity:1}
+.paso.on .paso__n{color:var(--tint)}
+.paso.on .paso__t{color:var(--ink)}
+.paso.on .paso__d{opacity:1}
+.paso.on{box-shadow:var(--shadow)}
+
+/* el capítulo en curso */
+.paso.aqui{border-color:var(--tint);box-shadow:0 0 0 2px var(--tint-soft),var(--shadow)}
+.paso__aqui{position:absolute;top:10px;left:10px;z-index:2;
+  background:var(--tint);color:#fff;border-radius:99px;
+  padding:.35em .85em;font-size:clamp(10px,.82vw,12.5px);font-weight:600;letter-spacing:.02em;
+  opacity:0;transform:translateY(-4px);transition:opacity .4s ease .35s,transform .4s ease .35s}
+.paso.aqui .paso__aqui{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .paso,.paso__pic img,.paso__n,.paso__t,.paso__d,.paso__aqui,.rec__bar i{transition:none}
+}
+
+/* ============ pie ============ */
+.pie{margin:clamp(22px,3vw,44px) auto 0;text-align:center;color:var(--muted);
+  font-size:clamp(12px,1vw,15px);line-height:1.5;max-width:52ch}
+</style>
+</head>
+<body>
+
+<div class="env">
+
+  <header class="enc">
+    <p class="enc__ojo">Formación Galderma</p>
+    <h1>Experiencia con <em>Propósito</em></h1>
+    <p class="enc__sub">De la recepción a la fidelización: seis capítulos para acompañar al paciente en todo el recorrido.</p>
+  </header>
+
+  <div class="rec">
+    <span class="rec__tit" id="recTit">Tu recorrido</span>
+    <span class="rec__bar" id="recBar"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </div>
+
+  <div class="pasos">
+
+    <article class="paso" data-cap="1">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m1" alt="Paciente ingresando a un centro estético"></div>
+      <div class="paso__txt">
+        <span class="paso__n">01</span>
+        <h2 class="paso__t">Descubrimiento y Primer Contacto</h2>
+        <p class="paso__d">La experiencia del paciente comienza antes del primer mensaje.</p>
+      </div>
+    </article>
+
+    <article class="paso" data-cap="2">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m2" alt="Recepción de un centro estético"></div>
+      <div class="paso__txt">
+        <span class="paso__n">02</span>
+        <h2 class="paso__t">Consulta y Recepción</h2>
+        <p class="paso__d">Preparar al paciente es parte del tratamiento.</p>
+      </div>
+    </article>
+
+    <article class="paso" data-cap="3">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m3" alt="Profesional presentando un plan de tratamiento"></div>
+      <div class="paso__txt">
+        <span class="paso__n">03</span>
+        <h2 class="paso__t">Presupuesto y Propuesta de Tratamiento</h2>
+        <p class="paso__d">Dejar de “pasar un precio” para presentar un plan que genere valor.</p>
+      </div>
+    </article>
+
+    <article class="paso" data-cap="4">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m4" alt="Momento del tratamiento en cabina"></div>
+      <div class="paso__txt">
+        <span class="paso__n">04</span>
+        <h2 class="paso__t">Momento del Tratamiento</h2>
+        <p class="paso__d">Cada gesto cuenta en el momento del tratamiento.</p>
+      </div>
+    </article>
+
+    <article class="paso" data-cap="5">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m5" alt="Seguimiento del paciente después del tratamiento"></div>
+      <div class="paso__txt">
+        <span class="paso__n">05</span>
+        <h2 class="paso__t">Seguimiento Post-Tratamiento</h2>
+        <p class="paso__d">Convertir el post-tratamiento en el inicio del siguiente ciclo.</p>
+      </div>
+    </article>
+
+    <article class="paso" data-cap="6">
+      <span class="paso__aqui">Estás acá</span>
+      <div class="paso__pic"><img data-i="mapa/m6" alt="Paciente recomendando el centro"></div>
+      <div class="paso__txt">
+        <span class="paso__n">06</span>
+        <h2 class="paso__t">Recomendación y Fidelización</h2>
+        <p class="paso__d">Convertir la satisfacción en repetición y recomendación genuina.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <p class="pie" id="pie">Cada capítulo que completás se suma a tu recorrido.</p>
+
+</div>
+
+<script>
+(function () {
+  var IMGS = __IMGS__;
+  document.querySelectorAll("[data-i]").forEach(function (el) {
+    var u = IMGS[el.dataset.i]; if (u) el.src = u;
+  });
+
+  // ====== estado del mapa ======
+  // ?cap=0 (o sin parámetro) -> los seis a color: así arranca el curso.
+  // ?cap=N -> del 1 al N a color, el resto en blanco y negro, el N marcado.
+  var cap = parseInt((location.search.match(/[?&]cap=(\d+)/) || [])[1], 10);
+  if (!(cap >= 0 && cap <= 6)) cap = 0;
+  var inicio = cap === 0;
+  var hasta = inicio ? 6 : cap;
+
+  var pasos = [].slice.call(document.querySelectorAll(".paso"));
+  var barra = [].slice.call(document.querySelectorAll("#recBar i"));
+  var quieto = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.getElementById("recTit").innerHTML = inicio
+    ? "Tu recorrido"
+    : "Capítulo <b>" + cap + "</b> de 6";
+  document.getElementById("pie").textContent = inicio
+    ? "Cada capítulo que completás se suma a tu recorrido."
+    : (cap === 6
+        ? "Completaste el recorrido: ya recorriste la experiencia de principio a fin."
+        : "Seguí avanzando: los capítulos que te faltan se encienden a medida que los hacés.");
+
+  function encender(i) {
+    if (i > hasta) return;
+    var p = pasos[i - 1];
+    p.classList.add("on");
+    if (!inicio && i === cap) p.classList.add("aqui");
+    if (barra[i - 1]) barra[i - 1].classList.add("lleno");
+  }
+
+  if (quieto) {
+    for (var i = 1; i <= hasta; i++) encender(i);
+  } else {
+    // se van iluminando de a uno, en orden
+    var n = 0;
+    (function paso() {
+      if (n >= hasta) return;
+      n++; encender(n);
+      setTimeout(paso, 230);
+    })();
+  }
+
+  // ====== alto real hacia la lección (mismo protocolo que los capítulos) ======
+  var ID = "mapa", ultima = 0;
+  function post() {
+    var alto = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    if (alto === ultima) return;
+    ultima = alto;
+    try { parent.postMessage({ gdId: ID, gdHeight: alto }, "*"); } catch (e) {}
+  }
+  var t = setInterval(post, 400);
+  setTimeout(function () { clearInterval(t); }, 6000);
+  window.addEventListener("load", post);
+  window.addEventListener("resize", post);
+  if (window.ResizeObserver) new ResizeObserver(post).observe(document.documentElement);
+  window.addEventListener("message", function (e) { if (e.data && e.data.gdAsk === ID) { ultima = 0; post(); } });
+})();
+</script>
+</body>
+</html>
