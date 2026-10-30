@@ -132,6 +132,33 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   text-align:right;line-height:1.3;max-width:26ch}
 .nav.trabada .falta{display:block}
 
+/* pantalla de los videos de los médicos: video a la izquierda, bloques a la derecha */
+.opinan{margin:.2em 0 0;color:var(--tint);font-weight:600;font-size:clamp(13px,1.15vw,18px)}
+.med{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
+  align-items:start;margin-top:var(--gap)}
+@media (max-width:900px){ .med{grid-template-columns:minmax(0,1fr)} }
+.med .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
+.med .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
+.med .blqc__q{font-size:clamp(12px,1vw,15px)}
+
+/* tarjetas de presentación de los médicos y foto de apertura */
+.blq--ref{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:820px){ .blq--ref{grid-template-columns:minmax(0,1fr)} }
+.retrato{position:relative;background:var(--surface);border-radius:var(--r);overflow:hidden;
+  aspect-ratio:4/5;display:grid;place-items:center}
+.retrato img{width:100%;height:100%;object-fit:cover;grid-area:1/1}
+.retrato img:not([src]){display:none}
+.retrato__falta{grid-area:1/1;align-self:center;color:var(--muted);text-align:center;
+  padding:var(--pad);font-size:clamp(13px,1.1vw,17px);line-height:1.5}
+.retrato img[src] ~ .retrato__falta{display:none}
+
+/* apertura del capítulo: media a la izquierda, contenido a la derecha */
+.apert{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2vw,38px);align-items:start}
+@media (max-width:900px){ .apert{grid-template-columns:minmax(0,1fr)} }
+.apert__t h1{margin-top:.25em}
+.marcas{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,1.8vw,34px);margin-top:var(--gap)}
+.marcas img{height:clamp(17px,1.7vw,26px);width:auto;opacity:.9}
+
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:clamp(10px,1.2vw,16px) var(--pad);border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
@@ -951,43 +978,72 @@ html:fullscreen body{min-height:100vh}
 
 <!-- ============ 2 · video ============ -->
 <section class="scr" data-scr="2">
-  <div class="vid" id="vid">
-    <div id="ytmount"></div>
-    <div class="vid__fb">No se pudo cargar el reproductor.
-      <a id="vidfb" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
-  </div>
-  <div class="reel" id="reel" hidden>
-    <div class="reel__bar" id="reelbar"></div>
-    <div class="reel__ficha">
-      <div class="reel__cab"><b id="reelnum"></b><span class="c" id="reeltime"></span></div>
-      <div class="reel__tit" id="reeltit"></div>
-      <p class="reel__q" id="reelq"></p>
-      <span class="reel__quien" id="reelquien"></span>
+  <div class="apert">
+    <div class="retrato">
+      <img data-i="retrato_medica" alt="Dra. Valeria Bárbaro">
+      <span class="retrato__falta">Falta cargar la foto de apertura del capítulo.<br>
+        <small>Guardala como <b>assets/cap6/retrato_medica.jpg</b> y volvé a compilar.</small></span>
     </div>
-  </div>
 
-  <div class="s2">
-    <div>
+    <div class="apert__t">
       <div class="eyebrow">Capítulo 6 · Recomendación y Fidelización</div>
-      <h1 style="margin-top:.3em">El rol del equipo en los tratamientos de continuidad</h1>
-      <p class="lead">En este video de cierre, el médico referente explica por qué la medicina estética es un acompañamiento a largo plazo en capas y cómo el cuidado del equipo transforma la satisfacción en recomendación genuina.</p>
-    </div>
+      <h1>El rol del equipo: acompañar al paciente en el tiempo</h1>
+      <p class="opinan">Nuestros médicos opinan</p>
 
-    <div id="blqzona" hidden>
-      <div class="eyebrow" style="margin-bottom:.8em">Los bloques de este video</div>
-      <div class="blq" id="blq"></div>
-    </div>
+      <div class="eyebrow" style="margin:var(--gap) 0 .8em">Lo que aprenderás en este capítulo</div>
+      <div class="objs">
+        <div><img data-i="w6_a" alt="">El plan de tratamiento en capas</div>
+        <div><img data-i="w6_b" alt="">Construir resultados a largo plazo</div>
+        <div><img data-i="w6_c" alt="">El impacto del “¿Cómo estás?”</div>
+        <div><img data-i="w6_d" alt="">Fidelizar cuidando, no vendiendo</div>
+      </div>
 
-      <div class="idea">
+      <div class="idea" style="margin-top:var(--gap)">
         <div class="idea__t"><img data-i="w6_star" alt="">Idea clave</div>
         <p>El equipo que domina la experiencia con propósito no está vendiendo: está cuidando. Y cuando el equipo cuida, el paciente vuelve y recomienda.</p>
+      </div>
+
+      <div class="marcas">
+        <img data-i="logo_sculptra" alt="Sculptra">
+        <img data-i="logo_dysport" alt="Dysport">
+        <img data-i="logo_restylane" alt="Restylane">
+        <img data-i="logo_skinboosters" alt="Restylane Skinboosters">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 3 · pedir recomendación sin que suene a venta (p59) ============ -->
+<!-- ============ 3 · los videos de los médicos ============ -->
 <section class="scr" data-scr="3">
+  <h1>El rol del equipo: acompañar al paciente en el tiempo</h1>
+  <p class="opinan">Nuestros médicos opinan</p>
+
+  <div class="med">
+    <div>
+      <div class="vid" id="vid2">
+        <div id="ytmount2"></div>
+        <div class="vid__fb">No se pudo cargar el reproductor.
+          <a id="vidfb2" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
+      </div>
+      <div class="reel" id="reel2" hidden>
+        <div class="reel__bar" id="reelbar2"></div>
+        <div class="reel__ficha">
+          <div class="reel__cab"><b id="reelnum2"></b><span class="c" id="reeltime2"></span></div>
+          <div class="reel__tit" id="reeltit2"></div>
+          <p class="reel__q" id="reelq2"></p>
+          <span class="reel__quien" id="reelquien2"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="blqzona2" hidden>
+      <div class="blq" id="blq2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · pedir recomendación sin que suene a venta (p59) ============ -->
+<section class="scr" data-scr="4">
   <h1>Cómo pedir recomendación sin que suene a venta</h1>
   <p class="lead">La mejor recomendación no se pide: se gana. Pero hay momentos en los que sí podés abrir la puerta, y cómo lo hacés marca la diferencia. Pensá qué dirías en cada momento y después descubrí la frase.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -1039,8 +1095,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 4 · oportunidades en cada interacción (p60) ============ -->
-<section class="scr" data-scr="4">
+<!-- ============ 5 · oportunidades en cada interacción (p60) ============ -->
+<section class="scr" data-scr="5">
   <h1>Cómo descubrir oportunidades en cada interacción</h1>
   <p class="lead">Cada conversación tiene una puerta. Leé lo que dice el paciente, pensá qué oportunidad hay y después descubrila.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -1077,8 +1133,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 5 · el ciclo completo (p61) ============ -->
-<section class="scr" data-scr="5">
+<!-- ============ 6 · el ciclo completo (p61) ============ -->
+<section class="scr" data-scr="6">
   <h1>El ciclo completo: de paciente satisfecho a paciente embajador</h1>
   <p class="lead">El ciclo que no tiene fin. Tocá cada etapa para ver qué pasa en ella.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -1099,8 +1155,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 6 · ejercicio 1 (p62) ============ -->
-<section class="scr scr--ex" data-scr="6">
+<!-- ============ 7 · ejercicio 1 (p62) ============ -->
+<section class="scr scr--ex" data-scr="7">
   <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">Detectá el momento clave</h1>
   <p class="lead">Opción múltiple.</p>
@@ -1125,8 +1181,8 @@ html:fullscreen body{min-height:100vh}
   <div class="fb" id="uno1fb" style="margin-top:var(--gap)"></div>
 </section>
 
-<!-- ============ 7 · ejercicio 2 (p63) ============ -->
-<section class="scr scr--ex" data-scr="7">
+<!-- ============ 8 · ejercicio 2 (p63) ============ -->
+<section class="scr scr--ex" data-scr="8">
   <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">Elegí el cierre</h1>
   <p class="lead">Opción múltiple.</p>
@@ -1151,8 +1207,8 @@ html:fullscreen body{min-height:100vh}
   <div class="fb" id="uno2fb" style="margin-top:var(--gap)"></div>
 </section>
 
-<!-- ============ 8 · checkpoint (p64 + p65) ============ -->
-<section class="scr" data-scr="8">
+<!-- ============ 9 · checkpoint (p64 + p65) ============ -->
+<section class="scr" data-scr="9">
   <div style="display:flex;justify-content:space-between;gap:var(--gap);flex-wrap:wrap;align-items:flex-start">
     <div>
       <div class="eyebrow eyebrow--tint">Evaluación final</div>
@@ -1169,8 +1225,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 9 · capítulo completado (p66) ============ -->
-<section class="scr scr--flush" data-scr="9">
+<!-- ============ 10 · capítulo completado (p66) ============ -->
+<section class="scr scr--flush" data-scr="10">
   <div class="cierre">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
@@ -1215,31 +1271,32 @@ html:fullscreen body{min-height:100vh}
   // Clips del capítulo. Varios bloques se reproducen encadenados, como si fueran un solo video.
   // s = duración en segundos (solo sirve para que la barra sea proporcional).
   var VIDEO = {
+    // sin video: va la imagen de la médica
     bloques: [
-      { id:"v-Jhz0tSKcM", quien:"Melissa Gaitan Buelvas", tit:"Primer contacto: redes, boca a boca, referencias", q:"¿Por dónde llega hoy un paciente nuevo?", s:53 },
-      { id:"WYfddFf4l60", quien:"Dr. Gustavo Bressan", tit:"Una sonrisa puede cambiar todo", q:"¿Qué rol juega el equipo en la primera impresión?", s:31 },
-      { id:"_dvcI4fwzTs", quien:"Melissa Gaitan Buelvas", tit:"Primer impacto: humanizar la marca", q:"¿Cómo se construye cercanía desde el primer contacto?", s:46 },
-      { id:"kamoBcm8IAU", quien:"Dr. Gustavo Bressan", tit:"Cuándo empieza el tratamiento", q:"¿En qué momento arranca realmente la experiencia?", s:63 },
-      { id:"AM_XpLM-6no", quien:"Melissa Gaitan Buelvas", tit:"Es mucho más que una consulta", q:"¿Qué espera el paciente además del resultado?", s:42 },
-      { id:"mmCF3USYmn4", quien:"Dra. Valeria Bárbaro", tit:"Seguimiento post-tratamiento", q:"¿Qué cambia cuando el equipo hace seguimiento?", s:78 },
-      { id:"jYgampbIE_4", quien:"Melissa Gaitan Buelvas", tit:"Generar vínculo con el paciente", q:"¿Cómo se sostiene el vínculo en el tiempo?", s:25 },
-      // FALTA EL LINK (orden 8): Dra. Valeria Bárbaro · Acompañar el envejecimiento a largo plazo (0:41)
-      // Cuando llegue, pegá el ID acá y descomentá la línea:
-      // { id:"", quien:"Dra. Valeria Bárbaro", tit:"Acompañar el envejecimiento a largo plazo", q:"¿Cómo se acompaña al paciente año tras año?", s:41 },
-      { id:"1BmEHmARmg4", quien:"Melissa Gaitan Buelvas", tit:"¿Por qué elijo Galderma?", q:"¿Qué hace que un profesional confíe en una marca?", s:65 }
+
+    ],
+    // videos de teoría
+    bloques2: [
+      { id:"RLn1x948fnA", quien:"Dra. Valeria Bárbaro", tit:"El envejecimiento: “nunca se para de envejecer”", q:"¿Por qué acompañamos el envejecimiento en lugar de frenarlo?", s:41 },
+      { id:"kamoBcm8IAU", quien:"Dr. Gustavo Bressan", tit:"Cuándo empieza el tratamiento", q:"¿Cuándo empieza realmente el tratamiento?", s:63 },
+      { id:"mmCF3USYmn4", quien:"Dra. Valeria Bárbaro", tit:"El tratamiento: “los pacientes siempre vuelven por algo más”", q:"¿Cómo logra el seguimiento que el paciente vuelva?", s:78 },
+      { id:"AM_XpLM-6no", quien:"Dra. Melissa Gaitán Buelvas", tit:"“Es mucho más que una consulta”", q:"¿Qué hace que una consulta sea mucho más que una consulta?", s:42 },
+      { id:"WYfddFf4l60", quien:"Dr. Gustavo Bressan", tit:"Una sonrisa puede cambiar todo", q:"¿Por qué una sonrisa del equipo puede cambiar toda la experiencia?", s:31 },
+      { id:"jYgampbIE_4", quien:"Dra. Melissa Gaitán Buelvas", tit:"Crear vínculos", q:"¿Cómo crear un vínculo genuino con el paciente?", s:25 }
     ]
   };
 
 
-  var TOTAL = 9, cur = 1;
+  var TOTAL = 10, cur = 1;
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Finalizar la capacitación →" };
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 6: "Comenzar ejercicios →", 9: "Ver mi resultado →", 10: "Finalizar la capacitación →" };
 
   var TITULOS = [
     "Portada",
     "El rol del equipo en los tratamientos de continuidad",
+    "Nuestros médicos opinan",
     "Cómo pedir recomendación sin que suene a venta",
     "Cómo descubrir oportunidades en cada interacción",
     "El ciclo completo: de satisfecho a embajador",
@@ -1558,10 +1615,11 @@ html:fullscreen body{min-height:100vh}
 
 
   // ====== reproductor en cadena ======
-  (function () {
-    var lista = (VIDEO && VIDEO.bloques || []).filter(function (b) { return b && b.id; });
-    var caja = document.getElementById("vid");
-    var monte = document.getElementById("ytmount");
+  function montarReproductor(sufijo, bloques, rotulo) {
+    rotulo = rotulo || "Bloque";
+    var lista = (bloques || []).filter(function (b) { return b && b.id; });
+    var caja = document.getElementById("vid" + sufijo);
+    var monte = document.getElementById("ytmount" + sufijo);
     if (!caja || !monte) return;
     if (!lista.length) {   // el capítulo todavía no tiene el link cargado
       caja.classList.add("falla");
@@ -1571,12 +1629,12 @@ html:fullscreen body{min-height:100vh}
       return;
     }
 
-    var reel = document.getElementById("reel");
-    var barra = document.getElementById("reelbar");
-    var elNum = document.getElementById("reelnum");
-    var elTit = document.getElementById("reeltit");
-    var elTime = document.getElementById("reeltime");
-    var fb = document.getElementById("vidfb");
+    var reel = document.getElementById("reel" + sufijo);
+    var barra = document.getElementById("reelbar" + sufijo);
+    var elNum = document.getElementById("reelnum" + sufijo);
+    var elTit = document.getElementById("reeltit" + sufijo);
+    var elTime = document.getElementById("reeltime" + sufijo);
+    var fb = document.getElementById("vidfb" + sufijo);
     if (fb) fb.href = "https://youtu.be/" + lista[0].id;
 
     var varios = lista.length > 1;
@@ -1611,10 +1669,10 @@ html:fullscreen body{min-height:100vh}
 
 
     // ---- guía de bloques: una tarjeta por video, la que suena se marca ----
-    var grilla = document.getElementById("blq");
+    var grilla = document.getElementById("blq" + sufijo);
     var tarjetas = [];
     if (grilla && varios) {
-      var zona = document.getElementById("blqzona");
+      var zona = document.getElementById("blqzona" + sufijo);
       if (zona) zona.hidden = false;
       lista.forEach(function (b, i) {
         var c = document.createElement("button");
@@ -1656,10 +1714,10 @@ html:fullscreen body{min-height:100vh}
       segs.forEach(function (i, n) {
         i.style.width = n < act ? "100%" : n > act ? "0%" : (prog * 100) + "%";
       });
-      elNum.textContent = "Bloque " + (act + 1) + " de " + lista.length;
+      elNum.textContent = rotulo + " " + (act + 1) + " de " + lista.length;
       elTit.textContent = lista[act].tit || lista[act].t;
-      var elQ = document.getElementById("reelq");
-      var elQuien = document.getElementById("reelquien");
+      var elQ = document.getElementById("reelq" + sufijo);
+      var elQuien = document.getElementById("reelquien" + sufijo);
       if (elQ) { elQ.textContent = lista[act].q || ""; elQ.hidden = !lista[act].q; }
       if (elQuien) { elQuien.textContent = lista[act].quien || ""; elQuien.hidden = !lista[act].quien; }
       marcar();
@@ -1725,7 +1783,10 @@ html:fullscreen body{min-height:100vh}
       document.head.appendChild(sc);
     }
     setTimeout(function () { if (!pl) caer(); }, 8000);   // la API no llegó
-  })();
+  }
+
+  montarReproductor("", VIDEO.bloques, "Presentación");
+  montarReproductor("2", VIDEO.bloques2);
 
   render();
 })();

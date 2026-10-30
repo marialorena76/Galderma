@@ -132,6 +132,38 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
   text-align:right;line-height:1.3;max-width:26ch}
 .nav.trabada .falta{display:block}
 
+/* pantalla de los videos de los médicos: video a la izquierda, bloques a la derecha */
+.opinan{margin:.2em 0 0;color:var(--tint);font-weight:600;font-size:clamp(13px,1.15vw,18px)}
+.med{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
+  align-items:start;margin-top:var(--gap)}
+@media (max-width:900px){ .med{grid-template-columns:minmax(0,1fr)} }
+.med .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
+.med .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
+.med .blqc__q{font-size:clamp(12px,1vw,15px)}
+
+/* tarjetas de presentación de los médicos y foto de apertura */
+.blq--ref{grid-template-columns:repeat(3,minmax(0,1fr))}
+.blq--ref .blqc{display:block}
+.blq--ref .blqc__n{display:inline;margin-right:.45em}
+.blq--ref .blqc__t{display:inline}
+.blq--ref .blqc__e{position:absolute;top:clamp(10px,1vw,17px);right:clamp(11px,1.15vw,20px)}
+.blq--ref .blqc__vivo{right:auto;left:clamp(11px,1.15vw,20px)}
+@media (max-width:820px){ .blq--ref{grid-template-columns:minmax(0,1fr)} }
+.retrato{position:relative;background:var(--surface);border-radius:var(--r);overflow:hidden;
+  aspect-ratio:4/5;display:grid;place-items:center}
+.retrato img{width:100%;height:100%;object-fit:cover;grid-area:1/1}
+.retrato img:not([src]){display:none}
+.retrato__falta{grid-area:1/1;align-self:center;color:var(--muted);text-align:center;
+  padding:var(--pad);font-size:clamp(13px,1.1vw,17px);line-height:1.5}
+.retrato img[src] ~ .retrato__falta{display:none}
+
+/* apertura del capítulo: media a la izquierda, contenido a la derecha */
+.apert{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(16px,2vw,38px);align-items:start}
+@media (max-width:900px){ .apert{grid-template-columns:minmax(0,1fr)} }
+.apert__t h1{margin-top:.25em}
+.marcas{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(14px,1.8vw,34px);margin-top:var(--gap)}
+.marcas img{height:clamp(17px,1.7vw,26px);width:auto;opacity:.9}
+
 /* barra de navegacion inferior */
 .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;
   padding:clamp(10px,1.2vw,16px) var(--pad);border-top:1px solid var(--line);background:#fff;flex-wrap:wrap}
@@ -824,43 +856,86 @@ html:fullscreen body{min-height:100vh}
 
 <!-- ============ 2 · video ============ -->
 <section class="scr" data-scr="2">
-  <div class="vid" id="vid">
-    <div id="ytmount"></div>
-    <div class="vid__fb">No se pudo cargar el reproductor.
-      <a id="vidfb" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
-  </div>
-  <div class="reel" id="reel" hidden>
-    <div class="reel__bar" id="reelbar"></div>
-    <div class="reel__ficha">
-      <div class="reel__cab"><b id="reelnum"></b><span class="c" id="reeltime"></span></div>
-      <div class="reel__tit" id="reeltit"></div>
-      <p class="reel__q" id="reelq"></p>
-      <span class="reel__quien" id="reelquien"></span>
-    </div>
-  </div>
-
-  <div class="s2">
+  <div class="apert">
     <div>
+      <div class="vid" id="vid">
+        <div id="ytmount"></div>
+        <div class="vid__fb">No se pudo cargar el reproductor.
+          <a id="vidfb" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
+      </div>
+      <div class="reel" id="reel" hidden>
+        <div class="reel__bar" id="reelbar"></div>
+        <div class="reel__ficha">
+          <div class="reel__cab"><b id="reelnum"></b><span class="c" id="reeltime"></span></div>
+          <div class="reel__tit" id="reeltit"></div>
+          <p class="reel__q" id="reelq"></p>
+          <span class="reel__quien" id="reelquien"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="apert__t">
       <div class="eyebrow">Capítulo 3 · Presupuesto y Propuesta de Tratamiento</div>
-      <h1 style="margin-top:.3em">Cómo pienso un plan de tratamiento</h1>
-      <p class="lead">En este video, un médico referente explica cómo piensa un plan de tratamiento y cómo el equipo puede acompañar ese proceso desde su rol.</p>
-    </div>
+      <h1>Cómo pienso un plan de tratamiento</h1>
+      <p class="opinan">Conocé a nuestros médicos referentes</p>
 
-    <div id="blqzona" hidden>
-      <div class="eyebrow" style="margin-bottom:.8em">Los bloques de este video</div>
-      <div class="blq" id="blq"></div>
-    </div>
+      <div id="blqzona" hidden style="margin-top:var(--gap)">
+        <div class="blq blq--ref" id="blq"></div>
+      </div>
 
-      <div class="idea">
+      <div class="eyebrow" style="margin:var(--gap) 0 .8em">Lo que aprenderás en este capítulo</div>
+      <div class="objs">
+        <div><img data-i="v3_a" alt="">Comprender por qué un tratamiento estético no se piensa como un producto aislado.</div>
+        <div><img data-i="v3_b" alt="">Reconocer la lógica de un plan de tratamiento integral y la combinación de soluciones.</div>
+        <div><img data-i="v3_c" alt="">Entender cómo el equipo puede preparar al paciente para la consulta sin vender ni prescribir.</div>
+      </div>
+
+      <div class="idea" style="margin-top:var(--gap)">
         <div class="idea__t"><img data-i="v3_star" alt="">Idea clave</div>
         <p>Un tratamiento estético nunca es un producto solo. Es un plan que responde a las necesidades de cada paciente.</p>
+      </div>
+
+      <div class="marcas">
+        <img data-i="logo_sculptra" alt="Sculptra">
+        <img data-i="logo_dysport" alt="Dysport">
+        <img data-i="logo_restylane" alt="Restylane">
+        <img data-i="logo_skinboosters" alt="Restylane Skinboosters">
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 3 · ¿qué es un plan de tratamiento? (p29) ============ -->
+<!-- ============ 3 · los videos de los médicos ============ -->
 <section class="scr" data-scr="3">
+  <h1>De presupuesto a propuesta de valor</h1>
+  <p class="opinan">Nuestros médicos opinan</p>
+
+  <div class="med">
+    <div>
+      <div class="vid" id="vid2">
+        <div id="ytmount2"></div>
+        <div class="vid__fb">No se pudo cargar el reproductor.
+          <a id="vidfb2" href="#" target="_blank" rel="noopener">Ver el video en YouTube →</a></div>
+      </div>
+      <div class="reel" id="reel2" hidden>
+        <div class="reel__bar" id="reelbar2"></div>
+        <div class="reel__ficha">
+          <div class="reel__cab"><b id="reelnum2"></b><span class="c" id="reeltime2"></span></div>
+          <div class="reel__tit" id="reeltit2"></div>
+          <p class="reel__q" id="reelq2"></p>
+          <span class="reel__quien" id="reelquien2"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="blqzona2" hidden>
+      <div class="blq" id="blq2"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · ¿qué es un plan de tratamiento? (p29) ============ -->
+<section class="scr" data-scr="4">
   <h1>¿Qué es un plan de tratamiento?</h1>
   <p class="lead">De una respuesta puntual a una propuesta con sentido. Compará los dos enfoques.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -934,8 +1009,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 4 · no es un producto, es un enfoque (p30) ============ -->
-<section class="scr" data-scr="4">
+<!-- ============ 5 · no es un producto, es un enfoque (p30) ============ -->
+<section class="scr" data-scr="5">
   <h1>No es un producto. Es un enfoque.</h1>
   <p class="lead">La combinación permite abordar distintas necesidades en un mismo plan. Tocá cada producto para ver qué hace.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -988,8 +1063,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 5 · frases que abren vs. cierran (p31) ============ -->
-<section class="scr" data-scr="5">
+<!-- ============ 6 · frases que abren vs. cierran (p31) ============ -->
+<section class="scr" data-scr="6">
   <h1>Frases que abren vs. frases que cierran la conversación</h1>
   <p class="lead">Leé la frase que cierra, pensá cómo la dirías vos y después descubrí la versión que abre.</p>
   <div class="vt"><button class="btn btn--ghost btn--todo" type="button" data-todo>Mostrar todo</button></div>
@@ -1032,8 +1107,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 6 · ejercicio 1 · armá el plan (p32) ============ -->
-<section class="scr scr--ex" data-scr="6">
+<!-- ============ 7 · ejercicio 1 · armá el plan (p32) ============ -->
+<section class="scr scr--ex" data-scr="7">
   <p class="exbadge"><i>✎</i>Ejercicio 1 · momento de práctica</p>
   <h1 style="margin-top:.2em">Armá el plan</h1>
   <p class="lead">Seleccioná la opción que podría formar parte del plan que definirá el médico.</p>
@@ -1058,8 +1133,8 @@ html:fullscreen body{min-height:100vh}
   <div class="fb" id="unofb" style="margin-top:var(--gap)"></div>
 </section>
 
-<!-- ============ 7 · ejercicio 2 · ¿esto suma o resta? (p33) ============ -->
-<section class="scr scr--ex" data-scr="7">
+<!-- ============ 8 · ejercicio 2 · ¿esto suma o resta? (p33) ============ -->
+<section class="scr scr--ex" data-scr="8">
   <p class="exbadge"><i>✎</i>Ejercicio 2 · momento de práctica</p>
   <h1 style="margin-top:.2em">¿Esto suma o resta?</h1>
   <p class="lead">Leé cada frase de la asesora y seleccioná si suma valor en la conversación o genera rechazo.</p>
@@ -1067,8 +1142,8 @@ html:fullscreen body{min-height:100vh}
   <div class="vf" id="vf"></div>
 </section>
 
-<!-- ============ 8 · checkpoint (p34) ============ -->
-<section class="scr" data-scr="8">
+<!-- ============ 9 · checkpoint (p34) ============ -->
+<section class="scr" data-scr="9">
   <div style="display:flex;justify-content:space-between;gap:var(--gap);flex-wrap:wrap;align-items:flex-start">
     <div>
       <div class="eyebrow eyebrow--tint">Evaluación final</div>
@@ -1085,8 +1160,8 @@ html:fullscreen body{min-height:100vh}
   </div>
 </section>
 
-<!-- ============ 9 · capítulo completado (p35) ============ -->
-<section class="scr scr--flush" data-scr="9">
+<!-- ============ 10 · capítulo completado (p35) ============ -->
+<section class="scr scr--flush" data-scr="10">
   <div class="cierre">
     <div class="badge">
       <span class="badge__c">&#10003;</span>
@@ -1131,33 +1206,36 @@ html:fullscreen body{min-height:100vh}
   // Clips del capítulo. Varios bloques se reproducen encadenados, como si fueran un solo video.
   // s = duración en segundos (solo sirve para que la barra sea proporcional).
   var VIDEO = {
+    // presentaciones de los médicos
     bloques: [
-      { id:"0ECxTi1-4J4", quien:"Melissa Gaitan Buelvas", tit:"Por qué la medicina estética", q:"¿Por qué elegiste dedicarte a la medicina estética?", s:33 },
-      { id:"LuNj8OmMAVk", quien:"Dr. Gustavo Bressan", tit:"Trayectoria", q:"¿Qué camino te trajo hasta acá?", s:78 },
-      { id:"JmUUaTcnY5E", quien:"Dra. Valeria Bárbaro", tit:"Por qué la medicina estética", q:"¿Qué te motiva de este trabajo?", s:35 },
-      { id:"JGoxfobTzTc", quien:"Dr. Gustavo Bressan", tit:"Cómo llegan los pacientes", q:"¿Con qué expectativa llega el paciente a la consulta?", s:38 },
-      { id:"xzBXQxZCDEg", quien:"Dra. Valeria Bárbaro", tit:"De lo puntual al abordaje integral", q:"¿Por qué un tratamiento no se piensa de a uno?", s:33 },
-      { id:"aTSMd7HuBgg", quien:"Dr. Gustavo Bressan", tit:"Abordaje integral, no vender", q:"¿Cómo se arma un plan sin que suene a venta?", s:60 },
-      { id:"XnYgHHXtUkA", quien:"Dra. Valeria Bárbaro", tit:"Miedo a inyectables y resultados naturales", q:"¿Cómo se trabaja el miedo a quedar artificial?", s:30 },
-      { id:"naumOqoAeg4", quien:"Melissa Gaitan Buelvas", tit:"Cómo educar a tu paciente", q:"¿Cómo se acompaña al paciente para que decida con confianza?", s:50 },
-      { id:"r-zRsCC-GBw", quien:"Dra. Valeria Bárbaro", tit:"Paciente con miedo: empezar de a poco", q:"¿Por dónde se empieza con un paciente inseguro?", s:50 },
-      { id:"G-Vl9K1hENw", quien:"Dr. Gustavo Bressan", tit:"Expectativas y miedos", q:"¿Cómo se trabaja el miedo a un resultado exagerado?", s:43 },
-      { id:"qslEDrcN9j0", quien:"Dra. Valeria Bárbaro", tit:"Resultados no inmediatos", q:"¿Por qué los resultados necesitan tiempo?", s:32 },
-      { id:"WBnlR6lhUP0", quien:"Melissa Gaitan Buelvas", tit:"Expectativa vs. realidad", q:"¿Cómo alinear lo que el paciente espera con lo que el tratamiento logra?", s:60 },
-      { id:"HvFjhnMZcBE", quien:"Dra. Valeria Bárbaro", tit:"Resultado del protocolo completo", q:"¿Qué logra en el paciente un protocolo completo?", s:24 }
+      { id:"JmUUaTcnY5E", quien:"", tit:"Dra. Valeria Bárbaro", q:"Médica dermatóloga", s:35 },
+      { id:"LuNj8OmMAVk", quien:"", tit:"Dr. Gustavo Bressan", q:"Médico clínico y dermatólogo", s:78 },
+      { id:"0ECxTi1-4J4", quien:"", tit:"Dra. Melissa Gaitán Buelvas", q:"Médica especialista en dermocosmética", s:33 }
+    ],
+    // videos de teoría
+    bloques2: [
+      { id:"xzBXQxZCDEg", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “¿quién termina cambiando a quién?”", q:"¿Cómo cambia el paciente con un abordaje integral?", s:33 },
+      { id:"aTSMd7HuBgg", quien:"Dr. Gustavo Bressan", tit:"Comunicación con el paciente", q:"¿Cómo comunicar un enfoque integral sin que suene a venta?", s:60 },
+      { id:"r-zRsCC-GBw", quien:"Dra. Valeria Bárbaro", tit:"En mi consultorio: “la tecnología les da confianza”", q:"¿Cómo ayuda la tecnología a que el paciente gane confianza?", s:50 },
+      { id:"G-Vl9K1hENw", quien:"Dr. Gustavo Bressan", tit:"Expectativas y miedos", q:"¿Cómo trabajar el miedo a un resultado exagerado?", s:43 },
+      { id:"WBnlR6lhUP0", quien:"Dra. Melissa Gaitán Buelvas", tit:"Expectativa vs. realidad", q:"¿Cómo alinear lo que el paciente espera con lo que el tratamiento logra?", s:60 },
+      { id:"qslEDrcN9j0", quien:"Dra. Valeria Bárbaro", tit:"No hay resultados mágicos: “los cambios llevan tiempo”", q:"¿Por qué los resultados necesitan tiempo?", s:32 },
+      { id:"naumOqoAeg4", quien:"Dra. Melissa Gaitán Buelvas", tit:"Cómo educar a tu paciente", q:"¿Cómo educar al paciente para que decida con confianza?", s:50 },
+      { id:"HvFjhnMZcBE", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “te ven mejor, pero no saben por qué”", q:"¿Qué logra en el paciente un protocolo completo?", s:24 }
     ]
   };
 
 
-  var TOTAL = 9, cur = 1;
+  var TOTAL = 10, cur = 1;
 
   // Un solo botón para avanzar, siempre en la barra inferior. Cambia el texto,
   // no el lugar: en la portada invita a empezar, en la 2 a iniciar la lección.
-  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 5: "Comenzar ejercicios →", 8: "Ver mi resultado →", 9: "Ir al Capítulo 4 →" };
+  var ETIQUETA = { 1: "Continuar formación →", 2: "Iniciar lección →", 6: "Comenzar ejercicios →", 9: "Ver mi resultado →", 10: "Ir al Capítulo 4 →" };
 
   var TITULOS = [
     "Portada",
     "Cómo pienso un plan de tratamiento",
+    "Nuestros médicos opinan",
     "¿Qué es un plan de tratamiento?",
     "No es un producto. Es un enfoque.",
     "Frases que abren vs. frases que cierran",
@@ -1490,10 +1568,11 @@ html:fullscreen body{min-height:100vh}
 
 
   // ====== reproductor en cadena ======
-  (function () {
-    var lista = (VIDEO && VIDEO.bloques || []).filter(function (b) { return b && b.id; });
-    var caja = document.getElementById("vid");
-    var monte = document.getElementById("ytmount");
+  function montarReproductor(sufijo, bloques, rotulo) {
+    rotulo = rotulo || "Bloque";
+    var lista = (bloques || []).filter(function (b) { return b && b.id; });
+    var caja = document.getElementById("vid" + sufijo);
+    var monte = document.getElementById("ytmount" + sufijo);
     if (!caja || !monte) return;
     if (!lista.length) {   // el capítulo todavía no tiene el link cargado
       caja.classList.add("falla");
@@ -1503,12 +1582,12 @@ html:fullscreen body{min-height:100vh}
       return;
     }
 
-    var reel = document.getElementById("reel");
-    var barra = document.getElementById("reelbar");
-    var elNum = document.getElementById("reelnum");
-    var elTit = document.getElementById("reeltit");
-    var elTime = document.getElementById("reeltime");
-    var fb = document.getElementById("vidfb");
+    var reel = document.getElementById("reel" + sufijo);
+    var barra = document.getElementById("reelbar" + sufijo);
+    var elNum = document.getElementById("reelnum" + sufijo);
+    var elTit = document.getElementById("reeltit" + sufijo);
+    var elTime = document.getElementById("reeltime" + sufijo);
+    var fb = document.getElementById("vidfb" + sufijo);
     if (fb) fb.href = "https://youtu.be/" + lista[0].id;
 
     var varios = lista.length > 1;
@@ -1543,10 +1622,10 @@ html:fullscreen body{min-height:100vh}
 
 
     // ---- guía de bloques: una tarjeta por video, la que suena se marca ----
-    var grilla = document.getElementById("blq");
+    var grilla = document.getElementById("blq" + sufijo);
     var tarjetas = [];
     if (grilla && varios) {
-      var zona = document.getElementById("blqzona");
+      var zona = document.getElementById("blqzona" + sufijo);
       if (zona) zona.hidden = false;
       lista.forEach(function (b, i) {
         var c = document.createElement("button");
@@ -1588,10 +1667,10 @@ html:fullscreen body{min-height:100vh}
       segs.forEach(function (i, n) {
         i.style.width = n < act ? "100%" : n > act ? "0%" : (prog * 100) + "%";
       });
-      elNum.textContent = "Bloque " + (act + 1) + " de " + lista.length;
+      elNum.textContent = rotulo + " " + (act + 1) + " de " + lista.length;
       elTit.textContent = lista[act].tit || lista[act].t;
-      var elQ = document.getElementById("reelq");
-      var elQuien = document.getElementById("reelquien");
+      var elQ = document.getElementById("reelq" + sufijo);
+      var elQuien = document.getElementById("reelquien" + sufijo);
       if (elQ) { elQ.textContent = lista[act].q || ""; elQ.hidden = !lista[act].q; }
       if (elQuien) { elQuien.textContent = lista[act].quien || ""; elQuien.hidden = !lista[act].quien; }
       marcar();
@@ -1657,7 +1736,10 @@ html:fullscreen body{min-height:100vh}
       document.head.appendChild(sc);
     }
     setTimeout(function () { if (!pl) caer(); }, 8000);   // la API no llegó
-  })();
+  }
+
+  montarReproductor("", VIDEO.bloques, "Presentación");
+  montarReproductor("2", VIDEO.bloques2);
 
   render();
 })();
