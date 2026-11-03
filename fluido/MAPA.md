@@ -4,15 +4,23 @@
 
 ## Cómo elige el estado
 
-Por la URL:
+Por la URL. `cap` dice en qué momento del curso está el alumno y `modo` dice
+cómo se enciende el mapa.
 
 | Dónde va | src | Qué se ve |
 |---|---|---|
 | Portada del curso | `mapa.html` | Los seis a color |
-| Capítulo 1 | `mapa.html?cap=1` | Solo el 01 a color |
-| Capítulo 2 | `mapa.html?cap=2` | 01 y 02 a color |
+| Al terminar el capítulo 1 | `mapa.html?cap=1` | Solo el 01 a color |
+| Al terminar el capítulo 3 | `mapa.html?cap=3` | Solo el 03 a color |
 | … | … | … |
-| Capítulo 6 | `mapa.html?cap=6` | Los seis a color |
+
+Con `&modo=acum` el mapa acumula en vez de mostrar uno solo:
+`mapa.html?cap=3&modo=acum` deja a color el 01, el 02 y el 03.
+
+**Las dos maneras están hechas y hay que elegir una.** "Solo el terminado" es
+lo último que pidió Lore; "acumulativo" es como están armadas las láminas del
+Canva y lo que se había definido antes. Se cambia con una palabra en el src,
+no hay que tocar nada más.
 
 ## Dos maneras de verlo
 
@@ -29,12 +37,21 @@ ancho. La página nunca queda vacía.
 
 ## Las láminas
 
-Ya están exportadas del Canva y viven en `fluido/`, al lado de `mapa.html`.
-Son 1920x1080, JPEG de calidad 86, unos 230 KB cada una (en PNG pesaban
-1,4 MB). Se suben tal cual, junto a `mapa.html`.
+Viven en `fluido/`, al lado de `mapa.html`. Son 1920x1080, JPEG de calidad 86,
+unos 230 KB cada una (en PNG pesaban 1,4 MB). Se suben tal cual.
 
-Si Julieth vuelve a tocar el Canva: Compartir → Descargar → PNG, tamaño
-**2x**, las 7 páginas. Vienen numeradas 1 a 7. Renombrar así:
+Son trece:
+
+- `mapa-inicio.jpg` — los seis a color, la portada del curso.
+- `mapa-1.jpg` … `mapa-6.jpg` — modo acumulativo, exportadas del Canva.
+- `mapa-solo-1.jpg` … `mapa-solo-6.jpg` — modo "solo el terminado".
+
+Las seis del modo "solo" no salieron del Canva: se armaron a partir de las
+siete originales con `scripts/laminas-solo.py`. Si Julieth retoca el Canva hay
+que volver a exportar las siete y correr ese script de nuevo.
+
+Para volver a exportar: Canva → Compartir → Descargar → PNG, tamaño **2x**,
+las 7 páginas. Vienen numeradas 1 a 7. Renombrar así:
 
 | Página del Canva | Archivo |
 |---|---|

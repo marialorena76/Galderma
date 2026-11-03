@@ -32,12 +32,18 @@
   LOS SRC DE CADA LECCIÓN
   ============================================================
   Portada del curso   .../academia/mapa.html
-  Capítulo 1          .../academia/mapa.html?cap=1
-  Capítulo 2          .../academia/mapa.html?cap=2
-  Capítulo 3          .../academia/mapa.html?cap=3
-  Capítulo 4          .../academia/mapa.html?cap=4
-  Capítulo 5          .../academia/mapa.html?cap=5
-  Capítulo 6          .../academia/mapa.html?cap=6
+  Termino el cap 1    .../academia/mapa.html?cap=1
+  Termino el cap 2    .../academia/mapa.html?cap=2
+  Termino el cap 3    .../academia/mapa.html?cap=3
+  Termino el cap 4    .../academia/mapa.html?cap=4
+  Termino el cap 5    .../academia/mapa.html?cap=5
+  Termino el cap 6    .../academia/mapa.html?cap=6
+
+  Asi como esta, el mapa muestra a color SOLO el capitulo recien terminado.
+  Agregandole &modo=acum queda a color del 1 al N, que es como estan armadas
+  las laminas originales del Canva:
+
+      .../academia/mapa.html?cap=3&modo=acum
 
   ============================================================
   LAS SIETE LÁMINAS DEL CANVA  —  ya exportadas
@@ -45,13 +51,20 @@
   El mapa dibujado es el arte de Julieth, no una maqueta. Hay una imagen
   por estado y van al lado de mapa.html, en la misma carpeta:
 
-    mapa-inicio.jpg   los seis a color   (página 1 del Canva)
-    mapa-1.jpg        solo el 01         (página 2)
-    mapa-2.jpg        01 y 02            (página 3)
-    mapa-3.jpg        01 a 03            (página 4)
-    mapa-4.jpg        01 a 04            (página 5)
-    mapa-5.jpg        01 a 05            (página 6)
-    mapa-6.jpg        los seis a color   (página 7)
+    mapa-inicio.jpg      los seis a color   (página 1 del Canva)
+    mapa-1.jpg           01                 (página 2)
+    mapa-2.jpg           01 y 02            (página 3)
+    mapa-3.jpg           01 a 03            (página 4)
+    mapa-4.jpg           01 a 04            (página 5)
+    mapa-5.jpg           01 a 05            (página 6)
+    mapa-6.jpg           los seis a color   (página 7)
+
+    mapa-solo-1.jpg      solo el 01    \
+    mapa-solo-2.jpg      solo el 02     |  armadas a partir de las siete de
+    mapa-solo-3.jpg      solo el 03     |  arriba, no salen del Canva
+    mapa-solo-4.jpg      solo el 04     |  (scripts/laminas-solo.py)
+    mapa-solo-5.jpg      solo el 05     |
+    mapa-solo-6.jpg      solo el 06    /
 
   Son 1920x1080, unos 230 KB cada una. La página baja solo la que necesita,
   y en celular ninguna: ahí muestra las seis fichas en grilla, porque una
