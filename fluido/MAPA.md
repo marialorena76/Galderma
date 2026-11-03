@@ -27,29 +27,40 @@ los rótulos ilegibles.
 Si las láminas todavía no están subidas, la grilla aparece en cualquier
 ancho. La página nunca queda vacía.
 
-## Exportar las láminas del Canva
+## Las láminas
 
-Canva → Compartir → Descargar → PNG, tamaño **2x**, las 7 páginas.
-Vienen numeradas 1 a 7. Renombrar así antes de subirlas:
+Ya están exportadas del Canva y viven en `fluido/`, al lado de `mapa.html`.
+Son 1920x1080, JPEG de calidad 86, unos 230 KB cada una (en PNG pesaban
+1,4 MB). Se suben tal cual, junto a `mapa.html`.
+
+Si Julieth vuelve a tocar el Canva: Compartir → Descargar → PNG, tamaño
+**2x**, las 7 páginas. Vienen numeradas 1 a 7. Renombrar así:
 
 | Página del Canva | Archivo |
 |---|---|
-| 1 (todo a color) | `mapa-inicio.png` |
-| 2 (solo 01) | `mapa-1.png` |
-| 3 (01 y 02) | `mapa-2.png` |
-| 4 (01 a 03) | `mapa-3.png` |
-| 5 (01 a 04) | `mapa-4.png` |
-| 6 (01 a 05) | `mapa-5.png` |
-| 7 (los seis) | `mapa-6.png` |
+| 1 (todo a color) | `mapa-inicio.jpg` |
+| 2 (solo 01) | `mapa-1.jpg` |
+| 3 (01 y 02) | `mapa-2.jpg` |
+| 4 (01 a 03) | `mapa-3.jpg` |
+| 5 (01 a 04) | `mapa-4.jpg` |
+| 6 (01 a 05) | `mapa-5.jpg` |
+| 7 (los seis) | `mapa-6.jpg` |
 
-**La página 1 no es `mapa-1.png`.** Es `mapa-inicio.png`. El corrimiento es
-porque hay siete estados para seis capítulos.
+**La página 1 no es `mapa-1`.** Es `mapa-inicio`. El corrimiento es porque
+hay siete estados para seis capítulos.
 
-Sirve `.jpg` con el mismo nombre si pesan mucho en PNG.
+Para pasar los PNG del Canva a JPEG:
+
+```
+convert 1.png -background white -flatten -quality 86 -strip mapa-inicio.jpg
+```
+
+La página busca primero `.jpg` y después `.png`, así que cualquiera de los
+dos sirve.
 
 Van a `/wp-content/uploads/academia/`, junto a `mapa.html`.
 
 ## Recompilar
 
 `node build.js mapa` toma `mapa-fluido.tpl.html` y escribe `mapa.html`.
-Las láminas no entran ahí: se suben aparte.
+Las láminas no se embeben ahí: son archivos sueltos y se suben aparte.

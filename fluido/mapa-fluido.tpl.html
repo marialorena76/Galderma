@@ -228,20 +228,29 @@ body.sin-lamina .tarjetas{display:block}
         : "Seguí avanzando: los capítulos que te faltan se encienden a medida que los hacés.");
 
   // ---- la lámina: una imagen por estado, al lado de este archivo ----
-  //   mapa-inicio.png  los seis a color  (página 1 del Canva)
-  //   mapa-1.png .. mapa-6.png           (páginas 2 a 7 del Canva)
-  // Sirve .png o .jpg, lo que esté subido. Si no hay ninguna, la página se
+  //   mapa-inicio.jpg  los seis a color  (página 1 del Canva)
+  //   mapa-1.jpg .. mapa-6.jpg           (páginas 2 a 7 del Canva)
+  // Sirve .jpg o .png, lo que esté subido. Si no hay ninguna, la página se
   // queda con las fichas y no se rompe nada.
   var img = document.getElementById("laminaImg");
   var nombre = inicio ? "mapa-inicio" : "mapa-" + cap;
-  var intentos = [nombre + ".png", nombre + ".jpg"], cual = 0;
+  var intentos = [nombre + ".jpg", nombre + ".png"], cual = 0;
   img.onerror = function () {
     cual++;
     if (cual < intentos.length) { img.src = intentos[cual]; return; }
     document.body.classList.add("sin-lamina");
     ajustar();
   };
-  img.src = intentos[0];
+  // En celular se muestran las fichas, así que la lámina ni se baja: son
+  // 230 KB que no se verían. Si la ventana se ensancha, ahí sí se pide.
+  var ancha = window.matchMedia("(min-width: 861px)");
+  function pedirLamina() {
+    if (img.getAttribute("src") || !ancha.matches) return;
+    img.src = intentos[0];
+  }
+  pedirLamina();
+  if (ancha.addEventListener) ancha.addEventListener("change", pedirLamina);
+  else if (ancha.addListener) ancha.addListener(pedirLamina);
   document.getElementById("laminaPie").textContent = textoPie;
 
   // ---- las fichas ----
