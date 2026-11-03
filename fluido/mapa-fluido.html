@@ -219,12 +219,6 @@ body.sin-lamina .tarjetas{display:block}
   var cap = parseInt((location.search.match(/[?&]cap=(\d+)/) || [])[1], 10);
   if (!(cap >= 0 && cap <= 6)) cap = 0;
   var inicio = cap === 0;
-  // Dos maneras de leer el recorrido, se elige con ?modo=
-  //   solo  (por defecto) el capitulo recien terminado a color y el resto en gris
-  //   acum                del 1 al N a color, que es como estan armadas las
-  //                       laminas originales del Canva
-  var acumula = /[?&]modo=acum/.test(location.search);
-  var desde = (inicio || acumula) ? 1 : cap;
   var hasta = inicio ? 6 : cap;
 
   var textoPie = inicio
@@ -236,11 +230,11 @@ body.sin-lamina .tarjetas{display:block}
   // ---- la lámina: una imagen por estado, al lado de este archivo ----
   //   mapa-inicio.jpg  los seis a color  (página 1 del Canva)
   //   mapa-1.jpg .. mapa-6.jpg           (páginas 2 a 7 del Canva)
+  // El mapa acumula: al terminar el capítulo N quedan a color del 1 al N.
   // Sirve .jpg o .png, lo que esté subido. Si no hay ninguna, la página se
   // queda con las fichas y no se rompe nada.
   var img = document.getElementById("laminaImg");
-  var nombre = inicio ? "mapa-inicio"
-             : (acumula ? "mapa-" + cap : "mapa-solo-" + cap);
+  var nombre = inicio ? "mapa-inicio" : "mapa-" + cap;
   var intentos = [nombre + ".jpg", nombre + ".png"], cual = 0;
   img.onerror = function () {
     cual++;
@@ -271,19 +265,18 @@ body.sin-lamina .tarjetas{display:block}
   document.getElementById("pie").textContent = textoPie;
 
   function encender(i) {
-    if (i < desde || i > hasta) return;
+    if (i > hasta) return;
     var p = pasos[i - 1];
     p.classList.add("on");
     if (!inicio && i === cap) p.classList.add("aqui");
+    if (barra[i - 1]) barra[i - 1].classList.add("lleno");
   }
-  // la barra marca lo recorrido aunque el mapa muestre un solo capitulo
-  for (var k = 1; k <= hasta; k++) if (barra[k - 1]) barra[k - 1].classList.add("lleno");
 
   if (quieto) {
-    for (var i = desde; i <= hasta; i++) encender(i);
+    for (var i = 1; i <= hasta; i++) encender(i);
   } else {
     // se van iluminando de a uno, en orden
-    var n = desde - 1;
+    var n = 0;
     (function paso() {
       if (n >= hasta) return;
       n++; encender(n);

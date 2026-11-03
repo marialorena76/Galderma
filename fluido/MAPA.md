@@ -4,23 +4,16 @@
 
 ## Cómo elige el estado
 
-Por la URL. `cap` dice en qué momento del curso está el alumno y `modo` dice
-cómo se enciende el mapa.
+Por la URL. El mapa **acumula**: al terminar el capítulo N quedan a color del
+1 al N.
 
 | Dónde va | src | Qué se ve |
 |---|---|---|
 | Portada del curso | `mapa.html` | Los seis a color |
-| Al terminar el capítulo 1 | `mapa.html?cap=1` | Solo el 01 a color |
-| Al terminar el capítulo 3 | `mapa.html?cap=3` | Solo el 03 a color |
+| Al terminar el capítulo 1 | `mapa.html?cap=1` | El 01 a color |
+| Al terminar el capítulo 3 | `mapa.html?cap=3` | 01, 02 y 03 a color |
 | … | … | … |
-
-Con `&modo=acum` el mapa acumula en vez de mostrar uno solo:
-`mapa.html?cap=3&modo=acum` deja a color el 01, el 02 y el 03.
-
-**Las dos maneras están hechas y hay que elegir una.** "Solo el terminado" es
-lo último que pidió Lore; "acumulativo" es como están armadas las láminas del
-Canva y lo que se había definido antes. Se cambia con una palabra en el src,
-no hay que tocar nada más.
+| Al terminar el capítulo 6 | `mapa.html?cap=6` | Los seis a color |
 
 ## Dos maneras de verlo
 
@@ -40,15 +33,17 @@ ancho. La página nunca queda vacía.
 Viven en `fluido/`, al lado de `mapa.html`. Son 1920x1080, JPEG de calidad 86,
 unos 230 KB cada una (en PNG pesaban 1,4 MB). Se suben tal cual.
 
-Son trece:
+Son siete: `mapa-inicio.jpg` y `mapa-1.jpg` … `mapa-6.jpg`, las siete páginas
+del Canva.
 
-- `mapa-inicio.jpg` — los seis a color, la portada del curso.
-- `mapa-1.jpg` … `mapa-6.jpg` — modo acumulativo, exportadas del Canva.
-- `mapa-solo-1.jpg` … `mapa-solo-6.jpg` — modo "solo el terminado".
+### Si alguna vez se quiere el otro criterio
 
-Las seis del modo "solo" no salieron del Canva: se armaron a partir de las
-siete originales con `scripts/laminas-solo.py`. Si Julieth retoca el Canva hay
-que volver a exportar las siete y correr ese script de nuevo.
+Se evaluó mostrar a color **solo** el capítulo recién terminado, con el resto
+en gris. Se descartó: el Canva está armado acumulativo y así se había
+definido. Pero las seis láminas de ese criterio se pueden regenerar sin
+molestar a Julieth, con `scripts/laminas-solo.py` parado en `fluido/`. Escribe
+`mapa-solo-1.jpg` … `mapa-solo-6.jpg` a partir de las siete originales.
+Habría que volver a enganchar esos nombres en `mapa-fluido.tpl.html`.
 
 Para volver a exportar: Canva → Compartir → Descargar → PNG, tamaño **2x**,
 las 7 páginas. Vienen numeradas 1 a 7. Renombrar así:
