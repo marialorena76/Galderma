@@ -76,3 +76,17 @@ Van a `/wp-content/uploads/academia/`, junto a `mapa.html`.
 
 `node build.js mapa` toma `mapa-fluido.tpl.html` y escribe `mapa.html`.
 Las láminas no se embeben ahí: son archivos sueltos y se suben aparte.
+
+## Al subir: no anidar la carpeta
+
+`galderma-para-subir.zip` trae `academia/` adentro. Si se descomprime *dentro*
+de `wp-content/uploads/academia/`, queda `uploads/academia/academia/` y todos
+los iframes dan 404, porque apuntan a `uploads/academia/capituloN.html`.
+
+En la ruta tiene que haber **una sola** `academia`.
+
+- Descomprimir el paquete completo en `wp-content/uploads/` → correcto.
+- Descomprimir dentro de `uploads/academia/` → usar `academia-contenido.zip`,
+  que trae los 14 archivos sueltos, sin carpeta.
+
+Los dos los arma `fluido/scripts/paquete.sh`.
