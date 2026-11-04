@@ -424,7 +424,13 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .tip[hidden]{display:none}
 
 html:fullscreen{background:#fff;overflow:auto}
-html:fullscreen body{min-height:100vh}
+/* En pantalla completa el body se estiraba a 100vh pero el contenido no,
+   asi que quedaba una franja blanca debajo de la barra. Ahora la pantalla
+   activa crece, la barra se va al fondo y la portada ocupa lo que sobra. */
+html:fullscreen body{min-height:100vh;display:flex;flex-direction:column}
+html:fullscreen .scr.on{flex:1 0 auto;min-height:0}
+html:fullscreen .scr--flush.on{display:flex;flex-direction:column}
+html:fullscreen .scr--flush.on .hero{flex:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* ===== capítulo 2 ===== */
 /* p16 · una objeción no es un no */
@@ -479,8 +485,8 @@ html:fullscreen body{min-height:100vh}
 .vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
 @media (max-width:900px){ .vs{grid-template-columns:minmax(0,1fr);gap:var(--gap)} .vs__b{border-left:0 !important} }
 .vs__a,.vs__b{padding:clamp(18px,2vw,38px);border-radius:var(--r)}
-.vs__a{background:var(--surface)}
-.vs__b{background:var(--tint-soft);border-left:3px solid #fff}
+.vs__a{background:var(--tint-soft)}
+.vs__b{background:var(--surface);border-left:3px solid #fff}
 .vs__h{display:flex;align-items:center;gap:clamp(10px,1.2vw,22px);margin-bottom:clamp(14px,1.6vw,28px)}
 .vs__h img{width:clamp(44px,4.4vw,74px);background:#fff;border-radius:50%;padding:clamp(5px,.6vw,10px)}
 .vs__h span{letter-spacing:.01em;font-weight:600;font-size:clamp(14px,1.4vw,23px)}

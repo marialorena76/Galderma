@@ -424,7 +424,13 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .tip[hidden]{display:none}
 
 html:fullscreen{background:#fff;overflow:auto}
-html:fullscreen body{min-height:100vh}
+/* En pantalla completa el body se estiraba a 100vh pero el contenido no,
+   asi que quedaba una franja blanca debajo de la barra. Ahora la pantalla
+   activa crece, la barra se va al fondo y la portada ocupa lo que sobra. */
+html:fullscreen body{min-height:100vh;display:flex;flex-direction:column}
+html:fullscreen .scr.on{flex:1 0 auto;min-height:0}
+html:fullscreen .scr--flush.on{display:flex;flex-direction:column}
+html:fullscreen .scr--flush.on .hero{flex:1}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 /* ===== capítulo 2 ===== */
 /* p16 · una objeción no es un no */
