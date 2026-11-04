@@ -1144,6 +1144,32 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   }
   document.addEventListener("click", function () { setTimeout(revisarPuerta, 0); });
 
+  // Las preguntas del checkpoint tienen enunciados de largo distinto: sin esto,
+  // las cajas de respuesta de cada columna arrancan a distinta altura.
+  // Se igualan por fila, asi en celular (una sola columna) no sobra aire.
+  function igualarPreg() {
+    var ts = [].slice.call(document.querySelectorAll(".scr.on .q__t"));
+    ts.forEach(function (t) { t.style.minHeight = ""; });
+    if (ts.length < 2) return;
+    var filas = {};
+    ts.forEach(function (t) {
+      var c = t.closest(".qcard") || t.parentNode;
+      var y = Math.round(c.getBoundingClientRect().top);
+      (filas[y] = filas[y] || []).push(t);
+    });
+    Object.keys(filas).forEach(function (y) {
+      var g = filas[y];
+      if (g.length < 2) return;
+      var alto = 0;
+      g.forEach(function (t) { alto = Math.max(alto, t.getBoundingClientRect().height); });
+      g.forEach(function (t) { t.style.minHeight = alto + "px"; });
+    });
+  }
+  var tReloj;
+  window.addEventListener("resize", function () {
+    clearTimeout(tReloj); tReloj = setTimeout(igualarPreg, 120);
+  });
+
   function render() {
     scrs.forEach(function (s) { s.classList.toggle("on", +s.dataset.scr === cur); });
     bar.style.width = (cur / TOTAL * 100) + "%";
@@ -1159,6 +1185,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
     nextB.hidden = (cur === TOTAL && !CFG.siguienteUrl && !CFG.quizUrl);
     revisarPuerta();
     pintarIdx();
+    igualarPreg();
     window.scrollTo({ top: 0, behavior: "smooth" });
     post();
   }
