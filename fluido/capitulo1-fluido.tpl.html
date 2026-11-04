@@ -196,6 +196,7 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 /* ---- P4 canales ---- */
 .chans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
 .chan__h{display:flex;align-items:center;gap:clamp(8px,.9vw,14px);margin-bottom:.7em}
+.chan__h h3{margin:0}
 .chan__h img{width:clamp(30px,2.9vw,46px);flex:none}
 .chan__n{width:clamp(20px,1.9vw,30px);aspect-ratio:1;border-radius:50%;background:var(--tint-soft);color:var(--tint);flex:none;
   color:var(--muted);display:grid;place-items:center;font-size:clamp(10px,.9vw,14px);font-weight:600;margin-left:auto;flex:none}
@@ -505,7 +506,7 @@ html:fullscreen body{min-height:100vh}
 .tick i{display:inline-grid;place-items:center;width:clamp(18px,1.7vw,26px);aspect-ratio:1;border-radius:5px;
   border:1.5px solid var(--line);color:transparent;font-size:clamp(11px,1vw,15px);flex:none;transition:.15s}
 .tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
-.tick.hecho{color:var(--muted)}
+.tick.hecho{color:var(--ink);font-weight:600}
 
 </style>
 </head>
@@ -638,25 +639,25 @@ html:fullscreen body{min-height:100vh}
     <div class="stack">
       <div class="chans">
         <div class="chan">
-          <h3>WhatsApp / DM</h3>
+          <div class="chan__h"><img data-i="ch_whatsapp" alt=""><h3>WhatsApp / DM</h3></div>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 1 hora, en horario de atención. Ideal contar con agente IA.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cercano, rápido, claro. Sin formalismos.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> responder solo el precio sin conectar con la persona.</p></div>
         </div>
         <div class="chan">
-          <h3>Llamada telefónica</h3>
+          <div class="chan__h"><img data-i="ch_phone" alt=""><h3>Llamada telefónica</h3></div>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> inmediato, o devolver la llamada en el día.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> cálido, profesional, con escucha activa.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> hablar más de los tratamientos que de las necesidades del paciente.</p></div>
         </div>
         <div class="chan">
-          <h3>Email / Web</h3>
+          <div class="chan__h"><img data-i="ch_email" alt=""><h3>Email / Web</h3></div>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 24 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> formal pero amigable. Personalizado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> mandar una respuesta genérica con precios sin preguntar qué busca.</p></div>
         </div>
         <div class="chan">
-          <h3>RRSS (comentario / story reply)</h3>
+          <div class="chan__h"><img data-i="ch_instagram" alt=""><h3>RRSS (comentario / story reply)</h3></div>
           <div class="chan__f"><img data-i="mini_clock" alt=""><p><b>Tiempo ideal:</b> menos de 2 horas.</p></div>
           <div class="chan__f"><img data-i="mini_chat" alt=""><p><b>Tono:</b> breve, empático, con invitación a continuar en privado.</p></div>
           <div class="chan__f"><img data-i="mini_warn" alt=""><p><b>Error frecuente:</b> no responder, o responder solo con un emoji.</p></div>

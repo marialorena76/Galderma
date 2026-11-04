@@ -479,7 +479,7 @@ html:fullscreen body{min-height:100vh}
 .vs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
 @media (max-width:900px){ .vs{grid-template-columns:minmax(0,1fr);gap:var(--gap)} .vs__b{border-left:0 !important} }
 .vs__a,.vs__b{padding:clamp(18px,2vw,38px);border-radius:var(--r)}
-.vs__a{background:var(--tint-soft)}
+.vs__a{background:var(--surface)}
 .vs__b{background:var(--tint-soft);border-left:3px solid #fff}
 .vs__h{display:flex;align-items:center;gap:clamp(10px,1.2vw,22px);margin-bottom:clamp(14px,1.6vw,28px)}
 .vs__h img{width:clamp(44px,4.4vw,74px);background:#fff;border-radius:50%;padding:clamp(5px,.6vw,10px)}
@@ -534,7 +534,7 @@ html:fullscreen body{min-height:100vh}
 .caso3 p{margin:.2em 0 1.05em;font-size:clamp(13px,1.08vw,16.5px);line-height:1.5}
 .caso3 .eyebrow{font-size:clamp(10px,.82vw,12.5px)}
 .caso3__r{display:block;width:clamp(22px,2.2vw,36px);height:2px;background:var(--tint);margin-bottom:clamp(10px,1.2vw,20px)}
-.caso3__no{color:#C0622B}
+.caso3__no{color:var(--bad)}
 .ex1h{display:flex;align-items:center;gap:clamp(10px,1.2vw,20px);margin-bottom:clamp(12px,1.3vw,22px)}
 .ex1h img{width:clamp(38px,3.6vw,60px);background:var(--surface);border-radius:50%;padding:clamp(7px,.8vw,13px);flex:none}
 .ex1h b{display:block;font-size:clamp(14.5px,1.3vw,21px)}
@@ -616,7 +616,7 @@ html:fullscreen body{min-height:100vh}
 .tick i{display:inline-grid;place-items:center;width:clamp(18px,1.7vw,26px);aspect-ratio:1;border-radius:5px;
   border:1.5px solid var(--line);color:transparent;font-size:clamp(11px,1vw,15px);flex:none;transition:.15s}
 .tick.hecho i{background:var(--tint);border-color:var(--tint);color:#fff}
-.tick.hecho{color:var(--muted)}
+.tick.hecho{color:var(--ink);font-weight:600}
 
 /* --- cap 2 · interacciones --- */
 .pairv{background:#fff;border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.08);
@@ -640,8 +640,8 @@ html:fullscreen body{min-height:100vh}
 .caso1__b{background:var(--surface);border-radius:12px;padding:clamp(12px,1.3vw,22px)}
 .caso1__b+.caso1__b{margin-top:clamp(9px,1vw,16px)}
 .caso1__b p{margin:.3em 0 0;font-size:clamp(13px,1.12vw,17.5px);line-height:1.45}
-.caso1__b--no{background:#FBF1EC}
-.caso1__b--no .eyebrow{color:#C0622B}
+.caso1__b--no{background:var(--bad-soft)}
+.caso1__b--no .eyebrow{color:var(--bad)}
 .caso1__r{background:#fff;border:1px dashed var(--tint);border-radius:var(--r);
   padding:clamp(14px,1.5vw,26px)}
 .caso1__r.abierto,.scr.todo .caso1__r{border-style:solid;background:var(--tint-soft)}
@@ -718,7 +718,7 @@ html:fullscreen body{min-height:100vh}
         </div>
       </div>
       <div class="idea">
-        <div class="idea__t"><img data-i="o_lamp" alt="">Idea clave</div>
+        <div class="idea__t"><img data-i="p2_star" alt="">Idea clave</div>
         <p>Vos no respondés por el médico. Hacés que el paciente sienta que está en el lugar correcto.</p>
       </div>
     </div>
