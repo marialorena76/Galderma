@@ -1400,7 +1400,19 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   });
   function finalizar() {
     var destino = CFG.siguienteUrl || CFG.quizUrl;
-    if (destino) window.top.location.href = destino;   // sale del iframe, no navega adentro
+    // La leccion de LearnDash escucha "gdFin": marca el capitulo como completado
+    // y lleva al mapa del curso. Contesta con "gdAck". Si nadie contesta (el
+    // capitulo abierto suelto, o fuera de la plataforma), navegamos nosotros.
+    var contesto = false;
+    function oir(e) { if (e.data && e.data.gdAck === CFG.id) contesto = true; }
+    window.addEventListener("message", oir);
+    try {
+      window.parent.postMessage({ gdFin: true, gdId: CFG.id, destino: destino }, "*");
+    } catch (x) {}
+    setTimeout(function () {
+      window.removeEventListener("message", oir);
+      if (!contesto && destino) window.top.location.href = destino;
+    }, 1200);
   }
 
   // pantalla completa: en la columna angosta de la lección es la forma de ver el layout de escritorio
