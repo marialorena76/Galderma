@@ -663,9 +663,9 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 
 /* ===== capítulo 4 ===== */
 /* medallones llenos (los del Canva van con el círculo pintado) */
-.med{width:clamp(34px,3.2vw,54px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+.medal{width:clamp(34px,3.2vw,54px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   font-size:clamp(16px,1.6vw,27px);line-height:1;flex:none;color:#fff;background:var(--tint)}
-.med--soft{background:#C87BA4}
+.medal--soft{background:#C87BA4}
 .fr--no q.pill{background:#4A4A4A}
 
 /* p40 · reforzar la decisión */
@@ -703,9 +703,9 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   min-height:clamp(74px,7.4vw,122px)}
 .protc__f--no{background:var(--bad-soft);color:var(--ink)}
 .protc__f--si{background:var(--tint-soft);color:var(--ink)}
-.protc__f .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px);background:transparent;
+.protc__f .medal{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px);background:transparent;
   border:2px solid var(--bad);color:var(--bad)}
-.protc__f--si .med{border-color:var(--tint);color:var(--tint);font-size:clamp(15px,1.5vw,24px)}
+.protc__f--si .medal{border-color:var(--tint);color:var(--tint);font-size:clamp(15px,1.5vw,24px)}
 .protf{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:clamp(18px,2vw,32px)}
 @media (max-width:1000px){ .protf{display:none} }
 
@@ -793,12 +793,12 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 .frev__no{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:clamp(12px,1.3vw,22px);
   font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
   grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
-.frev__no .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
+.frev__no .medal{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
 .frev .rev__cara{margin-top:clamp(9px,1vw,16px)}
 .frev__si{background:var(--tint-soft);border-radius:12px;padding:clamp(12px,1.3vw,22px);
   font-size:clamp(13px,1.12vw,17.5px);line-height:1.5;display:grid;
   grid-template-columns:auto minmax(0,1fr);gap:clamp(10px,1.1vw,18px);align-items:center}
-.frev__si .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
+.frev__si .medal{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px)}
 .frev__r{display:block;color:var(--tint);letter-spacing:.06em;font-weight:600;
   font-size:clamp(11px,.95vw,14.5px);margin-bottom:.45em}
 .frev__cab{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(10px,1.1vw,18px);
@@ -902,43 +902,43 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 
   <div style="margin-top:var(--gap)">
     <div class="frev__cab">
-      <div><span class="med med--soft">✕</span>Qué no decir / no hacer</div>
-      <div><span class="med">✓</span>Qué sí decir</div>
+      <div><span class="medal medal--soft">✕</span>Qué no decir / no hacer</div>
+      <div><span class="medal">✓</span>Qué sí decir</div>
     </div>
 
     <div class="frev rev">
-      <div class="frev__no"><span class="med med--soft">✕</span>
+      <div class="frev__no"><span class="medal medal--soft">✕</span>
         <span>Comentar sobre cómo va quedando durante el tratamiento.</span></div>
       <button class="rev__cara" type="button"></button>
-      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+      <div class="rev__dorso"><div class="frev__si"><span class="medal">✓</span>
         <span><span class="frev__r">En su lugar</span>‘El procedimiento dura aproximadamente [X] minutos.’</span></div></div>
     </div>
     <div class="frev rev">
-      <div class="frev__no"><span class="med med--soft">✕</span>
+      <div class="frev__no"><span class="medal medal--soft">✕</span>
         <span>‘Ay, te va a doler un poco, preparate.’</span></div>
       <button class="rev__cara" type="button"></button>
-      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+      <div class="rev__dorso"><div class="frev__si"><span class="medal">✓</span>
         <span><span class="frev__r">En su lugar</span>‘Es normal sentir un leve pinchazo, el médico te va a avisar.’</span></div></div>
     </div>
     <div class="frev rev">
-      <div class="frev__no"><span class="med med--soft">✕</span>
+      <div class="frev__no"><span class="medal medal--soft">✕</span>
         <span>Hablar de casos de otros pacientes (real o inventado).</span></div>
       <button class="rev__cara" type="button"></button>
-      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+      <div class="rev__dorso"><div class="frev__si"><span class="medal">✓</span>
         <span><span class="frev__r">En su lugar</span>‘Después del tratamiento vas a tener un enrojecimiento que se va en horas.’</span></div></div>
     </div>
     <div class="frev rev">
-      <div class="frev__no"><span class="med med--soft">✕</span>
+      <div class="frev__no"><span class="medal medal--soft">✕</span>
         <span>Entrar al consultorio a buscar cosas sin avisar.</span></div>
       <button class="rev__cara" type="button"></button>
-      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+      <div class="rev__dorso"><div class="frev__si"><span class="medal">✓</span>
         <span><span class="frev__r">En su lugar</span>‘Si tenés alguna pregunta, estamos acá.’</span></div></div>
     </div>
     <div class="frev rev">
-      <div class="frev__no"><span class="med med--soft">✕</span>
+      <div class="frev__no"><span class="medal medal--soft">✕</span>
         <span>Opinar sobre el procedimiento o los resultados esperados.</span></div>
       <button class="rev__cara" type="button"></button>
-      <div class="rev__dorso"><div class="frev__si"><span class="med">✓</span>
+      <div class="rev__dorso"><div class="frev__si"><span class="medal">✓</span>
         <span><span class="frev__r">En su lugar</span>‘La doctora te va a explicar todo antes de empezar.’</span></div></div>
     </div>
   </div>
@@ -1000,7 +1000,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
         <li class="tick"><i>&#10003;</i>Avisarle qué puede sentir (pinchazo leve o sensación de presión).</li>
         <li class="tick"><i>&#10003;</i>Ofrecerle agua o material de lectura mientras espera.</li>
       </ul>
-      <div class="protc__f protc__f--no"><span class="med">✕</span>
+      <div class="protc__f protc__f--no"><span class="medal">✕</span>
         No hablar de precios ni de otras personas que se atendieron.</div>
     </div>
     <div class="protc">
@@ -1011,7 +1011,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
         <li class="tick"><i>&#10003;</i>Si estás en la sala: silencio y atención total al médico.</li>
         <li class="tick"><i>&#10003;</i>Mantener un ambiente sereno y de concentración.</li>
       </ul>
-      <div class="protc__f protc__f--no"><span class="med">✕</span>
+      <div class="protc__f protc__f--no"><span class="medal">✕</span>
         No opinar sobre el aspecto del paciente ni usar el celular o hablar de temas ajenos.</div>
     </div>
     <div class="protc">
@@ -1024,7 +1024,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
         <li class="tick"><i>&#10003;</i>Confirmar seguimiento: ‘Te escribo en dos días.’</li>
         <li class="tick"><i>&#10003;</i>Despedirlo por su nombre.</li>
       </ul>
-      <div class="protc__f protc__f--no"><span class="med">✕</span>
+      <div class="protc__f protc__f--no"><span class="medal">✕</span>
         No apurar la salida ni comentar el resultado antes que el médico.</div>
     </div>
   </div>

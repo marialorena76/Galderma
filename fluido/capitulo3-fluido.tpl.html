@@ -134,12 +134,12 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 
 /* pantalla de los videos de los médicos: video a la izquierda, bloques a la derecha */
 .opinan{margin:.2em 0 0;color:var(--tint);font-weight:600;font-size:clamp(13px,1.15vw,18px)}
-.med{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
+.medicos{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
   align-items:start;margin-top:var(--gap)}
-@media (max-width:900px){ .med{grid-template-columns:minmax(0,1fr)} }
-.med .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
-.med .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
-.med .blqc__q{font-size:clamp(12px,1vw,15px)}
+@media (max-width:900px){ .medicos{grid-template-columns:minmax(0,1fr)} }
+.medicos .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
+.medicos .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
+.medicos .blqc__q{font-size:clamp(12px,1vw,15px)}
 
 /* tarjetas de presentación de los médicos y foto de apertura */
 .blq--ref{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -923,7 +923,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   <h1>De presupuesto a propuesta de valor</h1>
   <p class="opinan">Nuestros médicos opinan</p>
 
-  <div class="med">
+  <div class="medicos">
     <div>
       <div class="vid" id="vid2">
         <div id="ytmount2"></div>

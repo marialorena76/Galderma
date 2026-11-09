@@ -134,12 +134,12 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 
 /* pantalla de los videos de los médicos: video a la izquierda, bloques a la derecha */
 .opinan{margin:.2em 0 0;color:var(--tint);font-weight:600;font-size:clamp(13px,1.15vw,18px)}
-.med{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
+.medicos{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:clamp(14px,1.7vw,32px);
   align-items:start;margin-top:var(--gap)}
-@media (max-width:900px){ .med{grid-template-columns:minmax(0,1fr)} }
-.med .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
-.med .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
-.med .blqc__q{font-size:clamp(12px,1vw,15px)}
+@media (max-width:900px){ .medicos{grid-template-columns:minmax(0,1fr)} }
+.medicos .blq{grid-template-columns:minmax(0,1fr);gap:clamp(7px,.75vw,12px)}
+.medicos .blqc{padding:clamp(10px,1vw,17px) clamp(11px,1.15vw,20px)}
+.medicos .blqc__q{font-size:clamp(12px,1vw,15px)}
 
 /* tarjetas de presentación de los médicos y foto de apertura */
 .blq--ref{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -736,9 +736,9 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 
 /* ===== capítulo 4 ===== */
 /* medallones llenos (los del Canva van con el círculo pintado) */
-.med{width:clamp(34px,3.2vw,54px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+.medal{width:clamp(34px,3.2vw,54px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
   font-size:clamp(16px,1.6vw,27px);line-height:1;flex:none;color:#fff;background:var(--tint)}
-.med--soft{background:#C87BA4}
+.medal--soft{background:#C87BA4}
 .fr--no q.pill{background:#4A4A4A}
 
 /* p40 · reforzar la decisión */
@@ -774,9 +774,9 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   gap:clamp(9px,1vw,16px);align-items:center;font-size:clamp(12.5px,1.05vw,16.5px);line-height:1.4;color:#fff}
 .protc__f--no{background:var(--dark)}
 .protc__f--si{background:var(--tint)}
-.protc__f .med{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px);background:transparent;
+.protc__f .medal{width:clamp(26px,2.4vw,38px);font-size:clamp(13px,1.2vw,19px);background:transparent;
   border:2px solid rgba(255,255,255,.55)}
-.protc__f--si .med{border-color:transparent;font-size:clamp(15px,1.5vw,24px)}
+.protc__f--si .medal{border-color:transparent;font-size:clamp(15px,1.5vw,24px)}
 .protf{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:clamp(18px,2vw,32px)}
 @media (max-width:1000px){ .protf{display:none} }
 
@@ -1031,7 +1031,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   <h1>El rol del equipo: acompañar al paciente en el tiempo</h1>
   <p class="opinan">Nuestros médicos opinan</p>
 
-  <div class="med">
+  <div class="medicos">
     <div>
       <div class="vid" id="vid2">
         <div id="ytmount2"></div>
