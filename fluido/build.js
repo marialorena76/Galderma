@@ -15,7 +15,7 @@ function construir(n) {
   const dirs = esCap ? [`assets/cap${n}`, 'assets'] : ['assets'];
   const names = new Set();
   h.replace(/data-i="([a-z0-9_/]+)"/g, (m, x) => { names.add(x); return m; });
-  h.replace(/(?:ic|ill):"([a-z0-9_/]+)"/g, (m, x) => { names.add(x); return m; });
+  h.replace(/(?:ic|ill|foto):"([a-z0-9_/]+)"/g, (m, x) => { names.add(x); return m; });
   const map = {}, faltan = []; let bytes = 0;
   for (const name of names) {
     let found = null;

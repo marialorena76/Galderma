@@ -105,10 +105,15 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 
 .blq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.1vw,18px)}
 @media (max-width:760px){ .blq{grid-template-columns:minmax(0,1fr)} }
+/* la carita del médico en cada bloque, como en el Canva */
+.blqc__f{width:clamp(34px,3.1vw,48px);aspect-ratio:1;border-radius:50%;object-fit:cover;
+  align-self:center;background:var(--surface);order:3}
+.blqc__e{order:4}
+.blq--ref .blqc__f{width:clamp(50px,4.8vw,76px)}
 .blqc{position:relative;text-align:left;font-family:inherit;cursor:pointer;
   background:#fff;border:1px solid var(--line);border-radius:var(--r);
   padding:clamp(12px,1.25vw,21px) clamp(13px,1.4vw,24px);
-  display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:clamp(10px,1.1vw,18px);
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:clamp(10px,1.1vw,18px);
   align-items:start;transition:border-color .15s,background .15s}
 .blqc:hover{border-color:#D9A8C2}
 .blqc__n{color:var(--muted);font-weight:600;font-size:clamp(14px,1.3vw,20px);
@@ -143,7 +148,11 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 
 /* tarjetas de presentación de los médicos y foto de apertura */
 .blq--ref{grid-template-columns:repeat(3,minmax(0,1fr))}
-.blq--ref .blqc{display:block}
+/* estas tarjetas son un bloque, no una grilla: la foto va flotada a la
+   izquierda y el texto la rodea, como en el Canva. flow-root para que la
+   tarjeta contenga el flotante aunque el texto sea mas corto que la foto. */
+.blq--ref .blqc{display:flow-root}
+.blq--ref .blqc__f{float:left;margin:0 clamp(11px,1.1vw,18px) 0 0}
 .blq--ref .blqc__n{display:inline;margin-right:.45em}
 .blq--ref .blqc__t{display:inline}
 .blq--ref .blqc__e{position:absolute;top:clamp(10px,1vw,17px);right:clamp(11px,1.15vw,20px)}
@@ -1222,20 +1231,20 @@ html:fullscreen .scr--flush.on .hero{flex:1}
   var VIDEO = {
     // presentaciones de los médicos
     bloques: [
-      { id:"JmUUaTcnY5E", quien:"", tit:"Dra. Valeria Bárbaro", q:"Médica dermatóloga", s:35 },
-      { id:"LuNj8OmMAVk", quien:"", tit:"Dr. Gustavo Bressan", q:"Médico clínico y dermatólogo", s:78 },
-      { id:"0ECxTi1-4J4", quien:"", tit:"Dra. Melissa Gaitán Buelvas", q:"Médica especialista en dermocosmética", s:33 }
+      { id:"JmUUaTcnY5E", quien:"", tit:"Dra. Valeria Bárbaro", q:"Médica dermatóloga", foto:"med_valeria", s:35 },
+      { id:"LuNj8OmMAVk", quien:"", tit:"Dr. Gustavo Bressan", q:"Médico clínico y dermatólogo", foto:"med_gustavo", s:78 },
+      { id:"0ECxTi1-4J4", quien:"", tit:"Dra. Melissa Gaitán Buelvas", q:"Médica especialista en dermocosmética", foto:"med_melissa", s:33 }
     ],
     // videos de teoría
     bloques2: [
-      { id:"xzBXQxZCDEg", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “¿quién termina cambiando a quién?”", q:"¿Cómo cambia el paciente con un abordaje integral?", s:33 },
-      { id:"aTSMd7HuBgg", quien:"Dr. Gustavo Bressan", tit:"Comunicación con el paciente", q:"¿Cómo comunicar un enfoque integral sin que suene a venta?", s:60 },
-      { id:"r-zRsCC-GBw", quien:"Dra. Valeria Bárbaro", tit:"En mi consultorio: “la tecnología les da confianza”", q:"¿Cómo ayuda la tecnología a que el paciente gane confianza?", s:50 },
-      { id:"G-Vl9K1hENw", quien:"Dr. Gustavo Bressan", tit:"Expectativas y miedos", q:"¿Cómo trabajar el miedo a un resultado exagerado?", s:43 },
-      { id:"WBnlR6lhUP0", quien:"Dra. Melissa Gaitán Buelvas", tit:"Expectativa vs. realidad", q:"¿Cómo alinear lo que el paciente espera con lo que el tratamiento logra?", s:60 },
-      { id:"qslEDrcN9j0", quien:"Dra. Valeria Bárbaro", tit:"No hay resultados mágicos: “los cambios llevan tiempo”", q:"¿Por qué los resultados necesitan tiempo?", s:32 },
-      { id:"naumOqoAeg4", quien:"Dra. Melissa Gaitán Buelvas", tit:"Cómo educar a tu paciente", q:"¿Cómo educar al paciente para que decida con confianza?", s:50 },
-      { id:"HvFjhnMZcBE", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “te ven mejor, pero no saben por qué”", q:"¿Qué logra en el paciente un protocolo completo?", s:24 }
+      { id:"xzBXQxZCDEg", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “¿quién termina cambiando a quién?”", q:"¿Cómo cambia el paciente con un abordaje integral?", foto:"med_valeria", s:33 },
+      { id:"aTSMd7HuBgg", quien:"Dr. Gustavo Bressan", tit:"Comunicación con el paciente", q:"¿Cómo comunicar un enfoque integral sin que suene a venta?", foto:"med_gustavo", s:60 },
+      { id:"r-zRsCC-GBw", quien:"Dra. Valeria Bárbaro", tit:"En mi consultorio: “la tecnología les da confianza”", q:"¿Cómo ayuda la tecnología a que el paciente gane confianza?", foto:"med_valeria", s:50 },
+      { id:"G-Vl9K1hENw", quien:"Dr. Gustavo Bressan", tit:"Expectativas y miedos", q:"¿Cómo trabajar el miedo a un resultado exagerado?", foto:"med_gustavo", s:43 },
+      { id:"WBnlR6lhUP0", quien:"Dra. Melissa Gaitán Buelvas", tit:"Expectativa vs. realidad", q:"¿Cómo alinear lo que el paciente espera con lo que el tratamiento logra?", foto:"med_melissa", s:60 },
+      { id:"qslEDrcN9j0", quien:"Dra. Valeria Bárbaro", tit:"No hay resultados mágicos: “los cambios llevan tiempo”", q:"¿Por qué los resultados necesitan tiempo?", foto:"med_valeria", s:32 },
+      { id:"naumOqoAeg4", quien:"Dra. Melissa Gaitán Buelvas", tit:"Cómo educar a tu paciente", q:"¿Cómo educar al paciente para que decida con confianza?", foto:"med_melissa", s:50 },
+      { id:"HvFjhnMZcBE", quien:"Dra. Valeria Bárbaro", tit:"El paciente: “te ven mejor, pero no saben por qué”", q:"¿Qué logra en el paciente un protocolo completo?", foto:"med_valeria", s:24 }
     ]
   };
 
@@ -1690,6 +1699,16 @@ html:fullscreen .scr--flush.on .hero{flex:1}
           (b.q ? '<span class="blqc__q"></span>' : '') +
           '<span class="blqc__m"></span></span>' +
           '<span class="blqc__e"></span>';
+        if (b.foto && IMGS[b.foto]) {
+          // va primera en el marcado para que en las tarjetas de presentación el
+          // float pueda subir; en la lista, order la manda a la derecha.
+          c.insertAdjacentHTML("afterbegin", '<img class="blqc__f" alt="">');
+        }
+        if (b.foto && IMGS[b.foto]) {
+          var fc = c.querySelector(".blqc__f");
+          fc.src = IMGS[b.foto];
+          fc.alt = b.quien || b.tit || "";
+        }
         c.querySelector(".blqc__t").textContent = b.tit || b.t;
         if (b.q) c.querySelector(".blqc__q").textContent = b.q;
         c.querySelector(".blqc__m").textContent =
