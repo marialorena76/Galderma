@@ -155,6 +155,24 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 /* apertura del capítulo: el video arriba y todo el contenido abajo.
    Al costado el video quedaba chico y los rótulos, ilegibles. */
 .apert{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(14px,1.7vw,26px);align-items:start}
+/* La apertura de este capítulo lleva una foto, no un video. A todo el ancho y
+   con proporción 4:5 quedaba de 1198x1497 y se comía la pantalla. Va en dos
+   columnas, como en el Canva, y la foto se estira al alto de la columna de
+   texto: así las dos terminan parejas sea cual sea el largo del contenido.
+   El recorte lo resuelve object-fit:cover, anclado arriba para no cortarle
+   la cara. */
+.apert--foto{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:clamp(16px,2.2vw,40px);align-items:stretch}
+.apert--foto .retrato{aspect-ratio:auto;min-height:clamp(230px,24vw,400px)}
+.apert--foto .retrato img{object-position:50% 28%}
+/* La columna de texto se estira junto con la foto: los logos se van al pie
+   para que las dos columnas cierren a la misma altura y no sobre aire. */
+.apert--foto .apert__t{display:flex;flex-direction:column}
+.apert--foto .apert__t .marcas{margin-top:auto;padding-bottom:clamp(10px,1.4vw,22px)}
+@media (max-width:860px){
+  .apert--foto{grid-template-columns:minmax(0,1fr);align-items:start}
+  .apert--foto .retrato{aspect-ratio:4/3;max-width:min(100%,460px);margin-inline:auto}
+}
 /* el cierre sí va en dos columnas: objetivos a la izquierda, idea clave a la derecha */
 .apert__fin{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
   gap:clamp(14px,1.8vw,32px);align-items:start;margin-top:var(--gap)}
@@ -988,7 +1006,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 
 <!-- ============ 2 · video ============ -->
 <section class="scr" data-scr="2">
-  <div class="apert">
+  <div class="apert apert--foto">
     <div class="retrato">
       <img data-i="retrato_medica" alt="Dra. Valeria Bárbaro">
       <span class="retrato__falta">Falta cargar la foto de apertura del capítulo.<br>
