@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Mapa de progreso — Experiencia con propósito
  * Description: Mapa interactivo del recorrido en la página del curso, completado automático de cada capítulo, barra lateral de lecciones con estética Galderma y página limpia para alumnos y visitantes.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Lorena González
  * Requires PHP: 7.2
  */
@@ -22,7 +22,8 @@
  * en los completos y un pin "Estás acá" en el que le toca. Cada sala lleva a su lección.
  *
  * Las imágenes van en wp-content/uploads/academia/mapa/ (mapa-portada, mapa-1 … mapa-6).
- * mapa-N = salas 1..N a color.
+ * mapa-portada = las seis salas a color; es la que ve el alumno mientras no haya
+ * finalizado ningún capítulo. mapa-N = salas 1..N a color, el resto en gris.
  *
  * Al final del archivo: completado automático de cada capítulo al terminarlo (sin el botón
  * "Marcar como completado" de LearnDash).
@@ -137,12 +138,16 @@ if ( ! function_exists( 'gd_mapa_salas' ) ) {
 		}
 		$color    = false === $actual ? $total : max( $actual + 1, $ultimo );
 		$n_hechos = count( array_filter( $hechos ) );
+		// Sin ningún capítulo finalizado el mapa va entero a color: es la portada del
+		// recorrido, la invitación a empezar. Desde el primer capítulo finalizado pasa a
+		// mostrar el avance, con lo recorrido a color y el resto en gris.
+		$lamina   = $n_hechos ? 'mapa-' . $color : 'mapa-portada';
 
 		ob_start();
 		?>
 		<div class="gd-mapa" data-gd-mapa>
 			<div class="gd-mapa__lienzo">
-				<img class="gd-mapa__img"<?php echo $diferida ? ' loading="lazy"' : ''; ?> src="<?php echo esc_url( $img_base . 'mapa-' . $color . '.webp' ); ?>" width="1920" height="1080"
+				<img class="gd-mapa__img"<?php echo $diferida ? ' loading="lazy"' : ''; ?> src="<?php echo esc_url( $img_base . $lamina . '.webp' ); ?>" width="1920" height="1080"
 					alt="<?php echo esc_attr( sprintf( 'Tu recorrido: %d de %d capítulos finalizados', $n_hechos, $total ) ); ?>">
 				<?php foreach ( $salas as $i => $s ) :
 					$url    = $urls[ $i ];

@@ -20,8 +20,20 @@ Instalado en `wp-content/plugins/gd-mapa-progreso/`. Hace tres cosas:
 
 El plugin las lee de `wp-content/uploads/academia/mapa/`, en **WebP**:
 
-    mapa-portada.webp     los seis capítulos a color (fuera de un curso)
+    mapa-portada.webp     los seis capítulos a color
     mapa-1.webp … mapa-6.webp   capítulos 1..N a color, el resto en gris
+
+Cuál se muestra (desde la 1.1.2):
+
+| Estado del alumno | Lámina |
+|---|---|
+| Todavía no finalizó ningún capítulo | `mapa-portada` — el recorrido entero a color |
+| Finalizó 1..N capítulos | `mapa-N+1` — lo recorrido y el capítulo actual a color, el resto en gris |
+| Finalizó los seis | `mapa-6` |
+
+Antes de la 1.1.2 el alumno que entraba por primera vez veía `mapa-1`, o sea el
+capítulo 1 a color y los otros cinco en gris. Ahora la primera vez ve el recorrido
+completo a color, y el gris aparece recién cuando empieza a haber avance real.
 
 Son el mismo arte que las láminas de `fluido/mapa-*.jpg`. Se regeneran con
 `fluido/scripts/webp-mapa.py`, que las convierte con los nombres que el plugin
