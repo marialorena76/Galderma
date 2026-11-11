@@ -174,3 +174,57 @@ al paciente, que es lo que la asesora necesita.
 Hice lo que pedía el slide 23 ("es mucho texto junto, armarlo en viñetas") pero
 conservando la respuesta real, partida en viñetas de una idea cada una. Si Julieth
 prefiere la versión literal del Canva, lo cambio en 10 minutos.
+
+---
+
+# Ajuste 3 (PPT de Julieth, 11/11/2026)
+
+Once slides sobre los capítulos ya maquetados. No es lo mismo que está en el Canva:
+son capturas de nuestras pantallas con las marcas encima.
+
+## De la plataforma
+
+| Slide | Pedido | Estado |
+|---|---|---|
+| 1 | "Cuando terminás el capítulo debería ir al camino total y se prende el nuevo capítulo para hacer click" | ✅ Ya estaba resuelto: el botón de la última pantalla va al mapa del curso, y el plugin marca el capítulo como finalizado antes de llevarte |
+| 3, 5, 6, 8, 10, 11 | **"Le falta el fondo rosa"** (Checkpoint final de los 6 capítulos) | ✅ Los dibujos de las tarjetas de pregunta ahora van en círculo rosado, el mismo tratamiento que la lamparita de "Para recordar" |
+| 4 | "Unificaría criterio: en la primera sección del cap 1 solo está el título y el cajón gris, en el segundo video aparecen los bullets" | ✅ Pero al revés de lo que parecía: el Canva (páginas 2-3 y 14-15) define un patrón de dos slides, y **el que estaba mal era el capítulo 2**, no el 1. Ver abajo |
+| 9 | "¿Se podría recortar el ícono? Se nota el cajón cuadrado de fondo" | ✅ En el video es para María. Pero el mismo defecto estaba en nuestros assets y no lo había visto nadie: ver abajo |
+
+## El patrón de los dos videos de Mariano
+
+El Canva lo define igual en los dos capítulos:
+
+| | Primer video | Segundo video |
+|---|---|---|
+| **Canva** | pág. 2 (cap 1) y pág. 14 (cap 2) | pág. 3 (cap 1) y pág. 15 (cap 2) |
+| **Lleva** | volanta + título corto + cajón "Idea clave" | volanta + título del capítulo + bajada + "Lo que aprenderás" con 4 viñetas |
+
+El capítulo 1 ya seguía el patrón. El capítulo 2 tenía el contenido cruzado: la bajada
+y dos viñetas estaban en la primera pantalla, y la "Idea clave" con las otras dos
+viñetas en la segunda. Reordenado según el Canva, sin inventar ni una palabra:
+
+- **Pantalla 2** → "Lo que el paciente piensa mientras espera" + Idea clave
+- **Pantalla 3** → "Consulta y Recepción" + bajada + las 4 viñetas juntas
+
+## Lo que encontré de paso: los íconos con cajón de fondo
+
+La marca del slide 9 era sobre el video, pero fui a revisar nuestros assets y
+**ocho PNG tenían el fondo plano opaco en vez de transparente**. Seis de ellos caen
+adentro de un círculo rosado, así que se veía un cuadrado gris sobre el rosa:
+
+| Ícono | Dónde | Fondo que tenía |
+|---|---|---|
+| `q6_lupa`, `q6_corazon`, `q6_chats` | cap 1, pantalla 6, "¿Qué cambia?" | gris #E0E0E0 |
+| `w_star`, `w_card`, `w_handshake` | cap 1, pantalla 7, "¿Por qué funciona esta fórmula?" | gris #E8E8E8 |
+| `p2_star` | la estrella de "Idea clave", en **los 6 capítulos** | gris #EAEAE8 |
+| `ilu_central` | cap 1, pantalla 4, el centro del esquema | gris #F5F5F5 |
+
+Recortados los ocho: se estima el alfa por la distancia al color de fondo y se recupera
+el color original, así que la línea negra queda negra y la estrella queda magenta.
+Los originales están guardados por si hace falta volver atrás.
+
+## Lo que va a edición de video
+
+Seis puntos nuevos (slides 2, 7 y 9) con video y minuto exactos, en
+**`NOTAS-VIDEOS-MARIA.md`**, junto con los nueve que ya estaban pendientes.

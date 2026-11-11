@@ -312,7 +312,8 @@ h2{margin:0;font-weight:600;line-height:1.2;font-size:clamp(18px,1.7vw,26px);tex
 .q__h b{font-size:clamp(15px,1.4vw,21px);font-weight:600}
 .q__t{font-size:clamp(14px,1.2vw,18px);line-height:1.4;margin:0 0 .8em}
 .q__ill{margin-top:auto;padding-top:1em;display:grid;place-items:center}
-.q__ill img{width:clamp(52px,6vw,92px);opacity:.8;mix-blend-mode:multiply}
+.q__ill img{width:clamp(52px,6vw,92px);aspect-ratio:1;object-fit:contain;box-sizing:border-box;
+  padding:clamp(11px,1.2vw,18px);background:var(--tint-soft);border-radius:50%}
 .qcard{display:flex;flex-direction:column}
 
 
@@ -711,14 +712,10 @@ html:fullscreen .scr--flush.on .hero{flex:1}
     <div>
       <div class="eyebrow">Capítulo 2 · Consulta y Recepción</div>
       <h1 style="margin-top:.3em">Lo que el paciente piensa mientras espera</h1>
-      <p class="lead">En este video vas a comprender qué siente el paciente en sala de espera y cómo pequeñas acciones de recepción bajan la ansiedad, ordenan expectativas y dejan el terreno listo para el médico.</p>
     </div>
-    <div>
-      <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
-      <div class="objs">
-        <div><img data-i="o_head" alt="">Detectar la duda real detrás de cada objeción</div>
-        <div><img data-i="f_oreja" alt="">Validar la emoción sin minimizar ni presionar</div>
-      </div>
+    <div class="idea">
+      <div class="idea__t"><img data-i="p2_star" alt="">Idea clave</div>
+      <p>Vos no respondés por el médico. Hacés que el paciente sienta que está en el lugar correcto.</p>
     </div>
   </div>
 </section>
@@ -741,18 +738,15 @@ html:fullscreen .scr--flush.on .hero{flex:1}
     <div>
       <div class="eyebrow">Capítulo 2 · Consulta y Recepción</div>
       <h1 style="margin-top:.3em">Consulta y Recepción</h1>
+      <p class="lead">En este video vas a comprender qué siente el paciente en sala de espera y cómo pequeñas acciones de recepción bajan la ansiedad, ordenan expectativas y dejan el terreno listo para el médico.</p>
     </div>
-    <div class="s2cols">
-      <div>
-        <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
-        <div class="objs">
-          <div><img data-i="v_mano" alt="">Informar con valor, sin hablar de precios</div>
-          <div><img data-i="f_personas" alt="">Preparar al paciente para la consulta médica</div>
-        </div>
-      </div>
-      <div class="idea">
-        <div class="idea__t"><img data-i="p2_star" alt="">Idea clave</div>
-        <p>Vos no respondés por el médico. Hacés que el paciente sienta que está en el lugar correcto.</p>
+    <div>
+      <div class="eyebrow" style="margin-bottom:.8em">Lo que aprenderás en este capítulo</div>
+      <div class="objs">
+        <div><img data-i="o_head" alt="">Detectar la duda real detrás de cada objeción</div>
+        <div><img data-i="f_oreja" alt="">Validar la emoción sin minimizar ni presionar</div>
+        <div><img data-i="v_mano" alt="">Informar con valor, sin hablar de precios</div>
+        <div><img data-i="f_personas" alt="">Preparar al paciente para la consulta médica</div>
       </div>
     </div>
   </div>
