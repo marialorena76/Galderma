@@ -6,7 +6,7 @@ para tenerlo versionado.
 
 ## `gd-mapa-progreso/`
 
-Plugin propio, activo en `soyloregonzalez.com.ar/experienciaconproposito`.
+Plugin propio, activo en `experienciaconproposito.com`.
 Instalado en `wp-content/plugins/gd-mapa-progreso/`. Hace tres cosas:
 
 1. El shortcode `[mapa_progreso]`, que dibuja el mapa en la página del curso
