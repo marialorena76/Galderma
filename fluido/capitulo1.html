@@ -61,8 +61,9 @@ button{font:inherit}
 .btn:disabled{opacity:.4;cursor:not-allowed}
 
 /* pantallas de práctica: tienen que distinguirse de la teoría */
-.scr--ex{background:#FBF2F6}
-.scr--ex .card,.scr--ex .panel,.scr--ex .frag,.scr--ex .slot,.scr--ex .opt{background:#fff}
+.scr--ex,.scr--chk{background:#FBF2F6}
+.scr--ex .card,.scr--ex .panel,.scr--ex .frag,.scr--ex .slot,.scr--ex .opt,
+.scr--chk .card,.scr--chk .panel,.scr--chk .opt{background:#fff}
 .exbadge{display:inline-flex;align-items:center;gap:.5em;margin:0 0 .6em;
   background:var(--tint);color:#fff;border-radius:99px;
   padding:.42em 1.15em;font-weight:600;font-size:clamp(12px,1.02vw,16px);line-height:1.2}
@@ -879,7 +880,7 @@ html:fullscreen .scr--flush.on .hero{flex:1}
 </section>
 
 <!-- ============ 9 · checkpoint ============ -->
-<section class="scr" data-scr="10">
+<section class="scr scr--chk" data-scr="10">
   <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:var(--gap);flex-wrap:wrap">
     <div>
       <div class="eyebrow eyebrow--tint">Evaluación final</div>

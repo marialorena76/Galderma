@@ -228,3 +228,45 @@ Los originales están guardados por si hace falta volver atrás.
 
 Seis puntos nuevos (slides 2, 7 y 9) con video y minuto exactos, en
 **`NOTAS-VIDEOS-MARIA.md`**, junto con los nueve que ya estaban pendientes.
+
+---
+
+## Corrección: qué quería decir "le falta el fondo rosa" (12/11)
+
+Lo leí mal la primera vez. Las seis diapositivas que decían *"Le falta el fondo
+rosa"* eran capturas del Checkpoint final sin ninguna marca que señalara **dónde**
+faltaba, así que asumí que hablaban de los dibujos de las tarjetas de pregunta y
+les puse un círculo rosado.
+
+Julieth lo devolvió: *"yo lo veo actualmente así pero en el archivo entiendo que
+Fer pidió que también tuviera el fondo rosa"*. Ese **"también"** es el dato: no
+era en lugar de, era además.
+
+Fui al Canva a buscar el original en vez de volver a interpretar:
+
+| | Canva (página 11) | Nuestro HTML, antes |
+|---|---|---|
+| Fondo de la pantalla | blanco | blanco |
+| Tarjetas de pregunta | `#FAFAFA` | blanco |
+| Dibujos | línea, sin círculo | línea, sin círculo |
+
+O sea que **el Canva tampoco lo tiene**: "le falta el fondo rosa" era un pedido
+nuevo, no dibujado en ninguna parte. Por eso ninguna de las dos lecturas se podía
+confirmar contra el diseño.
+
+Lo que lo resolvió fue mirar el propio curso: **ya existe un "fondo rosa"**,
+`#FBF2F6`, que llevan las pantallas de ejercicio (`.scr--ex`, de la devolución
+anterior, punto 6: "que se note cuando es un ejercicio"). El Checkpoint final es
+la única pantalla de práctica que **no** lo tenía. Eso explica la frase, explica
+el "también", y explica por qué la marca aparecía en esas seis pantallas y en
+ninguna otra.
+
+**Aplicado:** el Checkpoint final de los seis capítulos lleva ahora `.scr--chk`,
+con el mismo `#FBF2F6` y las tarjetas en blanco, exactamente igual que las
+pantallas de ejercicio.
+
+**Los círculos rosados de los dibujos quedan.** No están en el Canva, pero todos
+los demás íconos del curso los llevan, así que sacarlos rompería la coherencia que
+pidió la devolución anterior (punto 2: "unificar criterio de los íconos del
+costado, con fondo rosado"). Si Julieth los prefiere sin círculo, es una línea de
+CSS y los saco.
