@@ -265,8 +265,21 @@ ninguna otra.
 con el mismo `#FBF2F6` y las tarjetas en blanco, exactamente igual que las
 pantallas de ejercicio.
 
-**Los círculos rosados de los dibujos quedan.** No están en el Canva, pero todos
-los demás íconos del curso los llevan, así que sacarlos rompería la coherencia que
-pidió la devolución anterior (punto 2: "unificar criterio de los íconos del
-costado, con fondo rosado"). Si Julieth los prefiere sin círculo, es una línea de
-CSS y los saco.
+**Los círculos rosados de los dibujos se sacaron.** Los había dejado puestos por
+coherencia con el resto de los íconos del curso, y le pregunté a Julieth. Contestó:
+*"fondo rosa e íconos blancos"*. O sea: la pantalla en rosa (ya estaba) y los
+dibujos sobre el blanco de la tarjeta, sin círculo. Que es exactamente como los
+tiene el Canva.
+
+Estado final del Checkpoint final, en los seis capítulos:
+
+| | Color |
+|---|---|
+| Fondo de la pantalla | `#FBF2F6` (el mismo de los ejercicios) |
+| Tarjetas de pregunta | blanco |
+| Dibujos | línea gris, sin círculo |
+
+La regla `.q__ill img` volvió a ser la que era antes del 11/11. Los íconos del
+resto del curso (`.insight`, `.objs`, `.change__ic`, `.why__ic`, `.keyrow`,
+`.rowlist`, `.recall__ic`) conservan su círculo rosado: ese pedido era de la
+devolución anterior y no se tocó.
