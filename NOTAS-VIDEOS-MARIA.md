@@ -12,7 +12,35 @@ capítulo. Si abrís `https://youtu.be/<ID>` vas directo al que corresponde.
 
 ---
 
+> ## ⚠️ Leer antes: llegaron versiones corregidas (12/11)
+>
+> En la pestaña **"División sugerida"** de la planilla hay links nuevos para los
+> capítulos **1.1, 1.2, 4 y 5**, marcados como "corregido". Ya los puse en la
+> plataforma. Son más cortos que los anteriores (cap 1: 6:21 contra 6:35; cap 4:
+> 3:54 contra 4:00), así que **puede que varios de los puntos 1 a 6 de abajo ya
+> estén resueltos**.
+>
+> No pude verificarlo: desde donde trabajo YouTube está bloqueado y no puedo
+> abrir los videos. Antes de ponerte a editar, chequeá cuáles siguen pasando.
+>
+> | | Link viejo | Link nuevo |
+> |---|---|---|
+> | Cap 1.1 | `mg6jkCFrTJ8` | `28IiG_9OKvI` |
+> | Cap 1.2 | `vLGIUijw0Z8` | `20Ez1-f8_YE` |
+> | Cap 2.1 | `lH4VcBlmG2w` | sin cambio |
+> | Cap 2.2 | `FFasdkTAUDo` | sin cambio |
+> | Cap 4 | `zDIX22uzNus` | `HYpEncC2xl4` |
+> | Cap 5 | `2xwb0hfvxSc` | `kQfprMektd0` |
+>
+> El **punto 3** (la misma tapa en los dos videos) ya está contemplado: la planilla
+> pide miniatura nueva para el 1.1, el 1.2 y el 2.2.
+
+---
+
 ## Tanda nueva (Ajuste 3, 11/11)
+
+> Los minutos de abajo son sobre los videos **viejos**. Si el punto sigue pasando
+> en la versión corregida, el minuto va a estar corrido.
 
 | # | Video | Minuto | Qué pasa | Qué habría que hacer |
 |---|---|---|---|---|
